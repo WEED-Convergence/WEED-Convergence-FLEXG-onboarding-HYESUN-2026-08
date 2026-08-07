@@ -5,6 +5,7 @@ interface StepData {
   subItems?: string[];
   path?: string;
   emphasis?: boolean;
+  highlight?: boolean;
   afterLabel?: string;
 }
 
@@ -18,11 +19,13 @@ const stepsBeforeBranch: StepData[] = [
     id: 2,
     title: "템플릿 선택",
     desc: "쇼핑몰 디자인 템플릿 선택",
+    highlight: true,
   },
   {
     id: 3,
     title: "상품 구성 선택",
     desc: "쇼핑몰을 어떤 상태로 시작할지 선택하는 핵심 분기 단계",
+    highlight: true,
   },
 ];
 
@@ -32,12 +35,14 @@ const branchOptions: StepData[] = [
     title: "상품 있는 쇼핑몰",
     desc: "샘플 상품이 채워진 상태로 시작",
     emphasis: true,
+    highlight: true,
   },
   {
     id: 0,
     title: "빈 템플릿",
     desc: "상품 없이 빈 상태로 시작",
     emphasis: true,
+    highlight: true,
   },
 ];
 
@@ -88,27 +93,38 @@ const [step4, step5, step6, step7, step8, step9, step10]: StepData[] = [
   },
 ];
 
-function Box({ id, title, desc, subItems, path, emphasis }: StepData) {
+function Box({ id, title, desc, subItems, path, emphasis, highlight }: StepData) {
   return (
     <div
       id={id > 0 ? `step-${id}` : undefined}
-      className={`w-full rounded-lg ${
-        emphasis ? "border-2" : "border"
-      } border-[var(--border)] bg-[var(--surface-1)] px-4 py-3 text-[var(--text-primary)]`}
+      className={`w-full rounded-lg px-4 py-3 ${
+        highlight
+          ? "border-2 border-red-500 bg-red-50 text-red-900"
+          : `${emphasis ? "border-2" : "border"} border-[var(--border)] bg-[var(--surface-1)] text-[var(--text-primary)]`
+      }`}
     >
       <div className="flex items-center gap-2">
         {id > 0 ? (
-          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--text-primary)] text-[10px] font-semibold text-white">
+          <span
+            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold text-white ${
+              highlight ? "bg-red-600" : "bg-[var(--text-primary)]"
+            }`}
+          >
             {id}
           </span>
         ) : null}
         <span className="text-[14px] font-medium">{title}</span>
       </div>
-      <p className="mt-1 text-[12px] text-[var(--text-secondary)]">{desc}</p>
+      <p className={`mt-1 text-[12px] ${highlight ? "text-red-700" : "text-[var(--text-secondary)]"}`}>
+        {desc}
+      </p>
       {subItems ? (
         <ul className="mt-2 space-y-0.5">
           {subItems.map((item) => (
-            <li key={item} className="text-[11px] text-[var(--text-secondary)]">
+            <li
+              key={item}
+              className={`text-[11px] ${highlight ? "text-red-700" : "text-[var(--text-secondary)]"}`}
+            >
               · {item}
             </li>
           ))}
