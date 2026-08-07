@@ -155,7 +155,7 @@ function CloseIcon() {
   );
 }
 
-function ShopIcon({ type }: { type: "search" | "user" | "bag" }) {
+function ShopIcon({ type }: { type: "menu" | "bag" }) {
   const common = {
     fill: "none",
     stroke: "#4B5563",
@@ -164,19 +164,10 @@ function ShopIcon({ type }: { type: "search" | "user" | "bag" }) {
     strokeLinejoin: "round" as const,
   };
 
-  if (type === "search") {
+  if (type === "menu") {
     return (
       <svg viewBox="0 0 24 24" width="16" height="16" {...common}>
-        <circle cx="11" cy="11" r="6.5" />
-        <path d="M20 20L16 16" />
-      </svg>
-    );
-  }
-  if (type === "user") {
-    return (
-      <svg viewBox="0 0 24 24" width="16" height="16" {...common}>
-        <circle cx="12" cy="8" r="3.5" />
-        <path d="M5 20C5 16.5 8 14.5 12 14.5C16 14.5 19 16.5 19 20" />
+        <path d="M4 6H20M4 12H20M4 18H20" />
       </svg>
     );
   }
@@ -188,60 +179,42 @@ function ShopIcon({ type }: { type: "search" | "user" | "bag" }) {
   );
 }
 
-const productTiles = [
-  "#F6D9DE",
-  "#F3C6C0",
-  "#F8E0D8",
-  "#F0B8B0",
-  "#F5D6CE",
-  "#EFC9D2",
-  "#F7E1DD",
-  "#F1BEB6",
-];
+const productTiles = ["#F6D9DE", "#F3C6C0", "#F8E0D8", "#F0B8B0", "#F5D6CE", "#EFC9D2"];
 
 function ShopGNB() {
-  const menu = ["신상", "아우터", "상의", "바지", "이벤트"];
   return (
-    <div className="flex h-14 shrink-0 items-center justify-between border-b border-slate-200 bg-white px-6">
-      <span className="text-[15px] font-bold tracking-[0.2em] text-slate-900">MUSE</span>
-      <nav className="flex items-center gap-6 text-[12px] text-slate-600">
-        {menu.map((label) => (
-          <span key={label}>{label}</span>
-        ))}
-      </nav>
-      <div className="flex items-center gap-4">
-        <ShopIcon type="search" />
-        <ShopIcon type="user" />
-        <ShopIcon type="bag" />
-      </div>
+    <div className="flex h-11 shrink-0 items-center justify-between border-b border-slate-200 bg-white px-4">
+      <ShopIcon type="menu" />
+      <span className="text-[13px] font-bold tracking-[0.2em] text-slate-900">MUSE</span>
+      <ShopIcon type="bag" />
     </div>
   );
 }
 
 function FashionSitePreview() {
   return (
-    <div className="h-full w-full overflow-y-auto rounded-lg border border-slate-300 bg-white">
+    <div className="mx-auto h-full w-[320px] overflow-y-auto rounded-lg border border-slate-300 bg-white">
       <ShopGNB />
 
       <div
-        className="flex h-[220px] items-center justify-center"
+        className="flex h-[130px] items-center justify-center"
         style={{ backgroundColor: "#EDE0E5" }}
       >
-        <span className="text-[18px] tracking-[0.2em] text-[#8B3A5C]">
+        <span className="text-[11px] tracking-[0.15em] text-[#8B3A5C]">
           2026 F/W COLLECTION
         </span>
       </div>
 
-      <div className="flex items-center gap-6 border-b border-slate-200 px-6 py-3 text-[12px]">
+      <div className="flex items-center gap-4 border-b border-slate-200 px-4 py-2.5 text-[11px]">
         <span className="font-bold text-slate-900">전체</span>
         <span className="text-slate-400">아우터</span>
         <span className="text-slate-400">상의</span>
         <span className="text-slate-400">바지</span>
       </div>
 
-      <div className="grid grid-cols-4 gap-4 px-6 py-5">
+      <div className="grid grid-cols-2 gap-3 px-4 py-4">
         {productTiles.map((color, i) => (
-          <div key={`${color}-${i}`} className="flex flex-col gap-2">
+          <div key={`${color}-${i}`} className="flex flex-col gap-1.5">
             <div
               className="aspect-square w-full rounded-md"
               style={{ backgroundColor: color }}
@@ -252,9 +225,9 @@ function FashionSitePreview() {
         ))}
       </div>
 
-      <div className="border-t border-slate-200 bg-[#F7F5F3] px-6 py-8 text-slate-500">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <nav className="flex flex-wrap gap-5 text-[11px]">
+      <div className="border-t border-slate-200 bg-[#F7F5F3] px-4 py-6 text-slate-500">
+        <div className="flex flex-col items-start gap-4">
+          <nav className="flex flex-wrap gap-3 text-[10px]">
             <span>고객센터</span>
             <span>이용안내</span>
             <span>이용약관</span>
