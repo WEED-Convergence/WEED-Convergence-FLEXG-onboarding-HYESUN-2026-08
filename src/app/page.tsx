@@ -97,7 +97,7 @@ function Box({ id, title, desc, subItems, path, emphasis, highlight }: StepData)
   return (
     <div
       id={id > 0 ? `step-${id}` : undefined}
-      className={`w-full rounded-lg px-4 py-3 ${
+      className={`w-[280px] rounded-lg px-4 py-3 ${
         highlight
           ? "border-2 border-red-500 bg-red-50 text-red-900"
           : `${emphasis ? "border-2" : "border"} border-[var(--border)] bg-[var(--surface-1)] text-[var(--text-primary)]`
@@ -151,7 +151,7 @@ function MessageBlock({
   note?: string;
 }) {
   return (
-    <div className="w-[90%] rounded-lg border border-dashed border-[#0F6E56] bg-[#E1F5EE] px-3.5 py-2.5">
+    <div className="w-[260px] rounded-lg border border-dashed border-[#0F6E56] bg-[#E1F5EE] px-3.5 py-2.5">
       <p className="text-[11px] font-semibold text-[#0F6E56]">{label}</p>
       {note ? (
         <p className="mt-0.5 text-[10px] text-[#0F6E56]/80">{note}</p>
@@ -182,7 +182,7 @@ function ArrowDown({ label }: { label?: string }) {
 
 function BranchSplit() {
   return (
-    <svg viewBox="0 0 200 40" preserveAspectRatio="none" className="h-10 w-full text-slate-400" fill="none">
+    <svg viewBox="0 0 200 40" preserveAspectRatio="none" className="h-10 w-[576px] text-slate-400" fill="none">
       <path d="M100,0 L100,16" stroke="currentColor" strokeWidth="1.5" />
       <path d="M100,16 L50,16 L50,34" stroke="currentColor" strokeWidth="1.5" />
       <path d="M100,16 L150,16 L150,34" stroke="currentColor" strokeWidth="1.5" />
@@ -194,7 +194,7 @@ function BranchSplit() {
 
 function BranchMerge() {
   return (
-    <svg viewBox="0 0 200 40" preserveAspectRatio="none" className="h-10 w-full text-slate-400" fill="none">
+    <svg viewBox="0 0 200 40" preserveAspectRatio="none" className="h-10 w-[576px] text-slate-400" fill="none">
       <path d="M50,0 L50,20 L100,20" stroke="currentColor" strokeWidth="1.5" />
       <path d="M150,0 L150,20 L100,20" stroke="currentColor" strokeWidth="1.5" />
       <path d="M100,20 L100,33" stroke="currentColor" strokeWidth="1.5" />
@@ -221,11 +221,9 @@ export default function Home() {
       ))}
 
       <BranchSplit />
-      <div className="flex w-full justify-center gap-4">
+      <div className="flex justify-center gap-4">
         {branchOptions.map((option, idx) => (
-          <div key={idx} className="w-1/2">
-            <Box {...option} />
-          </div>
+          <Box key={idx} {...option} />
         ))}
       </div>
       <BranchMerge />
