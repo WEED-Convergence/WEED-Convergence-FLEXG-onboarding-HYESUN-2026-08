@@ -30,7 +30,7 @@ const cards: AlimtalkCardData[] = [
     sender: "(광고) 플렉스지",
     title: "#{판매자명}님, 쇼핑몰 만들기 절반 남았어요",
     body: "템플릿 선택과 상품 구성만 정하면 승인 심사가 바로 시작돼요.",
-    button: "이어서 진행하기",
+    button: "버튼명",
     showUnsubscribe: true,
   },
   {
@@ -43,7 +43,7 @@ const cards: AlimtalkCardData[] = [
     sender: "플렉스지 · 가입승인 안내",
     title: "#{쇼핑몰명} 가입 승인이 완료됐습니다",
     body: "이제 PG 신청부터 진행하실 수 있어요. 오픈채팅방에서 실시간으로 안내받으세요.",
-    button: "오픈채팅방 입장하기",
+    button: "버튼명",
     showUnsubscribe: false,
   },
   {
@@ -56,7 +56,7 @@ const cards: AlimtalkCardData[] = [
     sender: "(광고) 플렉스지",
     title: "#{판매자명}님, 오픈까지 3가지만 남았어요",
     body: "사업자정보·유선번호·추가세팅 중 미완료 항목이 있어요. 지금 마무리하면 바로 오픈할 수 있어요.",
-    button: "남은 항목 확인하기",
+    button: "버튼명",
     showUnsubscribe: true,
   },
   {
@@ -69,7 +69,7 @@ const cards: AlimtalkCardData[] = [
     sender: "플렉스지 · 오픈안내",
     title: "축하합니다, #{쇼핑몰명} 오픈 준비 완료!",
     body: "필수 설정을 모두 마치셨어요. 지금 바로 쇼핑몰을 오픈하고 첫 주문을 받아보세요.",
-    button: "지금 오픈하기",
+    button: "버튼명",
     showUnsubscribe: false,
   },
 ];
