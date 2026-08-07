@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SidebarNav from "./SidebarNav";
 
 export const metadata: Metadata = {
   title: "플렉스지 판매자 온보딩 프로세스",
@@ -18,26 +19,7 @@ export default function RootLayout({
           <div className="mx-auto flex max-w-[1100px] items-start gap-8">
             {/* 좌측: 인덱스 목록 영역 (모든 화면 공통 고정) */}
             <aside className="sticky top-10 w-[200px] shrink-0 self-start">
-              <a
-                href="/#top"
-                className="text-[13px] font-semibold text-slate-900 hover:underline"
-              >
-                플렉스지 판매자 온보딩 프로세스
-              </a>
-              <nav className="mt-3 space-y-1.5">
-                <a
-                  href="/template-select"
-                  className="block text-[13px] text-slate-600 hover:underline"
-                >
-                  템플릿 선택
-                </a>
-                <a
-                  href="/product-selection"
-                  className="block text-[13px] text-slate-600 hover:underline"
-                >
-                  상품 구성 선택
-                </a>
-              </nav>
+              <SidebarNav />
             </aside>
 
             {/* 가운데: 콘텐츠 영역 (화면별로 교체) */}
