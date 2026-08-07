@@ -3,9 +3,12 @@
 import { usePathname } from "next/navigation";
 
 const links = [
-  { href: "/signup-complete", label: "디자인 템플릿 선택" },
   { href: "/template-select", label: "템플릿 선택" },
   { href: "/alimtalk-preview", label: "알림톡 예시" },
+];
+
+const specDocs = [
+  { href: "/signup-complete", label: "디자인 템플릿 선택" },
 ];
 
 export default function SidebarNav() {
@@ -49,7 +52,26 @@ export default function SidebarNav() {
       <div className="mt-6">
         <p className="text-[12px] font-bold text-[var(--text-muted)]">기획서</p>
         <div className="mb-3 mt-1.5 border-t border-[var(--border)]" />
-        <p className="text-[12px] text-[var(--text-muted)]">아직 등록된 기획서가 없습니다</p>
+        {specDocs.length > 0 ? (
+          <nav className="space-y-1.5">
+            {specDocs.map((doc) => {
+              const active = pathname === doc.href;
+              return (
+                <a
+                  key={doc.href}
+                  href={doc.href}
+                  className={`block text-[13px] hover:underline ${
+                    active ? "font-semibold text-slate-900" : "font-normal text-slate-500"
+                  }`}
+                >
+                  {doc.label}
+                </a>
+              );
+            })}
+          </nav>
+        ) : (
+          <p className="text-[12px] text-[var(--text-muted)]">아직 등록된 기획서가 없습니다</p>
+        )}
       </div>
     </div>
   );

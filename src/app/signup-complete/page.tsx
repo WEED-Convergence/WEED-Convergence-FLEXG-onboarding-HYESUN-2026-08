@@ -5,34 +5,53 @@ export const metadata = {
 interface Category {
   name: string;
   colors: [string, string, string];
+  overlay?: boolean;
 }
 
 const categories: Category[] = [
   { name: "농수산·축산/식품", colors: ["#DCEFDF", "#C3E6CB", "#EAF7EC"] },
   { name: "인플루언서/셀럽샵", colors: ["#FCE4EC", "#F8D7E3", "#FDEFF3"] },
-  { name: "패션", colors: ["#EDE7F6", "#DCD0F0", "#F3EEFB"] },
+  { name: "패션", colors: ["#EDE7F6", "#DCD0F0", "#F3EEFB"], overlay: true },
   { name: "뷰티", colors: ["#FDE2E4", "#FAD2DA", "#FEF0F1"] },
   { name: "가구/인테리어", colors: ["#F0E6D8", "#E4D4BE", "#F7F0E6"] },
   { name: "디지털/가전", colors: ["#DCEEFB", "#C6E2F5", "#EAF5FC"] },
   { name: "생활/스포츠", colors: ["#FFF3CD", "#FCE8B4", "#FFF8E1"] },
 ];
 
-function PhoneMockup({ colors }: { colors: [string, string, string] }) {
+function PhoneMockup({
+  colors,
+  overlay,
+}: {
+  colors: [string, string, string];
+  overlay?: boolean;
+}) {
   return (
     <div className="flex h-[280px] w-[154px] flex-col gap-2 rounded-2xl border border-slate-300 bg-white p-3">
       <div className="h-[11px] w-full shrink-0 rounded-sm bg-slate-200" />
-      <div
-        className="h-[76px] w-full shrink-0 rounded-sm"
-        style={{ backgroundColor: colors[0] }}
-      />
-      <div
-        className="h-[50px] w-full shrink-0 rounded-sm"
-        style={{ backgroundColor: colors[1] }}
-      />
-      <div
-        className="h-[34px] w-full shrink-0 rounded-sm"
-        style={{ backgroundColor: colors[2] }}
-      />
+      <div className="relative flex shrink-0 flex-col gap-2">
+        <div
+          className="h-[76px] w-full shrink-0 rounded-sm"
+          style={{ backgroundColor: colors[0] }}
+        />
+        <div
+          className="h-[50px] w-full shrink-0 rounded-sm"
+          style={{ backgroundColor: colors[1] }}
+        />
+        <div
+          className="h-[34px] w-full shrink-0 rounded-sm"
+          style={{ backgroundColor: colors[2] }}
+        />
+        {overlay ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-sm bg-black/55">
+            <span className="rounded-full border border-white px-3 py-1 text-[10px] font-medium text-white">
+              미리보기
+            </span>
+            <span className="rounded-full bg-red-600 px-3 py-1 text-[10px] font-medium text-white">
+              적용
+            </span>
+          </div>
+        ) : null}
+      </div>
       <div className="mt-auto space-y-1.5 pb-1">
         <div className="h-1.5 w-3/4 rounded-full bg-slate-200" />
         <div className="h-1.5 w-1/2 rounded-full bg-slate-200" />
@@ -44,22 +63,22 @@ function PhoneMockup({ colors }: { colors: [string, string, string] }) {
 function GNB() {
   const navLinks = ["서비스", "요금", "고객사례", "고객지원", "제휴·제안"];
   return (
-    <header className="flex h-16 w-full shrink-0 items-center justify-between border-b border-slate-200 bg-white px-10">
+    <header className="flex h-16 w-full shrink-0 items-center justify-between border-b border-white/10 bg-[#1A1A1A] px-10">
       <div className="flex items-center gap-2">
-        <span className="flex h-6 w-6 items-center justify-center rounded bg-slate-900 text-[11px] font-bold text-white">
+        <span className="flex h-6 w-6 items-center justify-center rounded bg-white text-[11px] font-bold text-slate-900">
           F
         </span>
-        <span className="text-[18px] font-extrabold tracking-tight text-slate-900">
+        <span className="text-[18px] font-extrabold tracking-tight text-white">
           FLEX-G
         </span>
       </div>
-      <nav className="flex items-center gap-8 text-[14px] font-medium text-slate-700">
+      <nav className="flex items-center gap-8 text-[14px] font-medium text-slate-300">
         {navLinks.map((label) => (
           <span key={label}>{label}</span>
         ))}
       </nav>
       <div className="flex items-center gap-4">
-        <span className="text-[14px] font-medium text-slate-700">로그인</span>
+        <span className="text-[14px] font-medium text-slate-300">로그인</span>
         <span className="rounded-full bg-red-600 px-5 py-2 text-[13px] font-semibold text-white">
           쇼핑몰 만들기
         </span>
@@ -145,7 +164,7 @@ export default function SignupCompletePage() {
         <section className="mx-auto mt-12 grid w-fit grid-cols-3 gap-5 px-10 pb-16">
           {categories.map((category) => (
             <div key={category.name} className="flex w-[154px] flex-col items-center">
-              <PhoneMockup colors={category.colors} />
+              <PhoneMockup colors={category.colors} overlay={category.overlay} />
               <p className="mt-2 text-center text-[16px] font-bold text-slate-800">
                 {category.name}
               </p>
