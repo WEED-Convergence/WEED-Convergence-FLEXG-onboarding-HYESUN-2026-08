@@ -73,7 +73,7 @@ export default function ProductSelectionPage() {
             </svg>
           </button>
 
-          <p className="text-center text-[16px] font-medium text-[var(--text-primary)]">
+          <p className="text-center text-[16px] font-bold text-[var(--text-primary)]">
             판매하실 상품이 있으신가요?
           </p>
           <p className="mt-2 text-center text-[13px] text-[var(--text-secondary)]">
