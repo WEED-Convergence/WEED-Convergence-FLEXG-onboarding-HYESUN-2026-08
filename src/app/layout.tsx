@@ -24,12 +24,18 @@ export default function RootLayout({
               >
                 플렉스지 판매자 온보딩 프로세스
               </a>
-              <nav className="mt-3">
+              <nav className="mt-3 space-y-1.5">
                 <a
                   href="/template-select"
                   className="block text-[13px] text-slate-600 hover:underline"
                 >
                   템플릿 선택
+                </a>
+                <a
+                  href="/product-selection"
+                  className="block text-[13px] text-slate-600 hover:underline"
+                >
+                  상품 구성 선택
                 </a>
               </nav>
             </aside>

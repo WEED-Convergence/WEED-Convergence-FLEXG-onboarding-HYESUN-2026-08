@@ -47,7 +47,7 @@ export default function TemplateSelectPage() {
       {categories.map((category) => (
         <div key={category.name} className="flex w-[154px] flex-col items-center">
           <PhoneMockup colors={category.colors} />
-          <p className="mt-2 text-center text-[12px] font-medium text-slate-800">
+          <p className="mt-2 text-center text-[16px] font-bold text-slate-800">
             {category.name}
           </p>
         </div>
