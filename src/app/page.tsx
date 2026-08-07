@@ -184,43 +184,27 @@ function BranchMerge() {
   );
 }
 
-const indexItems = [...stepsBeforeBranch, ...stepsAfterBranch].map((s) => ({
-  id: s.id,
-  title: s.title,
-  variant: s.variant,
-}));
-
 export default function Home() {
   return (
     <main className="min-h-screen bg-white px-6 py-10">
       <div className="mx-auto flex max-w-[1100px] items-start gap-8">
         {/* 좌측: 인덱스 목록 영역 */}
         <aside className="w-[200px] shrink-0">
-          <p className="mb-3 text-[13px] font-semibold text-slate-900">플렉스지 판매자 온보딩 프로세스</p>
-          <nav className="space-y-0.5">
-            {indexItems.map((item) => (
-              <a
-                key={item.id}
-                href={`#step-${item.id}`}
-                className={`flex items-center gap-2 rounded-md border-l-2 px-2 py-1.5 text-[13px] ${
-                  item.variant === "core" || item.id === 3
-                    ? "border-l-[#7F77DD] text-[#3C3489]"
-                    : "border-l-transparent text-slate-600"
-                }`}
-              >
-                <span className="w-4 shrink-0 text-[11px] tabular-nums opacity-60">
-                  {item.id}
-                </span>
-                <span className="truncate">{item.title}</span>
-              </a>
-            ))}
-          </nav>
+          <a
+            href="#top"
+            className="text-[13px] font-semibold text-slate-900 hover:underline"
+          >
+            플렉스지 판매자 온보딩 프로세스
+          </a>
         </aside>
 
         {/* 가운데: 콘텐츠 영역 */}
         <div className="min-w-0 flex-1">
           <div className="mx-auto flex max-w-[640px] flex-col items-center">
-            <h1 className="mb-6 self-start text-lg font-semibold text-slate-900">
+            <h1
+              id="top"
+              className="mb-6 self-start text-lg font-semibold text-slate-900"
+            >
               플렉스지 판매자 온보딩 프로세스
             </h1>
 
