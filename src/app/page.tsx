@@ -196,7 +196,7 @@ export default function Home() {
       <div className="mx-auto flex max-w-[1100px] items-start gap-8">
         {/* 좌측: 인덱스 목록 영역 */}
         <aside className="w-[200px] shrink-0">
-          <p className="mb-3 text-[12px] font-semibold text-slate-400">단계 목록</p>
+          <p className="mb-3 text-[13px] font-semibold text-slate-900">플렉스지 판매자 온보딩 프로세스</p>
           <nav className="space-y-0.5">
             {indexItems.map((item) => (
               <a
@@ -220,12 +220,9 @@ export default function Home() {
         {/* 가운데: 콘텐츠 영역 */}
         <div className="min-w-0 flex-1">
           <div className="mx-auto flex max-w-[640px] flex-col items-center">
-            <h1 className="mb-1 self-start text-lg font-semibold text-slate-900">
+            <h1 className="mb-6 self-start text-lg font-semibold text-slate-900">
               플렉스지 판매자 온보딩 프로세스
             </h1>
-            <p className="mb-6 self-start text-[12px] text-slate-500">
-              회원가입 완료부터 운영 권장 설정 안내까지, 총 10단계 흐름입니다.
-            </p>
 
             {stepsBeforeBranch.map((step, idx) => (
               <div key={step.id} className="flex w-full flex-col items-center">
@@ -258,14 +255,6 @@ export default function Home() {
         {/* 우측: 화면 설명 영역 */}
         <aside className="w-[280px] shrink-0">
           <p className="text-[12px] font-semibold text-slate-400">프로세스 개요</p>
-          <p className="mt-2 text-[13px] leading-relaxed text-slate-600">
-            판매자는 회원가입 후 템플릿과 상품 구성을 선택하고, 가입 승인을 기다립니다.
-          </p>
-          <p className="mt-3 text-[12px] leading-relaxed text-slate-500">
-            승인이 완료되면 이후 과정은 어드민 화면에서 진행됩니다. PG 신청, 심사용
-            세팅, 사업자 정보 등록 등 필수 절차를 거친 뒤, 마지막으로 운영 완성도를
-            높이는 권장 설정을 안내받으며 온보딩이 마무리됩니다.
-          </p>
         </aside>
       </div>
     </main>
