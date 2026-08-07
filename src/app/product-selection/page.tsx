@@ -56,8 +56,8 @@ export default function ProductSelectionPage() {
         ))}
       </div>
 
-      {/* 딤 오버레이 + 레이어 팝업 */}
-      <div className="fixed inset-0 z-10 flex items-center justify-center bg-black/45">
+      {/* 딤 오버레이 + 레이어 팝업 (가운데 콘텐츠 영역 안에서만 적용) */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/45">
         <div className="relative w-[320px] rounded-2xl bg-[var(--surface-2)] px-6 pb-6 pt-7 shadow-lg">
           <button
             aria-hidden
