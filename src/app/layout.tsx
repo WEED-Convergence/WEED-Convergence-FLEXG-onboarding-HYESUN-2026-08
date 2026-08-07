@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <main className="min-h-screen bg-white px-6 py-10">
-          <div className="mx-auto flex max-w-[1100px] items-start gap-8">
+          <div className="flex w-full items-start gap-8">
             {/* 좌측: 인덱스 목록 영역 (모든 화면 공통 고정) */}
             <aside className="sticky top-10 w-[200px] shrink-0 self-start">
               <SidebarNav />

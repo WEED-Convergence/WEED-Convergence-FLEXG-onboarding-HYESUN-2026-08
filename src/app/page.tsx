@@ -205,7 +205,7 @@ function BranchMerge() {
 
 export default function Home() {
   return (
-    <div className="mx-auto flex max-w-[960px] flex-col items-center">
+    <div className="flex w-full flex-col items-center">
       <h1
         id="top"
         className="mb-6 self-start text-lg font-semibold text-slate-900"
