@@ -155,41 +155,15 @@ function CloseIcon() {
   );
 }
 
-function MenuIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#1F1F1F" strokeWidth="1.6">
-      <path d="M4 6H20M4 12H20M4 18H20" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function BagIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#1F1F1F" strokeWidth="1.6">
-      <path d="M6 8H18L17 21H7L6 8Z" strokeLinejoin="round" />
-      <path d="M9 8V6C9 4.34315 10.3431 3 12 3C13.6569 3 15 4.34315 15 6V8" />
-    </svg>
-  );
-}
-
-function NavIcon({ type, active }: { type: "home" | "search" | "heart" | "user"; active?: boolean }) {
-  const color = active ? "#1F1F1F" : "#B5B5B5";
+function ShopIcon({ type }: { type: "search" | "user" | "bag" }) {
   const common = {
     fill: "none",
-    stroke: color,
+    stroke: "#4B5563",
     strokeWidth: 1.6,
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
   };
 
-  if (type === "home") {
-    return (
-      <svg viewBox="0 0 24 24" width="16" height="16" {...common}>
-        <path d="M4 11L12 4L20 11" />
-        <path d="M6 9.5V20H18V9.5" />
-      </svg>
-    );
-  }
   if (type === "search") {
     return (
       <svg viewBox="0 0 24 24" width="16" height="16" {...common}>
@@ -198,68 +172,105 @@ function NavIcon({ type, active }: { type: "home" | "search" | "heart" | "user";
       </svg>
     );
   }
-  if (type === "heart") {
+  if (type === "user") {
     return (
       <svg viewBox="0 0 24 24" width="16" height="16" {...common}>
-        <path d="M12 20C12 20 4 14.5 4 9.5C4 6.5 6.5 4 9.5 4C10.9 4 12 4.8 12 4.8C12 4.8 13.1 4 14.5 4C17.5 4 20 6.5 20 9.5C20 14.5 12 20 12 20Z" />
+        <circle cx="12" cy="8" r="3.5" />
+        <path d="M5 20C5 16.5 8 14.5 12 14.5C16 14.5 19 16.5 19 20" />
       </svg>
     );
   }
   return (
     <svg viewBox="0 0 24 24" width="16" height="16" {...common}>
-      <circle cx="12" cy="8" r="3.5" />
-      <path d="M5 20C5 16.5 8 14.5 12 14.5C16 14.5 19 16.5 19 20" />
+      <path d="M6 8H18L17 21H7L6 8Z" strokeLinejoin="round" />
+      <path d="M9 8V6C9 4.34315 10.3431 3 12 3C13.6569 3 15 4.34315 15 6V8" />
     </svg>
   );
 }
 
-const productTiles = ["#F6D9DE", "#F3C6C0", "#F8E0D8", "#F0B8B0"];
+const productTiles = [
+  "#F6D9DE",
+  "#F3C6C0",
+  "#F8E0D8",
+  "#F0B8B0",
+  "#F5D6CE",
+  "#EFC9D2",
+  "#F7E1DD",
+  "#F1BEB6",
+];
 
-function FashionPhonePreview() {
+function ShopGNB() {
+  const menu = ["신상", "아우터", "상의", "바지", "이벤트"];
   return (
-    <div className="w-[240px] rounded-[28px] border-[6px] border-slate-700 bg-white p-0">
-      <div className="overflow-hidden rounded-[22px]">
-        <div className="flex h-11 items-center justify-between px-4">
-          <MenuIcon />
-          <span className="text-[13px] font-bold tracking-[0.2em] text-slate-900">MUSE</span>
-          <BagIcon />
-        </div>
+    <div className="flex h-14 shrink-0 items-center justify-between border-b border-slate-200 bg-white px-6">
+      <span className="text-[15px] font-bold tracking-[0.2em] text-slate-900">MUSE</span>
+      <nav className="flex items-center gap-6 text-[12px] text-slate-600">
+        {menu.map((label) => (
+          <span key={label}>{label}</span>
+        ))}
+      </nav>
+      <div className="flex items-center gap-4">
+        <ShopIcon type="search" />
+        <ShopIcon type="user" />
+        <ShopIcon type="bag" />
+      </div>
+    </div>
+  );
+}
 
-        <div
-          className="flex h-[130px] items-center justify-center"
-          style={{ backgroundColor: "#EDE0E5" }}
-        >
-          <span className="text-[11px] tracking-[0.15em] text-[#8B3A5C]">
-            2026 F/W COLLECTION
-          </span>
-        </div>
+function FashionSitePreview() {
+  return (
+    <div className="h-full w-full overflow-y-auto rounded-lg border border-slate-300 bg-white">
+      <ShopGNB />
 
-        <div className="flex items-center gap-4 px-4 py-2.5 text-[11px]">
-          <span className="font-bold text-slate-900">전체</span>
-          <span className="text-slate-400">아우터</span>
-          <span className="text-slate-400">상의</span>
-          <span className="text-slate-400">바지</span>
-        </div>
+      <div
+        className="flex h-[220px] items-center justify-center"
+        style={{ backgroundColor: "#EDE0E5" }}
+      >
+        <span className="text-[18px] tracking-[0.2em] text-[#8B3A5C]">
+          2026 F/W COLLECTION
+        </span>
+      </div>
 
-        <div className="grid grid-cols-2 gap-2 px-3 pb-3">
-          {productTiles.map((color) => (
-            <div key={color} className="flex flex-col gap-1.5">
-              <div
-                className="aspect-square w-full rounded-md"
-                style={{ backgroundColor: color }}
-              />
-              <div className="h-1.5 w-3/4 rounded-full bg-slate-200" />
-              <div className="h-1.5 w-2/5 rounded-full bg-[#C24B3D]" />
-            </div>
-          ))}
-        </div>
+      <div className="flex items-center gap-6 border-b border-slate-200 px-6 py-3 text-[12px]">
+        <span className="font-bold text-slate-900">전체</span>
+        <span className="text-slate-400">아우터</span>
+        <span className="text-slate-400">상의</span>
+        <span className="text-slate-400">바지</span>
+      </div>
 
-        <div className="flex items-center justify-around border-t border-slate-200 py-2.5">
-          <NavIcon type="home" active />
-          <NavIcon type="search" />
-          <NavIcon type="heart" />
-          <NavIcon type="user" />
+      <div className="grid grid-cols-4 gap-4 px-6 py-5">
+        {productTiles.map((color, i) => (
+          <div key={`${color}-${i}`} className="flex flex-col gap-2">
+            <div
+              className="aspect-square w-full rounded-md"
+              style={{ backgroundColor: color }}
+            />
+            <div className="h-1.5 w-3/4 rounded-full bg-slate-200" />
+            <div className="h-1.5 w-2/5 rounded-full bg-[#C24B3D]" />
+          </div>
+        ))}
+      </div>
+
+      <div className="border-t border-slate-200 bg-[#F7F5F3] px-6 py-8 text-slate-500">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <nav className="flex flex-wrap gap-5 text-[11px]">
+            <span>고객센터</span>
+            <span>이용안내</span>
+            <span>이용약관</span>
+            <span>개인정보처리방침</span>
+          </nav>
+          <div className="flex items-center gap-2">
+            <span className="h-6 w-6 rounded-full border border-slate-300" />
+            <span className="h-6 w-6 rounded-full border border-slate-300" />
+          </div>
         </div>
+        <p className="mt-5 text-[10px] leading-relaxed text-slate-400">
+          MUSE STUDIO &nbsp;|&nbsp; 대표 홍길동 &nbsp;|&nbsp; 사업자등록번호 000-00-00000
+          <br />
+          고객센터 1544-0000 (평일 10:00~17:00)
+        </p>
+        <p className="mt-4 text-[10px] text-slate-400">ⓒ MUSE. All rights reserved.</p>
       </div>
     </div>
   );
@@ -301,8 +312,8 @@ export default function TemplatePreviewPage() {
 
             <p className="text-[14px] font-medium text-slate-700">패션 템플릿 미리보기</p>
 
-            <div className="flex flex-1 items-center justify-center overflow-auto py-4">
-              <FashionPhonePreview />
+            <div className="w-full flex-1 overflow-hidden py-4">
+              <FashionSitePreview />
             </div>
 
             <div className="flex w-full max-w-[320px] gap-3">
