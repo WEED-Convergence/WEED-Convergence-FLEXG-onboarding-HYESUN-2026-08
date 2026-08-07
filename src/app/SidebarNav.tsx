@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 
 const links = [
   { href: "/template-select", label: "템플릿 선택" },
+  { href: "/template-preview", label: "템플릿 미리보기" },
   { href: "/alimtalk-preview", label: "알림톡 예시" },
 ];
 
