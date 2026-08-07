@@ -43,17 +43,15 @@ function PhoneMockup({ colors }: { colors: [string, string, string] }) {
 
 export default function TemplateSelectPage() {
   return (
-    <main className="min-h-screen bg-white px-6 py-10">
-      <div className="mx-auto grid w-fit grid-cols-4 gap-5">
-        {categories.map((category) => (
-          <div key={category.name} className="flex w-[110px] flex-col items-center">
-            <PhoneMockup colors={category.colors} />
-            <p className="mt-2 text-center text-[12px] font-medium text-slate-800">
-              {category.name}
-            </p>
-          </div>
-        ))}
-      </div>
-    </main>
+    <div className="mx-auto grid w-fit grid-cols-4 gap-5">
+      {categories.map((category) => (
+        <div key={category.name} className="flex w-[110px] flex-col items-center">
+          <PhoneMockup colors={category.colors} />
+          <p className="mt-2 text-center text-[12px] font-medium text-slate-800">
+            {category.name}
+          </p>
+        </div>
+      ))}
+    </div>
   );
 }

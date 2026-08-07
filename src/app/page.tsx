@@ -205,109 +205,79 @@ function BranchMerge() {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white px-6 py-10">
-      <div className="mx-auto flex max-w-[1100px] items-start gap-8">
-        {/* 좌측: 인덱스 목록 영역 */}
-        <aside className="w-[200px] shrink-0">
-          <a
-            href="#top"
-            className="text-[13px] font-semibold text-slate-900 hover:underline"
-          >
-            플렉스지 판매자 온보딩 프로세스
-          </a>
-          <nav className="mt-3">
-            <a
-              href="/template-select"
-              className="block text-[13px] text-slate-600 hover:underline"
-            >
-              템플릿 선택
-            </a>
-          </nav>
-        </aside>
+    <div className="mx-auto flex max-w-[640px] flex-col items-center">
+      <h1
+        id="top"
+        className="mb-6 self-start text-lg font-semibold text-slate-900"
+      >
+        플렉스지 판매자 온보딩 프로세스
+      </h1>
 
-        {/* 가운데: 콘텐츠 영역 */}
-        <div className="min-w-0 flex-1">
-          <div className="mx-auto flex max-w-[640px] flex-col items-center">
-            <h1
-              id="top"
-              className="mb-6 self-start text-lg font-semibold text-slate-900"
-            >
-              플렉스지 판매자 온보딩 프로세스
-            </h1>
-
-            {stepsBeforeBranch.map((step, idx) => (
-              <div key={step.id} className="flex w-full flex-col items-center">
-                <Box {...step} />
-                {idx < stepsBeforeBranch.length - 1 ? <ArrowDown /> : null}
-              </div>
-            ))}
-
-            <BranchSplit />
-            <div className="flex w-full justify-center gap-4">
-              {branchOptions.map((option, idx) => (
-                <div key={idx} className="w-1/2">
-                  <Box {...option} />
-                </div>
-              ))}
-            </div>
-            <BranchMerge />
-
-            <MessageBlock
-              label="알림톡"
-              title="미진행 리마인드"
-              desc="2~3단계 미완료 상태 일정시간 지속 시 발송"
-            />
-            <ArrowDown />
-
-            <Box {...step4} />
-
-            <ArrowDown />
-            <MessageBlock
-              label="알림톡"
-              title="승인 완료 안내"
-              desc="오픈채팅방 입장 링크 안내"
-            />
-            <ArrowDown />
-            <MessageBlock
-              label="해피콜"
-              title="가입 경로 확인 · 오픈채팅방 재안내"
-              note="메시지로 오픈채팅방 미인입 시"
-            />
-            <ArrowDown label={step4.afterLabel} />
-
-            <Box {...step5} />
-            <ArrowDown />
-            <Box {...step6} />
-            <ArrowDown />
-            <Box {...step7} />
-            <ArrowDown />
-            <Box {...step8} />
-            <ArrowDown />
-            <Box {...step9} />
-
-            <ArrowDown />
-            <MessageBlock
-              label="알림톡"
-              title="정체구간 리마인드"
-              desc="6~9단계 중 미완료 항목이 며칠 이상 지속 시 발송"
-            />
-            <ArrowDown />
-            <MessageBlock
-              label="알림톡"
-              title="오픈 가능 안내"
-              desc="9단계 완료 직후, 오픈 가능 상태 진입 안내"
-            />
-            <ArrowDown />
-
-            <Box {...step10} />
-          </div>
+      {stepsBeforeBranch.map((step, idx) => (
+        <div key={step.id} className="flex w-full flex-col items-center">
+          <Box {...step} />
+          {idx < stepsBeforeBranch.length - 1 ? <ArrowDown /> : null}
         </div>
+      ))}
 
-        {/* 우측: 화면 설명 영역 */}
-        <aside className="w-[280px] shrink-0">
-          <p className="text-[12px] font-semibold text-slate-400">프로세스 개요</p>
-        </aside>
+      <BranchSplit />
+      <div className="flex w-full justify-center gap-4">
+        {branchOptions.map((option, idx) => (
+          <div key={idx} className="w-1/2">
+            <Box {...option} />
+          </div>
+        ))}
       </div>
-    </main>
+      <BranchMerge />
+
+      <MessageBlock
+        label="알림톡"
+        title="미진행 리마인드"
+        desc="2~3단계 미완료 상태 일정시간 지속 시 발송"
+      />
+      <ArrowDown />
+
+      <Box {...step4} />
+
+      <ArrowDown />
+      <MessageBlock
+        label="알림톡"
+        title="승인 완료 안내"
+        desc="오픈채팅방 입장 링크 안내"
+      />
+      <ArrowDown />
+      <MessageBlock
+        label="해피콜"
+        title="가입 경로 확인 · 오픈채팅방 재안내"
+        note="메시지로 오픈채팅방 미인입 시"
+      />
+      <ArrowDown label={step4.afterLabel} />
+
+      <Box {...step5} />
+      <ArrowDown />
+      <Box {...step6} />
+      <ArrowDown />
+      <Box {...step7} />
+      <ArrowDown />
+      <Box {...step8} />
+      <ArrowDown />
+      <Box {...step9} />
+
+      <ArrowDown />
+      <MessageBlock
+        label="알림톡"
+        title="정체구간 리마인드"
+        desc="6~9단계 중 미완료 항목이 며칠 이상 지속 시 발송"
+      />
+      <ArrowDown />
+      <MessageBlock
+        label="알림톡"
+        title="오픈 가능 안내"
+        desc="9단계 완료 직후, 오픈 가능 상태 진입 안내"
+      />
+      <ArrowDown />
+
+      <Box {...step10} />
+    </div>
   );
 }
