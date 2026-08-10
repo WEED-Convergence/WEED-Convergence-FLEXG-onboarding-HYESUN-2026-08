@@ -11,6 +11,7 @@ const specDocs = [
   { href: "/signup-complete", label: "디자인 템플릿 선택" },
   { href: "/template-preview", label: "템플릿 미리보기" },
   { href: "/approval-pending", label: "승인 대기" },
+  { href: "/home-with-checklist", label: "홈" },
 ];
 
 export default function SidebarNav() {
