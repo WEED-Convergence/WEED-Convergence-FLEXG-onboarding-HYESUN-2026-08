@@ -288,7 +288,7 @@ export default function OpenChecklistPopupPage() {
         <AdminGNB />
         <div className="flex items-stretch">
           <AdminLNB />
-          <main className="flex-1 overflow-hidden">
+          <main className="flex-1">
             <ChecklistPanel />
           </main>
         </div>

@@ -173,8 +173,8 @@ export default function ChecklistPanel() {
   const selected = items.find((item) => item.id === selectedId) ?? items[0];
 
   return (
-    <div className="flex h-[560px] w-full bg-white">
-      <div className="h-full w-[260px] shrink-0 overflow-y-auto bg-[#FAF9F5] p-5">
+    <div className="flex w-full items-stretch bg-white">
+      <div className="w-[300px] shrink-0 bg-[#FAF9F5] p-5">
           {categories.map((category) => (
             <div key={category.name} className="mb-5 last:mb-0">
               <p className="text-[13px] font-bold text-[#2C2C2A]">{category.name}</p>
@@ -210,7 +210,7 @@ export default function ChecklistPanel() {
           ))}
         </div>
 
-        <div className="flex h-full flex-1 flex-col p-6">
+        <div className="flex flex-1 flex-col p-6">
           <div className="pr-6">
             <div className="flex items-center justify-between">
               <span className="text-[12px] text-[#9A9890]">전체 진행률</span>
