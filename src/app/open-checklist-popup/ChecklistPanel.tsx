@@ -9,7 +9,6 @@ interface ChecklistItemData {
   duration: string;
   previewTitle: string;
   previewRows: string[];
-  buttonText: string;
 }
 
 interface CategoryData {
@@ -25,7 +24,6 @@ const items: ChecklistItemData[] = [
     duration: "약 3분이면 완료",
     previewTitle: "PG 계약 정보 입력",
     previewRows: ["상호명: 이수모 스토어", "사업자번호: 123-45-...", "정산계좌: 신한 110-..."],
-    buttonText: "신청 페이지로",
   },
   {
     id: 2,
@@ -35,7 +33,6 @@ const items: ChecklistItemData[] = [
     duration: "약 2분이면 완료",
     previewTitle: "공급사 정보 입력",
     previewRows: ["공급사명: (주)이수모상사", "담당자: 김담당", "연락처: 02-123-4567"],
-    buttonText: "등록 페이지로",
   },
   {
     id: 3,
@@ -44,7 +41,6 @@ const items: ChecklistItemData[] = [
     duration: "약 5분이면 완료",
     previewTitle: "상품 등록",
     previewRows: ["상품명: 베이직 티셔츠", "가격: 19,900원", "재고: 100개"],
-    buttonText: "상품 등록하러 가기",
   },
   {
     id: 4,
@@ -53,7 +49,6 @@ const items: ChecklistItemData[] = [
     duration: "약 1분이면 완료",
     previewTitle: "고객센터 연락처",
     previewRows: ["유선번호: 02-1234-5678"],
-    buttonText: "설정 페이지로",
   },
   {
     id: 5,
@@ -66,7 +61,6 @@ const items: ChecklistItemData[] = [
       "대표자: 이수모",
       "통신판매업신고번호: 2026-서울금천-0001",
     ],
-    buttonText: "정보 입력하러 가기",
   },
   {
     id: 6,
@@ -75,7 +69,6 @@ const items: ChecklistItemData[] = [
     duration: "약 3분이면 완료",
     previewTitle: "발신번호 신청",
     previewRows: ["신청 번호: 02-1234-5678", "서류: 통신서비스 이용증명원"],
-    buttonText: "신청 페이지로",
   },
   {
     id: 7,
@@ -84,7 +77,6 @@ const items: ChecklistItemData[] = [
     duration: "약 5분이면 완료",
     previewTitle: "간편로그인 설정",
     previewRows: ["카카오 REST API 키: ****", "네이버 Client ID: ****"],
-    buttonText: "키값 등록하러 가기",
   },
   {
     id: 8,
@@ -93,7 +85,6 @@ const items: ChecklistItemData[] = [
     duration: "약 10분이면 완료 (채널 심사 대기 별도)",
     previewTitle: "알림톡 채널 연동",
     previewRows: ["카카오 채널 ID: @isumo_store"],
-    buttonText: "채널 등록하러 가기",
   },
   {
     id: 9,
@@ -102,7 +93,6 @@ const items: ChecklistItemData[] = [
     duration: "약 3분이면 완료",
     previewTitle: "SEO 설정",
     previewRows: ["페이지 제목: 이수모 스토어 - 베이직 캐주얼", "설명: 데일리룩 전문 쇼핑몰"],
-    buttonText: "SEO 설정하러 가기",
   },
   {
     id: 10,
@@ -111,7 +101,6 @@ const items: ChecklistItemData[] = [
     duration: "약 2분이면 완료",
     previewTitle: "팝빌 연동 신청",
     previewRows: ["사업자번호: 123-45-...", "정산계좌: 신한 110-..."],
-    buttonText: "팝빌 신청하러 가기",
   },
   {
     id: 11,
@@ -120,7 +109,6 @@ const items: ChecklistItemData[] = [
     duration: "약 5분이면 완료",
     previewTitle: "캠페인 빌더",
     previewRows: ["캠페인 유형: 신규가입 웰컴", "발송시점: 가입 직후"],
-    buttonText: "캠페인 만들러 가기",
   },
   {
     id: 12,
@@ -129,7 +117,6 @@ const items: ChecklistItemData[] = [
     duration: "약 4분이면 완료",
     previewTitle: "라이브 설정",
     previewRows: ["방송 채널: 미연동", "판매 상품: 미지정"],
-    buttonText: "라이브 연동하러 가기",
   },
   {
     id: 13,
@@ -138,7 +125,6 @@ const items: ChecklistItemData[] = [
     duration: "약 10분이면 완료",
     previewTitle: "디자인 편집",
     previewRows: ["테마 색상: 기본", "로고: 미등록", "메인 배너: 미등록"],
-    buttonText: "디자인 편집하러 가기",
   },
 ];
 
@@ -238,15 +224,6 @@ export default function ChecklistPanel() {
                 </p>
               ))}
             </div>
-          </div>
-
-          <div className="mt-auto flex gap-2.5 pt-6">
-            <span className="flex-1 rounded-lg border border-[#E4E2D8] py-2.5 text-center text-[13px] font-medium text-[#5F5E5A]">
-              건너뛰기
-            </span>
-            <span className="flex-1 rounded-lg bg-[#2C2C2A] py-2.5 text-center text-[13px] font-medium text-white">
-              {selected.buttonText}
-            </span>
           </div>
         </div>
       </div>
