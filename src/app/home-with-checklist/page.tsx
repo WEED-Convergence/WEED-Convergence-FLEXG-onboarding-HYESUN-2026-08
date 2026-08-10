@@ -163,8 +163,8 @@ function ChecklistCard({
 
 function GuideTooltip() {
   return (
-    <div className="relative mt-2 w-[200px] rounded-lg bg-[#D8342A] p-3">
-      <div className="absolute -top-1.5 left-6 h-3 w-3 rotate-45 bg-[#D8342A]" />
+    <div className="absolute left-full top-1/2 z-10 ml-3 w-[200px] -translate-y-1/2 rounded-lg bg-[#D8342A] p-3">
+      <div className="absolute -left-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 bg-[#D8342A]" />
       <p className="text-[12px] font-medium text-white">PG 신청부터 시작할까요?</p>
       <p className="mt-1 text-[11px] leading-relaxed text-[#FBEAF0]">
         결제 준비를 마치면 오픈이 빨라져요.
@@ -249,7 +249,7 @@ export default function HomeWithChecklistPage() {
           <p className="text-[12px] text-[#9A9890]">오픈 체크리스트</p>
           <div className="mt-3 flex items-start gap-3">
             {checklistCategories.map((category) => (
-              <div key={category.name} className="flex-1">
+              <div key={category.name} className="relative flex-1">
                 <ChecklistCard {...category} />
                 {category.highlighted ? <GuideTooltip /> : null}
               </div>
