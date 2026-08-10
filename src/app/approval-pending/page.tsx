@@ -116,7 +116,6 @@ const steps: Step[] = [
   { num: 1, label: "회원가입", status: "done" },
   { num: 2, label: "템플릿 선택", status: "done" },
   { num: 3, label: "승인 대기", status: "active" },
-  { num: 4, label: "PG 신청", status: "upcoming" },
 ];
 
 function StepCircle({ step }: { step: Step }) {

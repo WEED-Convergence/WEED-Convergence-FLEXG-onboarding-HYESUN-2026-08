@@ -22,7 +22,7 @@ const stepsIntro: StepData[] = [
   },
 ];
 
-const [step3, step4, step5, step6, step7, step8, step9]: StepData[] = [
+const [step3, step5, step6, step7, step8, step9]: StepData[] = [
   {
     id: 3,
     title: "승인 대기",
@@ -31,28 +31,23 @@ const [step3, step4, step5, step6, step7, step8, step9]: StepData[] = [
   },
   {
     id: 4,
-    title: "PG 신청",
-    desc: "안내에 따라 PG(결제대행) 신청 진행",
-  },
-  {
-    id: 5,
     title: "심사용 세팅",
     desc: "PG 심사 통과를 위한 최소 조건 세팅",
     subItems: ["공급사 등록 (자체배송 시 필수)", "템플릿 선택 시 자동 등록된 샘플 상품 확인"],
   },
   {
-    id: 6,
+    id: 5,
     title: "사업자 정보 등록",
     desc: "사업자 정보 · 통신판매업신고번호 입력",
     path: "/Setting/info",
   },
   {
-    id: 7,
+    id: 6,
     title: "유선번호 등록",
     desc: "고객 문의용 유선번호 입력",
   },
   {
-    id: 8,
+    id: 7,
     title: "추가 세팅",
     desc: "쇼핑몰 운영에 필요한 부가 기능 설정",
     subItems: [
@@ -62,7 +57,7 @@ const [step3, step4, step5, step6, step7, step8, step9]: StepData[] = [
     ],
   },
   {
-    id: 9,
+    id: 8,
     title: "운영 완성도를 높이는 권장 설정 안내",
     desc: "필수 세팅은 아니지만, 검색 유입 · 정산 편의 · 브랜드 완성도를 높이는 항목을 입력하도록 유도",
     subItems: ["SEO 설정", "팝빌 (무통장 자동 입금 서비스) 신청", "디자인 설정"],
@@ -197,8 +192,6 @@ export default function Home() {
       />
       <ArrowDown label={step3.afterLabel} />
 
-      <Box {...step4} />
-      <ArrowDown />
       <Box {...step5} />
       <ArrowDown />
       <Box {...step6} />
@@ -211,13 +204,13 @@ export default function Home() {
       <MessageBlock
         label="알림톡"
         title="정체구간 리마인드"
-        desc="5~8단계 중 미완료 항목이 며칠 이상 지속 시 발송"
+        desc="4~7단계 중 미완료 항목이 며칠 이상 지속 시 발송"
       />
       <ArrowDown />
       <MessageBlock
         label="알림톡"
         title="오픈 가능 안내"
-        desc="8단계 완료 직후, 오픈 가능 상태 진입 안내"
+        desc="7단계 완료 직후, 오픈 가능 상태 진입 안내"
       />
       <ArrowDown />
 
