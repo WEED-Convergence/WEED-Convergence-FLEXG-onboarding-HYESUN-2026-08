@@ -149,14 +149,6 @@ const categories: CategoryData[] = [
   { name: "매출 확장 기능", itemIds: [11, 12, 13] },
 ];
 
-function CloseIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M5 5L19 19M19 5L5 19" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 function ClockIcon() {
   return (
     <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#993556" strokeWidth="1.8">
@@ -175,26 +167,14 @@ function ItemCircle({ active }: { active: boolean }) {
   );
 }
 
-export default function PopupOverlay() {
-  const [open, setOpen] = useState(true);
+export default function ChecklistPanel() {
   const [selectedId, setSelectedId] = useState(1);
-
-  if (!open) return null;
 
   const selected = items.find((item) => item.id === selectedId) ?? items[0];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="relative flex h-[560px] w-[720px] overflow-hidden rounded-2xl bg-white">
-        <button
-          type="button"
-          onClick={() => setOpen(false)}
-          className="absolute right-4 top-4 z-10 flex h-6 w-6 items-center justify-center text-slate-400"
-        >
-          <CloseIcon />
-        </button>
-
-        <div className="h-full w-[260px] shrink-0 overflow-y-auto bg-[#FAF9F5] p-5">
+    <div className="flex h-[560px] w-full bg-white">
+      <div className="h-full w-[260px] shrink-0 overflow-y-auto bg-[#FAF9F5] p-5">
           {categories.map((category) => (
             <div key={category.name} className="mb-5 last:mb-0">
               <p className="text-[13px] font-bold text-[#2C2C2A]">{category.name}</p>
@@ -270,6 +250,5 @@ export default function PopupOverlay() {
           </div>
         </div>
       </div>
-    </div>
   );
 }

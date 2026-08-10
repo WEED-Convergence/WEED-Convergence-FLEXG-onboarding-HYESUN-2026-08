@@ -1,12 +1,12 @@
-import PopupOverlay from "./PopupOverlay";
+import ChecklistPanel from "./ChecklistPanel";
 
 export const metadata = {
-  title: "오픈 체크리스트 팝업",
+  title: "오픈 체크리스트",
 };
 
 function HomeIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F2F1EC" strokeWidth="1.8">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#1B1B1B" strokeWidth="1.8">
       <path d="M4 11L12 4L20 11" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M6 10V20H18V10" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -21,17 +21,22 @@ function QuestionIcon() {
   );
 }
 
-function InfoIcon() {
+function LinkIcon() {
   return (
-    <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-[#C7C5BB] text-[8px] font-semibold text-[#9A9890]">
-      i
-    </span>
+    <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="#9A9890" strokeWidth="1.8">
+      <path d="M9 15L15 9" strokeLinecap="round" />
+      <path
+        d="M10.5 6.5L12 5C13.6569 3.34315 16.3431 3.34315 18 5C19.6569 6.65685 19.6569 9.34315 18 11L16.5 12.5M13.5 17.5L12 19C10.3431 20.6569 7.65685 20.6569 6 19C4.34315 17.3431 4.34315 14.6569 6 13L7.5 11.5"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
 
 interface MenuItem {
   label: string;
   badge?: boolean;
+  danger?: boolean;
 }
 
 const menuItems: MenuItem[] = [
@@ -44,7 +49,7 @@ const menuItems: MenuItem[] = [
   { label: "통계" },
   { label: "회원" },
   { label: "CRM" },
-  { label: "LIVE", badge: true },
+  { label: "LIVE", badge: true, danger: true },
   { label: "메시지" },
   { label: "게시판" },
   { label: "APP" },
@@ -54,12 +59,24 @@ const menuItems: MenuItem[] = [
 
 function AdminGNB() {
   return (
-    <header className="flex h-11 w-full shrink-0 items-center justify-between bg-[#1B1B1B] px-6">
-      <div className="flex items-center gap-5">
-        <HomeIcon />
+    <header className="flex h-11 w-full shrink-0 items-center justify-between bg-[#1B1B1B] px-4">
+      <div className="flex min-w-0 items-center gap-5">
+        <div className="flex min-w-0 max-w-[140px] items-center gap-1.5">
+          <span className="truncate text-[11px] text-[#8C8A82]">판매는 불티나게, ...</span>
+          <LinkIcon />
+        </div>
+
+        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-[#8ED14F]">
+          <HomeIcon />
+        </span>
+
         <nav className="flex items-center gap-4">
           {menuItems.map((item) => (
-            <span key={item.label} className="relative text-[12px] text-slate-300">
+            <span
+              key={item.label}
+              className="relative text-[12px]"
+              style={{ color: item.danger ? "#F04B3C" : "#D4D2C9" }}
+            >
               {item.label}
               {item.badge ? (
                 <span className="absolute -right-2 -top-1.5 flex h-3 w-3 items-center justify-center rounded-full bg-[#D8342A] text-[7px] font-bold text-white">
@@ -71,7 +88,7 @@ function AdminGNB() {
         </nav>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex shrink-0 items-center gap-3">
         <span className="flex items-center gap-1 text-[12px] text-slate-300">
           서비스 알림
           <span className="flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-[#D8342A] px-1 text-[9px] font-semibold text-white">
@@ -87,179 +104,194 @@ function AdminGNB() {
   );
 }
 
-interface Banner {
-  bg: string;
-  line1: string;
-  line2: string;
-}
-
-const banners: Banner[] = [
-  { bg: "#D8342A", line1: "쇼핑몰 라이브커머스 망설였다면", line2: "지금이 완벽한 타이밍!" },
-  { bg: "#F2A623", line1: "미수금 없는 발주 시스템,", line2: "올해만 가입비 0원" },
-  { bg: "#2D6FD1", line1: "잘 팔리는 쇼핑몰은", line2: "전략부터 다릅니다! · 컨설팅 신청하기" },
-  { bg: "#2E9E4C", line1: "발주가 많아질수록 필요한건?", line2: "자동화 시스템 · 발주모아 시작하기" },
-  { bg: "#5B3FA6", line1: "광고비를 줄여도", line2: "매출이 오르는 이유 · 자세히 알아보기" },
-];
-
-function BannerCard({ bg, line1, line2 }: Banner) {
+function DocumentIcon() {
   return (
-    <div
-      className="flex h-24 flex-col justify-center gap-1 rounded-lg px-4 text-white"
-      style={{ backgroundColor: bg }}
-    >
-      <p className="text-[12px] font-medium leading-snug">{line1}</p>
-      <p className="text-[12px] font-semibold leading-snug">{line2}</p>
-    </div>
-  );
-}
-
-function DonutProgress({ percent }: { percent: number }) {
-  const size = 48;
-  const strokeWidth = 4;
-  const radius = (size - strokeWidth) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (percent / 100) * circumference;
-
-  return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90">
-      <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="#E4E2D8" strokeWidth={strokeWidth} />
-      <circle
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        fill="none"
-        stroke="#D8342A"
-        strokeWidth={strokeWidth}
-        strokeDasharray={circumference}
-        strokeDashoffset={offset}
-        strokeLinecap="round"
-      />
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#B9B7AE" strokeWidth="1.6">
+      <path d="M7 3H14L19 8V21H7V3Z" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M14 3V8H19" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
-function ChecklistCard({
-  name,
-  total,
-  highlighted,
-}: {
-  name: string;
-  total: number;
-  highlighted?: boolean;
-}) {
+function GearIcon() {
   return (
-    <div
-      className={`flex flex-col items-center rounded-[10px] bg-white px-4 py-4 text-center ${
-        highlighted ? "border-2 border-[#D8342A]" : "border border-[#E4E2D8]"
-      }`}
-    >
-      <div className="relative flex h-12 w-12 items-center justify-center">
-        <DonutProgress percent={0} />
-        <span className="absolute text-[11px] font-semibold text-[#2C2C2A]">0%</span>
-      </div>
-      <p className="mt-2 text-[12px] font-medium text-[#2C2C2A]">{name}</p>
-      <p className="mt-1 text-[10px] text-[#888780]">0/{total}개 항목</p>
-    </div>
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#B9B7AE" strokeWidth="1.6">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 3V5M12 19V21M21 12H19M5 12H3M18.4 5.6L17 7M7 17L5.6 18.4M18.4 18.4L17 17M7 7L5.6 5.6" strokeLinecap="round" />
+    </svg>
   );
 }
 
-interface ChecklistCategory {
-  name: string;
-  total: number;
-  highlighted?: boolean;
-}
-
-const checklistCategories: ChecklistCategory[] = [
-  { name: "결제 준비", total: 5, highlighted: true },
-  { name: "운영 필수 정보", total: 3 },
-  { name: "권장 설정 기능", total: 2 },
-  { name: "매출 확장 기능", total: 3 },
-];
-
-interface Stat {
-  label: string;
-  value: number;
-  danger?: boolean;
-}
-
-const stats: Stat[] = [
-  { label: "미입금확인", value: 3 },
-  { label: "신규주문", value: 0 },
-  { label: "배송준비", value: 0 },
-  { label: "배송중", value: 0 },
-  { label: "배송완료", value: 0 },
-  { label: "취소요청", value: 0, danger: true },
-  { label: "반품요청", value: 0, danger: true },
-  { label: "교환요청", value: 0, danger: true },
-  { label: "미답변 상품문의", value: 0 },
-];
-
-function StatCard({ label, value, danger }: Stat) {
+function CopyIcon() {
   return (
-    <div className="flex flex-col items-center gap-1.5 rounded-lg border border-[#E4E2D8] py-4">
-      <p className="text-[11px] text-[#888780]">{label}</p>
-      <p
-        className="text-[18px] font-semibold"
-        style={{ color: danger ? "#D8342A" : "#2C2C2A" }}
-      >
-        {value}
-      </p>
-    </div>
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#B9B7AE" strokeWidth="1.6">
+      <rect x="8" y="8" width="12" height="12" rx="1.5" />
+      <path d="M5 16H4.5C4 16 4 15.5 4 15V5C4 4.5 4.5 4 5 4H15C15.5 4 16 4.5 16 5V6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function ArrowRightIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#8C8A82" strokeWidth="1.8">
+      <path d="M9 6L15 12L9 18" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function SearchIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#8C8A82" strokeWidth="1.8">
+      <circle cx="11" cy="11" r="7" />
+      <path d="M21 21L16.5 16.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function ChevronDownIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#B9B7AE" strokeWidth="2">
+      <path d="M6 9L12 15L18 9" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+interface OrderMenuItem {
+  label: string;
+  sub?: boolean;
+  badge?: number;
+}
+
+const orderMenuTop: OrderMenuItem[] = [
+  { label: "상품별 주문관리" },
+  { label: "옵션별 주문현황" },
+];
+
+const orderStatusMenu: OrderMenuItem[] = [
+  { label: "전체" },
+  { label: "미입금확인" },
+  { label: "신규주문" },
+  { label: "수락대기" },
+  { label: "배송준비" },
+  { label: "부분배송중" },
+  { label: "배송중" },
+  { label: "배송완료" },
+  { label: "배송예약" },
+  { label: "주문자요청 배송전", badge: 8 },
+  { label: "주문자요청 배송후", badge: 81 },
+  { label: "주문취소" },
+  { label: "반품관리" },
+  { label: "교환관리" },
+  { label: "휴지통" },
+  { label: "주문대기" },
+];
+
+function AdminLNB() {
+  return (
+    <aside className="flex w-[220px] shrink-0 flex-col bg-[#1F1E1C] px-4 py-4">
+      <div className="flex items-center justify-between">
+        <span className="text-[13px] font-semibold text-white">weedtuklink</span>
+        <span className="rounded-full border border-[#4A4844] px-2.5 py-1 text-[10px] text-[#B9B7AE]">
+          로그아웃
+        </span>
+      </div>
+
+      <div className="mt-4 flex items-center gap-4">
+        <DocumentIcon />
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#8ED14F] text-[11px] font-bold text-[#1B1B1B]">
+          A
+        </span>
+        <GearIcon />
+        <CopyIcon />
+      </div>
+
+      <div className="mt-4 rounded-lg bg-[#2A2926] p-3">
+        <div className="flex items-center gap-2.5">
+          <span className="h-9 w-9 shrink-0 rounded-md bg-[#4A4844]" />
+          <div className="min-w-0">
+            <p className="truncate text-[10px] text-[#9A9890]">기본 제공 테마</p>
+            <p className="truncate text-[12px] font-medium text-[#8ED14F]">기본 디자인</p>
+          </div>
+        </div>
+        <div className="mt-3 flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <span className="text-[11px] font-bold italic text-white">FLEX-G</span>
+            <span className="rounded-full bg-[#3B3A36] px-2 py-0.5 text-[9px] text-[#B9B7AE]">
+              Page 미연동
+            </span>
+          </div>
+          <ArrowRightIcon />
+        </div>
+      </div>
+
+      <div className="mt-3 flex items-center text-[11px] text-[#B9B7AE]">
+        <span className="flex-1 text-center">쇼핑몰 바로가기</span>
+        <span className="h-3 w-px bg-[#4A4844]" />
+        <span className="flex-1 text-center">디자인 설정</span>
+      </div>
+
+      <div className="mt-4 flex items-center gap-1.5 rounded-md border border-[#4A4844] px-2 py-1.5">
+        <span className="flex items-center gap-0.5 text-[10px] text-[#B9B7AE]">
+          이름
+          <ChevronDownIcon />
+        </span>
+        <span className="h-3 w-px bg-[#4A4844]" />
+        <input
+          readOnly
+          value=""
+          placeholder=""
+          className="w-full bg-transparent text-[11px] text-[#B9B7AE] outline-none"
+        />
+        <SearchIcon />
+      </div>
+
+      <div className="mt-5 flex items-center justify-between">
+        <span className="text-[12px] font-bold text-white">주문</span>
+        <span className="rounded bg-[#E8951F] px-2 py-0.5 text-[10px] font-semibold text-white">
+          가이드
+        </span>
+      </div>
+
+      <nav className="mt-2 space-y-0.5 overflow-y-auto">
+        {orderMenuTop.map((item) => (
+          <p key={item.label} className="rounded px-1.5 py-1.5 text-[13px] text-[#D4D2C9]">
+            {item.label}
+          </p>
+        ))}
+
+        <p className="px-1.5 pt-1.5 text-[13px] font-semibold text-white">거래상태별 주문관리</p>
+
+        <div className="pl-2.5">
+          {orderStatusMenu.map((item) => (
+            <div
+              key={item.label}
+              className="flex items-center justify-between rounded px-1.5 py-1.5 text-[13px] text-[#D4D2C9]"
+            >
+              <span>{item.label}</span>
+              {item.badge ? (
+                <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D8342A] px-1 text-[9px] font-semibold text-white">
+                  {item.badge}
+                </span>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      </nav>
+    </aside>
   );
 }
 
 export default function OpenChecklistPopupPage() {
   return (
     <div className="w-full overflow-x-auto rounded-xl border border-slate-200 bg-white">
-      <div className="relative min-w-[1180px]">
+      <div className="min-w-[1180px]">
         <AdminGNB />
-
-        <div className="px-8 py-6">
-          <div className="flex items-start justify-between gap-6">
-            <div className="shrink-0">
-              <p className="text-[14px] font-medium text-[#2C2C2A]">
-                오늘도 플렉스지와 판매는 불티나게
-              </p>
-              <p className="mt-1 text-[11px] text-[#9A9890]">2026.08.10 월요일</p>
-            </div>
-            <div className="grid flex-1 grid-cols-5 gap-2.5">
-              {banners.map((banner) => (
-                <BannerCard key={banner.line1} {...banner} />
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-6 rounded-xl border border-[#E4E2D8] bg-[#FAF9F5] p-[18px]">
-            <p className="text-[12px] text-[#9A9890]">오픈 체크리스트</p>
-            <div className="mt-3 flex items-start gap-3">
-              {checklistCategories.map((category) => (
-                <div key={category.name} className="flex-1">
-                  <ChecklistCard {...category} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <p className="text-[14px] font-medium text-[#2C2C2A]">오늘의 할일</p>
-                <InfoIcon />
-                <span className="text-[11px] text-[#9A9890]">
-                  최근 30일 기준으로 집계된 주문 상태별 건 수입니다.
-                </span>
-              </div>
-              <span className="text-[12px] text-[#9A9890]">더보기 &gt;</span>
-            </div>
-            <div className="mt-3 grid grid-cols-9 gap-2.5">
-              {stats.map((stat) => (
-                <StatCard key={stat.label} {...stat} />
-              ))}
-            </div>
-          </div>
+        <div className="flex items-stretch">
+          <AdminLNB />
+          <main className="flex-1 overflow-hidden">
+            <ChecklistPanel />
+          </main>
         </div>
-
-        <PopupOverlay />
       </div>
     </div>
   );
