@@ -29,7 +29,7 @@ const items: ChecklistItemData[] = [
     id: 14,
     title: "무통장입금 계좌 정보 입력하기",
     description: "무통장 입금 시 사용할 정산계좌 정보를 입력해 주세요.",
-    duration: "약 1분이면 완료",
+    duration: "약 3분이면 완료",
     previewTitle: "무통장입금 계좌 정보",
     previewRows: ["은행: 신한은행", "계좌번호: 110-123-456789", "예금주: 이수모"],
   },
@@ -185,6 +185,57 @@ function WarningIcon() {
 
 const inputClass =
   "w-full rounded-md border border-[#E4E2D8] px-3 py-2 text-[13px] text-[#2C2C2A] placeholder:text-[#B8B6AC] outline-none focus:border-[#993556]";
+
+const cellFieldClass =
+  "w-full rounded-md border border-[#E4E2D8] bg-white px-2 py-1.5 text-[12px] text-[#2C2C2A] placeholder:text-[#B8B6AC] outline-none focus:border-[#993556]";
+
+function InfoIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      fill="none"
+      stroke="#9A9890"
+      strokeWidth="2"
+      className="mt-0.5 shrink-0"
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 11V17" strokeLinecap="round" />
+      <circle cx="12" cy="7.5" r="0.6" fill="#9A9890" stroke="none" />
+    </svg>
+  );
+}
+
+function DragHandleIcon() {
+  return (
+    <svg viewBox="0 0 16 16" width="14" height="14" fill="#C7C5BB">
+      <circle cx="5" cy="3" r="1.2" />
+      <circle cx="11" cy="3" r="1.2" />
+      <circle cx="5" cy="8" r="1.2" />
+      <circle cx="11" cy="8" r="1.2" />
+      <circle cx="5" cy="13" r="1.2" />
+      <circle cx="11" cy="13" r="1.2" />
+    </svg>
+  );
+}
+
+function ToggleSwitch({ checked, onChange }: { checked: boolean; onChange: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onChange}
+      aria-pressed={checked}
+      className="relative h-5 w-9 shrink-0 rounded-full transition-colors"
+      style={{ backgroundColor: checked ? "#639922" : "#D8D6CC" }}
+    >
+      <span
+        className="absolute top-0.5 h-4 w-4 rounded-full bg-white transition-transform"
+        style={{ transform: checked ? "translateX(18px)" : "translateX(2px)" }}
+      />
+    </button>
+  );
+}
 
 function RadioOption({
   name,
@@ -361,6 +412,211 @@ function BusinessInfoForm() {
   );
 }
 
+function CashDepositForm() {
+  const [primaryAccount, setPrimaryAccount] = useState(false);
+  const [visibility, setVisibility] = useState("");
+  const [methodEnabled, setMethodEnabled] = useState(true);
+  const [methodName, setMethodName] = useState("무통장입금");
+  const [hideBenefit, setHideBenefit] = useState(false);
+
+  return (
+    <div className="mt-4 w-full max-w-[760px]">
+      <p className="text-[16px] font-bold text-[#2C2C2A]">무통장입금 설정</p>
+      <div className="mt-3 border-t border-[#E4E2D8]" />
+
+      <div className="mt-4 flex items-end gap-2">
+        <select className={`${cellFieldClass} flex-1`} defaultValue="">
+          <option value="" disabled>
+            은행선택
+          </option>
+        </select>
+        <input type="text" placeholder="계좌번호 입력" className={`${cellFieldClass} flex-1`} />
+        <input type="text" placeholder="예금주 입력" className={`${cellFieldClass} flex-1`} />
+        <button
+          type="button"
+          className="shrink-0 rounded-md bg-[#F0EFE9] px-4 py-2 text-[13px] font-medium text-[#5F5E5A]"
+        >
+          등록
+        </button>
+      </div>
+
+      <div className="mt-6">
+        <p className="mb-2 text-[13px] font-medium text-[#2C2C2A]">무통장 입금계좌</p>
+        <div className="overflow-x-auto rounded-md border border-[#E4E2D8]">
+          <table className="w-full text-left text-[12px]">
+            <thead>
+              <tr className="border-b border-[#E4E2D8] bg-[#FAF9F5] text-[#9A9890]">
+                <th className="whitespace-nowrap px-3 py-2 font-medium">대표계좌</th>
+                <th className="whitespace-nowrap px-3 py-2 font-medium">은행명</th>
+                <th className="whitespace-nowrap px-3 py-2 font-medium">계좌번호</th>
+                <th className="whitespace-nowrap px-3 py-2 font-medium">예금주</th>
+                <th className="whitespace-nowrap px-3 py-2 font-medium">자동입금알림</th>
+                <th className="whitespace-nowrap px-3 py-2 font-medium">노출여부</th>
+                <th className="whitespace-nowrap px-3 py-2 font-medium">관리</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="px-3 py-2">
+                  <input
+                    type="radio"
+                    name="primaryAccount"
+                    checked={primaryAccount}
+                    onChange={() => setPrimaryAccount(true)}
+                    className="h-3.5 w-3.5 accent-[#993556]"
+                  />
+                </td>
+                <td className="px-3 py-2">
+                  <select className={`${cellFieldClass} min-w-[110px]`} defaultValue="">
+                    <option value="" disabled>
+                      은행선택
+                    </option>
+                  </select>
+                </td>
+                <td className="px-3 py-2">
+                  <input type="text" placeholder="계좌번호 입력" className={`${cellFieldClass} min-w-[130px]`} />
+                </td>
+                <td className="px-3 py-2">
+                  <input type="text" placeholder="예금주 입력" className={`${cellFieldClass} min-w-[100px]`} />
+                </td>
+                <td className="px-3 py-2">
+                  <button
+                    type="button"
+                    className="whitespace-nowrap rounded-md bg-[#E8801A] px-3 py-1.5 text-[11px] font-medium text-white"
+                  >
+                    자동입금확인 연동
+                  </button>
+                </td>
+                <td className="px-3 py-2">
+                  <div className="flex items-center gap-3">
+                    <RadioOption
+                      name="visibility"
+                      label="보임"
+                      checked={visibility === "보임"}
+                      onChange={() => setVisibility("보임")}
+                    />
+                    <RadioOption
+                      name="visibility"
+                      label="숨김"
+                      checked={visibility === "숨김"}
+                      onChange={() => setVisibility("숨김")}
+                    />
+                  </div>
+                </td>
+                <td className="px-3 py-2">
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      className="whitespace-nowrap rounded-md border border-[#E4E2D8] px-3 py-1.5 text-[11px] text-[#5F5E5A]"
+                    >
+                      적용
+                    </button>
+                    <button
+                      type="button"
+                      className="whitespace-nowrap rounded-md bg-[#D8342A] px-3 py-1.5 text-[11px] font-medium text-white"
+                    >
+                      삭제
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="mt-8 border-t border-[#E4E2D8] pt-6">
+        <div className="flex items-center gap-2">
+          <p className="text-[16px] font-bold text-[#2C2C2A]">결제수단 설정</p>
+          <span className="text-[11px] text-[#9A9890]">PG 서비스 신청이 필요합니다.</span>
+        </div>
+        <p className="mt-2 text-[11px] leading-relaxed text-[#9A9890]">
+          · 틱톡에 상품 URL을 노출하실 경우, 틱톡 정책상 무통장입금 또는 신용카드 수기결제만
+          이용 가능하며 해당 결제수단이 사용함으로 설정되어 있는지 확인해 주세요.
+        </p>
+
+        <div className="mt-4 border-t border-[#E4E2D8]" />
+
+        <div className="mt-4 flex items-start gap-2 rounded-lg p-3.5" style={{ backgroundColor: "#F1EFE8" }}>
+          <InfoIcon />
+          <p className="text-[12px] leading-relaxed text-[#5F5E5A]">
+            PG 설정이 완료되지 않았습니다.{" "}
+            <span className="text-[#639922] underline underline-offset-2">PG 서비스 신청</span>을
+            먼저 진행해 주세요.
+          </p>
+        </div>
+
+        <div className="mt-4 overflow-x-auto rounded-md border border-[#E4E2D8]">
+          <table className="w-full text-left text-[12px]">
+            <thead>
+              <tr className="border-b border-[#E4E2D8] bg-[#FAF9F5] text-[#9A9890]">
+                <th className="px-3 py-2 font-medium" />
+                <th className="whitespace-nowrap px-3 py-2 font-medium">노출 순서</th>
+                <th className="whitespace-nowrap px-3 py-2 font-medium">사용여부</th>
+                <th className="whitespace-nowrap px-3 py-2 font-medium">결제수단 명칭</th>
+                <th className="whitespace-nowrap px-3 py-2 font-medium">혜택 노출</th>
+                <th className="whitespace-nowrap px-3 py-2 font-medium">수수료</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="px-3 py-2 text-[#C7C5BB]">
+                  <DragHandleIcon />
+                </td>
+                <td className="px-3 py-2 text-[#5F5E5A]">1</td>
+                <td className="px-3 py-2">
+                  <ToggleSwitch checked={methodEnabled} onChange={() => setMethodEnabled((v) => !v)} />
+                </td>
+                <td className="px-3 py-2">
+                  <div className="flex items-center gap-1.5">
+                    <input
+                      type="text"
+                      value={methodName}
+                      maxLength={12}
+                      onChange={(e) => setMethodName(e.target.value.slice(0, 12))}
+                      className={`${cellFieldClass} w-28`}
+                    />
+                    <span className="whitespace-nowrap text-[10px] text-[#9A9890]">
+                      {methodName.length}/12
+                    </span>
+                  </div>
+                </td>
+                <td className="px-3 py-2">
+                  <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-[#5F5E5A]">
+                    <input
+                      type="checkbox"
+                      checked={hideBenefit}
+                      onChange={() => setHideBenefit((v) => !v)}
+                      className="h-3.5 w-3.5 accent-[#993556]"
+                    />
+                    주문시 입금통장 미노출
+                  </label>
+                </td>
+                <td className="px-3 py-2 text-[#9A9890]">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-3">
+        <button
+          type="button"
+          className="rounded-md border border-[#E4E2D8] px-6 py-2.5 text-[13px] text-[#9A9890]"
+        >
+          건너뛰기
+        </button>
+        <button
+          type="button"
+          className="rounded-md bg-[#2C2C2A] px-6 py-2.5 text-[13px] font-medium text-white"
+        >
+          저장하기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ChecklistPanel() {
   const [selectedId, setSelectedId] = useState(1);
 
@@ -427,6 +683,8 @@ export default function ChecklistPanel() {
 
           {selected.id === 5 ? (
             <BusinessInfoForm />
+          ) : selected.id === 14 ? (
+            <CashDepositForm />
           ) : (
             <div className="mt-4 w-[180px] rounded-[10px] border border-[#E4E2D8] bg-[#FAF9F5] p-3 text-left">
               <p className="text-[11px] font-semibold text-[#2C2C2A]">{selected.previewTitle}</p>
