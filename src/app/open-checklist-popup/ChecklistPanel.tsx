@@ -153,6 +153,206 @@ function ItemCircle({ active }: { active: boolean }) {
   );
 }
 
+function RequiredMark() {
+  return <span className="mr-1 text-[#639922]">✔</span>;
+}
+
+function WarningIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      fill="none"
+      stroke="#D8342A"
+      strokeWidth="2"
+      className="mt-0.5 shrink-0"
+    >
+      <path d="M12 3L22 20H2L12 3Z" strokeLinejoin="round" />
+      <path d="M12 9.5V14" strokeLinecap="round" />
+      <circle cx="12" cy="17.2" r="0.6" fill="#D8342A" stroke="none" />
+    </svg>
+  );
+}
+
+const inputClass =
+  "w-full rounded-md border border-[#E4E2D8] px-3 py-2 text-[13px] text-[#2C2C2A] placeholder:text-[#B8B6AC] outline-none focus:border-[#993556]";
+
+function RadioOption({
+  name,
+  label,
+  checked,
+  onChange,
+}: {
+  name: string;
+  label: string;
+  checked: boolean;
+  onChange: () => void;
+}) {
+  return (
+    <label className="flex items-center gap-1.5 text-[13px] text-[#5F5E5A]">
+      <input
+        type="radio"
+        name={name}
+        checked={checked}
+        onChange={onChange}
+        className="h-3.5 w-3.5 accent-[#993556]"
+      />
+      {label}
+    </label>
+  );
+}
+
+function BusinessInfoForm() {
+  const [bizType, setBizType] = useState("법인사업자");
+  const [salesReport, setSalesReport] = useState("비대상");
+
+  return (
+    <div className="mt-4 w-full max-w-[600px]">
+      <div className="flex items-center gap-2">
+        <p className="text-[16px] font-bold text-[#2C2C2A]">사업자 정보</p>
+        <span className="text-[11px] text-[#639922]">✔ 표시 필수항목</span>
+      </div>
+
+      <div className="mt-5 space-y-4">
+        <div>
+          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">사업자 구분</p>
+          <div className="flex items-center gap-4">
+            {["개인사업자", "법인사업자", "개인"].map((label) => (
+              <RadioOption
+                key={label}
+                name="bizType"
+                label={label}
+                checked={bizType === label}
+                onChange={() => setBizType(label)}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+            <RequiredMark />
+            상호명
+          </p>
+          <input type="text" placeholder="상호명 입력" className={inputClass} />
+        </div>
+
+        <div>
+          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+            <RequiredMark />
+            대표자 성함
+          </p>
+          <input type="text" placeholder="성함 입력" className={inputClass} />
+        </div>
+
+        <div>
+          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+            <RequiredMark />
+            사업자등록번호
+          </p>
+          <input type="text" placeholder="사업자등록번호 입력" className={inputClass} />
+        </div>
+
+        <div>
+          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+            <RequiredMark />
+            업태/업종
+          </p>
+          <div className="flex gap-2">
+            <input type="text" placeholder="업태 입력" className={inputClass} />
+            <input type="text" placeholder="업종 입력" className={inputClass} />
+          </div>
+        </div>
+
+        <div>
+          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+            <RequiredMark />
+            통신판매신고번호
+          </p>
+          <div className="flex items-center gap-4">
+            {["비대상", "준비중", "입력"].map((label) => (
+              <RadioOption
+                key={label}
+                name="salesReport"
+                label={label}
+                checked={salesReport === label}
+                onChange={() => setSalesReport(label)}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+            <RequiredMark />
+            주소
+          </p>
+          <div className="flex gap-2">
+            <input type="text" placeholder="우편번호" className={inputClass} />
+            <button
+              type="button"
+              className="shrink-0 rounded-md bg-[#F0EFE9] px-4 py-2 text-[13px] font-medium text-[#5F5E5A]"
+            >
+              우편번호 찾기
+            </button>
+          </div>
+          <div className="mt-2 space-y-2">
+            <input type="text" placeholder="기본주소" className={inputClass} />
+            <input type="text" placeholder="상세주소" className={inputClass} />
+          </div>
+        </div>
+
+        <div>
+          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+            <RequiredMark />
+            대표 전화번호
+          </p>
+          <input type="text" placeholder="연락처 입력" className={inputClass} />
+          <div
+            className="mt-2 flex items-start gap-2 rounded-lg px-3.5 py-3"
+            style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+          >
+            <WarningIcon />
+            <p className="text-[12px] leading-relaxed text-[#5F5E5A]">
+              <span className="font-bold text-[#D8342A]">휴대폰 번호로는 심사가 불가능</span>
+              하며, 반드시 <span className="font-bold text-[#D8342A]">일반 유선전화</span>로
+              등록해 주세요.
+              <br />
+              안심번호도 대표 전화번호로 등록 가능합니다.
+              <br />
+              번호 예시) 080, 0507, 0506, 0130, 0030 등
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+            <RequiredMark />
+            대표 팩스번호
+          </p>
+          <input type="text" placeholder="연락처 입력" className={inputClass} />
+        </div>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-3">
+        <button
+          type="button"
+          className="rounded-md border border-[#E4E2D8] px-6 py-2.5 text-[13px] text-[#9A9890]"
+        >
+          건너뛰기
+        </button>
+        <button
+          type="button"
+          className="rounded-md bg-[#2C2C2A] px-6 py-2.5 text-[13px] font-medium text-white"
+        >
+          저장하기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ChecklistPanel() {
   const [selectedId, setSelectedId] = useState(1);
 
@@ -215,16 +415,20 @@ export default function ChecklistPanel() {
           <h2 className="mt-3 text-[20px] font-bold text-[#2C2C2A]">{selected.title}</h2>
           <p className="mt-2 text-[13px] leading-relaxed text-[#888780]">{selected.description}</p>
 
-          <div className="mt-4 w-[180px] rounded-[10px] border border-[#E4E2D8] bg-[#FAF9F5] p-3 text-left">
-            <p className="text-[11px] font-semibold text-[#2C2C2A]">{selected.previewTitle}</p>
-            <div className="mt-1.5 space-y-1">
-              {selected.previewRows.map((row) => (
-                <p key={row} className="text-[10px] leading-snug text-[#888780]">
-                  {row}
-                </p>
-              ))}
+          {selected.id === 5 ? (
+            <BusinessInfoForm />
+          ) : (
+            <div className="mt-4 w-[180px] rounded-[10px] border border-[#E4E2D8] bg-[#FAF9F5] p-3 text-left">
+              <p className="text-[11px] font-semibold text-[#2C2C2A]">{selected.previewTitle}</p>
+              <div className="mt-1.5 space-y-1">
+                {selected.previewRows.map((row) => (
+                  <p key={row} className="text-[10px] leading-snug text-[#888780]">
+                    {row}
+                  </p>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
   );
