@@ -583,6 +583,228 @@ function CashDepositForm() {
   );
 }
 
+function BulkChangeButton() {
+  return (
+    <button
+      type="button"
+      className="rounded border border-[#E4E2D8] bg-white px-2 py-0.5 text-[10px] font-medium text-[#5F5E5A]"
+    >
+      일괄변경
+    </button>
+  );
+}
+
+function SupplierListForm() {
+  const [smsConsent, setSmsConsent] = useState(false);
+  const [rowSelected, setRowSelected] = useState(false);
+  const [excelDownloadType, setExcelDownloadType] = useState("옵션별 엑셀내려받기");
+  const [excelGenerateType, setExcelGenerateType] = useState("상품별 파일");
+
+  return (
+    <div className="mt-4 w-full">
+      <p className="text-[16px] font-bold text-[#2C2C2A]">공급사 리스트</p>
+
+      <div
+        className="mt-3 flex items-start gap-2 rounded-lg px-4 py-3.5"
+        style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+      >
+        <WarningIcon />
+        <p className="text-[12px] leading-relaxed text-[#993556]">
+          <span className="font-bold">자체적으로 배송하고 계신다면 별도의 공급사가 없어도 괜찮아요.</span>
+          <br />
+          이 경우엔 <span className="font-bold">내 사업자 정보를 그대로 입력</span>하시면 됩니다.
+        </p>
+      </div>
+
+      <div className="mt-3 space-y-1 text-[11px] leading-relaxed text-[#9A9890]">
+        <p>· 등록 시 업체명, 이메일은 필수 입력 사항입니다. 정산메일 발송 시엔 담당자 정보까지 입력해야 합니다.</p>
+        <p>· 등록된 공급사 삭제 시 원복 불가합니다.</p>
+      </div>
+
+      <div className="mt-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="text-[13px] text-[#5F5E5A]">선택한 공급사</span>
+          <button
+            type="button"
+            className="rounded-md bg-[#D8342A] px-3 py-1.5 text-[12px] font-medium text-white"
+          >
+            삭제
+          </button>
+        </div>
+        <button
+          type="button"
+          className="rounded-md bg-[#2C2C2A] px-4 py-2 text-[13px] font-medium text-white"
+        >
+          공급사 등록 +
+        </button>
+      </div>
+
+      <div className="mt-3 overflow-x-auto rounded-md border border-[#E4E2D8]">
+        <table className="w-full text-left text-[12px]" style={{ minWidth: "1500px" }}>
+          <thead>
+            <tr className="border-b border-[#E4E2D8] bg-[#FAF9F5] text-[#9A9890]">
+              <th className="px-3 py-2 font-medium" style={{ minWidth: "40px" }} />
+              <th className="px-3 py-2 font-medium" style={{ minWidth: "50px" }}>
+                순서
+              </th>
+              <th className="px-3 py-2 font-medium" style={{ minWidth: "160px" }}>
+                업체명 · 메모(검색용)
+              </th>
+              <th className="px-3 py-2 font-medium" style={{ minWidth: "180px" }}>
+                사업자등록번호 · 공급사 주소 · SMS 수신동의
+              </th>
+              <th className="px-3 py-2 font-medium" style={{ minWidth: "160px" }}>
+                담당자 · 연락처 · SMS발송번호
+              </th>
+              <th className="px-3 py-2 font-medium" style={{ minWidth: "180px" }}>
+                이메일 · CS이메일 · 정산 이메일
+              </th>
+              <th className="px-3 py-2 font-medium" style={{ minWidth: "170px" }}>
+                <div className="flex flex-col items-start gap-1">
+                  <span>엑셀 다운로드 형식</span>
+                  <BulkChangeButton />
+                </div>
+              </th>
+              <th className="px-3 py-2 font-medium" style={{ minWidth: "170px" }}>
+                <div className="flex flex-col items-start gap-1">
+                  <span>발주서 엑셀 양식</span>
+                  <BulkChangeButton />
+                </div>
+              </th>
+              <th className="px-3 py-2 font-medium" style={{ minWidth: "180px" }}>
+                <div className="flex flex-col items-start gap-1">
+                  <span>엑셀 생성방식</span>
+                  <BulkChangeButton />
+                </div>
+              </th>
+              <th className="px-3 py-2 font-medium" style={{ minWidth: "150px" }}>
+                거래처 비밀번호
+              </th>
+              <th className="px-3 py-2 font-medium" style={{ minWidth: "100px" }}>
+                관리
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="px-3 py-2 align-top">
+                <input
+                  type="checkbox"
+                  checked={rowSelected}
+                  onChange={() => setRowSelected((v) => !v)}
+                  className="h-3.5 w-3.5 accent-[#993556]"
+                />
+              </td>
+              <td className="px-3 py-2 align-top text-[#5F5E5A]">1</td>
+              <td className="px-3 py-2 align-top">
+                <div className="space-y-2">
+                  <input type="text" placeholder="업체명 입력" className={cellFieldClass} />
+                  <input type="text" placeholder="메모(검색용) 입력" className={cellFieldClass} />
+                </div>
+              </td>
+              <td className="px-3 py-2 align-top">
+                <div className="space-y-2">
+                  <input type="text" placeholder="사업자등록번호 입력" className={cellFieldClass} />
+                  <input type="text" placeholder="공급사 주소 입력" className={cellFieldClass} />
+                  <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-[#5F5E5A]">
+                    <input
+                      type="checkbox"
+                      checked={smsConsent}
+                      onChange={() => setSmsConsent((v) => !v)}
+                      className="h-3.5 w-3.5 accent-[#993556]"
+                    />
+                    SMS 수신동의
+                  </label>
+                </div>
+              </td>
+              <td className="px-3 py-2 align-top">
+                <div className="space-y-2">
+                  <input type="text" placeholder="담당자명 입력" className={cellFieldClass} />
+                  <input type="text" placeholder="연락처 입력" className={cellFieldClass} />
+                  <input type="text" placeholder="SMS 연락처 입력" className={cellFieldClass} />
+                </div>
+              </td>
+              <td className="px-3 py-2 align-top">
+                <div className="space-y-2">
+                  <input type="text" placeholder="이메일 입력" className={cellFieldClass} />
+                  <input type="text" placeholder="CS이메일 입력" className={cellFieldClass} />
+                  <input type="text" placeholder="정산 이메일 입력" className={cellFieldClass} />
+                  <p className="text-[10px] text-[#9A9890]">콤마(,) 로 복수개 등록가능</p>
+                </div>
+              </td>
+              <td className="px-3 py-2 align-top">
+                <div className="flex flex-col gap-1.5">
+                  {["옵션별 엑셀내려받기", "일반 엑셀내려받기"].map((label) => (
+                    <RadioOption
+                      key={label}
+                      name="excelDownloadType"
+                      label={label}
+                      checked={excelDownloadType === label}
+                      onChange={() => setExcelDownloadType(label)}
+                    />
+                  ))}
+                </div>
+              </td>
+              <td className="px-3 py-2 align-top">
+                <select className={cellFieldClass} defaultValue="발주서 엑셀 기본 양식">
+                  <option>발주서 엑셀 기본 양식</option>
+                </select>
+              </td>
+              <td className="px-3 py-2 align-top">
+                <div className="flex flex-col gap-1.5">
+                  {["단일 파일", "상품별 파일", "단일_상품코드 파일", "단일_공급사 파일"].map((label) => (
+                    <RadioOption
+                      key={label}
+                      name="excelGenerateType"
+                      label={label}
+                      checked={excelGenerateType === label}
+                      onChange={() => setExcelGenerateType(label)}
+                    />
+                  ))}
+                </div>
+              </td>
+              <td className="px-3 py-2 align-top">
+                <input type="password" placeholder="비밀번호 입력" className={cellFieldClass} />
+              </td>
+              <td className="px-3 py-2 align-top">
+                <div className="flex flex-col gap-1.5">
+                  <button
+                    type="button"
+                    className="whitespace-nowrap rounded-md bg-[#F0EFE9] px-3 py-1.5 text-[11px] font-medium text-[#5F5E5A]"
+                  >
+                    등록
+                  </button>
+                  <button
+                    type="button"
+                    className="whitespace-nowrap rounded-md bg-[#D8342A] px-3 py-1.5 text-[11px] font-medium text-white"
+                  >
+                    닫기
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-3">
+        <button
+          type="button"
+          className="rounded-md border border-[#E4E2D8] px-6 py-2.5 text-[13px] text-[#9A9890]"
+        >
+          건너뛰기
+        </button>
+        <button
+          type="button"
+          className="rounded-md bg-[#2C2C2A] px-6 py-2.5 text-[13px] font-medium text-white"
+        >
+          저장하기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ChecklistPanel() {
   const [selectedId, setSelectedId] = useState(1);
 
@@ -667,6 +889,8 @@ export default function ChecklistPanel() {
             <BusinessInfoForm />
           ) : selected.id === 14 ? (
             <CashDepositForm />
+          ) : selected.id === 2 ? (
+            <SupplierListForm />
           ) : (
             <div className="mt-4 w-[180px] rounded-[10px] border border-[#E4E2D8] bg-[#FAF9F5] p-3 text-left">
               <p className="text-[11px] font-semibold text-[#2C2C2A]">{selected.previewTitle}</p>
