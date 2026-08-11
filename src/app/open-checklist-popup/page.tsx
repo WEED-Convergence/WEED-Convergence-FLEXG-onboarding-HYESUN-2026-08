@@ -289,6 +289,11 @@ export default function OpenChecklistPopupPage() {
         <div className="flex items-stretch">
           <AdminLNB />
           <main className="flex-1">
+            <div className="px-6 pb-5 pt-6">
+              <h1 className="text-left text-[16px] font-semibold text-[var(--text-primary)]">
+                오픈 체크리스트
+              </h1>
+            </div>
             <ChecklistPanel />
           </main>
         </div>
