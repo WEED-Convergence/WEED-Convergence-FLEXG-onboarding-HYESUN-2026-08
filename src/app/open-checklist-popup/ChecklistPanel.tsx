@@ -61,7 +61,7 @@ const items: ChecklistItemData[] = [
   {
     id: 5,
     title: "사업자 정보 · 통신판매업신고번호 입력",
-    description: "쇼핑몰 하단에 노출될 사업자 정보와 통신판매업신고번호를 입력해 주세요.",
+    description: "",
     duration: "약 3분이면 완료",
     previewTitle: "사업자 정보",
     previewRows: [
@@ -421,7 +421,9 @@ export default function ChecklistPanel() {
           </div>
 
           <h2 className="mt-3 text-[20px] font-bold text-[#2C2C2A]">{selected.title}</h2>
-          <p className="mt-2 text-[13px] leading-relaxed text-[#888780]">{selected.description}</p>
+          {selected.description && (
+            <p className="mt-2 text-[13px] leading-relaxed text-[#888780]">{selected.description}</p>
+          )}
 
           {selected.id === 5 ? (
             <BusinessInfoForm />
