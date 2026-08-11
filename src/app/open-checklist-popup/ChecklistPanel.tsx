@@ -189,24 +189,6 @@ const inputClass =
 const cellFieldClass =
   "w-full rounded-md border border-[#E4E2D8] bg-white px-2 py-1.5 text-[12px] text-[#2C2C2A] placeholder:text-[#B8B6AC] outline-none focus:border-[#993556]";
 
-function InfoIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="16"
-      height="16"
-      fill="none"
-      stroke="#9A9890"
-      strokeWidth="2"
-      className="mt-0.5 shrink-0"
-    >
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 11V17" strokeLinecap="round" />
-      <circle cx="12" cy="7.5" r="0.6" fill="#9A9890" stroke="none" />
-    </svg>
-  );
-}
-
 function DragHandleIcon() {
   return (
     <svg viewBox="0 0 16 16" width="14" height="14" fill="#C7C5BB">
@@ -421,16 +403,7 @@ function CashDepositForm() {
 
   return (
     <div className="mt-4 w-full max-w-[760px]">
-      <div className="flex items-start gap-2 rounded-lg p-3.5" style={{ backgroundColor: "#F1EFE8" }}>
-        <InfoIcon />
-        <p className="text-[12px] font-semibold leading-relaxed text-[#2C2C2A]">
-          PG 설정이 완료되지 않았습니다.{" "}
-          <span className="text-[#639922] underline underline-offset-2">PG 서비스 신청</span>을
-          먼저 진행해 주세요.
-        </p>
-      </div>
-
-      <p className="mt-6 text-[16px] font-bold text-[#2C2C2A]">무통장입금 설정</p>
+      <p className="text-[16px] font-bold text-[#2C2C2A]">무통장입금 설정</p>
       <div className="mt-3 border-t border-[#E4E2D8]" />
 
       <div className="mt-4 flex items-end gap-2">
@@ -668,6 +641,22 @@ export default function ChecklistPanel() {
             <ClockIcon />
             {selected.duration}
           </div>
+
+          {selected.id === 14 && (
+            <div
+              className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
+              style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+            >
+              <WarningIcon />
+              <p className="text-[12px] leading-relaxed text-[#5F5E5A]">
+                PG 설정이 완료되지 않았습니다.{" "}
+                <span className="font-bold text-[#D8342A] underline underline-offset-2">
+                  PG 서비스 신청
+                </span>
+                을 먼저 진행해 주세요.
+              </p>
+            </div>
+          )}
 
           <h2 className="mt-3 text-[20px] font-bold text-[#2C2C2A]">{selected.title}</h2>
           {selected.description && (
