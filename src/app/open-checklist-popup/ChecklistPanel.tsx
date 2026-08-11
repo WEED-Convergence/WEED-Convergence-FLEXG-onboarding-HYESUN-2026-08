@@ -188,6 +188,15 @@ const inputClass =
 const cellFieldClass =
   "w-full rounded-md border border-[var(--border)] bg-white px-2 py-1.5 text-[12px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
 
+const primaryButtonClass =
+  "rounded-md bg-[var(--cta)] px-4 py-2 text-[13px] font-medium text-white";
+
+const secondaryButtonClass =
+  "rounded-md border border-[var(--border)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)]";
+
+const dangerButtonClass =
+  "rounded-md bg-[var(--accent)] px-3 py-1.5 text-[13px] font-medium text-white";
+
 function DragHandleIcon() {
   return (
     <svg viewBox="0 0 16 16" width="14" height="14" fill="var(--border)">
@@ -216,6 +225,71 @@ function ToggleSwitch({ checked, onChange }: { checked: boolean; onChange: () =>
       />
     </button>
   );
+}
+
+function BrandWordmark({ brand }: { brand: string }) {
+  switch (brand) {
+    case "나이스페이":
+      return (
+        <span className="text-[13px] font-semibold tracking-wide text-[var(--text-primary)]">
+          NICE
+        </span>
+      );
+    case "NHN KCP":
+      return (
+        <span className="text-[13px] font-semibold text-[var(--text-primary)]">NHN KCP</span>
+      );
+    case "EasyPAY":
+      return (
+        <span className="text-[13px] font-semibold">
+          <span style={{ color: "#1B2A4A" }}>Easy</span>
+          <span style={{ color: "#2D6FD1" }}>PAY</span>
+        </span>
+      );
+    case "네이버페이":
+      return (
+        <span className="text-[13px] font-semibold">
+          <span style={{ color: "#03C75A" }}>N</span>
+          <span className="text-[var(--text-primary)]"> Pay</span>
+        </span>
+      );
+    case "카카오페이":
+      return (
+        <span className="text-[13px] font-semibold" style={{ color: "#3C1E1E" }}>
+          kakao pay
+        </span>
+      );
+    case "토스페이":
+      return (
+        <span className="text-[13px] font-medium lowercase" style={{ color: "#1B64DA" }}>
+          toss pay
+        </span>
+      );
+    case "내통장 바로결제":
+      return (
+        <span className="text-[13px] font-semibold" style={{ color: "#1B2A4A" }}>
+          Hecto Financial
+        </span>
+      );
+    case "Apple Pay":
+      return (
+        <span className="text-[13px] font-semibold text-[var(--text-primary)]">Pay</span>
+      );
+    case "페이코":
+      return (
+        <span className="text-[13px] font-semibold" style={{ color: "#E4032E" }}>
+          PAYCO
+        </span>
+      );
+    case "페이유":
+      return (
+        <span className="text-[13px] font-semibold" style={{ color: "#1D4FD6" }}>
+          PAY·U
+        </span>
+      );
+    default:
+      return <span className="text-[13px] font-medium text-[var(--text-primary)]">{brand}</span>;
+  }
 }
 
 function RadioOption({
@@ -248,13 +322,10 @@ function BusinessInfoForm() {
   const [salesReport, setSalesReport] = useState("비대상");
 
   return (
-    <div className="mt-4 w-full max-w-[600px]">
-      <div className="flex items-center gap-2">
-        <p className="text-[16px] font-semibold text-[var(--text-primary)]">사업자 정보</p>
-        <span className="text-[11px] text-[var(--success)]">✔ 표시 필수항목</span>
-      </div>
+    <div className="mt-6 w-full max-w-[600px]">
+      <p className="text-[11px] text-[var(--success)]">✔ 표시 필수항목</p>
 
-      <div className="mt-5 space-y-4">
+      <div className="mt-4 space-y-6">
         <div>
           <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자 구분</p>
           <div className="flex items-center gap-4">
@@ -330,10 +401,7 @@ function BusinessInfoForm() {
           </p>
           <div className="flex gap-2">
             <input type="text" placeholder="우편번호" className={inputClass} />
-            <button
-              type="button"
-              className="shrink-0 rounded-md bg-[var(--accent-soft-bg)] px-4 py-2 text-[13px] font-medium text-[var(--text-secondary)]"
-            >
+            <button type="button" className={`shrink-0 ${secondaryButtonClass}`}>
               우편번호 찾기
             </button>
           </div>
@@ -401,11 +469,8 @@ function CashDepositForm() {
   const [hideBenefit, setHideBenefit] = useState(false);
 
   return (
-    <div className="mt-4 w-full max-w-[760px]">
-      <p className="text-[16px] font-semibold text-[var(--text-primary)]">무통장입금 설정</p>
-      <div className="mt-3 border-t border-[var(--divider)]" />
-
-      <div className="mt-4 flex items-end gap-2">
+    <div className="mt-6 w-full max-w-[760px]">
+      <div className="flex items-end gap-2">
         <select className={`${cellFieldClass} flex-1`} defaultValue="">
           <option value="" disabled>
             은행선택
@@ -413,10 +478,7 @@ function CashDepositForm() {
         </select>
         <input type="text" placeholder="계좌번호 입력" className={`${cellFieldClass} flex-1`} />
         <input type="text" placeholder="예금주 입력" className={`${cellFieldClass} flex-1`} />
-        <button
-          type="button"
-          className="shrink-0 rounded-md bg-[var(--accent-soft-bg)] px-4 py-2 text-[13px] font-medium text-[var(--text-secondary)]"
-        >
+        <button type="button" className={`shrink-0 ${primaryButtonClass}`}>
           등록
         </button>
       </div>
@@ -461,10 +523,7 @@ function CashDepositForm() {
                   <input type="text" placeholder="예금주 입력" className={`${cellFieldClass} min-w-[100px]`} />
                 </td>
                 <td className="px-3 py-2">
-                  <button
-                    type="button"
-                    className="whitespace-nowrap rounded-md bg-[var(--accent)] px-3 py-1.5 text-[13px] font-medium text-white"
-                  >
+                  <button type="button" className={`whitespace-nowrap ${secondaryButtonClass}`}>
                     자동입금확인 연동
                   </button>
                 </td>
@@ -486,16 +545,10 @@ function CashDepositForm() {
                 </td>
                 <td className="px-3 py-2">
                   <div className="flex items-center gap-1.5">
-                    <button
-                      type="button"
-                      className="whitespace-nowrap rounded-md border border-[var(--border)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)]"
-                    >
+                    <button type="button" className={`whitespace-nowrap ${secondaryButtonClass}`}>
                       적용
                     </button>
-                    <button
-                      type="button"
-                      className="whitespace-nowrap rounded-md bg-[var(--accent)] px-3 py-1.5 text-[13px] font-medium text-white"
-                    >
+                    <button type="button" className={`whitespace-nowrap ${dangerButtonClass}`}>
                       삭제
                     </button>
                   </div>
@@ -584,10 +637,7 @@ function CashDepositForm() {
 
 function BulkChangeButton() {
   return (
-    <button
-      type="button"
-      className="rounded border border-[var(--border)] bg-white px-2 py-0.5 text-[13px] font-medium text-[var(--text-secondary)]"
-    >
+    <button type="button" className={secondaryButtonClass}>
       일괄변경
     </button>
   );
@@ -600,33 +650,25 @@ function SupplierListForm() {
   const [excelGenerateType, setExcelGenerateType] = useState("상품별 파일");
 
   return (
-    <div className="mt-4 w-full">
-      <p className="text-[16px] font-semibold text-[var(--text-primary)]">공급사 리스트</p>
-
-      <div className="mt-3 space-y-1 text-[11px] leading-relaxed text-[var(--text-muted)]">
+    <div className="mt-6 w-full">
+      <div className="space-y-1 text-[11px] leading-relaxed text-[var(--text-muted)]">
         <p>· 등록 시 업체명, 이메일은 필수 입력 사항입니다. 정산메일 발송 시엔 담당자 정보까지 입력해야 합니다.</p>
         <p>· 등록된 공급사 삭제 시 원복 불가합니다.</p>
       </div>
 
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-[13px] text-[var(--text-secondary)]">선택한 공급사</span>
-          <button
-            type="button"
-            className="rounded-md bg-[var(--accent)] px-3 py-1.5 text-[13px] font-medium text-white"
-          >
+          <button type="button" className={dangerButtonClass}>
             삭제
           </button>
         </div>
-        <button
-          type="button"
-          className="rounded-md bg-[var(--cta)] px-4 py-2 text-[13px] font-medium text-white"
-        >
+        <button type="button" className={primaryButtonClass}>
           공급사 등록 +
         </button>
       </div>
 
-      <div className="mt-3 overflow-x-auto rounded-md border border-[var(--border)]">
+      <div className="mt-6 overflow-x-auto rounded-md border border-[var(--border)]">
         <table className="w-full text-left text-[12px]" style={{ minWidth: "1500px" }}>
           <thead>
             <tr className="border-b border-[var(--divider)] bg-[var(--surface-1)] text-[var(--text-muted)]">
@@ -755,16 +797,10 @@ function SupplierListForm() {
               </td>
               <td className="px-3 py-2 align-top">
                 <div className="flex flex-col gap-1.5">
-                  <button
-                    type="button"
-                    className="whitespace-nowrap rounded-md bg-[var(--accent-soft-bg)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)]"
-                  >
+                  <button type="button" className={`whitespace-nowrap ${primaryButtonClass}`}>
                     등록
                   </button>
-                  <button
-                    type="button"
-                    className="whitespace-nowrap rounded-md bg-[var(--accent)] px-3 py-1.5 text-[11px] font-medium text-white"
-                  >
+                  <button type="button" className={`whitespace-nowrap ${secondaryButtonClass}`}>
                     닫기
                   </button>
                 </div>
@@ -820,28 +856,30 @@ const contractPayments: EasyPayItem[] = [
   { name: "내통장 바로결제", desc: "헥토파이낸셜, 별도 계약 필요" },
 ];
 
-const includedPayments: string[] = ["Apple Pay", "페이코", "페이유 (자체 간편결제)"];
+interface IncludedPayment {
+  brand: string;
+  note?: string;
+}
+
+const includedPayments: IncludedPayment[] = [
+  { brand: "Apple Pay" },
+  { brand: "페이코" },
+  { brand: "페이유", note: "자체 간편결제" },
+];
 
 function PgApplicationForm() {
   const [selectedPg, setSelectedPg] = useState("EasyPAY");
 
   return (
-    <div className="mt-4 w-full max-w-[640px]">
-      <p className="text-[16px] font-semibold text-[var(--text-primary)]">PG 서비스 신청</p>
-      <p className="mt-2 text-[11px] leading-relaxed text-[var(--text-muted)]">
-        · 전자결제는 신용카드, 계좌이체 등으로 결제할 수 있게 해주는 수단이에요. 쇼핑몰은 반드시
-        PG 신청을 해야 전자결제를 이용할 수 있어요.
-      </p>
-      <div className="mt-4 border-t border-[var(--divider)]" />
-
-      <div className="mt-4">
+    <div className="mt-6 w-full max-w-[640px]">
+      <div>
         <p className="text-[12px] font-semibold text-[var(--text-primary)]">PG사를 선택해 주세요</p>
         <div className="mt-2">
           {pgOptions.map((option) => {
             const checked = selectedPg === option.name;
             return (
               <div key={option.name} className="border-b border-[var(--divider)] last:border-0">
-                <label className="flex items-center gap-2.5 py-3">
+                <label className="flex items-center gap-3 py-3">
                   <input
                     type="radio"
                     name="pgOption"
@@ -849,11 +887,8 @@ function PgApplicationForm() {
                     onChange={() => setSelectedPg(option.name)}
                     className="h-3.5 w-3.5 shrink-0 accent-[var(--accent)]"
                   />
-                  <span
-                    className="w-[90px] shrink-0 text-[12px] font-medium"
-                    style={{ color: checked ? "var(--accent)" : "var(--text-primary)" }}
-                  >
-                    {option.name}
+                  <span className="w-[100px] shrink-0">
+                    <BrandWordmark brand={option.name} />
                   </span>
                   <span className="text-[11px] text-[var(--text-muted)]">{option.summary}</span>
                 </label>
@@ -884,14 +919,11 @@ function PgApplicationForm() {
               key={item.name}
               className="flex items-center gap-3 border-b border-[var(--divider)] py-3 last:border-0"
             >
-              <span className="w-[110px] shrink-0 text-[12px] font-medium text-[var(--text-primary)]">
-                {item.name}
+              <span className="w-[110px] shrink-0">
+                <BrandWordmark brand={item.name} />
               </span>
               <span className="flex-1 text-[11px] text-[var(--text-muted)]">{item.desc}</span>
-              <button
-                type="button"
-                className="shrink-0 rounded-md border border-[var(--border)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)]"
-              >
+              <button type="button" className={`shrink-0 ${secondaryButtonClass}`}>
                 신청하기
               </button>
             </div>
@@ -902,12 +934,17 @@ function PgApplicationForm() {
       <div className="mt-6">
         <p className="text-[12px] font-semibold text-[var(--text-primary)]">PG 연동 간편결제 서비스</p>
         <div className="mt-2">
-          {includedPayments.map((name) => (
+          {includedPayments.map((item) => (
             <div
-              key={name}
+              key={item.brand}
               className="flex items-center justify-between border-b border-[var(--divider)] py-3 last:border-0"
             >
-              <span className="text-[12px] text-[var(--text-primary)]">{name}</span>
+              <span className="flex items-center gap-2">
+                <BrandWordmark brand={item.brand} />
+                {item.note ? (
+                  <span className="text-[11px] text-[var(--text-muted)]">({item.note})</span>
+                ) : null}
+              </span>
               <span
                 className="rounded-full px-2.5 py-1 text-[11px] font-medium"
                 style={{ backgroundColor: "var(--accent-soft-bg)", color: "var(--success)" }}
