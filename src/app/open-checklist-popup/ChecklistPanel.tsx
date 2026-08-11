@@ -421,7 +421,16 @@ function CashDepositForm() {
 
   return (
     <div className="mt-4 w-full max-w-[760px]">
-      <p className="text-[16px] font-bold text-[#2C2C2A]">무통장입금 설정</p>
+      <div className="flex items-start gap-2 rounded-lg p-3.5" style={{ backgroundColor: "#F1EFE8" }}>
+        <InfoIcon />
+        <p className="text-[12px] font-semibold leading-relaxed text-[#2C2C2A]">
+          PG 설정이 완료되지 않았습니다.{" "}
+          <span className="text-[#639922] underline underline-offset-2">PG 서비스 신청</span>을
+          먼저 진행해 주세요.
+        </p>
+      </div>
+
+      <p className="mt-6 text-[16px] font-bold text-[#2C2C2A]">무통장입금 설정</p>
       <div className="mt-3 border-t border-[#E4E2D8]" />
 
       <div className="mt-4 flex items-end gap-2">
@@ -529,15 +538,6 @@ function CashDepositForm() {
         <p className="text-[16px] font-bold text-[#2C2C2A]">결제수단 설정</p>
 
         <div className="mt-4 border-t border-[#E4E2D8]" />
-
-        <div className="mt-4 flex items-start gap-2 rounded-lg p-3.5" style={{ backgroundColor: "#F1EFE8" }}>
-          <InfoIcon />
-          <p className="text-[12px] font-semibold leading-relaxed text-[#2C2C2A]">
-            PG 설정이 완료되지 않았습니다.{" "}
-            <span className="text-[#639922] underline underline-offset-2">PG 서비스 신청</span>을
-            먼저 진행해 주세요.
-          </p>
-        </div>
 
         <div className="mt-4 overflow-x-auto rounded-md border border-[#E4E2D8]">
           <table className="w-full text-left text-[12px]">
