@@ -36,8 +36,7 @@ const items: ChecklistItemData[] = [
   {
     id: 2,
     title: "공급사 등록하기",
-    description:
-      "상품을 공급받을 업체 정보를 등록해 주세요. 자체배송인 경우 사업자 정보로 등록하면 됩니다.",
+    description: "",
     duration: "약 2분이면 완료",
     previewTitle: "공급사 정보 입력",
     previewRows: ["공급사명: (주)이수모상사", "담당자: 김담당", "연락처: 02-123-4567"],
@@ -604,18 +603,6 @@ function SupplierListForm() {
     <div className="mt-4 w-full">
       <p className="text-[16px] font-semibold text-[var(--text-primary)]">공급사 리스트</p>
 
-      <div
-        className="mt-3 flex items-start gap-2 rounded-lg px-4 py-3.5"
-        style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
-      >
-        <WarningIcon />
-        <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
-          <span className="font-semibold">자체적으로 배송하고 계신다면 별도의 공급사가 없어도 괜찮아요.</span>
-          <br />
-          이 경우엔 <span className="font-semibold">내 사업자 정보를 그대로 입력</span>하시면 됩니다.
-        </p>
-      </div>
-
       <div className="mt-3 space-y-1 text-[11px] leading-relaxed text-[var(--text-muted)]">
         <p>· 등록 시 업체명, 이메일은 필수 입력 사항입니다. 정산메일 발송 시엔 담당자 정보까지 입력해야 합니다.</p>
         <p>· 등록된 공급사 삭제 시 원복 불가합니다.</p>
@@ -876,6 +863,20 @@ export default function ChecklistPanel() {
                   PG 서비스 신청
                 </span>
                 을 먼저 진행해 주세요.
+              </p>
+            </div>
+          )}
+
+          {selected.id === 2 && (
+            <div
+              className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
+              style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
+            >
+              <WarningIcon />
+              <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
+                <span className="font-semibold">자체적으로 배송하고 계신다면 별도의 공급사가 없어도 괜찮아요.</span>
+                <br />
+                이 경우엔 <span className="font-semibold">내 사업자 정보를 그대로 입력</span>하시면 됩니다.
               </p>
             </div>
           )}
