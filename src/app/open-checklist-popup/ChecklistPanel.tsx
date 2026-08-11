@@ -144,21 +144,13 @@ const items: ChecklistItemData[] = [
     previewTitle: "라이브 설정",
     previewRows: ["방송 채널: 미연동", "판매 상품: 미지정"],
   },
-  {
-    id: 13,
-    title: "디자인 설정하기",
-    description: "선택한 템플릿의 색상, 폰트, 배너 등을 원하는 대로 꾸며주세요.",
-    duration: "약 10분이면 완료",
-    previewTitle: "디자인 편집",
-    previewRows: ["테마 색상: 기본", "로고: 미등록", "메인 배너: 미등록"],
-  },
 ];
 
 const categories: CategoryData[] = [
   { name: "결제 준비", itemIds: [1, 14, 2, 3, 4, 5] },
   { name: "운영 필수 정보", itemIds: [6, 7, 8] },
   { name: "권장 설정 기능", itemIds: [9, 10, 15, 16] },
-  { name: "매출 확장 기능", itemIds: [11, 12, 13] },
+  { name: "매출 확장 기능", itemIds: [11, 12] },
 ];
 
 function ClockIcon() {
@@ -1043,7 +1035,7 @@ export default function ChecklistPanel() {
           <div className="pr-6">
             <div className="flex items-center justify-between">
               <span className="text-[12px] text-[var(--text-muted)]">전체 진행률</span>
-              <span className="text-[12px] text-[var(--text-muted)]">0/16개 · 0%</span>
+              <span className="text-[12px] text-[var(--text-muted)]">0/15개 · 0%</span>
             </div>
             <div className="mt-1.5 h-[5px] w-full rounded-full bg-[var(--divider)]">
               <div className="h-[5px] rounded-full bg-[var(--accent)]" style={{ width: "0%" }} />
