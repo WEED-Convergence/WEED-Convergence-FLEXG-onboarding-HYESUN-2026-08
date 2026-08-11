@@ -526,20 +526,13 @@ function CashDepositForm() {
       </div>
 
       <div className="mt-8 border-t border-[#E4E2D8] pt-6">
-        <div className="flex items-center gap-2">
-          <p className="text-[16px] font-bold text-[#2C2C2A]">결제수단 설정</p>
-          <span className="text-[11px] text-[#9A9890]">PG 서비스 신청이 필요합니다.</span>
-        </div>
-        <p className="mt-2 text-[11px] leading-relaxed text-[#9A9890]">
-          · 틱톡에 상품 URL을 노출하실 경우, 틱톡 정책상 무통장입금 또는 신용카드 수기결제만
-          이용 가능하며 해당 결제수단이 사용함으로 설정되어 있는지 확인해 주세요.
-        </p>
+        <p className="text-[16px] font-bold text-[#2C2C2A]">결제수단 설정</p>
 
         <div className="mt-4 border-t border-[#E4E2D8]" />
 
         <div className="mt-4 flex items-start gap-2 rounded-lg p-3.5" style={{ backgroundColor: "#F1EFE8" }}>
           <InfoIcon />
-          <p className="text-[12px] leading-relaxed text-[#5F5E5A]">
+          <p className="text-[12px] font-semibold leading-relaxed text-[#2C2C2A]">
             PG 설정이 완료되지 않았습니다.{" "}
             <span className="text-[#639922] underline underline-offset-2">PG 서비스 신청</span>을
             먼저 진행해 주세요.
