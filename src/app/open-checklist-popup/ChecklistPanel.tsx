@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
@@ -145,7 +145,7 @@ const categories: CategoryData[] = [
 
 function ClockIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#993556" strokeWidth="1.8">
+    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--accent-text)" strokeWidth="1.8">
       <circle cx="12" cy="12" r="9" />
       <path d="M12 7V12L15.5 14" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -156,13 +156,13 @@ function ItemCircle({ active }: { active: boolean }) {
   return (
     <span
       className="h-3.5 w-3.5 shrink-0 rounded-full border"
-      style={{ borderColor: active ? "#D8342A" : "#C7C5BB" }}
+      style={{ borderColor: active ? "var(--accent)" : "var(--border)" }}
     />
   );
 }
 
 function RequiredMark() {
-  return <span className="mr-1 text-[#639922]">✔</span>;
+  return <span className="mr-1 text-[var(--success)]">✔</span>;
 }
 
 function WarningIcon() {
@@ -172,26 +172,26 @@ function WarningIcon() {
       width="16"
       height="16"
       fill="none"
-      stroke="#D8342A"
+      stroke="var(--accent)"
       strokeWidth="2"
       className="mt-0.5 shrink-0"
     >
       <path d="M12 3L22 20H2L12 3Z" strokeLinejoin="round" />
       <path d="M12 9.5V14" strokeLinecap="round" />
-      <circle cx="12" cy="17.2" r="0.6" fill="#D8342A" stroke="none" />
+      <circle cx="12" cy="17.2" r="0.6" fill="var(--accent)" stroke="none" />
     </svg>
   );
 }
 
 const inputClass =
-  "w-full rounded-md border border-[#E4E2D8] px-3 py-2 text-[13px] text-[#2C2C2A] placeholder:text-[#B8B6AC] outline-none focus:border-[#993556]";
+  "w-full rounded-md border border-[var(--border)] px-3 py-2 text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
 
 const cellFieldClass =
-  "w-full rounded-md border border-[#E4E2D8] bg-white px-2 py-1.5 text-[12px] text-[#2C2C2A] placeholder:text-[#B8B6AC] outline-none focus:border-[#993556]";
+  "w-full rounded-md border border-[var(--border)] bg-white px-2 py-1.5 text-[12px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
 
 function DragHandleIcon() {
   return (
-    <svg viewBox="0 0 16 16" width="14" height="14" fill="#C7C5BB">
+    <svg viewBox="0 0 16 16" width="14" height="14" fill="var(--border)">
       <circle cx="5" cy="3" r="1.2" />
       <circle cx="11" cy="3" r="1.2" />
       <circle cx="5" cy="8" r="1.2" />
@@ -209,7 +209,7 @@ function ToggleSwitch({ checked, onChange }: { checked: boolean; onChange: () =>
       onClick={onChange}
       aria-pressed={checked}
       className="relative h-5 w-9 shrink-0 rounded-full transition-colors"
-      style={{ backgroundColor: checked ? "#639922" : "#D8D6CC" }}
+      style={{ backgroundColor: checked ? "var(--success)" : "var(--border)" }}
     >
       <span
         className="absolute top-0.5 h-4 w-4 rounded-full bg-white transition-transform"
@@ -231,13 +231,13 @@ function RadioOption({
   onChange: () => void;
 }) {
   return (
-    <label className="flex items-center gap-1.5 text-[13px] text-[#5F5E5A]">
+    <label className="flex items-center gap-1.5 text-[13px] text-[var(--text-secondary)]">
       <input
         type="radio"
         name={name}
         checked={checked}
         onChange={onChange}
-        className="h-3.5 w-3.5 accent-[#993556]"
+        className="h-3.5 w-3.5 accent-[var(--accent-text)]"
       />
       {label}
     </label>
@@ -251,13 +251,13 @@ function BusinessInfoForm() {
   return (
     <div className="mt-4 w-full max-w-[600px]">
       <div className="flex items-center gap-2">
-        <p className="text-[16px] font-bold text-[#2C2C2A]">사업자 정보</p>
-        <span className="text-[11px] text-[#639922]">✔ 표시 필수항목</span>
+        <p className="text-[16px] font-semibold text-[var(--text-primary)]">사업자 정보</p>
+        <span className="text-[11px] text-[var(--success)]">✔ 표시 필수항목</span>
       </div>
 
       <div className="mt-5 space-y-4">
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">사업자 구분</p>
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자 구분</p>
           <div className="flex items-center gap-4">
             {["개인사업자", "법인사업자", "개인"].map((label) => (
               <RadioOption
@@ -272,7 +272,7 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
             <RequiredMark />
             상호명
           </p>
@@ -280,7 +280,7 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
             <RequiredMark />
             대표자 성함
           </p>
@@ -288,7 +288,7 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
             <RequiredMark />
             사업자등록번호
           </p>
@@ -296,7 +296,7 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
             <RequiredMark />
             업태/업종
           </p>
@@ -307,7 +307,7 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
             <RequiredMark />
             통신판매신고번호
           </p>
@@ -325,7 +325,7 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
             <RequiredMark />
             주소
           </p>
@@ -333,7 +333,7 @@ function BusinessInfoForm() {
             <input type="text" placeholder="우편번호" className={inputClass} />
             <button
               type="button"
-              className="shrink-0 rounded-md bg-[#F0EFE9] px-4 py-2 text-[13px] font-medium text-[#5F5E5A]"
+              className="shrink-0 rounded-md bg-[var(--accent-soft-bg)] px-4 py-2 text-[13px] font-medium text-[var(--text-secondary)]"
             >
               우편번호 찾기
             </button>
@@ -345,19 +345,19 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
             <RequiredMark />
             대표 전화번호
           </p>
           <input type="text" placeholder="연락처 입력" className={inputClass} />
           <div
             className="mt-2 flex items-start gap-2 rounded-lg px-3.5 py-3"
-            style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+            style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
           >
             <WarningIcon />
-            <p className="text-[12px] leading-relaxed text-[#5F5E5A]">
-              <span className="font-bold text-[#D8342A]">휴대폰 번호로는 심사가 불가능</span>
-              하며, 반드시 <span className="font-bold text-[#D8342A]">일반 유선전화</span>로
+            <p className="text-[12px] leading-relaxed text-[var(--text-secondary)]">
+              <span className="font-semibold text-[var(--accent)]">휴대폰 번호로는 심사가 불가능</span>
+              하며, 반드시 <span className="font-semibold text-[var(--accent)]">일반 유선전화</span>로
               등록해 주세요.
               <br />
               안심번호도 대표 전화번호로 등록 가능합니다.
@@ -368,7 +368,7 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[#2C2C2A]">
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
             <RequiredMark />
             대표 팩스번호
           </p>
@@ -379,13 +379,13 @@ function BusinessInfoForm() {
       <div className="mt-6 flex justify-center gap-3">
         <button
           type="button"
-          className="rounded-md border border-[#E4E2D8] px-6 py-2.5 text-[13px] text-[#9A9890]"
+          className="rounded-md border border-[var(--border)] px-6 py-2.5 text-[13px] text-[var(--text-muted)]"
         >
           건너뛰기
         </button>
         <button
           type="button"
-          className="rounded-md bg-[#2C2C2A] px-6 py-2.5 text-[13px] font-medium text-white"
+          className="rounded-md bg-[var(--cta)] px-6 py-2.5 text-[13px] font-medium text-white"
         >
           저장하기
         </button>
@@ -403,8 +403,8 @@ function CashDepositForm() {
 
   return (
     <div className="mt-4 w-full max-w-[760px]">
-      <p className="text-[16px] font-bold text-[#2C2C2A]">무통장입금 설정</p>
-      <div className="mt-3 border-t border-[#E4E2D8]" />
+      <p className="text-[16px] font-semibold text-[var(--text-primary)]">무통장입금 설정</p>
+      <div className="mt-3 border-t border-[var(--divider)]" />
 
       <div className="mt-4 flex items-end gap-2">
         <select className={`${cellFieldClass} flex-1`} defaultValue="">
@@ -416,18 +416,18 @@ function CashDepositForm() {
         <input type="text" placeholder="예금주 입력" className={`${cellFieldClass} flex-1`} />
         <button
           type="button"
-          className="shrink-0 rounded-md bg-[#F0EFE9] px-4 py-2 text-[13px] font-medium text-[#5F5E5A]"
+          className="shrink-0 rounded-md bg-[var(--accent-soft-bg)] px-4 py-2 text-[13px] font-medium text-[var(--text-secondary)]"
         >
           등록
         </button>
       </div>
 
       <div className="mt-6">
-        <p className="mb-2 text-[13px] font-medium text-[#2C2C2A]">무통장 입금계좌</p>
-        <div className="overflow-x-auto rounded-md border border-[#E4E2D8]">
+        <p className="mb-2 text-[13px] font-medium text-[var(--text-primary)]">무통장 입금계좌</p>
+        <div className="overflow-x-auto rounded-md border border-[var(--border)]">
           <table className="w-full text-left text-[12px]">
             <thead>
-              <tr className="border-b border-[#E4E2D8] bg-[#FAF9F5] text-[#9A9890]">
+              <tr className="border-b border-[var(--divider)] bg-[var(--surface-1)] text-[var(--text-muted)]">
                 <th className="whitespace-nowrap px-3 py-2 font-medium">대표계좌</th>
                 <th className="whitespace-nowrap px-3 py-2 font-medium">은행명</th>
                 <th className="whitespace-nowrap px-3 py-2 font-medium">계좌번호</th>
@@ -445,7 +445,7 @@ function CashDepositForm() {
                     name="primaryAccount"
                     checked={primaryAccount}
                     onChange={() => setPrimaryAccount(true)}
-                    className="h-3.5 w-3.5 accent-[#993556]"
+                    className="h-3.5 w-3.5 accent-[var(--accent-text)]"
                   />
                 </td>
                 <td className="px-3 py-2">
@@ -464,7 +464,7 @@ function CashDepositForm() {
                 <td className="px-3 py-2">
                   <button
                     type="button"
-                    className="whitespace-nowrap rounded-md bg-[#E8801A] px-3 py-1.5 text-[11px] font-medium text-white"
+                    className="whitespace-nowrap rounded-md bg-[var(--accent)] px-3 py-1.5 text-[13px] font-medium text-white"
                   >
                     자동입금확인 연동
                   </button>
@@ -489,13 +489,13 @@ function CashDepositForm() {
                   <div className="flex items-center gap-1.5">
                     <button
                       type="button"
-                      className="whitespace-nowrap rounded-md border border-[#E4E2D8] px-3 py-1.5 text-[11px] text-[#5F5E5A]"
+                      className="whitespace-nowrap rounded-md border border-[var(--border)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)]"
                     >
                       적용
                     </button>
                     <button
                       type="button"
-                      className="whitespace-nowrap rounded-md bg-[#D8342A] px-3 py-1.5 text-[11px] font-medium text-white"
+                      className="whitespace-nowrap rounded-md bg-[var(--accent)] px-3 py-1.5 text-[13px] font-medium text-white"
                     >
                       삭제
                     </button>
@@ -507,15 +507,15 @@ function CashDepositForm() {
         </div>
       </div>
 
-      <div className="mt-8 border-t border-[#E4E2D8] pt-6">
-        <p className="text-[16px] font-bold text-[#2C2C2A]">결제수단 설정</p>
+      <div className="mt-8 border-t border-[var(--divider)] pt-6">
+        <p className="text-[16px] font-semibold text-[var(--text-primary)]">결제수단 설정</p>
 
-        <div className="mt-4 border-t border-[#E4E2D8]" />
+        <div className="mt-4 border-t border-[var(--divider)]" />
 
-        <div className="mt-4 overflow-x-auto rounded-md border border-[#E4E2D8]">
+        <div className="mt-4 overflow-x-auto rounded-md border border-[var(--border)]">
           <table className="w-full text-left text-[12px]">
             <thead>
-              <tr className="border-b border-[#E4E2D8] bg-[#FAF9F5] text-[#9A9890]">
+              <tr className="border-b border-[var(--divider)] bg-[var(--surface-1)] text-[var(--text-muted)]">
                 <th className="px-3 py-2 font-medium" />
                 <th className="whitespace-nowrap px-3 py-2 font-medium">노출 순서</th>
                 <th className="whitespace-nowrap px-3 py-2 font-medium">사용여부</th>
@@ -526,10 +526,10 @@ function CashDepositForm() {
             </thead>
             <tbody>
               <tr>
-                <td className="px-3 py-2 text-[#C7C5BB]">
+                <td className="px-3 py-2 text-[var(--border)]">
                   <DragHandleIcon />
                 </td>
-                <td className="px-3 py-2 text-[#5F5E5A]">1</td>
+                <td className="px-3 py-2 text-[var(--text-secondary)]">1</td>
                 <td className="px-3 py-2">
                   <ToggleSwitch checked={methodEnabled} onChange={() => setMethodEnabled((v) => !v)} />
                 </td>
@@ -542,23 +542,23 @@ function CashDepositForm() {
                       onChange={(e) => setMethodName(e.target.value.slice(0, 12))}
                       className={`${cellFieldClass} w-28`}
                     />
-                    <span className="whitespace-nowrap text-[10px] text-[#9A9890]">
+                    <span className="whitespace-nowrap text-[11px] text-[var(--text-muted)]">
                       {methodName.length}/12
                     </span>
                   </div>
                 </td>
                 <td className="px-3 py-2">
-                  <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-[#5F5E5A]">
+                  <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-[var(--text-secondary)]">
                     <input
                       type="checkbox"
                       checked={hideBenefit}
                       onChange={() => setHideBenefit((v) => !v)}
-                      className="h-3.5 w-3.5 accent-[#993556]"
+                      className="h-3.5 w-3.5 accent-[var(--accent-text)]"
                     />
                     주문시 입금통장 미노출
                   </label>
                 </td>
-                <td className="px-3 py-2 text-[#9A9890]">-</td>
+                <td className="px-3 py-2 text-[var(--text-muted)]">-</td>
               </tr>
             </tbody>
           </table>
@@ -568,13 +568,13 @@ function CashDepositForm() {
       <div className="mt-6 flex justify-center gap-3">
         <button
           type="button"
-          className="rounded-md border border-[#E4E2D8] px-6 py-2.5 text-[13px] text-[#9A9890]"
+          className="rounded-md border border-[var(--border)] px-6 py-2.5 text-[13px] text-[var(--text-muted)]"
         >
           건너뛰기
         </button>
         <button
           type="button"
-          className="rounded-md bg-[#2C2C2A] px-6 py-2.5 text-[13px] font-medium text-white"
+          className="rounded-md bg-[var(--cta)] px-6 py-2.5 text-[13px] font-medium text-white"
         >
           저장하기
         </button>
@@ -587,7 +587,7 @@ function BulkChangeButton() {
   return (
     <button
       type="button"
-      className="rounded border border-[#E4E2D8] bg-white px-2 py-0.5 text-[10px] font-medium text-[#5F5E5A]"
+      className="rounded border border-[var(--border)] bg-white px-2 py-0.5 text-[13px] font-medium text-[var(--text-secondary)]"
     >
       일괄변경
     </button>
@@ -602,47 +602,47 @@ function SupplierListForm() {
 
   return (
     <div className="mt-4 w-full">
-      <p className="text-[16px] font-bold text-[#2C2C2A]">공급사 리스트</p>
+      <p className="text-[16px] font-semibold text-[var(--text-primary)]">공급사 리스트</p>
 
       <div
         className="mt-3 flex items-start gap-2 rounded-lg px-4 py-3.5"
-        style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+        style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
       >
         <WarningIcon />
-        <p className="text-[12px] leading-relaxed text-[#993556]">
-          <span className="font-bold">자체적으로 배송하고 계신다면 별도의 공급사가 없어도 괜찮아요.</span>
+        <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
+          <span className="font-semibold">자체적으로 배송하고 계신다면 별도의 공급사가 없어도 괜찮아요.</span>
           <br />
-          이 경우엔 <span className="font-bold">내 사업자 정보를 그대로 입력</span>하시면 됩니다.
+          이 경우엔 <span className="font-semibold">내 사업자 정보를 그대로 입력</span>하시면 됩니다.
         </p>
       </div>
 
-      <div className="mt-3 space-y-1 text-[11px] leading-relaxed text-[#9A9890]">
+      <div className="mt-3 space-y-1 text-[11px] leading-relaxed text-[var(--text-muted)]">
         <p>· 등록 시 업체명, 이메일은 필수 입력 사항입니다. 정산메일 발송 시엔 담당자 정보까지 입력해야 합니다.</p>
         <p>· 등록된 공급사 삭제 시 원복 불가합니다.</p>
       </div>
 
       <div className="mt-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-[13px] text-[#5F5E5A]">선택한 공급사</span>
+          <span className="text-[13px] text-[var(--text-secondary)]">선택한 공급사</span>
           <button
             type="button"
-            className="rounded-md bg-[#D8342A] px-3 py-1.5 text-[12px] font-medium text-white"
+            className="rounded-md bg-[var(--accent)] px-3 py-1.5 text-[13px] font-medium text-white"
           >
             삭제
           </button>
         </div>
         <button
           type="button"
-          className="rounded-md bg-[#2C2C2A] px-4 py-2 text-[13px] font-medium text-white"
+          className="rounded-md bg-[var(--cta)] px-4 py-2 text-[13px] font-medium text-white"
         >
           공급사 등록 +
         </button>
       </div>
 
-      <div className="mt-3 overflow-x-auto rounded-md border border-[#E4E2D8]">
+      <div className="mt-3 overflow-x-auto rounded-md border border-[var(--border)]">
         <table className="w-full text-left text-[12px]" style={{ minWidth: "1500px" }}>
           <thead>
-            <tr className="border-b border-[#E4E2D8] bg-[#FAF9F5] text-[#9A9890]">
+            <tr className="border-b border-[var(--divider)] bg-[var(--surface-1)] text-[var(--text-muted)]">
               <th className="px-3 py-2 font-medium" style={{ minWidth: "40px" }} />
               <th className="px-3 py-2 font-medium" style={{ minWidth: "50px" }}>
                 순서
@@ -692,10 +692,10 @@ function SupplierListForm() {
                   type="checkbox"
                   checked={rowSelected}
                   onChange={() => setRowSelected((v) => !v)}
-                  className="h-3.5 w-3.5 accent-[#993556]"
+                  className="h-3.5 w-3.5 accent-[var(--accent-text)]"
                 />
               </td>
-              <td className="px-3 py-2 align-top text-[#5F5E5A]">1</td>
+              <td className="px-3 py-2 align-top text-[var(--text-secondary)]">1</td>
               <td className="px-3 py-2 align-top">
                 <div className="space-y-2">
                   <input type="text" placeholder="업체명 입력" className={cellFieldClass} />
@@ -706,12 +706,12 @@ function SupplierListForm() {
                 <div className="space-y-2">
                   <input type="text" placeholder="사업자등록번호 입력" className={cellFieldClass} />
                   <input type="text" placeholder="공급사 주소 입력" className={cellFieldClass} />
-                  <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-[#5F5E5A]">
+                  <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-[var(--text-secondary)]">
                     <input
                       type="checkbox"
                       checked={smsConsent}
                       onChange={() => setSmsConsent((v) => !v)}
-                      className="h-3.5 w-3.5 accent-[#993556]"
+                      className="h-3.5 w-3.5 accent-[var(--accent-text)]"
                     />
                     SMS 수신동의
                   </label>
@@ -729,7 +729,7 @@ function SupplierListForm() {
                   <input type="text" placeholder="이메일 입력" className={cellFieldClass} />
                   <input type="text" placeholder="CS이메일 입력" className={cellFieldClass} />
                   <input type="text" placeholder="정산 이메일 입력" className={cellFieldClass} />
-                  <p className="text-[10px] text-[#9A9890]">콤마(,) 로 복수개 등록가능</p>
+                  <p className="text-[11px] text-[var(--text-muted)]">콤마(,) 로 복수개 등록가능</p>
                 </div>
               </td>
               <td className="px-3 py-2 align-top">
@@ -770,13 +770,13 @@ function SupplierListForm() {
                 <div className="flex flex-col gap-1.5">
                   <button
                     type="button"
-                    className="whitespace-nowrap rounded-md bg-[#F0EFE9] px-3 py-1.5 text-[11px] font-medium text-[#5F5E5A]"
+                    className="whitespace-nowrap rounded-md bg-[var(--accent-soft-bg)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)]"
                   >
                     등록
                   </button>
                   <button
                     type="button"
-                    className="whitespace-nowrap rounded-md bg-[#D8342A] px-3 py-1.5 text-[11px] font-medium text-white"
+                    className="whitespace-nowrap rounded-md bg-[var(--accent)] px-3 py-1.5 text-[11px] font-medium text-white"
                   >
                     닫기
                   </button>
@@ -790,13 +790,13 @@ function SupplierListForm() {
       <div className="mt-6 flex justify-center gap-3">
         <button
           type="button"
-          className="rounded-md border border-[#E4E2D8] px-6 py-2.5 text-[13px] text-[#9A9890]"
+          className="rounded-md border border-[var(--border)] px-6 py-2.5 text-[13px] text-[var(--text-muted)]"
         >
           건너뛰기
         </button>
         <button
           type="button"
-          className="rounded-md bg-[#2C2C2A] px-6 py-2.5 text-[13px] font-medium text-white"
+          className="rounded-md bg-[var(--cta)] px-6 py-2.5 text-[13px] font-medium text-white"
         >
           저장하기
         </button>
@@ -812,14 +812,14 @@ export default function ChecklistPanel() {
 
   return (
     <div className="flex w-full items-stretch bg-white">
-      <div className="w-[300px] shrink-0 bg-[#FAF9F5] p-5">
+      <div className="w-[300px] shrink-0 bg-[var(--surface-1)] p-5">
           {categories.map((category) => (
             <div key={category.name} className="mb-5 last:mb-0">
-              <p className="text-[13px] font-bold text-[#2C2C2A]">{category.name}</p>
-              <div className="mt-2 h-1 w-full rounded-full bg-[#E4E2D8]">
-                <div className="h-1 rounded-full bg-[#D8342A]" style={{ width: "0%" }} />
+              <p className="text-[13px] font-semibold text-[var(--text-primary)]">{category.name}</p>
+              <div className="mt-2 h-1 w-full rounded-full bg-[var(--divider)]">
+                <div className="h-1 rounded-full bg-[var(--accent)]" style={{ width: "0%" }} />
               </div>
-              <p className="mt-1 text-[10px] text-[#9A9890]">
+              <p className="mt-1 text-[11px] text-[var(--text-muted)]">
                 0/{category.itemIds.length}개 · 0%
               </p>
 
@@ -834,8 +834,8 @@ export default function ChecklistPanel() {
                       onClick={() => setSelectedId(id)}
                       className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[12px]"
                       style={{
-                        backgroundColor: active ? "#FBEAF0" : "transparent",
-                        color: active ? "#993556" : "#5F5E5A",
+                        backgroundColor: active ? "var(--accent-bg)" : "transparent",
+                        color: active ? "var(--accent-text)" : "var(--text-secondary)",
                       }}
                     >
                       <ItemCircle active={active} />
@@ -851,15 +851,15 @@ export default function ChecklistPanel() {
         <div className="flex flex-1 flex-col p-6">
           <div className="pr-6">
             <div className="flex items-center justify-between">
-              <span className="text-[12px] text-[#9A9890]">전체 진행률</span>
-              <span className="text-[12px] text-[#9A9890]">0/14개 · 0%</span>
+              <span className="text-[12px] text-[var(--text-muted)]">전체 진행률</span>
+              <span className="text-[12px] text-[var(--text-muted)]">0/14개 · 0%</span>
             </div>
-            <div className="mt-1.5 h-[5px] w-full rounded-full bg-[#E4E2D8]">
-              <div className="h-[5px] rounded-full bg-[#D8342A]" style={{ width: "0%" }} />
+            <div className="mt-1.5 h-[5px] w-full rounded-full bg-[var(--divider)]">
+              <div className="h-[5px] rounded-full bg-[var(--accent)]" style={{ width: "0%" }} />
             </div>
           </div>
 
-          <div className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full bg-[#FBEAF0] px-3 py-1.5 text-[13px] font-bold text-[#993556]">
+          <div className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--accent-bg)] px-3 py-1.5 text-[13px] font-semibold text-[var(--accent-text)]">
             <ClockIcon />
             {selected.duration}
           </div>
@@ -867,12 +867,12 @@ export default function ChecklistPanel() {
           {selected.id === 14 && (
             <div
               className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
-              style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+              style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
             >
               <WarningIcon />
-              <p className="text-[12px] leading-relaxed text-[#5F5E5A]">
+              <p className="text-[12px] leading-relaxed text-[var(--text-secondary)]">
                 PG 설정이 완료되지 않았습니다.{" "}
-                <span className="font-bold text-[#D8342A] underline underline-offset-2">
+                <span className="font-semibold text-[var(--accent)] underline underline-offset-2">
                   PG 서비스 신청
                 </span>
                 을 먼저 진행해 주세요.
@@ -880,9 +880,9 @@ export default function ChecklistPanel() {
             </div>
           )}
 
-          <h2 className="mt-3 text-[20px] font-bold text-[#2C2C2A]">{selected.title}</h2>
+          <h2 className="mt-3 text-[16px] font-semibold text-[var(--text-primary)]">{selected.title}</h2>
           {selected.description && (
-            <p className="mt-2 text-[13px] leading-relaxed text-[#888780]">{selected.description}</p>
+            <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-muted)]">{selected.description}</p>
           )}
 
           {selected.id === 5 ? (
@@ -892,11 +892,11 @@ export default function ChecklistPanel() {
           ) : selected.id === 2 ? (
             <SupplierListForm />
           ) : (
-            <div className="mt-4 w-[180px] rounded-[10px] border border-[#E4E2D8] bg-[#FAF9F5] p-3 text-left">
-              <p className="text-[11px] font-semibold text-[#2C2C2A]">{selected.previewTitle}</p>
+            <div className="mt-4 w-[180px] rounded-[10px] border border-[var(--border)] bg-[var(--surface-1)] p-3 text-left">
+              <p className="text-[11px] font-semibold text-[var(--text-primary)]">{selected.previewTitle}</p>
               <div className="mt-1.5 space-y-1">
                 {selected.previewRows.map((row) => (
-                  <p key={row} className="text-[10px] leading-snug text-[#888780]">
+                  <p key={row} className="text-[11px] leading-snug text-[var(--text-muted)]">
                     {row}
                   </p>
                 ))}

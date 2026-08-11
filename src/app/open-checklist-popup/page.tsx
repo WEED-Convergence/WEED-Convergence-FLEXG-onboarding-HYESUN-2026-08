@@ -1,4 +1,4 @@
-import ChecklistPanel from "./ChecklistPanel";
+﻿import ChecklistPanel from "./ChecklistPanel";
 
 export const metadata = {
   title: "오픈 체크리스트",
@@ -15,7 +15,7 @@ function HomeIcon() {
 
 function QuestionIcon() {
   return (
-    <span className="flex h-4 w-4 items-center justify-center rounded-full border border-slate-400 text-[9px] font-semibold text-slate-300">
+    <span className="flex h-4 w-4 items-center justify-center rounded-full border border-slate-400 text-[11px] font-semibold text-slate-300">
       ?
     </span>
   );
@@ -79,7 +79,7 @@ function AdminGNB() {
             >
               {item.label}
               {item.badge ? (
-                <span className="absolute -right-2 -top-1.5 flex h-3 w-3 items-center justify-center rounded-full bg-[#D8342A] text-[7px] font-bold text-white">
+                <span className="absolute -right-2 -top-1.5 flex h-3 w-3 items-center justify-center rounded-full bg-[#D8342A] text-[11px] font-semibold text-white">
                   N
                 </span>
               ) : null}
@@ -91,7 +91,7 @@ function AdminGNB() {
       <div className="flex shrink-0 items-center gap-3">
         <span className="flex items-center gap-1 text-[12px] text-slate-300">
           서비스 알림
-          <span className="flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-[#D8342A] px-1 text-[9px] font-semibold text-white">
+          <span className="flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-[#D8342A] px-1 text-[11px] font-semibold text-white">
             133
           </span>
         </span>
@@ -191,14 +191,14 @@ function AdminLNB() {
     <aside className="flex w-[220px] shrink-0 flex-col bg-[#1F1E1C] px-4 py-4">
       <div className="flex items-center justify-between">
         <span className="text-[13px] font-semibold text-white">weedtuklink</span>
-        <span className="rounded-full border border-[#4A4844] px-2.5 py-1 text-[10px] text-[#B9B7AE]">
+        <span className="rounded-full border border-[#4A4844] px-2.5 py-1 text-[11px] text-[#B9B7AE]">
           로그아웃
         </span>
       </div>
 
       <div className="mt-4 flex items-center gap-4">
         <DocumentIcon />
-        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#8ED14F] text-[11px] font-bold text-[#1B1B1B]">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#8ED14F] text-[11px] font-semibold text-[#1B1B1B]">
           A
         </span>
         <GearIcon />
@@ -209,14 +209,14 @@ function AdminLNB() {
         <div className="flex items-center gap-2.5">
           <span className="h-9 w-9 shrink-0 rounded-md bg-[#4A4844]" />
           <div className="min-w-0">
-            <p className="truncate text-[10px] text-[#9A9890]">기본 제공 테마</p>
+            <p className="truncate text-[11px] text-[#9A9890]">기본 제공 테마</p>
             <p className="truncate text-[12px] font-medium text-[#8ED14F]">기본 디자인</p>
           </div>
         </div>
         <div className="mt-3 flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-bold italic text-white">FLEX-G</span>
-            <span className="rounded-full bg-[#3B3A36] px-2 py-0.5 text-[9px] text-[#B9B7AE]">
+            <span className="text-[11px] font-semibold italic text-white">FLEX-G</span>
+            <span className="rounded-full bg-[#3B3A36] px-2 py-0.5 text-[11px] text-[#B9B7AE]">
               Page 미연동
             </span>
           </div>
@@ -231,7 +231,7 @@ function AdminLNB() {
       </div>
 
       <div className="mt-4 flex items-center gap-1.5 rounded-md border border-[#4A4844] px-2 py-1.5">
-        <span className="flex items-center gap-0.5 text-[10px] text-[#B9B7AE]">
+        <span className="flex items-center gap-0.5 text-[11px] text-[#B9B7AE]">
           이름
           <ChevronDownIcon />
         </span>
@@ -246,8 +246,8 @@ function AdminLNB() {
       </div>
 
       <div className="mt-5 flex items-center justify-between">
-        <span className="text-[12px] font-bold text-white">주문</span>
-        <span className="rounded bg-[#E8951F] px-2 py-0.5 text-[10px] font-semibold text-white">
+        <span className="text-[12px] font-semibold text-white">주문</span>
+        <span className="rounded bg-[#E8951F] px-2 py-0.5 text-[11px] font-semibold text-white">
           가이드
         </span>
       </div>
@@ -269,7 +269,7 @@ function AdminLNB() {
             >
               <span>{item.label}</span>
               {item.badge ? (
-                <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D8342A] px-1 text-[9px] font-semibold text-white">
+                <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D8342A] px-1 text-[11px] font-semibold text-white">
                   {item.badge}
                 </span>
               ) : null}
@@ -283,7 +283,7 @@ function AdminLNB() {
 
 export default function OpenChecklistPopupPage() {
   return (
-    <div className="w-full overflow-x-auto rounded-xl border border-slate-200 bg-white">
+    <div className="w-full overflow-x-auto rounded-xl border border-[var(--border)] bg-[var(--bg)]">
       <div className="min-w-[1180px]">
         <AdminGNB />
         <div className="flex items-stretch">

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { usePathname } from "next/navigation";
 
@@ -23,13 +23,13 @@ export default function SidebarNav() {
     <div>
       {/* 그룹 1: 협의중 */}
       <div>
-        <p className="text-[12px] font-bold text-[var(--text-muted)]">협의중</p>
+        <p className="text-[12px] font-semibold text-[var(--text-muted)]">협의중</p>
         <div className="mb-3 mt-1.5 border-t border-[var(--border)]" />
 
         <a
           href="/#top"
           className={`text-[13px] hover:underline ${
-            isHomeActive ? "font-semibold text-slate-900" : "font-normal text-slate-500"
+            isHomeActive ? "font-semibold text-[var(--text-primary)]" : "font-normal text-[var(--text-secondary)]"
           }`}
         >
           플렉스지 판매자 온보딩 프로세스
@@ -42,7 +42,7 @@ export default function SidebarNav() {
                 key={link.href}
                 href={link.href}
                 className={`block text-[13px] hover:underline ${
-                  active ? "font-semibold text-slate-900" : "font-normal text-slate-500"
+                  active ? "font-semibold text-[var(--text-primary)]" : "font-normal text-[var(--text-secondary)]"
                 }`}
               >
                 {link.label}
@@ -54,7 +54,7 @@ export default function SidebarNav() {
 
       {/* 그룹 2: 기획서 */}
       <div className="mt-6">
-        <p className="text-[12px] font-bold text-[var(--text-muted)]">기획서</p>
+        <p className="text-[12px] font-semibold text-[var(--text-muted)]">기획서</p>
         <div className="mb-3 mt-1.5 border-t border-[var(--border)]" />
         {specDocs.length > 0 ? (
           <nav className="space-y-1.5">
@@ -65,7 +65,7 @@ export default function SidebarNav() {
                   key={doc.href}
                   href={doc.href}
                   className={`block text-[13px] hover:underline ${
-                    active ? "font-semibold text-slate-900" : "font-normal text-slate-500"
+                    active ? "font-semibold text-[var(--text-primary)]" : "font-normal text-[var(--text-secondary)]"
                   }`}
                 >
                   {doc.label}

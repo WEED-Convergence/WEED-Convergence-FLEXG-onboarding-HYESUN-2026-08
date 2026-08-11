@@ -1,4 +1,4 @@
-export const metadata = {
+﻿export const metadata = {
   title: "알림톡 미리보기",
 };
 
@@ -131,13 +131,13 @@ function AlimtalkCard({ card }: { card: AlimtalkCardData }) {
   return (
     <div className="flex w-[230px] flex-col">
       <span
-        className={`mb-2 inline-block w-fit rounded-full px-2 py-0.5 text-[10px] font-medium ${tagStyle}`}
+        className={`mb-2 inline-block w-fit rounded-full px-2 py-0.5 text-[11px] font-medium ${tagStyle}`}
       >
         {card.category}
       </span>
-      <p className="mb-2 text-[11px] leading-snug text-slate-500">{card.condition}</p>
+      <p className="mb-2 text-[11px] leading-snug text-[var(--text-secondary)]">{card.condition}</p>
 
-      <div className="overflow-hidden rounded-[14px] border border-slate-300 bg-white">
+      <div className="overflow-hidden rounded-[14px] border border-[var(--border)] bg-white">
         <div
           className="flex h-[100px] items-center justify-center"
           style={{ backgroundColor: card.imageBg }}
@@ -145,15 +145,15 @@ function AlimtalkCard({ card }: { card: AlimtalkCardData }) {
           <Icon type={card.icon} color={card.iconColor} />
         </div>
         <div className="px-3.5 py-3">
-          <p className="text-[11px] text-slate-500">{card.sender}</p>
-          <p className="mt-1.5 text-[13px] font-bold text-slate-900">{card.title}</p>
-          <p className="mt-1 text-[12px] leading-relaxed text-slate-600">{card.body}</p>
-          <div className="my-3 border-t border-slate-200" />
-          <div className="rounded-md border border-slate-300 py-2 text-center text-[13px] font-medium text-slate-700">
+          <p className="text-[11px] text-[var(--text-secondary)]">{card.sender}</p>
+          <p className="mt-1.5 text-[13px] font-semibold text-[var(--text-primary)]">{card.title}</p>
+          <p className="mt-1 text-[12px] leading-relaxed text-[var(--text-secondary)]">{card.body}</p>
+          <div className="my-3 border-t border-[var(--divider)]" />
+          <div className="rounded-md border border-[var(--border)] py-2 text-center text-[13px] font-medium text-[var(--text-secondary)]">
             {card.button}
           </div>
           {card.showUnsubscribe ? (
-            <p className="mt-2.5 text-center text-[10px] text-slate-400">
+            <p className="mt-2.5 text-center text-[11px] text-[var(--text-muted)]">
               무료 수신거부 1600-0000
             </p>
           ) : null}

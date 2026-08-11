@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <main className="min-h-screen bg-white px-6 py-10">
+        <main className="min-h-screen bg-[var(--bg)] px-6 py-10">
           <div className="flex w-full items-start gap-8">
             {/* 좌측: 인덱스 목록 영역 (모든 화면 공통 고정) */}
             <aside className="sticky top-10 w-[200px] shrink-0 self-start">
@@ -27,7 +27,7 @@ export default function RootLayout({
 
             {/* 우측: 화면 설명 영역 (모든 화면 공통 고정) */}
             <aside className="sticky top-10 w-[280px] shrink-0 self-start">
-              <p className="text-[12px] font-semibold text-slate-400">프로세스 개요</p>
+              <p className="text-[12px] font-semibold text-[var(--text-muted)]">프로세스 개요</p>
             </aside>
           </div>
         </main>

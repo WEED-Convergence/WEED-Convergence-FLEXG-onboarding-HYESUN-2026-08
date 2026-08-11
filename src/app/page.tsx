@@ -70,23 +70,23 @@ function Box({ id, title, desc, subItems, path, highlight }: StepData) {
       id={id > 0 ? `step-${id}` : undefined}
       className={`w-[280px] rounded-lg px-4 py-3 ${
         highlight
-          ? "border-2 border-red-500 bg-red-50 text-red-900"
+          ? "border-2 border-[var(--accent)] bg-[var(--accent-bg)] text-[var(--accent-text)]"
           : "border border-[var(--border)] bg-[var(--surface-1)] text-[var(--text-primary)]"
       }`}
     >
       <div className="flex items-center gap-2">
         {id > 0 ? (
           <span
-            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold text-white ${
-              highlight ? "bg-red-600" : "bg-[var(--text-primary)]"
+            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold text-white ${
+              highlight ? "bg-[var(--accent)]" : "bg-[var(--text-primary)]"
             }`}
           >
             {id}
           </span>
         ) : null}
-        <span className="text-[14px] font-medium">{title}</span>
+        <span className="text-[13px] font-semibold">{title}</span>
       </div>
-      <p className={`mt-1 text-[12px] ${highlight ? "text-red-700" : "text-[var(--text-secondary)]"}`}>
+      <p className={`mt-1 text-[12px] ${highlight ? "text-[var(--accent-text)]" : "text-[var(--text-secondary)]"}`}>
         {desc}
       </p>
       {subItems ? (
@@ -94,7 +94,7 @@ function Box({ id, title, desc, subItems, path, highlight }: StepData) {
           {subItems.map((item) => (
             <li
               key={item}
-              className={`text-[11px] ${highlight ? "text-red-700" : "text-[var(--text-secondary)]"}`}
+              className={`text-[11px] ${highlight ? "text-[var(--accent-text)]" : "text-[var(--text-secondary)]"}`}
             >
               · {item}
             </li>
@@ -122,14 +122,14 @@ function MessageBlock({
   note?: string;
 }) {
   return (
-    <div className="w-[260px] rounded-lg border border-dashed border-[#0F6E56] bg-[#E1F5EE] px-3.5 py-2.5">
-      <p className="text-[11px] font-semibold text-[#0F6E56]">{label}</p>
+    <div className="w-[260px] rounded-lg border border-dashed border-[var(--success)] bg-[var(--accent-soft-bg)] px-3.5 py-2.5">
+      <p className="text-[11px] font-semibold text-[var(--success)]">{label}</p>
       {note ? (
-        <p className="mt-0.5 text-[10px] text-[#0F6E56]/80">{note}</p>
+        <p className="mt-0.5 text-[11px] text-[var(--success)]/80">{note}</p>
       ) : null}
-      <p className="mt-1 text-[13px] font-medium text-[#04342C]">{title}</p>
+      <p className="mt-1 text-[13px] font-semibold text-[var(--text-primary)]">{title}</p>
       {desc ? (
-        <p className="mt-0.5 text-[11px] text-[#0F6E56]">{desc}</p>
+        <p className="mt-0.5 text-[11px] text-[var(--success)]">{desc}</p>
       ) : null}
     </div>
   );
@@ -138,12 +138,12 @@ function MessageBlock({
 function ArrowDown({ label }: { label?: string }) {
   return (
     <div className="flex flex-col items-center py-1">
-      <svg width="16" height="28" viewBox="0 0 16 28" fill="none" className="text-slate-400">
+      <svg width="16" height="28" viewBox="0 0 16 28" fill="none" className="text-[var(--text-muted)]">
         <line x1="8" y1="0" x2="8" y2="22" stroke="currentColor" strokeWidth="1.5" />
         <path d="M8 27L3.5 20H12.5L8 27Z" fill="currentColor" />
       </svg>
       {label ? (
-        <span className="mt-0.5 max-w-[240px] text-center text-[11px] leading-snug text-slate-500">
+        <span className="mt-0.5 max-w-[240px] text-center text-[11px] leading-snug text-[var(--text-secondary)]">
           {label}
         </span>
       ) : null}
@@ -156,7 +156,7 @@ export default function Home() {
     <div className="flex w-full flex-col items-center">
       <h1
         id="top"
-        className="mb-6 self-start text-lg font-semibold text-slate-900"
+        className="mb-6 self-start text-[16px] font-semibold text-[var(--text-primary)]"
       >
         플렉스지 판매자 온보딩 프로세스
       </h1>

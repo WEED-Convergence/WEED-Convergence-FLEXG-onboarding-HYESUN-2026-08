@@ -1,4 +1,4 @@
-export const metadata = {
+﻿export const metadata = {
   title: "템플릿 미리보기",
 };
 
@@ -26,8 +26,8 @@ function PhoneMockup({
   overlay?: boolean;
 }) {
   return (
-    <div className="flex h-[280px] w-[154px] flex-col gap-2 rounded-2xl border border-slate-300 bg-white p-3">
-      <div className="h-[11px] w-full shrink-0 rounded-sm bg-slate-200" />
+    <div className="flex h-[280px] w-[154px] flex-col gap-2 rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-3">
+      <div className="h-[11px] w-full shrink-0 rounded-sm bg-[var(--divider)]" />
       <div className="relative flex shrink-0 flex-col gap-2">
         <div
           className="h-[76px] w-full shrink-0 rounded-sm"
@@ -43,18 +43,18 @@ function PhoneMockup({
         />
         {overlay ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-sm bg-black/55">
-            <span className="rounded-full border border-white px-3 py-1 text-[10px] font-medium text-white">
+            <span className="rounded-full border border-white px-3 py-1 text-[11px] font-medium text-white">
               미리보기
             </span>
-            <span className="rounded-full bg-red-600 px-3 py-1 text-[10px] font-medium text-white">
+            <span className="rounded-full bg-[var(--accent)] px-3 py-1 text-[11px] font-medium text-white">
               적용
             </span>
           </div>
         ) : null}
       </div>
       <div className="mt-auto space-y-1.5 pb-1">
-        <div className="h-1.5 w-3/4 rounded-full bg-slate-200" />
-        <div className="h-1.5 w-1/2 rounded-full bg-slate-200" />
+        <div className="h-1.5 w-3/4 rounded-full bg-[var(--divider)]" />
+        <div className="h-1.5 w-1/2 rounded-full bg-[var(--divider)]" />
       </div>
     </div>
   );
@@ -65,20 +65,20 @@ function GNB() {
   return (
     <header className="flex h-16 w-full shrink-0 items-center justify-between border-b border-white/10 bg-[#1A1A1A] px-10">
       <div className="flex items-center gap-2">
-        <span className="flex h-6 w-6 items-center justify-center rounded bg-white text-[11px] font-bold text-slate-900">
+        <span className="flex h-6 w-6 items-center justify-center rounded bg-white text-[11px] font-semibold text-slate-900">
           F
         </span>
-        <span className="text-[18px] font-extrabold tracking-tight text-white">
+        <span className="text-[16px] font-semibold tracking-tight text-white">
           FLEX-G
         </span>
       </div>
-      <nav className="flex items-center gap-8 text-[14px] font-medium text-slate-300">
+      <nav className="flex items-center gap-8 text-[13px] font-medium text-slate-300">
         {navLinks.map((label) => (
           <span key={label}>{label}</span>
         ))}
       </nav>
       <div className="flex items-center gap-4">
-        <span className="text-[14px] font-medium text-slate-300">로그인</span>
+        <span className="text-[13px] font-medium text-slate-300">로그인</span>
         <span className="rounded-full bg-red-600 px-5 py-2 text-[13px] font-semibold text-white">
           쇼핑몰 만들기
         </span>
@@ -118,7 +118,7 @@ function Footer() {
 
       <div className="mt-6 flex flex-wrap items-start justify-between gap-6">
         <div>
-          <p className="text-[16px] font-extrabold text-white">FLEX-G</p>
+          <p className="text-[16px] font-semibold text-white">FLEX-G</p>
           <p className="mt-3 text-[12px] leading-relaxed text-slate-400">
             서울특별시 금천구 벚꽃로 298 대륭포스트타워6차 313호
             <br />
@@ -147,7 +147,7 @@ function Footer() {
 
 function CloseIcon() {
   return (
-    <span className="absolute right-4 top-4 flex h-6 w-6 items-center justify-center text-slate-400">
+    <span className="absolute right-4 top-4 flex h-6 w-6 items-center justify-center text-[var(--text-muted)]">
       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
         <path d="M5 5L19 19M19 5L5 19" strokeLinecap="round" />
       </svg>
@@ -185,7 +185,7 @@ function ShopGNB() {
   return (
     <div className="flex h-11 shrink-0 items-center justify-between border-b border-slate-200 bg-white px-4">
       <ShopIcon type="menu" />
-      <span className="text-[13px] font-bold tracking-[0.2em] text-slate-900">MUSE</span>
+      <span className="text-[13px] font-semibold tracking-[0.2em] text-slate-900">MUSE</span>
       <ShopIcon type="bag" />
     </div>
   );
@@ -206,7 +206,7 @@ function FashionSitePreview() {
       </div>
 
       <div className="flex items-center gap-4 border-b border-slate-200 px-4 py-2.5 text-[11px]">
-        <span className="font-bold text-slate-900">전체</span>
+        <span className="font-semibold text-slate-900">전체</span>
         <span className="text-slate-400">아우터</span>
         <span className="text-slate-400">상의</span>
         <span className="text-slate-400">바지</span>
@@ -227,7 +227,7 @@ function FashionSitePreview() {
 
       <div className="border-t border-slate-200 bg-[#F7F5F3] px-4 py-6 text-slate-500">
         <div className="flex flex-col items-start gap-4">
-          <nav className="flex flex-wrap gap-3 text-[10px]">
+          <nav className="flex flex-wrap gap-3 text-[11px]">
             <span>고객센터</span>
             <span>이용안내</span>
             <span>이용약관</span>
@@ -238,12 +238,12 @@ function FashionSitePreview() {
             <span className="h-6 w-6 rounded-full border border-slate-300" />
           </div>
         </div>
-        <p className="mt-5 text-[10px] leading-relaxed text-slate-400">
+        <p className="mt-5 text-[11px] leading-relaxed text-slate-400">
           MUSE STUDIO &nbsp;|&nbsp; 대표 홍길동 &nbsp;|&nbsp; 사업자등록번호 000-00-00000
           <br />
           고객센터 1544-0000 (평일 10:00~17:00)
         </p>
-        <p className="mt-4 text-[10px] text-slate-400">ⓒ MUSE. All rights reserved.</p>
+        <p className="mt-4 text-[11px] text-slate-400">ⓒ MUSE. All rights reserved.</p>
       </div>
     </div>
   );
@@ -251,17 +251,17 @@ function FashionSitePreview() {
 
 export default function TemplatePreviewPage() {
   return (
-    <div className="w-full overflow-hidden rounded-xl border border-slate-200">
+    <div className="w-full overflow-hidden rounded-xl border border-[var(--border)]">
       <GNB />
 
-      <div className="relative w-full bg-white">
-        <main className="w-full bg-white">
+      <div className="relative w-full bg-[var(--bg)]">
+        <main className="w-full bg-[var(--bg)]">
           <section className="flex flex-col items-center px-10 pt-16 text-center">
-            <p className="text-[18px] text-slate-500">환영합니다.</p>
-            <h1 className="mt-2 text-[24px] font-bold text-slate-900">
-              <span className="text-red-600">플렉스지 회원가입이 완료</span>되었습니다.
+            <p className="text-[16px] text-[var(--text-secondary)]">환영합니다.</p>
+            <h1 className="mt-2 text-[16px] font-semibold text-[var(--text-primary)]">
+              <span className="text-[var(--accent)]">플렉스지 회원가입이 완료</span>되었습니다.
             </h1>
-            <p className="mt-3 text-[14px] text-slate-400">
+            <p className="mt-3 text-[13px] text-[var(--text-muted)]">
               이제 쇼핑몰 디자인을 선택해주세요.
             </p>
           </section>
@@ -270,7 +270,7 @@ export default function TemplatePreviewPage() {
             {categories.map((category) => (
               <div key={category.name} className="flex w-[154px] flex-col items-center">
                 <PhoneMockup colors={category.colors} overlay={category.overlay} />
-                <p className="mt-2 text-center text-[16px] font-bold text-slate-800">
+                <p className="mt-2 text-center text-[16px] font-semibold text-[var(--text-primary)]">
                   {category.name}
                 </p>
               </div>
@@ -280,20 +280,20 @@ export default function TemplatePreviewPage() {
 
         {/* 딤 오버레이 + 팝업: 콘텐츠 영역에만 적용 (GNB/푸터 제외) */}
         <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-          <div className="relative flex h-4/5 w-4/5 flex-col items-center rounded-2xl bg-white p-5">
+          <div className="relative flex h-4/5 w-4/5 flex-col items-center rounded-2xl bg-[var(--bg)] p-5">
             <CloseIcon />
 
-            <p className="text-[14px] font-medium text-slate-700">패션 템플릿 미리보기</p>
+            <p className="text-[13px] font-medium text-[var(--text-secondary)]">패션 템플릿 미리보기</p>
 
             <div className="w-full flex-1 overflow-hidden py-4">
               <FashionSitePreview />
             </div>
 
             <div className="flex w-full max-w-[320px] gap-3">
-              <span className="flex-1 rounded-lg border border-slate-300 py-2.5 text-center text-[13px] font-medium text-slate-700">
+              <span className="flex-1 rounded-lg border border-[var(--border)] py-2.5 text-center text-[13px] font-medium text-[var(--text-secondary)]">
                 닫기
               </span>
-              <span className="flex-1 rounded-lg bg-[#D8342A] py-2.5 text-center text-[13px] font-medium text-white">
+              <span className="flex-1 rounded-lg bg-[var(--accent)] py-2.5 text-center text-[13px] font-medium text-white">
                 이 템플릿 적용
               </span>
             </div>

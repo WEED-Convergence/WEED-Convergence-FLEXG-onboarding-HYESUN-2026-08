@@ -1,4 +1,4 @@
-export const metadata = {
+﻿export const metadata = {
   title: "승인 대기",
 };
 
@@ -7,20 +7,20 @@ function GNB() {
   return (
     <header className="flex h-16 w-full shrink-0 items-center justify-between border-b border-white/10 bg-[#1A1A1A] px-10">
       <div className="flex items-center gap-2">
-        <span className="flex h-6 w-6 items-center justify-center rounded bg-white text-[11px] font-bold text-slate-900">
+        <span className="flex h-6 w-6 items-center justify-center rounded bg-white text-[11px] font-semibold text-slate-900">
           F
         </span>
-        <span className="text-[18px] font-extrabold tracking-tight text-white">
+        <span className="text-[16px] font-semibold tracking-tight text-white">
           FLEX-G
         </span>
       </div>
-      <nav className="flex items-center gap-8 text-[14px] font-medium text-slate-300">
+      <nav className="flex items-center gap-8 text-[13px] font-medium text-slate-300">
         {navLinks.map((label) => (
           <span key={label}>{label}</span>
         ))}
       </nav>
       <div className="flex items-center gap-4">
-        <span className="text-[14px] font-medium text-slate-300">로그인</span>
+        <span className="text-[13px] font-medium text-slate-300">로그인</span>
         <span className="rounded-full bg-red-600 px-5 py-2 text-[13px] font-semibold text-white">
           쇼핑몰 만들기
         </span>
@@ -60,7 +60,7 @@ function Footer() {
 
       <div className="mt-6 flex flex-wrap items-start justify-between gap-6">
         <div>
-          <p className="text-[16px] font-extrabold text-white">FLEX-G</p>
+          <p className="text-[16px] font-semibold text-white">FLEX-G</p>
           <p className="mt-3 text-[12px] leading-relaxed text-slate-400">
             서울특별시 금천구 벚꽃로 298 대륭포스트타워6차 313호
             <br />
@@ -89,7 +89,7 @@ function Footer() {
 
 function ClockIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#5F5E5A" strokeWidth="1.7">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--text-secondary)" strokeWidth="1.7">
       <circle cx="12" cy="12" r="9" />
       <path d="M12 7V12L15.5 14" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
@@ -121,20 +121,20 @@ const steps: Step[] = [
 function StepCircle({ step }: { step: Step }) {
   if (step.status === "done") {
     return (
-      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#639922]">
+      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--success)]">
         <CheckIcon />
       </div>
     );
   }
   if (step.status === "active") {
     return (
-      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#5F5E5A] text-[12px] font-medium text-white">
+      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--text-secondary)] text-[12px] font-medium text-white">
         {step.num}
       </div>
     );
   }
   return (
-    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#F1EFE8] text-[12px] font-medium text-[#888780]">
+    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent-soft-bg)] text-[12px] font-medium text-[var(--text-muted)]">
       {step.num}
     </div>
   );
@@ -148,14 +148,14 @@ function StepIndicator() {
           <div className="flex w-16 flex-col items-center">
             <StepCircle step={step} />
             <span
-              className="mt-2 text-center text-[10px]"
+              className="mt-2 text-center text-[11px]"
               style={{
                 color:
                   step.status === "active"
-                    ? "#2C2C2A"
+                    ? "var(--text-primary)"
                     : step.status === "upcoming"
-                      ? "#888780"
-                      : "#5F5E5A",
+                      ? "var(--text-muted)"
+                      : "var(--text-secondary)",
                 fontWeight: step.status === "active" ? 600 : 400,
               }}
             >
@@ -163,7 +163,7 @@ function StepIndicator() {
             </span>
           </div>
           {i < steps.length - 1 ? (
-            <div className="mt-[13px] h-px flex-1 bg-[#E4E2DA]" />
+            <div className="mt-[13px] h-px flex-1 bg-[var(--divider)]" />
           ) : null}
         </div>
       ))}
@@ -173,24 +173,24 @@ function StepIndicator() {
 
 export default function ApprovalPendingPage() {
   return (
-    <div className="w-full overflow-hidden rounded-xl border border-slate-200">
+    <div className="w-full overflow-hidden rounded-xl border border-[var(--border)]">
       <GNB />
 
-      <main className="flex w-full flex-col items-center bg-white px-10 py-20">
+      <main className="flex w-full flex-col items-center bg-[var(--bg)] px-10 py-20">
         <div className="flex w-[520px] flex-col items-center text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#F1EFE8]">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent-soft-bg)]">
             <ClockIcon />
           </div>
 
-          <h1 className="mt-5 text-[20px] font-medium text-[#2C2C2A]">
+          <h1 className="mt-5 text-[16px] font-semibold text-[var(--text-primary)]">
             가입 승인을 검토하고 있습니다
           </h1>
 
-          <p className="mt-3 text-[13px] leading-relaxed text-[#5F5E5A]">
+          <p className="mt-3 text-[13px] leading-relaxed text-[var(--text-secondary)]">
             영업일 기준 보통 1일 이내에 완료됩니다.
             <br />
             승인이 완료되면{" "}
-            <span className="font-medium text-[#D8342A]">이메일과 오픈채팅방 안내</span>를
+            <span className="font-medium text-[var(--accent)]">이메일과 오픈채팅방 안내</span>를
             보내드립니다.
           </p>
 

@@ -1,4 +1,4 @@
-export const metadata = {
+﻿export const metadata = {
   title: "홈",
 };
 
@@ -13,7 +13,7 @@ function HomeIcon() {
 
 function QuestionIcon() {
   return (
-    <span className="flex h-4 w-4 items-center justify-center rounded-full border border-slate-400 text-[9px] font-semibold text-slate-300">
+    <span className="flex h-4 w-4 items-center justify-center rounded-full border border-slate-400 text-[11px] font-semibold text-slate-300">
       ?
     </span>
   );
@@ -21,7 +21,7 @@ function QuestionIcon() {
 
 function InfoIcon() {
   return (
-    <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-[#C7C5BB] text-[8px] font-semibold text-[#9A9890]">
+    <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-[var(--border)] text-[11px] font-semibold text-[var(--text-muted)]">
       i
     </span>
   );
@@ -60,7 +60,7 @@ function AdminGNB() {
             <span key={item.label} className="relative text-[12px] text-slate-300">
               {item.label}
               {item.badge ? (
-                <span className="absolute -right-2 -top-1.5 flex h-3 w-3 items-center justify-center rounded-full bg-[#D8342A] text-[7px] font-bold text-white">
+                <span className="absolute -right-2 -top-1.5 flex h-3 w-3 items-center justify-center rounded-full bg-[#D8342A] text-[11px] font-semibold text-white">
                   N
                 </span>
               ) : null}
@@ -72,7 +72,7 @@ function AdminGNB() {
       <div className="flex items-center gap-3">
         <span className="flex items-center gap-1 text-[12px] text-slate-300">
           서비스 알림
-          <span className="flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-[#D8342A] px-1 text-[9px] font-semibold text-white">
+          <span className="flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-[#D8342A] px-1 text-[11px] font-semibold text-white">
             133
           </span>
         </span>
@@ -120,13 +120,13 @@ function DonutProgress({ percent }: { percent: number }) {
 
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90">
-      <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="#E4E2D8" strokeWidth={strokeWidth} />
+      <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="var(--divider)" strokeWidth={strokeWidth} />
       <circle
         cx={size / 2}
         cy={size / 2}
         r={radius}
         fill="none"
-        stroke="#D8342A"
+        stroke="var(--accent)"
         strokeWidth={strokeWidth}
         strokeDasharray={circumference}
         strokeDashoffset={offset}
@@ -148,30 +148,30 @@ function ChecklistCard({
   return (
     <div
       className={`flex flex-col items-center rounded-[10px] bg-white px-4 py-4 text-center ${
-        highlighted ? "border-2 border-[#D8342A]" : "border border-[#E4E2D8]"
+        highlighted ? "border-2 border-[var(--accent)]" : "border border-[var(--border)]"
       }`}
     >
       <div className="relative flex h-12 w-12 items-center justify-center">
         <DonutProgress percent={0} />
-        <span className="absolute text-[11px] font-semibold text-[#2C2C2A]">0%</span>
+        <span className="absolute text-[11px] font-semibold text-[var(--text-primary)]">0%</span>
       </div>
-      <p className="mt-2 text-[12px] font-medium text-[#2C2C2A]">{name}</p>
-      <p className="mt-1 text-[10px] text-[#888780]">0/{total}개 항목</p>
+      <p className="mt-2 text-[12px] font-medium text-[var(--text-primary)]">{name}</p>
+      <p className="mt-1 text-[11px] text-[var(--text-muted)]">0/{total}개 항목</p>
     </div>
   );
 }
 
 function GuideTooltip() {
   return (
-    <div className="absolute left-full top-1/2 z-10 ml-3 w-[200px] -translate-y-1/2 rounded-lg bg-[#D8342A] p-3">
-      <div className="absolute -left-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 bg-[#D8342A]" />
+    <div className="absolute left-full top-1/2 z-10 ml-3 w-[200px] -translate-y-1/2 rounded-lg bg-[var(--accent)] p-3">
+      <div className="absolute -left-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 bg-[var(--accent)]" />
       <p className="text-[12px] font-medium text-white">PG 신청부터 시작할까요?</p>
-      <p className="mt-1 text-[11px] leading-relaxed text-[#FBEAF0]">
+      <p className="mt-1 text-[11px] leading-relaxed text-[var(--accent-bg)]">
         결제 준비를 마치면 오픈이 빨라져요.
       </p>
       <div className="mt-2 flex items-center justify-between">
-        <span className="text-[11px] text-[#FBEAF0]">닫기</span>
-        <span className="rounded bg-white px-2.5 py-1 text-[11px] font-semibold text-[#D8342A]">
+        <span className="text-[11px] text-[var(--accent-bg)]">닫기</span>
+        <span className="rounded bg-white px-2.5 py-1 text-[11px] font-semibold text-[var(--accent)]">
           시작하기
         </span>
       </div>
@@ -212,11 +212,11 @@ const stats: Stat[] = [
 
 function StatCard({ label, value, danger }: Stat) {
   return (
-    <div className="flex flex-col items-center gap-1.5 rounded-lg border border-[#E4E2D8] py-4">
-      <p className="text-[11px] text-[#888780]">{label}</p>
+    <div className="flex flex-col items-center gap-1.5 rounded-lg border border-[var(--border)] py-4">
+      <p className="text-[11px] text-[var(--text-muted)]">{label}</p>
       <p
-        className="text-[18px] font-semibold"
-        style={{ color: danger ? "#D8342A" : "#2C2C2A" }}
+        className="text-[16px] font-semibold"
+        style={{ color: danger ? "var(--accent)" : "var(--text-primary)" }}
       >
         {value}
       </p>
@@ -226,17 +226,17 @@ function StatCard({ label, value, danger }: Stat) {
 
 export default function HomeWithChecklistPage() {
   return (
-    <div className="w-full overflow-x-auto rounded-xl border border-slate-200 bg-white">
+    <div className="w-full overflow-x-auto rounded-xl border border-[var(--border)] bg-[var(--bg)]">
       <div className="min-w-[1180px]">
       <AdminGNB />
 
       <div className="px-8 py-6">
         <div className="flex items-start justify-between gap-6">
           <div className="shrink-0">
-            <p className="text-[14px] font-medium text-[#2C2C2A]">
+            <p className="text-[13px] font-medium text-[var(--text-primary)]">
               오늘도 플렉스지와 판매는 불티나게
             </p>
-            <p className="mt-1 text-[11px] text-[#9A9890]">2026.08.10 월요일</p>
+            <p className="mt-1 text-[11px] text-[var(--text-muted)]">2026.08.10 월요일</p>
           </div>
           <div className="grid flex-1 grid-cols-5 gap-2.5">
             {banners.map((banner) => (
@@ -245,8 +245,8 @@ export default function HomeWithChecklistPage() {
           </div>
         </div>
 
-        <div className="mt-6 rounded-xl border border-[#E4E2D8] bg-[#FAF9F5] p-[18px]">
-          <p className="text-[12px] text-[#9A9890]">오픈 체크리스트</p>
+        <div className="mt-6 rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-[18px]">
+          <p className="text-[12px] text-[var(--text-muted)]">오픈 체크리스트</p>
           <div className="mt-3 flex items-start gap-3">
             {checklistCategories.map((category) => (
               <div key={category.name} className="relative flex-1">
@@ -260,13 +260,13 @@ export default function HomeWithChecklistPage() {
         <div className="mt-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <p className="text-[14px] font-medium text-[#2C2C2A]">오늘의 할일</p>
+              <p className="text-[13px] font-medium text-[var(--text-primary)]">오늘의 할일</p>
               <InfoIcon />
-              <span className="text-[11px] text-[#9A9890]">
+              <span className="text-[11px] text-[var(--text-muted)]">
                 최근 30일 기준으로 집계된 주문 상태별 건 수입니다.
               </span>
             </div>
-            <span className="text-[12px] text-[#9A9890]">더보기 &gt;</span>
+            <span className="text-[12px] text-[var(--text-muted)]">더보기 &gt;</span>
           </div>
           <div className="mt-3 grid grid-cols-9 gap-2.5">
             {stats.map((stat) => (
