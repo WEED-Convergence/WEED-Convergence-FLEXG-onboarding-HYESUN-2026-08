@@ -792,6 +792,154 @@ function SupplierListForm() {
   );
 }
 
+interface PgOption {
+  name: string;
+  summary: string;
+  detail?: string;
+}
+
+const pgOptions: PgOption[] = [
+  { name: "나이스페이", summary: "가입비 무료 · 정산 D+5일" },
+  { name: "NHN KCP", summary: "가입비 무료 · 정산 D+5일" },
+  {
+    name: "EasyPAY",
+    summary: "가입비 무료 · 신청 즉시 사용 가능",
+    detail: "· 정산주기: 영업일 기준 D+5일 (일정산) · 복합과세: 지원 · 보증보험: 기본 1배수",
+  },
+];
+
+interface EasyPayItem {
+  name: string;
+  desc: string;
+}
+
+const contractPayments: EasyPayItem[] = [
+  { name: "네이버페이", desc: "간편결제, 별도 계약 필요" },
+  { name: "카카오페이", desc: "간편결제, 별도 계약 필요" },
+  { name: "토스페이", desc: "간편결제, 별도 계약 필요" },
+  { name: "내통장 바로결제", desc: "헥토파이낸셜, 별도 계약 필요" },
+];
+
+const includedPayments: string[] = ["Apple Pay", "페이코", "페이유 (자체 간편결제)"];
+
+function PgApplicationForm() {
+  const [selectedPg, setSelectedPg] = useState("EasyPAY");
+
+  return (
+    <div className="mt-4 w-full max-w-[640px]">
+      <p className="text-[16px] font-semibold text-[var(--text-primary)]">PG 서비스 신청</p>
+      <p className="mt-2 text-[11px] leading-relaxed text-[var(--text-muted)]">
+        · 전자결제는 신용카드, 계좌이체 등으로 결제할 수 있게 해주는 수단이에요. 쇼핑몰은 반드시
+        PG 신청을 해야 전자결제를 이용할 수 있어요.
+      </p>
+      <div className="mt-4 border-t border-[var(--divider)]" />
+
+      <div className="mt-4">
+        <p className="text-[12px] font-semibold text-[var(--text-primary)]">PG사를 선택해 주세요</p>
+        <div className="mt-2">
+          {pgOptions.map((option) => {
+            const checked = selectedPg === option.name;
+            return (
+              <div key={option.name} className="border-b border-[var(--divider)] last:border-0">
+                <label className="flex items-center gap-2.5 py-3">
+                  <input
+                    type="radio"
+                    name="pgOption"
+                    checked={checked}
+                    onChange={() => setSelectedPg(option.name)}
+                    className="h-3.5 w-3.5 shrink-0 accent-[var(--accent)]"
+                  />
+                  <span
+                    className="w-[90px] shrink-0 text-[12px] font-medium"
+                    style={{ color: checked ? "var(--accent)" : "var(--text-primary)" }}
+                  >
+                    {option.name}
+                  </span>
+                  <span className="text-[11px] text-[var(--text-muted)]">{option.summary}</span>
+                </label>
+                {checked && option.detail ? (
+                  <div
+                    className="mb-3 ml-[26px] rounded-lg px-3.5 py-2.5 text-[11px] leading-relaxed"
+                    style={{ backgroundColor: "var(--accent-bg)", color: "var(--accent-text)" }}
+                  >
+                    {option.detail}
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <p className="text-[12px] font-semibold text-[var(--text-primary)]">
+          별도 계약이 필요한 간편결제 (선택)
+        </p>
+        <p className="mt-1 text-[11px] text-[var(--text-muted)]">
+          아래 결제수단은 PG와 별개로 각 서비스사와 직접 계약을 진행해야 해요.
+        </p>
+        <div className="mt-2">
+          {contractPayments.map((item) => (
+            <div
+              key={item.name}
+              className="flex items-center gap-3 border-b border-[var(--divider)] py-3 last:border-0"
+            >
+              <span className="w-[110px] shrink-0 text-[12px] font-medium text-[var(--text-primary)]">
+                {item.name}
+              </span>
+              <span className="flex-1 text-[11px] text-[var(--text-muted)]">{item.desc}</span>
+              <button
+                type="button"
+                className="shrink-0 rounded-md border border-[var(--border)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)]"
+              >
+                신청하기
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <p className="text-[12px] font-semibold text-[var(--text-primary)]">PG 연동 간편결제 서비스</p>
+        <div className="mt-2">
+          {includedPayments.map((name) => (
+            <div
+              key={name}
+              className="flex items-center justify-between border-b border-[var(--divider)] py-3 last:border-0"
+            >
+              <span className="text-[12px] text-[var(--text-primary)]">{name}</span>
+              <span
+                className="rounded-full px-2.5 py-1 text-[11px] font-medium"
+                style={{ backgroundColor: "var(--accent-soft-bg)", color: "var(--success)" }}
+              >
+                자동 포함
+              </span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-2 text-[11px] text-[var(--text-muted)]">
+          PG 심사 진행 시 자동으로 함께 신청돼요. 별도로 선택하실 필요는 없어요.
+        </p>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-3">
+        <button
+          type="button"
+          className="rounded-md border border-[var(--border)] px-6 py-2.5 text-[13px] text-[var(--text-muted)]"
+        >
+          건너뛰기
+        </button>
+        <button
+          type="button"
+          className="rounded-md bg-[var(--cta)] px-6 py-2.5 text-[13px] font-medium text-white"
+        >
+          PG 신청하기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ChecklistPanel() {
   const [selectedId, setSelectedId] = useState(1);
 
@@ -892,6 +1040,8 @@ export default function ChecklistPanel() {
             <CashDepositForm />
           ) : selected.id === 2 ? (
             <SupplierListForm />
+          ) : selected.id === 1 ? (
+            <PgApplicationForm />
           ) : (
             <div className="mt-4 w-[180px] rounded-[10px] border border-[var(--border)] bg-[var(--surface-1)] p-3 text-left">
               <p className="text-[11px] font-semibold text-[var(--text-primary)]">{selected.previewTitle}</p>
