@@ -9,6 +9,7 @@ interface ChecklistItemData {
   duration: string;
   previewTitle: string;
   previewRows: string[];
+  previewButton?: string;
 }
 
 interface CategoryData {
@@ -110,6 +111,24 @@ const items: ChecklistItemData[] = [
     previewRows: ["사업자번호: 123-45-...", "정산계좌: 신한 110-..."],
   },
   {
+    id: 15,
+    title: "약관 확인하기",
+    description: "쇼핑몰 이용약관과 개인정보처리방침 내용을 확인하고 필요한 부분을 수정해 주세요.",
+    duration: "약 2분이면 완료",
+    previewTitle: "약관 관리",
+    previewRows: ["이용약관: 기본 템플릿 적용됨", "개인정보처리방침: 기본 템플릿 적용됨"],
+    previewButton: "약관 확인하러 가기",
+  },
+  {
+    id: 16,
+    title: "보안설정하기",
+    description: "관리자 계정 보안을 위한 2단계 인증, 로그인 기록 등을 설정해 주세요.",
+    duration: "약 2분이면 완료",
+    previewTitle: "보안 설정",
+    previewRows: ["2단계 인증: 미설정", "로그인 알림: 미설정"],
+    previewButton: "보안 설정하러 가기",
+  },
+  {
     id: 11,
     title: "CRM 캠페인 설정하기",
     description: "고객 대상 알림톡·문자 캠페인을 설정해 주세요.",
@@ -138,7 +157,7 @@ const items: ChecklistItemData[] = [
 const categories: CategoryData[] = [
   { name: "결제 준비", itemIds: [1, 14, 2, 3, 4, 5] },
   { name: "운영 필수 정보", itemIds: [6, 7, 8] },
-  { name: "권장 설정 기능", itemIds: [9, 10] },
+  { name: "권장 설정 기능", itemIds: [9, 10, 15, 16] },
   { name: "매출 확장 기능", itemIds: [11, 12, 13] },
 ];
 
@@ -1024,7 +1043,7 @@ export default function ChecklistPanel() {
           <div className="pr-6">
             <div className="flex items-center justify-between">
               <span className="text-[12px] text-[var(--text-muted)]">전체 진행률</span>
-              <span className="text-[12px] text-[var(--text-muted)]">0/14개 · 0%</span>
+              <span className="text-[12px] text-[var(--text-muted)]">0/16개 · 0%</span>
             </div>
             <div className="mt-1.5 h-[5px] w-full rounded-full bg-[var(--divider)]">
               <div className="h-[5px] rounded-full bg-[var(--accent)]" style={{ width: "0%" }} />
@@ -1089,6 +1108,11 @@ export default function ChecklistPanel() {
                   </p>
                 ))}
               </div>
+              {selected.previewButton ? (
+                <button type="button" className={`mt-3 w-full ${secondaryButtonClass}`}>
+                  {selected.previewButton}
+                </button>
+              ) : null}
             </div>
           )}
         </div>
