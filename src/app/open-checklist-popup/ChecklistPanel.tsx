@@ -26,6 +26,14 @@ const items: ChecklistItemData[] = [
     previewRows: ["상호명: 이수모 스토어", "사업자번호: 123-45-...", "정산계좌: 신한 110-..."],
   },
   {
+    id: 14,
+    title: "무통장입금 계좌 정보 입력하기",
+    description: "무통장 입금 시 사용할 정산계좌 정보를 입력해 주세요.",
+    duration: "약 1분이면 완료",
+    previewTitle: "무통장입금 계좌 정보",
+    previewRows: ["은행: 신한은행", "계좌번호: 110-123-456789", "예금주: 이수모"],
+  },
+  {
     id: 2,
     title: "공급사 등록하기",
     description:
@@ -129,7 +137,7 @@ const items: ChecklistItemData[] = [
 ];
 
 const categories: CategoryData[] = [
-  { name: "결제 준비", itemIds: [1, 2, 3, 4, 5] },
+  { name: "결제 준비", itemIds: [1, 14, 2, 3, 4, 5] },
   { name: "운영 필수 정보", itemIds: [6, 7, 8] },
   { name: "권장 설정 기능", itemIds: [9, 10] },
   { name: "매출 확장 기능", itemIds: [11, 12, 13] },
@@ -400,7 +408,7 @@ export default function ChecklistPanel() {
           <div className="pr-6">
             <div className="flex items-center justify-between">
               <span className="text-[12px] text-[#9A9890]">전체 진행률</span>
-              <span className="text-[12px] text-[#9A9890]">0/13개 · 0%</span>
+              <span className="text-[12px] text-[#9A9890]">0/14개 · 0%</span>
             </div>
             <div className="mt-1.5 h-[5px] w-full rounded-full bg-[#E4E2D8]">
               <div className="h-[5px] rounded-full bg-[#D8342A]" style={{ width: "0%" }} />
