@@ -638,6 +638,48 @@ function SupplierListForm() {
   );
 }
 
+function PhoneNumberForm() {
+  const [enabled, setEnabled] = useState(true);
+
+  return (
+    <div className="mt-6 w-full max-w-[560px]">
+      <div className="flex items-center gap-4">
+        <span className="flex shrink-0 items-center text-[12px] text-[var(--text-primary)]">
+          <RequiredMark />
+          고객센터 전화
+        </span>
+        <ToggleSwitch checked={enabled} onChange={() => setEnabled((v) => !v)} />
+        <input
+          type="text"
+          placeholder="유선번호 입력"
+          className="flex-1 rounded-md border border-[var(--border)] px-3 py-[9px] text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]"
+        />
+      </div>
+
+      <p className="mt-2 text-[11px] text-[var(--text-muted)]">
+        ⓘ 쇼핑몰 하단 고객센터 안내 영역에 전화번호 및 전화문의 버튼을 노출할 수 있습니다.
+      </p>
+
+      <div className="mt-6 flex justify-center gap-3">
+        <button
+          type="button"
+          className="rounded-md px-6 py-2.5 text-[13px]"
+          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
+        >
+          건너뛰기
+        </button>
+        <button
+          type="button"
+          className="rounded-md px-6 py-2.5 text-[13px] text-white"
+          style={{ backgroundColor: "#2C2C2A" }}
+        >
+          저장하기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function ExternalLinkIcon() {
   return (
     <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -711,48 +753,6 @@ function ProductSampleForm() {
         >
           상품 목록으로
           <ExternalLinkIcon />
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function PhoneNumberForm() {
-  const [enabled, setEnabled] = useState(true);
-
-  return (
-    <div className="mt-6 w-full max-w-[560px]">
-      <div className="flex items-center gap-4">
-        <span className="flex shrink-0 items-center text-[12px] text-[var(--text-primary)]">
-          <RequiredMark />
-          고객센터 전화
-        </span>
-        <ToggleSwitch checked={enabled} onChange={() => setEnabled((v) => !v)} />
-        <input
-          type="text"
-          placeholder="유선번호 입력"
-          className="flex-1 rounded-md border border-[var(--border)] px-3 py-[9px] text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]"
-        />
-      </div>
-
-      <p className="mt-2 text-[11px] text-[var(--text-muted)]">
-        ⓘ 쇼핑몰 하단 고객센터 안내 영역에 전화번호 및 전화문의 버튼을 노출할 수 있습니다.
-      </p>
-
-      <div className="mt-6 flex justify-center gap-3">
-        <button
-          type="button"
-          className="rounded-md px-6 py-2.5 text-[13px]"
-          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
-        >
-          건너뛰기
-        </button>
-        <button
-          type="button"
-          className="rounded-md px-6 py-2.5 text-[13px] text-white"
-          style={{ backgroundColor: "#2C2C2A" }}
-        >
-          저장하기
         </button>
       </div>
     </div>
