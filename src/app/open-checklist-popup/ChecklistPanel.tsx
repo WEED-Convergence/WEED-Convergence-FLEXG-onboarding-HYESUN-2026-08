@@ -1034,22 +1034,6 @@ export default function ChecklistPanel() {
             {selected.duration}
           </div>
 
-          {selected.id === 14 && (
-            <div
-              className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
-              style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
-            >
-              <WarningIcon />
-              <p className="text-[12px] leading-relaxed text-[var(--text-secondary)]">
-                PG 설정이 완료되지 않았습니다.{" "}
-                <span className="font-semibold text-[var(--accent)] underline underline-offset-2">
-                  PG 서비스 신청
-                </span>
-                을 먼저 진행해 주세요.
-              </p>
-            </div>
-          )}
-
           {selected.id === 2 && (
             <div
               className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
