@@ -21,7 +21,7 @@ const items: ChecklistItemData[] = [
   {
     id: 1,
     title: "PG 신청하기",
-    description: "결제대행사(PG) 신청을 진행해 주세요.",
+    description: "",
     duration: "약 3분이면 완료",
     previewTitle: "PG 계약 정보 입력",
     previewRows: ["상호명: 이수모 스토어", "사업자번호: 123-45-...", "정산계좌: 신한 110-..."],
@@ -945,19 +945,28 @@ function PgApplicationForm() {
             const checked = selectedPg === option.name;
             return (
               <div key={option.name} className="border-b border-[var(--divider)] last:border-0">
-                <label className="flex items-center gap-3 py-3">
-                  <input
-                    type="radio"
-                    name="pgOption"
-                    checked={checked}
-                    onChange={() => setSelectedPg(option.name)}
-                    className="h-3.5 w-3.5 shrink-0 accent-[var(--accent)]"
-                  />
-                  <span className="w-[100px] shrink-0">
-                    <BrandWordmark brand={option.name} />
-                  </span>
-                  <span className="text-[11px] text-[var(--text-muted)]">{option.summary}</span>
-                </label>
+                <div className="flex items-center justify-between gap-3 py-3">
+                  <label className="flex flex-1 items-center gap-3">
+                    <input
+                      type="radio"
+                      name="pgOption"
+                      checked={checked}
+                      onChange={() => setSelectedPg(option.name)}
+                      className="h-3.5 w-3.5 shrink-0 accent-[var(--accent)]"
+                    />
+                    <span className="w-[100px] shrink-0">
+                      <BrandWordmark brand={option.name} />
+                    </span>
+                    <span className="text-[11px] text-[var(--text-muted)]">{option.summary}</span>
+                  </label>
+                  <button
+                    type="button"
+                    className="shrink-0 rounded-md px-3 py-[5px] text-[10px] font-medium text-white"
+                    style={{ backgroundColor: "#2C2C2A" }}
+                  >
+                    신청하기
+                  </button>
+                </div>
                 {checked && option.detailItems ? (
                   <div
                     className="mb-3 ml-[25px] rounded-lg px-3.5 py-3"
@@ -1036,9 +1045,10 @@ function PgApplicationForm() {
         </button>
         <button
           type="button"
-          className="rounded-md bg-[var(--cta)] px-6 py-2.5 text-[13px] font-medium text-white"
+          className="rounded-md px-[28px] py-[10px] text-[13px]"
+          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
         >
-          PG 신청하기
+          더 알아보기
         </button>
       </div>
     </div>
