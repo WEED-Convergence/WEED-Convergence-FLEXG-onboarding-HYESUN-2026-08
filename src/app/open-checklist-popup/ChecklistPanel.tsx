@@ -839,19 +839,85 @@ function SupplierListForm() {
   );
 }
 
+function EventBadge() {
+  return (
+    <span
+      className="ml-1 inline-block rounded-[3px] px-1.5 py-[1px] align-middle text-[9px] font-medium text-white"
+      style={{ backgroundColor: "#F2A623" }}
+    >
+      EVENT
+    </span>
+  );
+}
+
+interface PgDetailItem {
+  label: string;
+  value: React.ReactNode;
+}
+
 interface PgOption {
   name: string;
   summary: string;
-  detail?: string;
+  detailItems?: PgDetailItem[];
 }
 
+const pgFeeWaived: React.ReactNode = (
+  <>
+    <span className="line-through" style={{ color: "#B4728A" }}>
+      220,000원
+    </span>{" "}
+    면제
+    <EventBadge />
+  </>
+);
+
+const pgSettlementCycle = "영업일 기준 D+5일 (일정산)";
+const pgCompoundTax = "지원";
+const pgGuaranteeInsurance = "기본 1배수";
+const pgInstantOpenDelayed: React.ReactNode = <>PG신청 2일 후에 적용 ⓘ</>;
+
 const pgOptions: PgOption[] = [
-  { name: "나이스페이", summary: "가입비 무료 · 정산 D+5일" },
-  { name: "NHN KCP", summary: "가입비 무료 · 정산 D+5일" },
+  {
+    name: "나이스페이",
+    summary: "가입비 무료 · 정산 D+5일",
+    detailItems: [
+      { label: "PG 가입비", value: pgFeeWaived },
+      { label: "정산주기", value: pgSettlementCycle },
+      { label: "바로오픈", value: pgInstantOpenDelayed },
+      { label: "복합과세", value: pgCompoundTax },
+      { label: "보증보험", value: pgGuaranteeInsurance },
+      {
+        label: "자체 간편결제",
+        value: (
+          <>
+            페이유 지원
+            <EventBadge />
+          </>
+        ),
+      },
+    ],
+  },
+  {
+    name: "NHN KCP",
+    summary: "가입비 무료 · 정산 D+5일",
+    detailItems: [
+      { label: "PG 가입비", value: pgFeeWaived },
+      { label: "정산주기", value: pgSettlementCycle },
+      { label: "바로오픈", value: pgInstantOpenDelayed },
+      { label: "복합과세", value: pgCompoundTax },
+      { label: "보증보험", value: pgGuaranteeInsurance },
+    ],
+  },
   {
     name: "EasyPAY",
     summary: "가입비 무료 · 신청 즉시 사용 가능",
-    detail: "· 정산주기: 영업일 기준 D+5일 (일정산) · 복합과세: 지원 · 보증보험: 기본 1배수",
+    detailItems: [
+      { label: "PG 가입비", value: pgFeeWaived },
+      { label: "정산주기", value: pgSettlementCycle },
+      { label: "바로오픈", value: "PG신청과 동시에 즉시 사용 가능" },
+      { label: "복합과세", value: pgCompoundTax },
+      { label: "보증보험", value: pgGuaranteeInsurance },
+    ],
   },
 ];
 
@@ -892,12 +958,21 @@ function PgApplicationForm() {
                   </span>
                   <span className="text-[11px] text-[var(--text-muted)]">{option.summary}</span>
                 </label>
-                {checked && option.detail ? (
+                {checked && option.detailItems ? (
                   <div
-                    className="mb-3 ml-[26px] rounded-lg px-3.5 py-2.5 text-[11px] leading-relaxed"
-                    style={{ backgroundColor: "var(--accent-bg)", color: "var(--accent-text)" }}
+                    className="mb-3 ml-[25px] rounded-lg px-3.5 py-3"
+                    style={{ backgroundColor: "#FBEAF0" }}
                   >
-                    {option.detail}
+                    <p className="text-[11px] font-bold" style={{ color: "#993556" }}>
+                      {option.name} 상세정보
+                    </p>
+                    <div className="mt-1 text-[10.5px]" style={{ color: "#7A2438", lineHeight: 2 }}>
+                      {option.detailItems.map((item) => (
+                        <div key={item.label}>
+                          · {item.label} : {item.value}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ) : null}
               </div>
