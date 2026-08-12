@@ -14,9 +14,13 @@ function CloseIcon() {
 
 export default function OpenChecklistPopupPage() {
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto" style={{ backgroundColor: "rgba(0,0,0,0.45)" }}>
-      <div className="flex min-h-full items-center justify-center p-10">
-        <div className="relative w-[960px] overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg)]">
+    <div className="relative min-h-screen w-full">
+      {/* 딤 오버레이 + 팝업: 콘텐츠 영역에만 적용 (인덱스 메뉴 제외) */}
+      <div
+        className="absolute inset-0 flex items-center justify-center overflow-y-auto p-10"
+        style={{ backgroundColor: "rgba(0,0,0,0.45)" }}
+      >
+        <div className="relative w-[1080px] overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg)]">
           <button
             type="button"
             className="absolute right-4 top-4 z-10 flex h-6 w-6 items-center justify-center text-[var(--text-muted)]"

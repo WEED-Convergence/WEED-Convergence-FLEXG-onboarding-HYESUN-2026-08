@@ -754,19 +754,28 @@ function SupplierListForm() {
         </table>
       </div>
 
-      <div className="mt-6 flex justify-center gap-3">
-        <button
-          type="button"
-          className="rounded-md border border-[var(--border)] px-6 py-2.5 text-[13px] text-[var(--text-muted)]"
-        >
-          건너뛰기
-        </button>
+      <div className="mt-6 flex flex-col items-center gap-3">
         <button
           type="button"
           className="rounded-md bg-[var(--cta)] px-6 py-2.5 text-[13px] font-medium text-white"
         >
-          저장하기
+          등록
         </button>
+        <div className="flex gap-3">
+          <button
+            type="button"
+            className="rounded-md border border-[var(--border)] px-6 py-2.5 text-[13px] text-[var(--text-muted)]"
+          >
+            건너뛰기
+          </button>
+          <button
+            type="button"
+            className="rounded-md px-[28px] py-[10px] text-[13px]"
+            style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
+          >
+            더 알아보기
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -1031,7 +1040,7 @@ export default function ChecklistPanel() {
           ))}
         </div>
 
-        <div className="flex flex-1 flex-col p-6">
+        <div className="flex min-w-0 flex-1 flex-col p-6">
           <div className="pr-6">
             <div className="flex items-center justify-between">
               <span className="text-[12px] text-[var(--text-muted)]">전체 진행률</span>
