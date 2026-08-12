@@ -548,6 +548,16 @@ function CashDepositForm() {
             </tbody>
           </table>
         </div>
+
+        <div className="mt-3 flex justify-end">
+          <button
+            type="button"
+            className="rounded-md px-5 py-2 text-[13px] text-white"
+            style={{ backgroundColor: "#2C2C2A" }}
+          >
+            등록
+          </button>
+        </div>
       </div>
 
       <div className="mt-6 flex justify-center gap-3">
@@ -559,9 +569,10 @@ function CashDepositForm() {
         </button>
         <button
           type="button"
-          className="rounded-md bg-[var(--cta)] px-6 py-2.5 text-[13px] font-medium text-white"
+          className="rounded-md px-[28px] py-[10px] text-[13px]"
+          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
         >
-          저장하기
+          더 알아보기
         </button>
       </div>
     </div>
