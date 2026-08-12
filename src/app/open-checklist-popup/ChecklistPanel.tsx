@@ -867,17 +867,6 @@ const contractPayments: EasyPayItem[] = [
   { name: "내통장 바로결제", desc: "헥토파이낸셜, 별도 계약 필요" },
 ];
 
-interface IncludedPayment {
-  brand: string;
-  note?: string;
-}
-
-const includedPayments: IncludedPayment[] = [
-  { brand: "Apple Pay" },
-  { brand: "페이코" },
-  { brand: "페이유", note: "자체 간편결제" },
-];
-
 function PgApplicationForm() {
   const [selectedPg, setSelectedPg] = useState("EasyPAY");
 
@@ -944,28 +933,21 @@ function PgApplicationForm() {
 
       <div className="mt-6">
         <p className="text-[12px] font-semibold text-[var(--text-primary)]">PG 연동 간편결제 서비스</p>
-        <div className="mt-2">
-          {includedPayments.map((item) => (
-            <div
-              key={item.brand}
-              className="flex items-center justify-between border-b border-[var(--divider)] py-3 last:border-0"
-            >
-              <span className="flex items-center gap-2">
-                <BrandWordmark brand={item.brand} />
-                {item.note ? (
-                  <span className="text-[11px] text-[var(--text-muted)]">({item.note})</span>
-                ) : null}
-              </span>
-              <span
-                className="rounded-full px-2.5 py-1 text-[11px] font-medium"
-                style={{ backgroundColor: "var(--accent-soft-bg)", color: "var(--success)" }}
-              >
-                자동 포함
-              </span>
-            </div>
-          ))}
+        <div
+          className="mt-2 flex items-center gap-2 rounded-lg px-3.5 py-3"
+          style={{ backgroundColor: "#FAF9F5" }}
+        >
+          <span className="text-[12px] font-medium" style={{ color: "#2C2C2A" }}>
+            Apple Pay · 페이코 · 페이유(자체 간편결제)
+          </span>
+          <span
+            className="rounded-full px-2.5 py-1 text-[10px] font-medium"
+            style={{ backgroundColor: "#EAF3E0", color: "#639922" }}
+          >
+            자동 포함
+          </span>
         </div>
-        <p className="mt-2 text-[11px] text-[var(--text-muted)]">
+        <p className="mt-2 text-[10px]" style={{ color: "#888780" }}>
           PG 심사 진행 시 자동으로 함께 신청돼요. 별도로 선택하실 필요는 없어요.
         </p>
       </div>
