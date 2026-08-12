@@ -473,8 +473,6 @@ function BusinessInfoForm() {
 }
 
 function CashDepositForm() {
-  const [primaryAccount, setPrimaryAccount] = useState(false);
-  const [visibility, setVisibility] = useState("");
   const [methodEnabled, setMethodEnabled] = useState(true);
   const [methodName, setMethodName] = useState("무통장입금");
   const [hideBenefit, setHideBenefit] = useState(false);
@@ -492,82 +490,6 @@ function CashDepositForm() {
         <button type="button" className={`shrink-0 ${primaryButtonClass}`}>
           등록
         </button>
-      </div>
-
-      <div className="mt-6">
-        <p className="mb-2 text-[13px] font-medium text-[var(--text-primary)]">무통장 입금계좌</p>
-        <div className="overflow-x-auto rounded-md border border-[var(--border)]">
-          <table className="w-full text-left text-[12px]">
-            <thead>
-              <tr className="border-b border-[var(--divider)] bg-[var(--surface-1)] text-[var(--text-muted)]">
-                <th className="whitespace-nowrap px-3 py-2 font-medium">대표계좌</th>
-                <th className="whitespace-nowrap px-3 py-2 font-medium">은행명</th>
-                <th className="whitespace-nowrap px-3 py-2 font-medium">계좌번호</th>
-                <th className="whitespace-nowrap px-3 py-2 font-medium">예금주</th>
-                <th className="whitespace-nowrap px-3 py-2 font-medium">자동입금알림</th>
-                <th className="whitespace-nowrap px-3 py-2 font-medium">노출여부</th>
-                <th className="whitespace-nowrap px-3 py-2 font-medium">관리</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="px-3 py-2">
-                  <input
-                    type="radio"
-                    name="primaryAccount"
-                    checked={primaryAccount}
-                    onChange={() => setPrimaryAccount(true)}
-                    className="h-3.5 w-3.5 accent-[var(--accent-text)]"
-                  />
-                </td>
-                <td className="px-3 py-2">
-                  <select className={`${cellFieldClass} min-w-[110px]`} defaultValue="">
-                    <option value="" disabled>
-                      은행선택
-                    </option>
-                  </select>
-                </td>
-                <td className="px-3 py-2">
-                  <input type="text" placeholder="계좌번호 입력" className={`${cellFieldClass} min-w-[130px]`} />
-                </td>
-                <td className="px-3 py-2">
-                  <input type="text" placeholder="예금주 입력" className={`${cellFieldClass} min-w-[100px]`} />
-                </td>
-                <td className="px-3 py-2">
-                  <button type="button" className={`whitespace-nowrap ${secondaryButtonClass}`}>
-                    자동입금확인 연동
-                  </button>
-                </td>
-                <td className="px-3 py-2">
-                  <div className="flex items-center gap-3">
-                    <RadioOption
-                      name="visibility"
-                      label="보임"
-                      checked={visibility === "보임"}
-                      onChange={() => setVisibility("보임")}
-                    />
-                    <RadioOption
-                      name="visibility"
-                      label="숨김"
-                      checked={visibility === "숨김"}
-                      onChange={() => setVisibility("숨김")}
-                    />
-                  </div>
-                </td>
-                <td className="px-3 py-2">
-                  <div className="flex items-center gap-1.5">
-                    <button type="button" className={`whitespace-nowrap ${secondaryButtonClass}`}>
-                      적용
-                    </button>
-                    <button type="button" className={`whitespace-nowrap ${dangerButtonClass}`}>
-                      삭제
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
 
       <div className="mt-8 border-t border-[var(--divider)] pt-6">
