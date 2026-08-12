@@ -45,8 +45,8 @@ const items: ChecklistItemData[] = [
   {
     id: 3,
     title: "상품 등록하기",
-    description: "판매할 상품을 3개 이상 등록해 주세요.",
-    duration: "약 5분이면 완료",
+    description: "",
+    duration: "약 10분이면 완료",
     previewTitle: "상품 등록",
     previewRows: ["상품명: 베이직 티셔츠", "가격: 19,900원", "재고: 100개"],
   },
@@ -781,6 +781,85 @@ function SupplierListForm() {
   );
 }
 
+function ExternalLinkIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M9 15L20 4" strokeLinecap="round" />
+      <path d="M13 4H20V11" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M18 13V19C18 19.5523 17.5523 20 17 20H5C4.44772 20 4 19.5523 4 19V7C4 6.44772 4.44772 6 5 6H11"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+interface SampleProduct {
+  name: string;
+  price: string;
+}
+
+const sampleProducts: SampleProduct[] = [
+  { name: "기본 반팔 티셔츠", price: "19,900원" },
+  { name: "데일리 와이드 팬츠", price: "32,000원" },
+  { name: "캐주얼 니트 가디건", price: "45,000원" },
+];
+
+function ProductSampleForm() {
+  return (
+    <div className="mt-6 w-full max-w-[480px]">
+      <div
+        className="flex items-start gap-2 rounded-lg px-3.5 py-3"
+        style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
+      >
+        <WarningIcon />
+        <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
+          <span className="font-semibold">선택하신 카테고리에 맞춰 샘플 상품 3개가 이미 등록되어 있어요.</span>
+          <br />
+          아래에서 확인하고, <span className="font-semibold">실제 판매하실 상품으로 수정</span>해 주세요.
+        </p>
+      </div>
+
+      <div className="mt-4">
+        {sampleProducts.map((item) => (
+          <div
+            key={item.name}
+            className="flex items-center gap-3 border-b border-[var(--divider)] py-3 last:border-0"
+          >
+            <span className="h-9 w-9 shrink-0 rounded-md" style={{ backgroundColor: "#F1EFE8" }} />
+            <div className="flex-1">
+              <p className="text-[12px] font-medium text-[var(--text-primary)]">{item.name}</p>
+              <p className="text-[10px] text-[var(--text-muted)]">샘플 상품</p>
+            </div>
+            <span className="text-[12px]" style={{ color: "#5F5E5A" }}>
+              {item.price}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-6 flex justify-center gap-3">
+        <button
+          type="button"
+          className="rounded-md px-6 py-2.5 text-[13px]"
+          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
+        >
+          건너뛰기
+        </button>
+        <button
+          type="button"
+          className="flex items-center gap-1.5 rounded-md px-6 py-2.5 text-[13px] font-medium text-white"
+          style={{ backgroundColor: "#2C2C2A" }}
+        >
+          상품 목록으로
+          <ExternalLinkIcon />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function EventBadge() {
   return (
     <span
@@ -1099,6 +1178,8 @@ export default function ChecklistPanel() {
             <SupplierListForm />
           ) : selected.id === 1 ? (
             <PgApplicationForm />
+          ) : selected.id === 3 ? (
+            <ProductSampleForm />
           ) : (
             <div className="mt-4 w-[180px] rounded-[10px] border border-[var(--border)] bg-[var(--surface-1)] p-3 text-left">
               <p className="text-[11px] font-semibold text-[var(--text-primary)]">{selected.previewTitle}</p>
