@@ -331,8 +331,6 @@ function BusinessInfoForm() {
 
   return (
     <div className="mt-6 w-full max-w-[600px]">
-      <p className="text-[11px] text-[var(--success)]">✔ 표시 필수항목</p>
-
       <div className="mt-4 space-y-6">
         <div>
           <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자 구분</p>
@@ -350,34 +348,22 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
-            <RequiredMark />
-            상호명
-          </p>
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">상호명</p>
           <input type="text" placeholder="상호명 입력" className={inputClass} />
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
-            <RequiredMark />
-            대표자 성함
-          </p>
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표자 성함</p>
           <input type="text" placeholder="성함 입력" className={inputClass} />
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
-            <RequiredMark />
-            사업자등록번호
-          </p>
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자등록번호</p>
           <input type="text" placeholder="사업자등록번호 입력" className={inputClass} />
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
-            <RequiredMark />
-            업태/업종
-          </p>
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">업태/업종</p>
           <div className="flex gap-2">
             <input type="text" placeholder="업태 입력" className={inputClass} />
             <input type="text" placeholder="업종 입력" className={inputClass} />
@@ -385,10 +371,7 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
-            <RequiredMark />
-            통신판매신고번호
-          </p>
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">통신판매신고번호</p>
           <div className="flex items-center gap-4">
             {["비대상", "준비중", "입력"].map((label) => (
               <RadioOption
@@ -403,10 +386,7 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
-            <RequiredMark />
-            주소
-          </p>
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">주소</p>
           <div className="flex gap-2">
             <input type="text" placeholder="우편번호" className={inputClass} />
             <button type="button" className={`shrink-0 ${secondaryButtonClass}`}>
@@ -420,10 +400,7 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
-            <RequiredMark />
-            대표 전화번호
-          </p>
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 전화번호</p>
           <input type="text" placeholder="연락처 입력" className={inputClass} />
           <div
             className="mt-2 flex items-start gap-2 rounded-lg px-3.5 py-3"
@@ -443,10 +420,7 @@ function BusinessInfoForm() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">
-            <RequiredMark />
-            대표 팩스번호
-          </p>
+          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 팩스번호</p>
           <input type="text" placeholder="연락처 입력" className={inputClass} />
         </div>
       </div>
