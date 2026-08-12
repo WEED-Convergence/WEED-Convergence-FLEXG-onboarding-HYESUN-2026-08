@@ -927,9 +927,9 @@ interface EasyPayItem {
 }
 
 const contractPayments: EasyPayItem[] = [
-  { name: "네이버페이", desc: "간편결제, 별도 계약 필요" },
-  { name: "카카오페이", desc: "간편결제, 별도 계약 필요" },
-  { name: "토스페이", desc: "간편결제, 별도 계약 필요" },
+  { name: "네이버페이", desc: "" },
+  { name: "카카오페이", desc: "" },
+  { name: "토스페이", desc: "" },
   { name: "내통장 바로결제", desc: "헥토파이낸셜, 별도 계약 필요" },
 ];
 
