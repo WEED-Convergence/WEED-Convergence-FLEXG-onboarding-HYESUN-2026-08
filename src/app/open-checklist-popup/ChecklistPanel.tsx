@@ -90,7 +90,7 @@ const items: ChecklistItemData[] = [
     id: 8,
     title: "알림톡 등록하기",
     description: "카카오 비즈니스 채널 개설 및 심사 완료 후 채널을 등록해 주세요.",
-    duration: "약 10분이면 완료 (채널 심사 대기 별도)",
+    duration: "약 30분이면 완료",
     previewTitle: "알림톡 채널 연동",
     previewRows: ["카카오 채널 ID: @isumo_store"],
   },
@@ -1303,6 +1303,107 @@ function SenderNumberForm() {
   );
 }
 
+const alimtalkNotices = [
+  { text: "반드시 카카오 비즈니스 -> 채널 -> 비즈니스 채널 전환 후에 신청해 주시기 바랍니다." },
+  {
+    text: "카카오 비즈니스 -> 채널 -> 프로필 설정에 채널 공개 ON으로 되어야 승인 처리됩니다.",
+    color: "#D8342A",
+  },
+  {
+    text: "알림톡은 신청하신 판매자님의 카카오톡 채널 아이디로 발송되며, 설정 문구와 지정된 템플릿 형태로 발송 가능합니다. (템플릿 형태는 임의 수정 불가)",
+  },
+  { text: "알림톡은 수신자가 메시지 받기 승인 시에만 전송됩니다." },
+  { text: "알림톡은 수신자 거부 또는 기타 사유로 발송에 실패했을 경우, LMS서비스로 발송 처리 됩니다." },
+];
+
+function AlimtalkForm() {
+  return (
+    <div className="mt-6 w-full max-w-[640px]">
+      <div className={sectionCardClass} style={sectionCardStyle}>
+        <SubsectionTitle>알림톡 채널 연동</SubsectionTitle>
+
+        <div className="mt-4 space-y-4">
+          <div className="flex items-center gap-4">
+            <span className="w-[130px] shrink-0 text-[13px] font-medium text-[var(--text-primary)]">
+              카카오톡 채널 아이디
+            </span>
+            <input
+              type="text"
+              placeholder="카카오톡 채널 아이디 입력 (예: @happytalk)"
+              className={`flex-1 ${inputClass}`}
+            />
+          </div>
+
+          <div className="flex items-center gap-4">
+            <span className="w-[130px] shrink-0 text-[13px] font-medium text-[var(--text-primary)]">
+              카테고리 선택
+            </span>
+            <select className={`flex-1 ${inputClass}`} defaultValue="건강,병원,종합병원">
+              <option value="건강,병원,종합병원">건강,병원,종합병원</option>
+            </select>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <span className="w-[130px] shrink-0 text-[13px] font-medium text-[var(--text-primary)]">
+              관리자 휴대폰 번호
+            </span>
+            <input
+              type="text"
+              placeholder="카카오톡 채널 관리자 휴대폰 번호 입력 (예: 01012341234)"
+              className={`flex-1 ${inputClass}`}
+            />
+            <button
+              type="button"
+              className="shrink-0 whitespace-nowrap rounded-[5px] px-3 py-[6px] text-[11px] font-medium text-white"
+              style={{ backgroundColor: "#5F5E5A" }}
+            >
+              인증번호 요청
+            </button>
+          </div>
+
+          <div
+            className="rounded-[8px] px-4 py-[14px]"
+            style={{ border: "1px solid #E4E2D8", backgroundColor: "#FAF9F5" }}
+          >
+            <div className="flex items-center justify-between">
+              <p className="text-[12px] font-bold" style={{ color: "#2C2C2A" }}>
+                유의사항
+              </p>
+              <button
+                type="button"
+                className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
+                style={{ backgroundColor: "#D8342A" }}
+              >
+                가이드 보기
+              </button>
+            </div>
+            <div className="mt-2">
+              {alimtalkNotices.map((notice, index) => (
+                <p
+                  key={notice.text}
+                  className="text-[11px]"
+                  style={{ color: notice.color ?? "#5F5E5A", lineHeight: 2 }}
+                >
+                  {index + 1}. {notice.text}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
+          건너뛰기
+        </button>
+        <button type="button" className={primaryButtonClass}>
+          알림톡 등록하기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function PopbillForm() {
   return (
     <div className="mt-6 w-full max-w-[640px]">
@@ -1454,6 +1555,8 @@ export default function ChecklistPanel() {
             <SecuritySettingsForm />
           ) : selected.id === 6 ? (
             <SenderNumberForm />
+          ) : selected.id === 8 ? (
+            <AlimtalkForm />
           ) : (
             <div className="mt-4 w-full max-w-[480px]">
               <div className={sectionCardClass} style={sectionCardStyle}>
