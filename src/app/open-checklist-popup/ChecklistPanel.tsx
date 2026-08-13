@@ -815,107 +815,119 @@ const contractPayments: EasyPayItem[] = [
   { name: "내통장 바로결제", desc: "" },
 ];
 
+function PgSubsectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="h-4 w-[3px] shrink-0 rounded-full" style={{ backgroundColor: "#D8342A" }} />
+      <p className="text-[15px] font-bold text-[var(--text-primary)]">{children}</p>
+    </div>
+  );
+}
+
+const pgCardClass = "rounded-lg p-4";
+const pgCardStyle = { backgroundColor: "#FAF9F5", border: "1px solid #E4E2D8" };
+
 function PgApplicationForm() {
   const [selectedPg, setSelectedPg] = useState("EasyPAY");
 
   return (
     <div className="mt-6 w-full max-w-[640px]">
-      <div>
-        <p className="text-[12px] font-semibold text-[var(--text-primary)]">PG사를 선택해 주세요</p>
-        <div className="mt-2">
-          {pgOptions.map((option) => {
-            const checked = selectedPg === option.name;
-            return (
-              <div key={option.name} className="border-b border-[var(--divider)] last:border-0">
-                <div className="flex items-center justify-between gap-3 py-3">
-                  <label className="flex flex-1 items-center gap-3">
-                    <input
-                      type="radio"
-                      name="pgOption"
-                      checked={checked}
-                      onChange={() => setSelectedPg(option.name)}
-                      className="h-3.5 w-3.5 shrink-0 accent-[var(--accent)]"
-                    />
-                    <span className="w-[100px] shrink-0">
-                      <BrandWordmark brand={option.name} />
-                    </span>
-                    <span className="text-[11px] text-[var(--text-muted)]">{option.summary}</span>
-                  </label>
-                  <button
-                    type="button"
-                    className="shrink-0 rounded-md px-3 py-[5px] text-[10px] font-medium text-white"
-                    style={{ backgroundColor: "#2C2C2A" }}
-                  >
-                    신청하기
-                  </button>
-                </div>
-                {checked && option.detailItems ? (
-                  <div
-                    className="mb-3 ml-[25px] rounded-lg px-3.5 py-3"
-                    style={{ backgroundColor: "#FBEAF0" }}
-                  >
-                    <p className="text-[11px] font-bold" style={{ color: "#993556" }}>
-                      {option.name} 상세정보
-                    </p>
-                    <div className="mt-1 text-[10.5px]" style={{ color: "#7A2438", lineHeight: 2 }}>
-                      {option.detailItems.map((item) => (
-                        <div key={item.label}>
-                          · {item.label} : {item.value}
-                        </div>
-                      ))}
-                    </div>
+      <div className="space-y-5">
+        <div className={pgCardClass} style={pgCardStyle}>
+          <PgSubsectionTitle>PG사 선택</PgSubsectionTitle>
+          <div className="mt-2">
+            {pgOptions.map((option) => {
+              const checked = selectedPg === option.name;
+              return (
+                <div key={option.name} className="border-b border-[var(--divider)] last:border-0">
+                  <div className="flex items-center justify-between gap-3 py-3">
+                    <label className="flex flex-1 items-center gap-3">
+                      <input
+                        type="radio"
+                        name="pgOption"
+                        checked={checked}
+                        onChange={() => setSelectedPg(option.name)}
+                        className="h-3.5 w-3.5 shrink-0 accent-[var(--accent)]"
+                      />
+                      <span className="w-[100px] shrink-0">
+                        <BrandWordmark brand={option.name} />
+                      </span>
+                      <span className="text-[11px] text-[var(--text-muted)]">{option.summary}</span>
+                    </label>
+                    <button
+                      type="button"
+                      className="shrink-0 rounded-md px-3 py-[5px] text-[10px] font-medium text-white"
+                      style={{ backgroundColor: "#2C2C2A" }}
+                    >
+                      신청하기
+                    </button>
                   </div>
-                ) : null}
+                  {checked && option.detailItems ? (
+                    <div
+                      className="mb-3 ml-[25px] rounded-lg px-3.5 py-3"
+                      style={{ backgroundColor: "#FBEAF0" }}
+                    >
+                      <p className="text-[11px] font-bold" style={{ color: "#993556" }}>
+                        {option.name} 상세정보
+                      </p>
+                      <div className="mt-1 text-[10.5px]" style={{ color: "#7A2438", lineHeight: 2 }}>
+                        {option.detailItems.map((item) => (
+                          <div key={item.label}>
+                            · {item.label} : {item.value}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className={pgCardClass} style={pgCardStyle}>
+          <PgSubsectionTitle>별도 계약이 필요한 간편결제 (선택)</PgSubsectionTitle>
+          <p className="mt-1 text-[11px] text-[var(--text-muted)]">
+            아래 결제수단은 PG와 별개로 각 서비스사와 직접 계약을 진행해야 해요.
+          </p>
+          <div className="mt-2">
+            {contractPayments.map((item) => (
+              <div
+                key={item.name}
+                className="flex items-center gap-3 border-b border-[var(--divider)] py-3 last:border-0"
+              >
+                <span className="w-[110px] shrink-0">
+                  <BrandWordmark brand={item.name} />
+                </span>
+                <span className="flex-1 text-[11px] text-[var(--text-muted)]">{item.desc}</span>
+                <button type="button" className={`shrink-0 ${secondaryButtonClass}`}>
+                  신청하기
+                </button>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="mt-6">
-        <p className="text-[12px] font-semibold text-[var(--text-primary)]">
-          별도 계약이 필요한 간편결제 (선택)
-        </p>
-        <p className="mt-1 text-[11px] text-[var(--text-muted)]">
-          아래 결제수단은 PG와 별개로 각 서비스사와 직접 계약을 진행해야 해요.
-        </p>
-        <div className="mt-2">
-          {contractPayments.map((item) => (
-            <div
-              key={item.name}
-              className="flex items-center gap-3 border-b border-[var(--divider)] py-3 last:border-0"
-            >
-              <span className="w-[110px] shrink-0">
-                <BrandWordmark brand={item.name} />
-              </span>
-              <span className="flex-1 text-[11px] text-[var(--text-muted)]">{item.desc}</span>
-              <button type="button" className={`shrink-0 ${secondaryButtonClass}`}>
-                신청하기
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-6">
-        <p className="text-[12px] font-semibold text-[var(--text-primary)]">PG 연동 간편결제 서비스</p>
-        <div
-          className="mt-2 flex items-center gap-2 rounded-lg px-3.5 py-3"
-          style={{ backgroundColor: "#FAF9F5" }}
-        >
-          <span className="text-[12px] font-medium" style={{ color: "#2C2C2A" }}>
-            Apple Pay · 페이코 · 페이유(자체 간편결제)
-          </span>
-          <span
-            className="rounded-full px-2.5 py-1 text-[10px] font-medium"
-            style={{ backgroundColor: "#EAF3E0", color: "#639922" }}
+        <div className={pgCardClass} style={pgCardStyle}>
+          <PgSubsectionTitle>PG 연동 간편결제 서비스</PgSubsectionTitle>
+          <div
+            className="mt-2 flex items-center gap-2 rounded-lg px-3.5 py-3"
+            style={{ backgroundColor: "#FFFFFF" }}
           >
-            자동 포함
-          </span>
+            <span className="text-[12px] font-medium" style={{ color: "#2C2C2A" }}>
+              Apple Pay · 페이코 · 페이유(자체 간편결제)
+            </span>
+            <span
+              className="rounded-full px-2.5 py-1 text-[10px] font-medium"
+              style={{ backgroundColor: "#EAF3E0", color: "#639922" }}
+            >
+              자동 포함
+            </span>
+          </div>
+          <p className="mt-2 text-[10px]" style={{ color: "#888780" }}>
+            PG 심사 진행 시 자동으로 함께 신청돼요. 별도로 선택하실 필요는 없어요.
+          </p>
         </div>
-        <p className="mt-2 text-[10px]" style={{ color: "#888780" }}>
-          PG 심사 진행 시 자동으로 함께 신청돼요. 별도로 선택하실 필요는 없어요.
-        </p>
       </div>
 
       <div className="mt-6 flex justify-center gap-3">
@@ -945,12 +957,7 @@ function CampaignSettingsForm() {
 
   return (
     <div className="mt-6 w-full max-w-[760px]">
-      <div className="flex items-center gap-2">
-        <p className="text-[16px] font-semibold text-[var(--text-primary)]">기본 설정</p>
-        <span className="text-[11px]" style={{ color: "#639922" }}>
-          ✔ 표시 필수항목
-        </span>
-      </div>
+      <p className="text-[16px] font-semibold text-[var(--text-primary)]">기본 설정</p>
 
       <div
         className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
@@ -970,7 +977,6 @@ function CampaignSettingsForm() {
 
       <div className="mt-4 flex flex-nowrap items-center gap-4">
         <span className="flex shrink-0 items-center whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
-          <RequiredMark />
           무료 수신거부번호
         </span>
         <label className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[13px] text-[var(--text-secondary)]">
@@ -1000,7 +1006,6 @@ function CampaignSettingsForm() {
 
       <div className="mt-4 flex flex-nowrap items-center gap-4">
         <span className="flex shrink-0 items-center whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
-          <RequiredMark />
           카카오톡 채널
         </span>
         <button type="button" className={crmActionButtonClass} style={{ backgroundColor: "#5F5E5A" }}>
