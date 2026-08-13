@@ -174,7 +174,7 @@ function RequiredMark() {
   return <span className="mr-1 text-[var(--success)]">✔</span>;
 }
 
-function WarningIcon() {
+function InfoIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -185,9 +185,9 @@ function WarningIcon() {
       strokeWidth="2"
       className="mt-0.5 shrink-0"
     >
-      <path d="M12 3L22 20H2L12 3Z" strokeLinejoin="round" />
-      <path d="M12 9.5V14" strokeLinecap="round" />
-      <circle cx="12" cy="17.2" r="0.6" fill="var(--accent)" stroke="none" />
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 8h.01" strokeLinecap="round" />
+      <path d="M11 12h1v4h1" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -400,7 +400,7 @@ function BusinessInfoForm() {
           className="flex items-start gap-2 rounded-lg px-3.5 py-3"
           style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
         >
-          <WarningIcon />
+          <InfoIcon />
           <p className="text-[12px] leading-relaxed text-[var(--text-secondary)]">
             <span className="font-semibold text-[var(--accent)]">휴대폰 번호로는 심사가 불가능</span>
             하며, 반드시 <span className="font-semibold text-[var(--accent)]">일반 유선전화</span>로
@@ -637,7 +637,7 @@ function ProductSampleForm() {
         className="flex items-start gap-2 rounded-lg px-3.5 py-3"
         style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
       >
-        <WarningIcon />
+        <InfoIcon />
         <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
           <span className="font-semibold">선택하신 카테고리에 맞춰 샘플 상품 3개가 이미 등록되어 있어요.</span>
           <br />
@@ -906,7 +906,7 @@ function CampaignSettingsForm() {
         className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
         style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
       >
-        <WarningIcon />
+        <InfoIcon />
         <div className="space-y-1 text-[11px] leading-relaxed text-[var(--accent-text)]">
           <p>
             · 기존에 쇼핑몰 운영을 위한 SMS/알림톡 설정을 완료하셨더라도 CRM 기능을 이용하시려면 무료
@@ -1002,7 +1002,7 @@ function TermsCheckForm() {
         className="mt-5 flex items-start gap-2 rounded-lg px-3.5 py-3 text-left"
         style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
       >
-        <WarningIcon />
+        <InfoIcon />
         <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
           <span className="font-semibold">
             편의를 위해 제공해드리는 전자상거래 표준 양식이 등록되어 있어요.
@@ -1089,7 +1089,7 @@ export default function ChecklistPanel() {
               className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
               style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
             >
-              <WarningIcon />
+              <InfoIcon />
               <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
                 <span className="font-semibold">자체적으로 배송하고 계신다면 별도의 공급사가 없어도 괜찮아요.</span>
                 <br />
