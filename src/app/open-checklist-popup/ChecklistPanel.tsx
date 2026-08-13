@@ -314,8 +314,8 @@ function BusinessInfoForm() {
   const [salesReport, setSalesReport] = useState("비대상");
 
   return (
-    <div className="mt-6 w-full max-w-[600px]">
-      <div className={sectionCardClass} style={sectionCardStyle}>
+    <div className="mt-6 w-full">
+      <DetailCard>
         <SubsectionTitle>사업자 정보</SubsectionTitle>
 
         <div className="mt-4 space-y-6">
@@ -401,7 +401,7 @@ function BusinessInfoForm() {
             </p>
           </div>
         </div>
-      </div>
+      </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
@@ -421,9 +421,9 @@ function CashDepositForm() {
   const [hideBenefit, setHideBenefit] = useState(false);
 
   return (
-    <div className="mt-6 w-full max-w-[760px]">
+    <div className="mt-6 w-full">
       <div className="space-y-4">
-        <div className={sectionCardClass} style={sectionCardStyle}>
+        <DetailCard>
           <SubsectionTitle>무통장입금 계좌 정보</SubsectionTitle>
           <div className="mt-4 flex items-end gap-2">
             <select className={`${cellFieldClass} flex-1`} defaultValue="">
@@ -437,9 +437,9 @@ function CashDepositForm() {
               등록
             </button>
           </div>
-        </div>
+        </DetailCard>
 
-        <div className={sectionCardClass} style={sectionCardStyle}>
+        <DetailCard>
           <SubsectionTitle>결제수단 설정</SubsectionTitle>
 
           <div className="mt-4 space-y-3">
@@ -498,7 +498,7 @@ function CashDepositForm() {
               등록
             </button>
           </div>
-        </div>
+        </DetailCard>
       </div>
 
       <div className="mt-6 flex justify-center gap-[10px]">
@@ -529,8 +529,8 @@ function SupplierField({ label, placeholder }: { label: string; placeholder: str
 
 function SupplierListForm() {
   return (
-    <div className="mt-6 w-full max-w-[560px]">
-      <div className={sectionCardClass} style={sectionCardStyle}>
+    <div className="mt-6 w-full">
+      <DetailCard>
         <SubsectionTitle>공급사 정보 입력</SubsectionTitle>
 
         <div className="mt-4 space-y-1 text-[11px] leading-relaxed text-[var(--text-muted)]">
@@ -554,7 +554,7 @@ function SupplierListForm() {
             등록
           </button>
         </div>
-      </div>
+      </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
@@ -572,8 +572,8 @@ function PhoneNumberForm() {
   const [enabled, setEnabled] = useState(false);
 
   return (
-    <div className="mt-6 w-full max-w-[560px]">
-      <div className={sectionCardClass} style={sectionCardStyle}>
+    <div className="mt-6 w-full">
+      <DetailCard>
         <SubsectionTitle>고객센터 연락처</SubsectionTitle>
 
         <div className="mt-4 flex items-center gap-4">
@@ -592,7 +592,7 @@ function PhoneNumberForm() {
         <p className="mt-2 text-[11px] text-[var(--text-muted)]">
           ⓘ 쇼핑몰 하단 고객센터 안내 영역에 전화번호 및 전화문의 버튼을 노출할 수 있습니다.
         </p>
-      </div>
+      </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
@@ -633,8 +633,8 @@ const sampleProducts: SampleProduct[] = [
 
 function ProductSampleForm() {
   return (
-    <div className="mt-6 w-full max-w-[480px]">
-      <div className={sectionCardClass} style={sectionCardStyle}>
+    <div className="mt-6 w-full">
+      <DetailCard>
         <SubsectionTitle>상품 등록</SubsectionTitle>
 
         <div
@@ -666,7 +666,7 @@ function ProductSampleForm() {
             </div>
           ))}
         </div>
-      </div>
+      </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
@@ -805,13 +805,21 @@ function SubsectionTitle({
 const sectionCardClass = "rounded-[12px] bg-white p-5";
 const sectionCardStyle = { border: "1px solid #E4E2D8" };
 
+function DetailCard({ children }: { children: React.ReactNode }) {
+  return (
+    <div className={sectionCardClass} style={sectionCardStyle}>
+      {children}
+    </div>
+  );
+}
+
 function PgApplicationForm() {
   const [selectedPg, setSelectedPg] = useState("EasyPAY");
 
   return (
-    <div className="mt-6 w-full max-w-[640px]">
+    <div className="mt-6 w-full">
       <div className="space-y-4">
-        <div className={sectionCardClass} style={sectionCardStyle}>
+        <DetailCard>
           <SubsectionTitle>PG사 선택</SubsectionTitle>
           <div className="mt-2">
             {pgOptions.map((option) => {
@@ -857,9 +865,9 @@ function PgApplicationForm() {
               );
             })}
           </div>
-        </div>
+        </DetailCard>
 
-        <div className={sectionCardClass} style={sectionCardStyle}>
+        <DetailCard>
           <SubsectionTitle>별도 계약이 필요한 간편결제 (선택)</SubsectionTitle>
           <p className="mt-1 text-[11px] text-[var(--text-muted)]">
             아래 결제수단은 PG와 별개로 각 서비스사와 직접 계약을 진행해야 해요.
@@ -880,9 +888,9 @@ function PgApplicationForm() {
               </div>
             ))}
           </div>
-        </div>
+        </DetailCard>
 
-        <div className={sectionCardClass} style={sectionCardStyle}>
+        <DetailCard>
           <SubsectionTitle>PG 연동 간편결제 서비스</SubsectionTitle>
           <div
             className="mt-2 flex items-center gap-2 rounded-lg px-3.5 py-3"
@@ -901,7 +909,7 @@ function PgApplicationForm() {
           <p className="mt-2 text-[10px]" style={{ color: "#888780" }}>
             PG 심사 진행 시 자동으로 함께 신청돼요. 별도로 선택하실 필요는 없어요.
           </p>
-        </div>
+        </DetailCard>
       </div>
 
       <div className="mt-6 flex justify-center gap-[10px]">
@@ -922,8 +930,8 @@ function CampaignSettingsForm() {
   const [rejectionType, setRejectionType] = useState("신규");
 
   return (
-    <div className="mt-6 w-full max-w-[760px]">
-      <div className={sectionCardClass} style={sectionCardStyle}>
+    <div className="mt-6 w-full">
+      <DetailCard>
         <SubsectionTitle>기본 설정</SubsectionTitle>
 
         <div
@@ -983,7 +991,7 @@ function CampaignSettingsForm() {
             완료된 후에 메시지 캠페인을 발행할 수 있습니다. (영업일 기준 최대 3일 소요)
           </p>
         </div>
-      </div>
+      </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
@@ -1020,8 +1028,8 @@ function TermsIllustration() {
 
 function TermsCheckForm() {
   return (
-    <div className="mt-6 w-full max-w-[480px]">
-      <div className={sectionCardClass} style={sectionCardStyle}>
+    <div className="mt-6 w-full">
+      <DetailCard>
         <SubsectionTitle>약관 관리</SubsectionTitle>
 
         <div className="mt-4">
@@ -1042,7 +1050,7 @@ function TermsCheckForm() {
             확인하고 수정해 보세요.
           </p>
         </div>
-      </div>
+      </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
@@ -1074,8 +1082,8 @@ function SecuritySettingsForm() {
   const [sessionTimeout, setSessionTimeout] = useState("120분");
 
   return (
-    <div className="mt-6 w-full max-w-[640px]">
-      <div className={sectionCardClass} style={sectionCardStyle}>
+    <div className="mt-6 w-full">
+      <DetailCard>
         <SubsectionTitle>로그인 보안 설정</SubsectionTitle>
 
         <div className="mt-4 space-y-5">
@@ -1193,7 +1201,7 @@ function SecuritySettingsForm() {
             </div>
           </div>
         </div>
-      </div>
+      </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
@@ -1216,8 +1224,8 @@ function SenderNumberForm() {
   const [senderType, setSenderType] = useState("법인/대표자 명의");
 
   return (
-    <div className="mt-6 w-full max-w-[640px]">
-      <div className={sectionCardClass} style={sectionCardStyle}>
+    <div className="mt-6 w-full">
+      <DetailCard>
         <SubsectionTitle>발신번호 신청</SubsectionTitle>
 
         <div className="mt-4 space-y-5">
@@ -1289,7 +1297,7 @@ function SenderNumberForm() {
             </button>
           </div>
         </div>
-      </div>
+      </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
@@ -1318,8 +1326,8 @@ const alimtalkNotices = [
 
 function AlimtalkForm() {
   return (
-    <div className="mt-6 w-full max-w-[640px]">
-      <div className={sectionCardClass} style={sectionCardStyle}>
+    <div className="mt-6 w-full">
+      <DetailCard>
         <SubsectionTitle>알림톡 채널 연동</SubsectionTitle>
 
         <div className="mt-4 space-y-4">
@@ -1390,7 +1398,7 @@ function AlimtalkForm() {
             </div>
           </div>
         </div>
-      </div>
+      </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
@@ -1501,8 +1509,8 @@ const liveGuideCards = [
 
 function LiveCommerceForm() {
   return (
-    <div className="mt-6 w-full max-w-[640px]">
-      <div className={sectionCardClass} style={sectionCardStyle}>
+    <div className="mt-6 w-full">
+      <DetailCard>
         <div className="flex items-center gap-4">
           <LiveIllustration />
           <div>
@@ -1568,7 +1576,7 @@ function LiveCommerceForm() {
             ))}
           </div>
         </div>
-      </div>
+      </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
@@ -1584,8 +1592,8 @@ function LiveCommerceForm() {
 
 function PopbillForm() {
   return (
-    <div className="mt-6 w-full max-w-[640px]">
-      <div className={sectionCardClass} style={sectionCardStyle}>
+    <div className="mt-6 w-full">
+      <DetailCard>
         <SubsectionTitle>팝빌 연동 신청</SubsectionTitle>
 
         <div
@@ -1619,7 +1627,7 @@ function PopbillForm() {
             ⓘ 가입된 사업자번호인 경우 플렉스지 고객센터로 문의해 주세요.
           </span>
         </div>
-      </div>
+      </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
@@ -1746,8 +1754,8 @@ export default function ChecklistPanel() {
           ) : selected.id === 12 ? (
             <LiveCommerceForm />
           ) : (
-            <div className="mt-4 w-full max-w-[480px]">
-              <div className={sectionCardClass} style={sectionCardStyle}>
+            <div className="mt-4 w-full">
+              <DetailCard>
                 <SubsectionTitle>{selected.previewTitle}</SubsectionTitle>
                 <div className="mt-3">
                   {selected.previewRows.map((row) => (
@@ -1764,7 +1772,7 @@ export default function ChecklistPanel() {
                     {selected.previewButton}
                   </button>
                 ) : null}
-              </div>
+              </DetailCard>
             </div>
           )}
         </div>
