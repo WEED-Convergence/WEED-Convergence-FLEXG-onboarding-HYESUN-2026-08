@@ -1469,6 +1469,14 @@ function DeviceMobileIcon() {
   );
 }
 
+function ChevronRightIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#B4B2A9" strokeWidth="2">
+      <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 const liveSteps = [
   "어드민에서 방송을 만들고, 팔 상품과 배너를 등록해요.",
   "앱으로 방송을 켜고, 반응과 주문을 실시간으로 확인해요.",
@@ -1561,9 +1569,12 @@ function LiveCommerceForm() {
             {liveGuideCards.map(({ Icon, bg, color, title, desc }) => (
               <div
                 key={title}
-                className="flex flex-col items-center rounded-[10px] px-3.5 py-[14px] text-center"
+                className="relative flex cursor-pointer flex-col items-center rounded-[10px] px-3.5 py-[14px] text-center"
                 style={{ border: "1px solid #E4E2D8" }}
               >
+                <span className="absolute right-3 top-3">
+                  <ChevronRightIcon />
+                </span>
                 <span
                   className="flex h-10 w-10 items-center justify-center rounded-full"
                   style={{ backgroundColor: bg, color }}
