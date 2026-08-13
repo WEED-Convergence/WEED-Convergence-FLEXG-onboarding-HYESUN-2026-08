@@ -204,19 +204,6 @@ const primaryButtonClass =
 const secondaryButtonClass =
   "rounded-[8px] border border-[var(--border)] px-[28px] py-[10px] text-[13px] font-medium text-[var(--text-secondary)]";
 
-function DragHandleIcon() {
-  return (
-    <svg viewBox="0 0 16 16" width="14" height="14" fill="var(--border)">
-      <circle cx="5" cy="3" r="1.2" />
-      <circle cx="11" cy="3" r="1.2" />
-      <circle cx="5" cy="8" r="1.2" />
-      <circle cx="11" cy="8" r="1.2" />
-      <circle cx="5" cy="13" r="1.2" />
-      <circle cx="11" cy="13" r="1.2" />
-    </svg>
-  );
-}
-
 function ToggleSwitch({ checked, onChange }: { checked: boolean; onChange: () => void }) {
   return (
     <button
@@ -446,63 +433,60 @@ function CashDepositForm() {
       </div>
 
       <div className="mt-8 border-t border-[var(--divider)] pt-6">
-        <p className="text-[16px] font-semibold text-[var(--text-primary)]">결제수단 설정</p>
+        <SubsectionTitle>결제수단 설정</SubsectionTitle>
 
-        <div className="mt-4 border-t border-[var(--divider)]" />
+        <div className="mt-4 space-y-3">
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
+                사용여부
+              </span>
+              <ToggleSwitch checked={methodEnabled} onChange={() => setMethodEnabled((v) => !v)} />
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
+                결제수단명칭
+              </span>
+              <div className="flex items-center gap-1.5">
+                <input
+                  type="text"
+                  value={methodName}
+                  maxLength={12}
+                  onChange={(e) => setMethodName(e.target.value.slice(0, 12))}
+                  className={`${cellFieldClass} w-28`}
+                />
+                <span className="whitespace-nowrap text-[11px] text-[var(--text-muted)]">
+                  {methodName.length}/12
+                </span>
+              </div>
+            </div>
+          </div>
 
-        <div className="mt-4 overflow-x-auto rounded-md border border-[var(--border)]">
-          <table className="w-full text-left text-[12px]">
-            <thead>
-              <tr className="border-b border-[var(--divider)] bg-[var(--surface-1)] text-[var(--text-muted)]">
-                <th className="px-3 py-2 font-medium" />
-                <th className="whitespace-nowrap px-3 py-2 font-medium">노출 순서</th>
-                <th className="whitespace-nowrap px-3 py-2 font-medium">사용여부</th>
-                <th className="whitespace-nowrap px-3 py-2 font-medium">결제수단 명칭</th>
-                <th className="whitespace-nowrap px-3 py-2 font-medium">혜택 노출</th>
-                <th className="whitespace-nowrap px-3 py-2 font-medium">수수료</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="px-3 py-2 text-[var(--border)]">
-                  <DragHandleIcon />
-                </td>
-                <td className="px-3 py-2 text-[var(--text-secondary)]">1</td>
-                <td className="px-3 py-2">
-                  <ToggleSwitch checked={methodEnabled} onChange={() => setMethodEnabled((v) => !v)} />
-                </td>
-                <td className="px-3 py-2">
-                  <div className="flex items-center gap-1.5">
-                    <input
-                      type="text"
-                      value={methodName}
-                      maxLength={12}
-                      onChange={(e) => setMethodName(e.target.value.slice(0, 12))}
-                      className={`${cellFieldClass} w-28`}
-                    />
-                    <span className="whitespace-nowrap text-[11px] text-[var(--text-muted)]">
-                      {methodName.length}/12
-                    </span>
-                  </div>
-                </td>
-                <td className="px-3 py-2">
-                  <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-[var(--text-secondary)]">
-                    <input
-                      type="checkbox"
-                      checked={hideBenefit}
-                      onChange={() => setHideBenefit((v) => !v)}
-                      className="h-3.5 w-3.5 accent-[var(--accent-text)]"
-                    />
-                    주문시 입금통장 미노출
-                  </label>
-                </td>
-                <td className="px-3 py-2 text-[var(--text-muted)]">-</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
+                혜택노출
+              </span>
+              <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-[var(--text-secondary)]">
+                <input
+                  type="checkbox"
+                  checked={hideBenefit}
+                  onChange={() => setHideBenefit((v) => !v)}
+                  className="h-3.5 w-3.5 accent-[var(--accent-text)]"
+                />
+                주문시 입금통장 미노출
+              </label>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
+                수수료
+              </span>
+              <span className="text-[11px] text-[var(--text-muted)]">-</span>
+            </div>
+          </div>
         </div>
 
-        <div className="mt-3 flex justify-end">
+        <div className="mt-4 flex justify-end">
           <button type="button" className={primaryButtonClass}>
             등록
           </button>
@@ -770,7 +754,7 @@ const contractPayments: EasyPayItem[] = [
   { name: "내통장 바로결제", desc: "" },
 ];
 
-function PgSubsectionTitle({ children }: { children: React.ReactNode }) {
+function SubsectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2">
       <span className="h-4 w-[3px] shrink-0 rounded-full" style={{ backgroundColor: "#D8342A" }} />
@@ -789,7 +773,7 @@ function PgApplicationForm() {
     <div className="mt-6 w-full max-w-[640px]">
       <div className="space-y-5">
         <div className={pgCardClass} style={pgCardStyle}>
-          <PgSubsectionTitle>PG사 선택</PgSubsectionTitle>
+          <SubsectionTitle>PG사 선택</SubsectionTitle>
           <div className="mt-2">
             {pgOptions.map((option) => {
               const checked = selectedPg === option.name;
@@ -837,7 +821,7 @@ function PgApplicationForm() {
         </div>
 
         <div className={pgCardClass} style={pgCardStyle}>
-          <PgSubsectionTitle>별도 계약이 필요한 간편결제 (선택)</PgSubsectionTitle>
+          <SubsectionTitle>별도 계약이 필요한 간편결제 (선택)</SubsectionTitle>
           <p className="mt-1 text-[11px] text-[var(--text-muted)]">
             아래 결제수단은 PG와 별개로 각 서비스사와 직접 계약을 진행해야 해요.
           </p>
@@ -860,7 +844,7 @@ function PgApplicationForm() {
         </div>
 
         <div className={pgCardClass} style={pgCardStyle}>
-          <PgSubsectionTitle>PG 연동 간편결제 서비스</PgSubsectionTitle>
+          <SubsectionTitle>PG 연동 간편결제 서비스</SubsectionTitle>
           <div
             className="mt-2 flex items-center gap-2 rounded-lg px-3.5 py-3"
             style={{ backgroundColor: "#FFFFFF" }}
