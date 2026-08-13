@@ -121,11 +121,10 @@ const items: ChecklistItemData[] = [
   {
     id: 16,
     title: "보안설정하기",
-    description: "관리자 계정 보안을 위한 2단계 인증, 로그인 기록 등을 설정해 주세요.",
+    description: "",
     duration: "약 2분이면 완료",
     previewTitle: "보안 설정",
     previewRows: ["2단계 인증: 미설정", "로그인 알림: 미설정"],
-    previewButton: "보안 설정하러 가기",
   },
   {
     id: 11,
@@ -1057,6 +1056,148 @@ function TermsCheckForm() {
   );
 }
 
+function SecurityBadge({ label, color }: { label: string; color: string }) {
+  return (
+    <span
+      className="mr-1.5 inline-block align-middle rounded-full px-2 py-[1px] text-[10px] font-medium text-white"
+      style={{ backgroundColor: color }}
+    >
+      {label}
+    </span>
+  );
+}
+
+function SecuritySettingsForm() {
+  const [twoFactor, setTwoFactor] = useState("사용안함");
+  const [duplicateLogin, setDuplicateLogin] = useState("사용안함");
+  const [loginFailLimit, setLoginFailLimit] = useState("사용안함");
+  const [sessionTimeout, setSessionTimeout] = useState("120분");
+
+  return (
+    <div className="mt-6 w-full max-w-[640px]">
+      <div className={sectionCardClass} style={sectionCardStyle}>
+        <SubsectionTitle>로그인 보안 설정</SubsectionTitle>
+
+        <div className="mt-4 space-y-5">
+          <div className="flex items-start gap-4">
+            <span className="w-[120px] shrink-0 pt-[2px] text-[13px] font-medium text-[var(--text-primary)]">
+              2단계 인증
+            </span>
+            <div className="flex-1">
+              <div className="flex items-center gap-4">
+                <RadioOption
+                  name="twoFactor"
+                  label="사용안함"
+                  checked={twoFactor === "사용안함"}
+                  onChange={() => setTwoFactor("사용안함")}
+                />
+                <RadioOption
+                  name="twoFactor"
+                  label="사용"
+                  checked={twoFactor === "사용"}
+                  onChange={() => setTwoFactor("사용")}
+                />
+              </div>
+              <p className="mt-1.5 text-[10px] text-[var(--text-muted)]">
+                ⓘ 사용 시 모든 부계정에도 동일하게 적용됩니다.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <span className="w-[120px] shrink-0 pt-[2px] text-[13px] font-medium text-[var(--text-primary)]">
+              중복 로그인 제한
+            </span>
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center gap-4">
+                <RadioOption
+                  name="duplicateLogin"
+                  label="사용안함"
+                  checked={duplicateLogin === "사용안함"}
+                  onChange={() => setDuplicateLogin("사용안함")}
+                />
+                <RadioOption
+                  name="duplicateLogin"
+                  label="부분 제한 (보안 적용)"
+                  checked={duplicateLogin === "부분 제한"}
+                  onChange={() => setDuplicateLogin("부분 제한")}
+                />
+                <RadioOption
+                  name="duplicateLogin"
+                  label="완전 제한 (보안 강화)"
+                  checked={duplicateLogin === "완전 제한"}
+                  onChange={() => setDuplicateLogin("완전 제한")}
+                />
+              </div>
+              <div
+                className="mt-2 space-y-1.5 rounded-[8px] px-3 py-[10px]"
+                style={{ backgroundColor: "#FAF9F5", border: "1px solid #E4E2D8" }}
+              >
+                <p className="text-[10px] leading-relaxed text-[var(--text-muted)]">
+                  <SecurityBadge label="부분 제한" color="#639922" />
+                  ⓘ 동일한 장소의 인터넷 환경에서 IP기준 중복 로그인을 허용합니다. 단, IP 변동이 생기는
+                  유동IP는 적용되지 않습니다.
+                </p>
+                <p className="text-[10px] leading-relaxed text-[var(--text-muted)]">
+                  <SecurityBadge label="완전 제한" color="#378ADD" />
+                  ⓘ 세션 기준으로 로그인을 제한하며 동일한 계정은 한 번에 하나의 접속만 허용합니다.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <span className="w-[120px] shrink-0 pt-[2px] text-[13px] font-medium text-[var(--text-primary)]">
+              로그인 실패 횟수 제한
+            </span>
+            <div className="flex-1">
+              <div className="flex items-center gap-4">
+                <RadioOption
+                  name="loginFailLimit"
+                  label="사용안함"
+                  checked={loginFailLimit === "사용안함"}
+                  onChange={() => setLoginFailLimit("사용안함")}
+                />
+                <RadioOption
+                  name="loginFailLimit"
+                  label="사용"
+                  checked={loginFailLimit === "사용"}
+                  onChange={() => setLoginFailLimit("사용")}
+                />
+              </div>
+              <p className="mt-1.5 text-[10px] text-[var(--text-muted)]">
+                ⓘ 사용 시 관리자 로그인 비밀번호를 5회 이상 잘못 입력하면 로그인을 제한합니다.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <span className="w-[120px] shrink-0 pt-[2px] text-[13px] font-medium text-[var(--text-primary)]">
+              세션 만료 시간
+            </span>
+            <div className="flex-1">
+              <div className="flex items-center gap-4">
+                {["30분", "60분", "90분", "120분"].map((label) => (
+                  <RadioOption
+                    key={label}
+                    name="sessionTimeout"
+                    label={label}
+                    checked={sessionTimeout === label}
+                    onChange={() => setSessionTimeout(label)}
+                  />
+                ))}
+              </div>
+              <p className="mt-1.5 text-[10px] text-[var(--text-muted)]">
+                ⓘ 설정한 시간 동안 활동이 없으면 자동으로 로그아웃됩니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function PopbillForm() {
   return (
     <div className="mt-6 w-full max-w-[640px]">
@@ -1204,6 +1345,8 @@ export default function ChecklistPanel() {
             <TermsCheckForm />
           ) : selected.id === 10 ? (
             <PopbillForm />
+          ) : selected.id === 16 ? (
+            <SecuritySettingsForm />
           ) : (
             <div className="mt-4 w-full max-w-[480px]">
               <div className={sectionCardClass} style={sectionCardStyle}>
