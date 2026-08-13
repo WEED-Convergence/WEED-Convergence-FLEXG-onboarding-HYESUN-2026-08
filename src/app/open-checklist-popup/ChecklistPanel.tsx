@@ -193,7 +193,7 @@ function WarningIcon() {
 }
 
 const inputClass =
-  "w-full rounded-md border border-[var(--border)] px-3 py-2 text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
+  "w-full rounded-md border border-[var(--border)] px-3 py-[9px] text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
 
 const cellFieldClass =
   "w-full rounded-md border border-[var(--border)] bg-white px-2 py-1.5 text-[12px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
@@ -325,46 +325,33 @@ function RadioOption({
 }
 
 function BusinessInfoForm() {
-  const [bizType, setBizType] = useState("법인사업자");
   const [salesReport, setSalesReport] = useState("비대상");
 
   return (
     <div className="mt-6 w-full max-w-[600px]">
       <div className="mt-4 space-y-6">
-        <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자 구분</p>
-          <div className="flex items-center gap-4">
-            {["개인사업자", "법인사업자", "개인"].map((label) => (
-              <RadioOption
-                key={label}
-                name="bizType"
-                label={label}
-                checked={bizType === label}
-                onChange={() => setBizType(label)}
-              />
-            ))}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">상호명</p>
+            <input type="text" placeholder="상호명 입력" className={inputClass} />
+          </div>
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표자 성함</p>
+            <input type="text" placeholder="성함 입력" className={inputClass} />
           </div>
         </div>
 
-        <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">상호명</p>
-          <input type="text" placeholder="상호명 입력" className={inputClass} />
-        </div>
-
-        <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표자 성함</p>
-          <input type="text" placeholder="성함 입력" className={inputClass} />
-        </div>
-
-        <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자등록번호</p>
-          <input type="text" placeholder="사업자등록번호 입력" className={inputClass} />
-        </div>
-
-        <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">업태/업종</p>
-          <div className="flex gap-2">
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자등록번호</p>
+            <input type="text" placeholder="사업자등록번호 입력" className={inputClass} />
+          </div>
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">업태</p>
             <input type="text" placeholder="업태 입력" className={inputClass} />
+          </div>
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">업종</p>
             <input type="text" placeholder="업종 입력" className={inputClass} />
           </div>
         </div>
@@ -398,29 +385,31 @@ function BusinessInfoForm() {
           </div>
         </div>
 
-        <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 전화번호</p>
-          <input type="text" placeholder="연락처 입력" className={inputClass} />
-          <div
-            className="mt-2 flex items-start gap-2 rounded-lg px-3.5 py-3"
-            style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
-          >
-            <WarningIcon />
-            <p className="text-[12px] leading-relaxed text-[var(--text-secondary)]">
-              <span className="font-semibold text-[var(--accent)]">휴대폰 번호로는 심사가 불가능</span>
-              하며, 반드시 <span className="font-semibold text-[var(--accent)]">일반 유선전화</span>로
-              등록해 주세요.
-              <br />
-              안심번호도 대표 전화번호로 등록 가능합니다.
-              <br />
-              번호 예시) 080, 0507, 0506, 0130, 0030 등
-            </p>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 전화번호</p>
+            <input type="text" placeholder="연락처 입력" className={inputClass} />
+          </div>
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 팩스번호</p>
+            <input type="text" placeholder="연락처 입력" className={inputClass} />
           </div>
         </div>
 
-        <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 팩스번호</p>
-          <input type="text" placeholder="연락처 입력" className={inputClass} />
+        <div
+          className="flex items-start gap-2 rounded-lg px-3.5 py-3"
+          style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
+        >
+          <WarningIcon />
+          <p className="text-[12px] leading-relaxed text-[var(--text-secondary)]">
+            <span className="font-semibold text-[var(--accent)]">휴대폰 번호로는 심사가 불가능</span>
+            하며, 반드시 <span className="font-semibold text-[var(--accent)]">일반 유선전화</span>로
+            등록해 주세요.
+            <br />
+            안심번호도 대표 전화번호로 등록 가능합니다.
+            <br />
+            번호 예시) 080, 0507, 0506, 0130, 0030 등
+          </p>
         </div>
       </div>
 
