@@ -105,8 +105,8 @@ const items: ChecklistItemData[] = [
   {
     id: 10,
     title: "팝빌 신청하기",
-    description: "무통장 입금을 자동으로 확인해주는 팝빌 서비스를 신청해 주세요.",
-    duration: "약 2분이면 완료",
+    description: "",
+    duration: "약 10분이면 완료",
     previewTitle: "팝빌 연동 신청",
     previewRows: ["사업자번호: 123-45-...", "정산계좌: 신한 110-..."],
   },
@@ -1025,6 +1025,53 @@ function TermsCheckForm() {
   );
 }
 
+function PopbillForm() {
+  return (
+    <div className="mt-6 w-full max-w-[640px]">
+      <div
+        className="flex items-start gap-2 rounded-lg px-3.5 py-3"
+        style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+      >
+        <InfoIcon />
+        <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
+          <span className="font-semibold">팝빌은 무통장입금 확인을 자동화해주는 서비스예요.</span>
+          <br />
+          가입해두면 입금자명을 일일이 대조하지 않아도,{" "}
+          <span className="font-semibold">입금 여부가 자동으로 확인</span>돼요.
+        </p>
+      </div>
+
+      <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <span className="text-[12px]" style={{ color: "#3B3A36" }}>
+          팝빌 가입정보
+        </span>
+        <span className="text-[12px]" style={{ color: "#888780" }}>
+          가입정보가 없습니다.
+        </span>
+        <button
+          type="button"
+          className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
+          style={{ backgroundColor: "#5F5E5A" }}
+        >
+          팝빌가입하기
+        </button>
+        <span className="text-[10px] text-[var(--text-muted)]">
+          ⓘ 가입된 사업자번호인 경우 플렉스지 고객센터로 문의해 주세요.
+        </span>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
+          건너뛰기
+        </button>
+        <button type="button" className={primaryButtonClass}>
+          더 알아보기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ChecklistPanel() {
   const [selectedId, setSelectedId] = useState(1);
 
@@ -1119,6 +1166,8 @@ export default function ChecklistPanel() {
             <CampaignSettingsForm />
           ) : selected.id === 15 ? (
             <TermsCheckForm />
+          ) : selected.id === 10 ? (
+            <PopbillForm />
           ) : (
             <div className="mt-4 w-[180px] rounded-[10px] border border-[var(--border)] bg-[var(--surface-1)] p-3 text-left">
               <p className="text-[11px] font-semibold text-[var(--text-primary)]">{selected.previewTitle}</p>
