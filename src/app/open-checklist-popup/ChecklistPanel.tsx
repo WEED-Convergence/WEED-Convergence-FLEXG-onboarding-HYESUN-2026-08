@@ -28,7 +28,7 @@ const items: ChecklistItemData[] = [
   },
   {
     id: 14,
-    title: "무통장입금 설정",
+    title: "무통장입금 설정하기",
     description: "무통장 입금 시 사용할 정산계좌 정보를 입력해 주세요.",
     duration: "약 3분이면 완료",
     previewTitle: "무통장입금 계좌 정보",
@@ -120,7 +120,7 @@ const items: ChecklistItemData[] = [
   },
   {
     id: 16,
-    title: "보안설정하기",
+    title: "보안 설정하기",
     description: "",
     duration: "약 2분이면 완료",
     previewTitle: "보안 설정",
@@ -1049,7 +1049,7 @@ function TermsCheckForm() {
           건너뛰기
         </button>
         <button type="button" className={primaryButtonClass}>
-          더 알아보기
+          약관 보기
         </button>
       </div>
     </div>
@@ -1193,6 +1193,15 @@ function SecuritySettingsForm() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
+          건너뛰기
+        </button>
+        <button type="button" className={primaryButtonClass}>
+          저장
+        </button>
       </div>
     </div>
   );
