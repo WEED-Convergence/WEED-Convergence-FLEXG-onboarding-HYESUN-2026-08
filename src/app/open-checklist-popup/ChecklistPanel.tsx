@@ -28,7 +28,7 @@ const items: ChecklistItemData[] = [
   },
   {
     id: 14,
-    title: "무통장입금 계좌 정보 입력하기",
+    title: "무통장입금 설정",
     description: "무통장 입금 시 사용할 정산계좌 정보를 입력해 주세요.",
     duration: "약 3분이면 완료",
     previewTitle: "무통장입금 계좌 정보",
@@ -444,7 +444,7 @@ function BusinessInfoForm() {
 }
 
 function CashDepositForm() {
-  const [methodEnabled, setMethodEnabled] = useState(true);
+  const [methodEnabled, setMethodEnabled] = useState(false);
   const [methodName, setMethodName] = useState("무통장입금");
   const [hideBenefit, setHideBenefit] = useState(false);
 
@@ -613,7 +613,7 @@ function SupplierListForm() {
 }
 
 function PhoneNumberForm() {
-  const [enabled, setEnabled] = useState(true);
+  const [enabled, setEnabled] = useState(false);
 
   return (
     <div className="mt-6 w-full max-w-[560px]">
