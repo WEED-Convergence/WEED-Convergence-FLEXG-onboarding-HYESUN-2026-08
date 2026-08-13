@@ -113,11 +113,10 @@ const items: ChecklistItemData[] = [
   {
     id: 15,
     title: "약관 확인하기",
-    description: "쇼핑몰 이용약관과 개인정보처리방침 내용을 확인하고 필요한 부분을 수정해 주세요.",
-    duration: "약 2분이면 완료",
+    description: "",
+    duration: "약 15분이면 완료",
     previewTitle: "약관 관리",
     previewRows: ["이용약관: 기본 템플릿 적용됨", "개인정보처리방침: 기본 템플릿 적용됨"],
-    previewButton: "약관 확인하러 가기",
   },
   {
     id: 16,
@@ -1044,6 +1043,67 @@ function CampaignSettingsForm() {
   );
 }
 
+function TermsIllustration() {
+  return (
+    <svg viewBox="0 0 120 120" width="96" height="96" className="mx-auto block">
+      <rect x="20" y="10" width="70" height="90" rx="10" fill="#FAF9F5" stroke="#D3D1C7" strokeWidth="2" />
+      <rect x="34" y="32" width="42" height="6" rx="3" fill="#D3D1C7" />
+      <rect x="34" y="48" width="42" height="6" rx="3" fill="#D3D1C7" />
+      <rect x="34" y="64" width="30" height="6" rx="3" fill="#D3D1C7" />
+      <rect x="62" y="68" width="40" height="40" rx="12" fill="#FBEAF0" />
+      <circle cx="82" cy="88" r="14" fill="#D8342A" />
+      <path
+        d="M75 88L80 93L89 82"
+        stroke="white"
+        strokeWidth="3"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function TermsCheckForm() {
+  return (
+    <div className="mt-6 w-full max-w-[480px]">
+      <TermsIllustration />
+
+      <div
+        className="mt-5 flex items-start gap-2 rounded-lg px-3.5 py-3 text-left"
+        style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+      >
+        <WarningIcon />
+        <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
+          <span className="font-semibold">
+            편의를 위해 제공해드리는 전자상거래 표준 양식이 등록되어 있어요.
+          </span>
+          <br />
+          내 쇼핑몰에 맞게 <span className="font-semibold">이용약관 · 개인정보처리방침 안내</span> 등을
+          확인하고 수정해 보세요.
+        </p>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-3">
+        <button
+          type="button"
+          className="rounded-md px-6 py-2.5 text-[13px]"
+          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
+        >
+          건너뛰기
+        </button>
+        <button
+          type="button"
+          className="rounded-md px-6 py-2.5 text-[13px]"
+          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
+        >
+          더 알아보기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ChecklistPanel() {
   const [selectedId, setSelectedId] = useState(1);
 
@@ -1136,6 +1196,8 @@ export default function ChecklistPanel() {
             <PhoneNumberForm />
           ) : selected.id === 11 ? (
             <CampaignSettingsForm />
+          ) : selected.id === 15 ? (
+            <TermsCheckForm />
           ) : (
             <div className="mt-4 w-[180px] rounded-[10px] border border-[var(--border)] bg-[var(--surface-1)] p-3 text-left">
               <p className="text-[11px] font-semibold text-[var(--text-primary)]">{selected.previewTitle}</p>
