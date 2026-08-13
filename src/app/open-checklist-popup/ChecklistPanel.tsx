@@ -131,7 +131,7 @@ const items: ChecklistItemData[] = [
   {
     id: 11,
     title: "CRM 캠페인 설정하기",
-    description: "고객 대상 알림톡·문자 캠페인을 설정해 주세요.",
+    description: "",
     duration: "약 5분이면 완료",
     previewTitle: "캠페인 빌더",
     previewRows: ["캠페인 유형: 신규가입 웰컴", "발송시점: 가입 직후"],
@@ -949,6 +949,95 @@ function PgApplicationForm() {
   );
 }
 
+const crmActionButtonClass =
+  "shrink-0 whitespace-nowrap rounded-[5px] px-5 py-[5px] text-[13px] font-medium text-white";
+
+function CampaignSettingsForm() {
+  const [rejectionType, setRejectionType] = useState("신규");
+
+  return (
+    <div className="mt-6 w-full max-w-[760px]">
+      <div className="flex items-center gap-2">
+        <p className="text-[16px] font-semibold text-[var(--text-primary)]">기본 설정</p>
+        <span className="text-[11px]" style={{ color: "#639922" }}>
+          ✔ 표시 필수항목
+        </span>
+      </div>
+
+      <div className="mt-3 space-y-1 text-[11px] leading-relaxed text-[var(--text-muted)]">
+        <p>
+          · 기존에 쇼핑몰 운영을 위한 SMS/알림톡 설정을 완료하셨더라도 CRM 기능을 이용하시려면 무료
+          수신거부번호와 카카오톡 채널을 반드시 등록해 주세요.
+        </p>
+        <p>· 수신거부를 신청한 고객의 휴대폰 번호는 신청 일의 다음 날부터 수신거부 처리가 적용됩니다.</p>
+      </div>
+
+      <div className="mt-4 border-t border-[var(--divider)]" />
+
+      <div className="mt-4 flex flex-nowrap items-center gap-4">
+        <span className="flex shrink-0 items-center whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
+          <RequiredMark />
+          무료 수신거부번호
+        </span>
+        <label className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[13px] text-[var(--text-secondary)]">
+          <input
+            type="radio"
+            name="rejectionType"
+            checked={rejectionType === "신규"}
+            onChange={() => setRejectionType("신규")}
+            className="h-3.5 w-3.5 accent-[#2563EB]"
+          />
+          신규
+        </label>
+        <label className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[13px] text-[var(--text-secondary)]">
+          <input
+            type="radio"
+            name="rejectionType"
+            checked={rejectionType === "직접 입력"}
+            onChange={() => setRejectionType("직접 입력")}
+            className="h-3.5 w-3.5 accent-[#2563EB]"
+          />
+          직접 입력
+        </label>
+        <button type="button" className={crmActionButtonClass} style={{ backgroundColor: "#5F5E5A" }}>
+          신청 &gt;
+        </button>
+      </div>
+
+      <div className="mt-4 flex flex-nowrap items-center gap-4">
+        <span className="flex shrink-0 items-center whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
+          <RequiredMark />
+          카카오톡 채널
+        </span>
+        <button type="button" className={crmActionButtonClass} style={{ backgroundColor: "#5F5E5A" }}>
+          등록 &gt;
+        </button>
+        <p className="text-[10px] text-[var(--text-muted)]">
+          ⓘ 카카오톡 채널 등록이 완료되면 자동으로 알림톡 템플릿 승인 요청이 진행됩니다. 승인 절차가
+          완료된 후에 메시지 캠페인을 발행할 수 있습니다. (영업일 기준 최대 3일 소요)
+        </p>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-3">
+        <button
+          type="button"
+          className="rounded-md px-6 py-2.5 text-[13px]"
+          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
+        >
+          건너뛰기
+        </button>
+        <button
+          type="button"
+          className="rounded-md px-6 py-2.5 text-[13px]"
+          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
+        >
+          더 알아보기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ChecklistPanel() {
   const [selectedId, setSelectedId] = useState(1);
 
@@ -1039,6 +1128,8 @@ export default function ChecklistPanel() {
             <ProductSampleForm />
           ) : selected.id === 4 ? (
             <PhoneNumberForm />
+          ) : selected.id === 11 ? (
+            <CampaignSettingsForm />
           ) : (
             <div className="mt-4 w-[180px] rounded-[10px] border border-[var(--border)] bg-[var(--surface-1)] p-3 text-left">
               <p className="text-[11px] font-semibold text-[var(--text-primary)]">{selected.previewTitle}</p>
