@@ -74,7 +74,7 @@ const items: ChecklistItemData[] = [
     id: 6,
     title: "발신번호 신청하기",
     description: "인증번호·주문 안내 문자에 사용할 발신번호를 등록해 주세요.",
-    duration: "약 3분이면 완료",
+    duration: "약 15분이면 완료",
     previewTitle: "발신번호 신청",
     previewRows: ["신청 번호: 02-1234-5678", "서류: 통신서비스 이용증명원"],
   },
@@ -1207,6 +1207,102 @@ function SecuritySettingsForm() {
   );
 }
 
+const senderAttachments = [
+  { name: "가입확인서", buttonLabel: "파일1" },
+  { name: "사업자등록증, 사업자정보", buttonLabel: "파일3" },
+];
+
+function SenderNumberForm() {
+  const [senderType, setSenderType] = useState("법인/대표자 명의");
+
+  return (
+    <div className="mt-6 w-full max-w-[640px]">
+      <div className={sectionCardClass} style={sectionCardStyle}>
+        <SubsectionTitle>발신번호 신청</SubsectionTitle>
+
+        <div className="mt-4 space-y-5">
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">구분</p>
+            <div className="flex flex-wrap items-center gap-4">
+              {["법인/대표자 명의", "재직자", "타사 명의", "대표자의 가족", "재직자의 가족"].map(
+                (label) => (
+                  <RadioOption
+                    key={label}
+                    name="senderType"
+                    label={label}
+                    checked={senderType === label}
+                    onChange={() => setSenderType(label)}
+                  />
+                )
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">발신자명</p>
+              <input type="text" placeholder="ex) FLEXG" className={inputClass} />
+            </div>
+            <div>
+              <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">발신번호</p>
+              <input type="text" placeholder="ex) 070-0000-0000" className={inputClass} />
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">첨부파일 업로드</p>
+            <div className="space-y-2">
+              {senderAttachments.map((file) => (
+                <div
+                  key={file.name}
+                  className="flex items-center justify-between rounded-[6px] px-3 py-2"
+                  style={{ border: "1px solid #E4E2D8" }}
+                >
+                  <span className="text-[12px] text-[var(--text-primary)]">{file.name}</span>
+                  <button
+                    type="button"
+                    className="shrink-0 rounded-[5px] px-3 py-[4px] text-[10px] font-medium text-white"
+                    style={{ backgroundColor: "#5F5E5A" }}
+                  >
+                    {file.buttonLabel}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div
+            className="flex items-center gap-2 rounded-lg px-3.5 py-3"
+            style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+          >
+            <InfoIcon />
+            <p className="flex-1 text-[12px] leading-relaxed" style={{ color: "#993556" }}>
+              신청서 첨부서류는 <span className="font-semibold">신청서 가이드 확인 후</span> 진행해
+              주세요.
+            </p>
+            <button
+              type="button"
+              className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
+              style={{ backgroundColor: "#D8342A" }}
+            >
+              가이드 보기
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
+          건너뛰기
+        </button>
+        <button type="button" className={primaryButtonClass}>
+          발신번호 신청 요청
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function PopbillForm() {
   return (
     <div className="mt-6 w-full max-w-[640px]">
@@ -1356,6 +1452,8 @@ export default function ChecklistPanel() {
             <PopbillForm />
           ) : selected.id === 16 ? (
             <SecuritySettingsForm />
+          ) : selected.id === 6 ? (
+            <SenderNumberForm />
           ) : (
             <div className="mt-4 w-full max-w-[480px]">
               <div className={sectionCardClass} style={sectionCardStyle}>
