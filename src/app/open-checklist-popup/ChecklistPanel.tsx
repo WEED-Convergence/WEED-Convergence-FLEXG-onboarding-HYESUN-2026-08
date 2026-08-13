@@ -74,7 +74,7 @@ const items: ChecklistItemData[] = [
     id: 6,
     title: "발신번호 신청하기",
     description: "인증번호·주문 안내 문자에 사용할 발신번호를 등록해 주세요.",
-    duration: "약 15분이면 완료",
+    duration: "약 10분이면 완료",
     previewTitle: "발신번호 신청",
     previewRows: ["신청 번호: 02-1234-5678", "서류: 통신서비스 이용증명원"],
   },
