@@ -136,8 +136,8 @@ const items: ChecklistItemData[] = [
   },
   {
     id: 12,
-    title: "라이브커머스 연동하기",
-    description: "실시간 방송으로 상품을 판매할 수 있도록 라이브커머스 기능을 연동해 주세요.",
+    title: "라이브커머스 설정하기",
+    description: "",
     duration: "약 4분이면 완료",
     previewTitle: "라이브 설정",
     previewRows: ["방송 채널: 미연동", "판매 상품: 미지정"],
@@ -1404,6 +1404,184 @@ function AlimtalkForm() {
   );
 }
 
+function LiveIllustration() {
+  return (
+    <svg viewBox="0 0 100 120" width="88" height="104" className="shrink-0">
+      <rect x="4" y="4" width="92" height="112" rx="14" fill="#FAF9F5" stroke="#D3D1C7" strokeWidth="2" />
+      <rect x="16" y="16" width="34" height="14" rx="7" fill="#D8342A" />
+      <text x="33" y="26" textAnchor="middle" fontSize="9" fontWeight="700" fill="#FFFFFF">
+        LIVE
+      </text>
+      <circle cx="50" cy="62" r="24" fill="#FBEAF0" />
+      <path d="M44 50L44 74L68 62Z" fill="#D8342A" />
+      <rect x="20" y="98" width="60" height="8" rx="4" fill="#D3D1C7" />
+    </svg>
+  );
+}
+
+function DesktopAnalyticsIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect x="3" y="4" width="18" height="12" rx="1.5" />
+      <path d="M8 20h8" strokeLinecap="round" />
+      <path d="M12 16v4" strokeLinecap="round" />
+      <path d="M7 13l3-3 2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function SettingsGearIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <circle cx="12" cy="12" r="3" />
+      <path
+        d="M19.4 13a7.97 7.97 0 000-2l2-1.5-2-3.5-2.4 1a8.1 8.1 0 00-1.7-1L15 3h-6l-.3 2.5a8.1 8.1 0 00-1.7 1l-2.4-1-2 3.5L4.6 11a7.97 7.97 0 000 2l-2 1.5 2 3.5 2.4-1a8.1 8.1 0 001.7 1L9 21h6l.3-2.5a8.1 8.1 0 001.7-1l2.4 1 2-3.5-2-1.5z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ShoppingBagIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M6 8h12l-1 12H7L6 8Z" strokeLinejoin="round" />
+      <path d="M9 8V6a3 3 0 016 0v2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function DeviceMobileIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect x="7" y="2" width="10" height="20" rx="2" />
+      <path d="M11 18h2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+const liveSteps = [
+  "어드민에서 방송을 만들고, 팔 상품과 배너를 등록해요.",
+  "앱으로 방송을 켜고, 반응과 주문을 실시간으로 확인해요.",
+  "쇼핑몰 메인에 방송이 자동으로 노출돼서 고객이 들어와요.",
+  "방송이 끝난 후엔, 못 산 고객에게 재구매 기회를 안내해요.",
+];
+
+const liveGuideCards = [
+  {
+    Icon: DesktopAnalyticsIcon,
+    bg: "#E6F1FB",
+    color: "#378ADD",
+    title: "어드민 방송관리 사용하기",
+    desc: "방송 목록 확인부터 관리까지",
+  },
+  {
+    Icon: SettingsGearIcon,
+    bg: "#FAEEDA",
+    color: "#BA7517",
+    title: "라이브 방송 설정하기",
+    desc: "라이브 정보와 세부 설정",
+  },
+  {
+    Icon: ShoppingBagIcon,
+    bg: "#EAF3E0",
+    color: "#639922",
+    title: "라이브 상품 등록하기",
+    desc: "상품 등록 및 판매 조건 관리",
+  },
+  {
+    Icon: DeviceMobileIcon,
+    bg: "#FBEAF0",
+    color: "#D8342A",
+    title: "송출 앱 사용하기",
+    desc: "모바일로 실시간 방송 관리",
+  },
+];
+
+function LiveCommerceForm() {
+  return (
+    <div className="mt-6 w-full max-w-[640px]">
+      <div className={sectionCardClass} style={sectionCardStyle}>
+        <div className="flex items-center gap-4">
+          <LiveIllustration />
+          <div>
+            <p className="text-[16px] font-semibold text-[var(--text-primary)]">라이브커머스 설정하기</p>
+            <p className="mt-2 text-[11px] leading-relaxed text-[var(--text-muted)]">
+              실시간 방송으로 상품을 소개하고, 방송을 보던 고객이 바로 구매까지 이어지게 해주는
+              기능이에요.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <p className="text-[12px] font-bold text-[var(--text-primary)]">이렇게 시작해요</p>
+          <div className="mt-2">
+            {liveSteps.map((step, index) => (
+              <div
+                key={step}
+                className="flex items-center gap-3 border-b border-[var(--divider)] py-[14px] last:border-0"
+              >
+                <span
+                  className="flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white"
+                  style={{ backgroundColor: "#D8342A" }}
+                >
+                  {index + 1}
+                </span>
+                <p className="text-[12px] text-[var(--text-secondary)]">{step}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="my-5 border-t border-[var(--divider)]" />
+
+        <div>
+          <div className="flex items-center justify-between">
+            <p className="text-[12px] font-bold text-[var(--text-primary)]">FLEXG Live 가이드</p>
+            <a
+              href="https://guide.flexgate.co.kr/live"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
+              style={{ backgroundColor: "#D8342A" }}
+            >
+              전체 가이드 보기
+            </a>
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            {liveGuideCards.map(({ Icon, bg, color, title, desc }) => (
+              <div
+                key={title}
+                className="flex flex-col items-center rounded-[10px] px-3.5 py-[14px] text-center"
+                style={{ border: "1px solid #E4E2D8" }}
+              >
+                <span
+                  className="flex h-10 w-10 items-center justify-center rounded-full"
+                  style={{ backgroundColor: bg, color }}
+                >
+                  <Icon />
+                </span>
+                <p className="mt-2 text-[12px] font-bold text-[var(--text-primary)]">{title}</p>
+                <p className="mt-1 text-[10px] text-[var(--text-muted)]">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
+          건너뛰기
+        </button>
+        <button type="button" className={primaryButtonClass}>
+          더 알아보기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function PopbillForm() {
   return (
     <div className="mt-6 w-full max-w-[640px]">
@@ -1509,10 +1687,12 @@ export default function ChecklistPanel() {
             </div>
           </div>
 
-          <div className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--accent-bg)] px-3 py-1.5 text-[13px] font-semibold text-[var(--accent-text)]">
-            <ClockIcon />
-            {selected.duration}
-          </div>
+          {selected.id !== 12 && (
+            <div className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--accent-bg)] px-3 py-1.5 text-[13px] font-semibold text-[var(--accent-text)]">
+              <ClockIcon />
+              {selected.duration}
+            </div>
+          )}
 
           {selected.id === 2 && (
             <div
@@ -1528,9 +1708,15 @@ export default function ChecklistPanel() {
             </div>
           )}
 
-          <h2 className="mt-3 text-[16px] font-semibold text-[var(--text-primary)]">{selected.title}</h2>
-          {selected.description && (
-            <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-muted)]">{selected.description}</p>
+          {selected.id !== 12 && (
+            <>
+              <h2 className="mt-3 text-[16px] font-semibold text-[var(--text-primary)]">{selected.title}</h2>
+              {selected.description && (
+                <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-muted)]">
+                  {selected.description}
+                </p>
+              )}
+            </>
           )}
 
           {selected.id === 5 ? (
@@ -1557,6 +1743,8 @@ export default function ChecklistPanel() {
             <SenderNumberForm />
           ) : selected.id === 8 ? (
             <AlimtalkForm />
+          ) : selected.id === 12 ? (
+            <LiveCommerceForm />
           ) : (
             <div className="mt-4 w-full max-w-[480px]">
               <div className={sectionCardClass} style={sectionCardStyle}>
