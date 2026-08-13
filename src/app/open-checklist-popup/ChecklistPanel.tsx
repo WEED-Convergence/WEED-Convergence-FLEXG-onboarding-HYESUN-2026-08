@@ -316,87 +316,91 @@ function BusinessInfoForm() {
 
   return (
     <div className="mt-6 w-full max-w-[600px]">
-      <div className="mt-4 space-y-6">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">상호명</p>
-            <input type="text" placeholder="상호명 입력" className={inputClass} />
-          </div>
-          <div>
-            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표자 성함</p>
-            <input type="text" placeholder="성함 입력" className={inputClass} />
-          </div>
-        </div>
+      <div className={sectionCardClass} style={sectionCardStyle}>
+        <SubsectionTitle>사업자 정보</SubsectionTitle>
 
-        <div className="grid grid-cols-3 gap-4">
-          <div>
-            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자등록번호</p>
-            <input type="text" placeholder="사업자등록번호 입력" className={inputClass} />
+        <div className="mt-4 space-y-6">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">상호명</p>
+              <input type="text" placeholder="상호명 입력" className={inputClass} />
+            </div>
+            <div>
+              <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표자 성함</p>
+              <input type="text" placeholder="성함 입력" className={inputClass} />
+            </div>
           </div>
-          <div>
-            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">업태</p>
-            <input type="text" placeholder="업태 입력" className={inputClass} />
-          </div>
-          <div>
-            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">업종</p>
-            <input type="text" placeholder="업종 입력" className={inputClass} />
-          </div>
-        </div>
 
-        <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">통신판매신고번호</p>
-          <div className="flex items-center gap-4">
-            {["비대상", "준비중", "입력"].map((label) => (
-              <RadioOption
-                key={label}
-                name="salesReport"
-                label={label}
-                checked={salesReport === label}
-                onChange={() => setSalesReport(label)}
-              />
-            ))}
+          <div className="grid grid-cols-3 gap-4">
+            <div>
+              <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자등록번호</p>
+              <input type="text" placeholder="사업자등록번호 입력" className={inputClass} />
+            </div>
+            <div>
+              <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">업태</p>
+              <input type="text" placeholder="업태 입력" className={inputClass} />
+            </div>
+            <div>
+              <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">업종</p>
+              <input type="text" placeholder="업종 입력" className={inputClass} />
+            </div>
           </div>
-        </div>
 
-        <div>
-          <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">주소</p>
-          <div className="flex gap-2">
-            <input type="text" placeholder="우편번호" className={inputClass} />
-            <button type="button" className={`shrink-0 ${secondaryButtonClass}`}>
-              우편번호 찾기
-            </button>
-          </div>
-          <div className="mt-2 space-y-2">
-            <input type="text" placeholder="기본주소" className={inputClass} />
-            <input type="text" placeholder="상세주소" className={inputClass} />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 전화번호</p>
-            <input type="text" placeholder="연락처 입력" className={inputClass} />
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">통신판매신고번호</p>
+            <div className="flex items-center gap-4">
+              {["비대상", "준비중", "입력"].map((label) => (
+                <RadioOption
+                  key={label}
+                  name="salesReport"
+                  label={label}
+                  checked={salesReport === label}
+                  onChange={() => setSalesReport(label)}
+                />
+              ))}
+            </div>
           </div>
-          <div>
-            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 팩스번호</p>
-            <input type="text" placeholder="연락처 입력" className={inputClass} />
-          </div>
-        </div>
 
-        <div
-          className="flex items-start gap-2 rounded-lg px-3.5 py-3"
-          style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
-        >
-          <InfoIcon />
-          <p className="text-[12px] leading-relaxed text-[var(--text-secondary)]">
-            <span className="font-semibold text-[var(--accent)]">휴대폰 번호로는 심사가 불가능</span>
-            하며, 반드시 <span className="font-semibold text-[var(--accent)]">일반 유선전화</span>로
-            등록해 주세요.
-            <br />
-            안심번호도 대표 전화번호로 등록 가능합니다.
-            <br />
-            번호 예시) 080, 0507, 0506, 0130, 0030 등
-          </p>
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">주소</p>
+            <div className="flex gap-2">
+              <input type="text" placeholder="우편번호" className={inputClass} />
+              <button type="button" className={`shrink-0 ${secondaryButtonClass}`}>
+                우편번호 찾기
+              </button>
+            </div>
+            <div className="mt-2 space-y-2">
+              <input type="text" placeholder="기본주소" className={inputClass} />
+              <input type="text" placeholder="상세주소" className={inputClass} />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 전화번호</p>
+              <input type="text" placeholder="연락처 입력" className={inputClass} />
+            </div>
+            <div>
+              <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 팩스번호</p>
+              <input type="text" placeholder="연락처 입력" className={inputClass} />
+            </div>
+          </div>
+
+          <div
+            className="flex items-start gap-2 rounded-lg px-3.5 py-3"
+            style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
+          >
+            <InfoIcon />
+            <p className="text-[12px] leading-relaxed text-[var(--text-secondary)]">
+              <span className="font-semibold text-[var(--accent)]">휴대폰 번호로는 심사가 불가능</span>
+              하며, 반드시 <span className="font-semibold text-[var(--accent)]">일반 유선전화</span>로
+              등록해 주세요.
+              <br />
+              안심번호도 대표 전화번호로 등록 가능합니다.
+              <br />
+              번호 예시) 080, 0507, 0506, 0130, 0030 등
+            </p>
+          </div>
         </div>
       </div>
 
@@ -419,77 +423,82 @@ function CashDepositForm() {
 
   return (
     <div className="mt-6 w-full max-w-[760px]">
-      <div className="flex items-end gap-2">
-        <select className={`${cellFieldClass} flex-1`} defaultValue="">
-          <option value="" disabled>
-            은행선택
-          </option>
-        </select>
-        <input type="text" placeholder="계좌번호 입력" className={`${cellFieldClass} flex-1`} />
-        <input type="text" placeholder="예금주 입력" className={`${cellFieldClass} flex-1`} />
-        <button type="button" className={`shrink-0 ${primaryButtonClass}`}>
-          등록
-        </button>
-      </div>
+      <div className="space-y-4">
+        <div className={sectionCardClass} style={sectionCardStyle}>
+          <SubsectionTitle>무통장입금 계좌 정보</SubsectionTitle>
+          <div className="mt-4 flex items-end gap-2">
+            <select className={`${cellFieldClass} flex-1`} defaultValue="">
+              <option value="" disabled>
+                은행선택
+              </option>
+            </select>
+            <input type="text" placeholder="계좌번호 입력" className={`${cellFieldClass} flex-1`} />
+            <input type="text" placeholder="예금주 입력" className={`${cellFieldClass} flex-1`} />
+            <button type="button" className={`shrink-0 ${primaryButtonClass}`}>
+              등록
+            </button>
+          </div>
+        </div>
 
-      <div className="mt-8 border-t border-[var(--divider)] pt-6">
-        <SubsectionTitle>결제수단 설정</SubsectionTitle>
+        <div className={sectionCardClass} style={sectionCardStyle}>
+          <SubsectionTitle>결제수단 설정</SubsectionTitle>
 
-        <div className="mt-4 space-y-3">
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
-                사용여부
-              </span>
-              <ToggleSwitch checked={methodEnabled} onChange={() => setMethodEnabled((v) => !v)} />
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
-                결제수단명칭
-              </span>
-              <div className="flex items-center gap-1.5">
-                <input
-                  type="text"
-                  value={methodName}
-                  maxLength={12}
-                  onChange={(e) => setMethodName(e.target.value.slice(0, 12))}
-                  className={`${cellFieldClass} w-28`}
-                />
-                <span className="whitespace-nowrap text-[11px] text-[var(--text-muted)]">
-                  {methodName.length}/12
+          <div className="mt-4 space-y-3">
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
+                  사용여부
                 </span>
+                <ToggleSwitch checked={methodEnabled} onChange={() => setMethodEnabled((v) => !v)} />
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
+                  결제수단명칭
+                </span>
+                <div className="flex items-center gap-1.5">
+                  <input
+                    type="text"
+                    value={methodName}
+                    maxLength={12}
+                    onChange={(e) => setMethodName(e.target.value.slice(0, 12))}
+                    className={`${cellFieldClass} w-28`}
+                  />
+                  <span className="whitespace-nowrap text-[11px] text-[var(--text-muted)]">
+                    {methodName.length}/12
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
+                  혜택노출
+                </span>
+                <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-[var(--text-secondary)]">
+                  <input
+                    type="checkbox"
+                    checked={hideBenefit}
+                    onChange={() => setHideBenefit((v) => !v)}
+                    className="h-3.5 w-3.5 accent-[var(--accent-text)]"
+                  />
+                  주문시 입금통장 미노출
+                </label>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
+                  수수료
+                </span>
+                <span className="text-[11px] text-[var(--text-muted)]">-</span>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
-                혜택노출
-              </span>
-              <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-[var(--text-secondary)]">
-                <input
-                  type="checkbox"
-                  checked={hideBenefit}
-                  onChange={() => setHideBenefit((v) => !v)}
-                  className="h-3.5 w-3.5 accent-[var(--accent-text)]"
-                />
-                주문시 입금통장 미노출
-              </label>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
-                수수료
-              </span>
-              <span className="text-[11px] text-[var(--text-muted)]">-</span>
-            </div>
+          <div className="mt-4 flex justify-end">
+            <button type="button" className={primaryButtonClass}>
+              등록
+            </button>
           </div>
-        </div>
-
-        <div className="mt-4 flex justify-end">
-          <button type="button" className={primaryButtonClass}>
-            등록
-          </button>
         </div>
       </div>
 
@@ -522,34 +531,39 @@ function SupplierField({ label, placeholder }: { label: string; placeholder: str
 function SupplierListForm() {
   return (
     <div className="mt-6 w-full max-w-[560px]">
-      <div className="space-y-1 text-[11px] leading-relaxed text-[var(--text-muted)]">
-        <p>· 등록 시 업체명, 이메일은 필수 입력 사항입니다. 정산메일 발송 시엔 담당자 정보까지 입력해야 합니다.</p>
-        <p>· 등록된 공급사 삭제 시 원복 불가합니다.</p>
-      </div>
+      <div className={sectionCardClass} style={sectionCardStyle}>
+        <SubsectionTitle>공급사 정보 입력</SubsectionTitle>
 
-      <div className="mt-6 grid grid-cols-2 gap-4">
-        <SupplierField label="업체명" placeholder="업체명 입력" />
-        <SupplierField label="이메일" placeholder="이메일 입력" />
-      </div>
+        <div className="mt-4 space-y-1 text-[11px] leading-relaxed text-[var(--text-muted)]">
+          <p>· 등록 시 업체명, 이메일은 필수 입력 사항입니다. 정산메일 발송 시엔 담당자 정보까지 입력해야 합니다.</p>
+          <p>· 등록된 공급사 삭제 시 원복 불가합니다.</p>
+        </div>
 
-      <div className="mt-4 grid grid-cols-3 gap-4">
-        <SupplierField label="담당자" placeholder="담당자명 입력" />
-        <SupplierField label="담당자 연락처" placeholder="연락처 입력" />
-        <SupplierField label="담당자 SMS발송번호" placeholder="SMS발송번호 입력" />
-      </div>
+        <div className="mt-6 grid grid-cols-2 gap-4">
+          <SupplierField label="업체명" placeholder="업체명 입력" />
+          <SupplierField label="이메일" placeholder="이메일 입력" />
+        </div>
 
-      <div className="mt-6 flex flex-col items-center gap-3">
-        <button type="button" className={primaryButtonClass}>
-          등록
-        </button>
-        <div className="flex gap-[10px]">
-          <button type="button" className={secondaryButtonClass}>
-            건너뛰기
-          </button>
+        <div className="mt-4 grid grid-cols-3 gap-4">
+          <SupplierField label="담당자" placeholder="담당자명 입력" />
+          <SupplierField label="담당자 연락처" placeholder="연락처 입력" />
+          <SupplierField label="담당자 SMS발송번호" placeholder="SMS발송번호 입력" />
+        </div>
+
+        <div className="mt-6 flex justify-center">
           <button type="button" className={primaryButtonClass}>
-            더 알아보기
+            등록
           </button>
         </div>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
+          건너뛰기
+        </button>
+        <button type="button" className={primaryButtonClass}>
+          더 알아보기
+        </button>
       </div>
     </div>
   );
@@ -560,22 +574,26 @@ function PhoneNumberForm() {
 
   return (
     <div className="mt-6 w-full max-w-[560px]">
-      <div className="flex items-center gap-4">
-        <span className="flex shrink-0 items-center text-[12px] text-[var(--text-primary)]">
-          <RequiredMark />
-          고객센터 전화
-        </span>
-        <ToggleSwitch checked={enabled} onChange={() => setEnabled((v) => !v)} />
-        <input
-          type="text"
-          placeholder="유선번호 입력"
-          className="flex-1 rounded-md border border-[var(--border)] px-3 py-[9px] text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]"
-        />
-      </div>
+      <div className={sectionCardClass} style={sectionCardStyle}>
+        <SubsectionTitle>고객센터 연락처</SubsectionTitle>
 
-      <p className="mt-2 text-[11px] text-[var(--text-muted)]">
-        ⓘ 쇼핑몰 하단 고객센터 안내 영역에 전화번호 및 전화문의 버튼을 노출할 수 있습니다.
-      </p>
+        <div className="mt-4 flex items-center gap-4">
+          <span className="flex shrink-0 items-center text-[12px] text-[var(--text-primary)]">
+            <RequiredMark />
+            고객센터 전화
+          </span>
+          <ToggleSwitch checked={enabled} onChange={() => setEnabled((v) => !v)} />
+          <input
+            type="text"
+            placeholder="유선번호 입력"
+            className="flex-1 rounded-md border border-[var(--border)] px-3 py-[9px] text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]"
+          />
+        </div>
+
+        <p className="mt-2 text-[11px] text-[var(--text-muted)]">
+          ⓘ 쇼핑몰 하단 고객센터 안내 영역에 전화번호 및 전화문의 버튼을 노출할 수 있습니다.
+        </p>
+      </div>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
@@ -617,34 +635,38 @@ const sampleProducts: SampleProduct[] = [
 function ProductSampleForm() {
   return (
     <div className="mt-6 w-full max-w-[480px]">
-      <div
-        className="flex items-start gap-2 rounded-lg px-3.5 py-3"
-        style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
-      >
-        <InfoIcon />
-        <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
-          <span className="font-semibold">선택하신 카테고리에 맞춰 샘플 상품 3개가 이미 등록되어 있어요.</span>
-          <br />
-          아래에서 확인하고, <span className="font-semibold">실제 판매하실 상품으로 수정</span>해 주세요.
-        </p>
-      </div>
+      <div className={sectionCardClass} style={sectionCardStyle}>
+        <SubsectionTitle>상품 등록</SubsectionTitle>
 
-      <div className="mt-4">
-        {sampleProducts.map((item) => (
-          <div
-            key={item.name}
-            className="flex items-center gap-3 border-b border-[var(--divider)] py-3 last:border-0"
-          >
-            <span className="h-9 w-9 shrink-0 rounded-md" style={{ backgroundColor: "#F1EFE8" }} />
-            <div className="flex-1">
-              <p className="text-[12px] font-medium text-[var(--text-primary)]">{item.name}</p>
-              <p className="text-[10px] text-[var(--text-muted)]">샘플 상품</p>
+        <div
+          className="mt-4 flex items-start gap-2 rounded-lg px-3.5 py-3"
+          style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
+        >
+          <InfoIcon />
+          <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
+            <span className="font-semibold">선택하신 카테고리에 맞춰 샘플 상품 3개가 이미 등록되어 있어요.</span>
+            <br />
+            아래에서 확인하고, <span className="font-semibold">실제 판매하실 상품으로 수정</span>해 주세요.
+          </p>
+        </div>
+
+        <div className="mt-4">
+          {sampleProducts.map((item) => (
+            <div
+              key={item.name}
+              className="flex items-center gap-3 border-b border-[var(--divider)] py-[14px] last:border-0"
+            >
+              <span className="h-9 w-9 shrink-0 rounded-md" style={{ backgroundColor: "#F1EFE8" }} />
+              <div className="flex-1">
+                <p className="text-[12px] font-medium text-[var(--text-primary)]">{item.name}</p>
+                <p className="text-[10px] text-[var(--text-muted)]">샘플 상품</p>
+              </div>
+              <span className="text-[12px]" style={{ color: "#5F5E5A" }}>
+                {item.price}
+              </span>
             </div>
-            <span className="text-[12px]" style={{ color: "#5F5E5A" }}>
-              {item.price}
-            </span>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <div className="mt-6 flex justify-center gap-[10px]">
@@ -754,32 +776,50 @@ const contractPayments: EasyPayItem[] = [
   { name: "내통장 바로결제", desc: "" },
 ];
 
-function SubsectionTitle({ children }: { children: React.ReactNode }) {
+function SubsectionTitle({
+  children,
+  description,
+}: {
+  children: React.ReactNode;
+  description?: string;
+}) {
   return (
-    <div className="flex items-center gap-2">
-      <span className="h-4 w-[3px] shrink-0 rounded-full" style={{ backgroundColor: "#D8342A" }} />
-      <p className="text-[15px] font-bold text-[var(--text-primary)]">{children}</p>
+    <div>
+      <div className="flex items-center gap-1.5">
+        <span
+          className="w-[3px] shrink-0"
+          style={{ height: 16, backgroundColor: "#D8342A", borderRadius: 2 }}
+        />
+        <p className="text-[15px] font-bold" style={{ color: "#2C2C2A" }}>
+          {children}
+        </p>
+      </div>
+      {description ? (
+        <p className="mt-1 text-[11px]" style={{ color: "#888780" }}>
+          {description}
+        </p>
+      ) : null}
     </div>
   );
 }
 
-const pgCardClass = "rounded-lg p-4";
-const pgCardStyle = { backgroundColor: "#FAF9F5", border: "1px solid #E4E2D8" };
+const sectionCardClass = "rounded-[12px] bg-white p-5";
+const sectionCardStyle = { border: "1px solid #E4E2D8" };
 
 function PgApplicationForm() {
   const [selectedPg, setSelectedPg] = useState("EasyPAY");
 
   return (
     <div className="mt-6 w-full max-w-[640px]">
-      <div className="space-y-5">
-        <div className={pgCardClass} style={pgCardStyle}>
+      <div className="space-y-4">
+        <div className={sectionCardClass} style={sectionCardStyle}>
           <SubsectionTitle>PG사 선택</SubsectionTitle>
           <div className="mt-2">
             {pgOptions.map((option) => {
               const checked = selectedPg === option.name;
               return (
                 <div key={option.name} className="border-b border-[var(--divider)] last:border-0">
-                  <div className="flex items-center justify-between gap-3 py-3">
+                  <div className="flex items-center justify-between gap-3 py-[14px]">
                     <label className="flex flex-1 items-center gap-3">
                       <input
                         type="radio"
@@ -820,7 +860,7 @@ function PgApplicationForm() {
           </div>
         </div>
 
-        <div className={pgCardClass} style={pgCardStyle}>
+        <div className={sectionCardClass} style={sectionCardStyle}>
           <SubsectionTitle>별도 계약이 필요한 간편결제 (선택)</SubsectionTitle>
           <p className="mt-1 text-[11px] text-[var(--text-muted)]">
             아래 결제수단은 PG와 별개로 각 서비스사와 직접 계약을 진행해야 해요.
@@ -829,7 +869,7 @@ function PgApplicationForm() {
             {contractPayments.map((item) => (
               <div
                 key={item.name}
-                className="flex items-center gap-3 border-b border-[var(--divider)] py-3 last:border-0"
+                className="flex items-center gap-3 border-b border-[var(--divider)] py-[14px] last:border-0"
               >
                 <span className="w-[110px] shrink-0">
                   <BrandWordmark brand={item.name} />
@@ -843,11 +883,11 @@ function PgApplicationForm() {
           </div>
         </div>
 
-        <div className={pgCardClass} style={pgCardStyle}>
+        <div className={sectionCardClass} style={sectionCardStyle}>
           <SubsectionTitle>PG 연동 간편결제 서비스</SubsectionTitle>
           <div
             className="mt-2 flex items-center gap-2 rounded-lg px-3.5 py-3"
-            style={{ backgroundColor: "#FFFFFF" }}
+            style={{ backgroundColor: "var(--surface-1)" }}
           >
             <span className="text-[12px] font-medium" style={{ color: "#2C2C2A" }}>
               Apple Pay · 페이코 · 페이유(자체 간편결제)
@@ -884,64 +924,66 @@ function CampaignSettingsForm() {
 
   return (
     <div className="mt-6 w-full max-w-[760px]">
-      <p className="text-[16px] font-semibold text-[var(--text-primary)]">기본 설정</p>
+      <div className={sectionCardClass} style={sectionCardStyle}>
+        <SubsectionTitle>기본 설정</SubsectionTitle>
 
-      <div
-        className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
-        style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
-      >
-        <InfoIcon />
-        <div className="space-y-1 text-[11px] leading-relaxed text-[var(--accent-text)]">
-          <p>
-            · 기존에 쇼핑몰 운영을 위한 SMS/알림톡 설정을 완료하셨더라도 CRM 기능을 이용하시려면 무료
-            수신거부번호와 카카오톡 채널을 반드시 등록해 주세요.
-          </p>
-          <p>· 수신거부를 신청한 고객의 휴대폰 번호는 신청 일의 다음 날부터 수신거부 처리가 적용됩니다.</p>
+        <div
+          className="mt-4 flex items-start gap-2 rounded-lg px-3.5 py-3"
+          style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
+        >
+          <InfoIcon />
+          <div className="space-y-1 text-[11px] leading-relaxed text-[var(--accent-text)]">
+            <p>
+              · 기존에 쇼핑몰 운영을 위한 SMS/알림톡 설정을 완료하셨더라도 CRM 기능을 이용하시려면 무료
+              수신거부번호와 카카오톡 채널을 반드시 등록해 주세요.
+            </p>
+            <p>· 수신거부를 신청한 고객의 휴대폰 번호는 신청 일의 다음 날부터 수신거부 처리가 적용됩니다.</p>
+          </div>
         </div>
-      </div>
 
-      <div className="mt-4 border-t border-[var(--divider)]" />
+        <div className="mt-4 border-t border-[var(--divider)]" />
 
-      <div className="mt-4 flex flex-nowrap items-center gap-4">
-        <span className="flex shrink-0 items-center whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
-          무료 수신거부번호
-        </span>
-        <label className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[13px] text-[var(--text-secondary)]">
-          <input
-            type="radio"
-            name="rejectionType"
-            checked={rejectionType === "신규"}
-            onChange={() => setRejectionType("신규")}
-            className="h-3.5 w-3.5 accent-[#2563EB]"
-          />
-          신규
-        </label>
-        <label className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[13px] text-[var(--text-secondary)]">
-          <input
-            type="radio"
-            name="rejectionType"
-            checked={rejectionType === "직접 입력"}
-            onChange={() => setRejectionType("직접 입력")}
-            className="h-3.5 w-3.5 accent-[#2563EB]"
-          />
-          직접 입력
-        </label>
-        <button type="button" className={crmActionButtonClass}>
-          신청 &gt;
-        </button>
-      </div>
+        <div className="mt-4 flex flex-nowrap items-center gap-4">
+          <span className="flex shrink-0 items-center whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
+            무료 수신거부번호
+          </span>
+          <label className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[13px] text-[var(--text-secondary)]">
+            <input
+              type="radio"
+              name="rejectionType"
+              checked={rejectionType === "신규"}
+              onChange={() => setRejectionType("신규")}
+              className="h-3.5 w-3.5 accent-[#2563EB]"
+            />
+            신규
+          </label>
+          <label className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[13px] text-[var(--text-secondary)]">
+            <input
+              type="radio"
+              name="rejectionType"
+              checked={rejectionType === "직접 입력"}
+              onChange={() => setRejectionType("직접 입력")}
+              className="h-3.5 w-3.5 accent-[#2563EB]"
+            />
+            직접 입력
+          </label>
+          <button type="button" className={crmActionButtonClass}>
+            신청 &gt;
+          </button>
+        </div>
 
-      <div className="mt-4 flex flex-nowrap items-center gap-4">
-        <span className="flex shrink-0 items-center whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
-          카카오톡 채널
-        </span>
-        <button type="button" className={crmActionButtonClass}>
-          등록 &gt;
-        </button>
-        <p className="text-[10px] text-[var(--text-muted)]">
-          ⓘ 카카오톡 채널 등록이 완료되면 자동으로 알림톡 템플릿 승인 요청이 진행됩니다. 승인 절차가
-          완료된 후에 메시지 캠페인을 발행할 수 있습니다. (영업일 기준 최대 3일 소요)
-        </p>
+        <div className="mt-4 flex flex-nowrap items-center gap-4">
+          <span className="flex shrink-0 items-center whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
+            카카오톡 채널
+          </span>
+          <button type="button" className={crmActionButtonClass}>
+            등록 &gt;
+          </button>
+          <p className="text-[10px] text-[var(--text-muted)]">
+            ⓘ 카카오톡 채널 등록이 완료되면 자동으로 알림톡 템플릿 승인 요청이 진행됩니다. 승인 절차가
+            완료된 후에 메시지 캠페인을 발행할 수 있습니다. (영업일 기준 최대 3일 소요)
+          </p>
+        </div>
       </div>
 
       <div className="mt-6 flex justify-center gap-[10px]">
@@ -980,21 +1022,27 @@ function TermsIllustration() {
 function TermsCheckForm() {
   return (
     <div className="mt-6 w-full max-w-[480px]">
-      <TermsIllustration />
+      <div className={sectionCardClass} style={sectionCardStyle}>
+        <SubsectionTitle>약관 관리</SubsectionTitle>
 
-      <div
-        className="mt-5 flex items-start gap-2 rounded-lg px-3.5 py-3 text-left"
-        style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
-      >
-        <InfoIcon />
-        <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
-          <span className="font-semibold">
-            편의를 위해 제공해드리는 전자상거래 표준 양식이 등록되어 있어요.
-          </span>
-          <br />
-          내 쇼핑몰에 맞게 <span className="font-semibold">이용약관 · 개인정보처리방침 안내</span> 등을
-          확인하고 수정해 보세요.
-        </p>
+        <div className="mt-4">
+          <TermsIllustration />
+        </div>
+
+        <div
+          className="mt-5 flex items-start gap-2 rounded-lg px-3.5 py-3 text-left"
+          style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+        >
+          <InfoIcon />
+          <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
+            <span className="font-semibold">
+              편의를 위해 제공해드리는 전자상거래 표준 양식이 등록되어 있어요.
+            </span>
+            <br />
+            내 쇼핑몰에 맞게 <span className="font-semibold">이용약관 · 개인정보처리방침 안내</span> 등을
+            확인하고 수정해 보세요.
+          </p>
+        </div>
       </div>
 
       <div className="mt-6 flex justify-center gap-[10px]">
@@ -1012,36 +1060,40 @@ function TermsCheckForm() {
 function PopbillForm() {
   return (
     <div className="mt-6 w-full max-w-[640px]">
-      <div
-        className="flex items-start gap-2 rounded-lg px-3.5 py-3"
-        style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
-      >
-        <InfoIcon />
-        <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
-          <span className="font-semibold">팝빌은 무통장입금 확인을 자동화해주는 서비스예요.</span>
-          <br />
-          가입해두면 입금자명을 일일이 대조하지 않아도,{" "}
-          <span className="font-semibold">입금 여부가 자동으로 확인</span>돼요.
-        </p>
-      </div>
+      <div className={sectionCardClass} style={sectionCardStyle}>
+        <SubsectionTitle>팝빌 연동 신청</SubsectionTitle>
 
-      <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
-        <span className="text-[12px]" style={{ color: "#3B3A36" }}>
-          팝빌 가입정보
-        </span>
-        <span className="text-[12px]" style={{ color: "#888780" }}>
-          가입정보가 없습니다.
-        </span>
-        <button
-          type="button"
-          className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
-          style={{ backgroundColor: "#5F5E5A" }}
+        <div
+          className="mt-4 flex items-start gap-2 rounded-lg px-3.5 py-3"
+          style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
         >
-          팝빌가입하기
-        </button>
-        <span className="text-[10px] text-[var(--text-muted)]">
-          ⓘ 가입된 사업자번호인 경우 플렉스지 고객센터로 문의해 주세요.
-        </span>
+          <InfoIcon />
+          <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
+            <span className="font-semibold">팝빌은 무통장입금 확인을 자동화해주는 서비스예요.</span>
+            <br />
+            가입해두면 입금자명을 일일이 대조하지 않아도,{" "}
+            <span className="font-semibold">입금 여부가 자동으로 확인</span>돼요.
+          </p>
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span className="text-[12px]" style={{ color: "#3B3A36" }}>
+            팝빌 가입정보
+          </span>
+          <span className="text-[12px]" style={{ color: "#888780" }}>
+            가입정보가 없습니다.
+          </span>
+          <button
+            type="button"
+            className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
+            style={{ backgroundColor: "#5F5E5A" }}
+          >
+            팝빌가입하기
+          </button>
+          <span className="text-[10px] text-[var(--text-muted)]">
+            ⓘ 가입된 사업자번호인 경우 플렉스지 고객센터로 문의해 주세요.
+          </span>
+        </div>
       </div>
 
       <div className="mt-6 flex justify-center gap-[10px]">
@@ -1153,20 +1205,25 @@ export default function ChecklistPanel() {
           ) : selected.id === 10 ? (
             <PopbillForm />
           ) : (
-            <div className="mt-4 w-[180px] rounded-[10px] border border-[var(--border)] bg-[var(--surface-1)] p-3 text-left">
-              <p className="text-[11px] font-semibold text-[var(--text-primary)]">{selected.previewTitle}</p>
-              <div className="mt-1.5 space-y-1">
-                {selected.previewRows.map((row) => (
-                  <p key={row} className="text-[11px] leading-snug text-[var(--text-muted)]">
-                    {row}
-                  </p>
-                ))}
+            <div className="mt-4 w-full max-w-[480px]">
+              <div className={sectionCardClass} style={sectionCardStyle}>
+                <SubsectionTitle>{selected.previewTitle}</SubsectionTitle>
+                <div className="mt-3">
+                  {selected.previewRows.map((row) => (
+                    <p
+                      key={row}
+                      className="border-b border-[var(--divider)] py-[14px] text-[12px] text-[var(--text-muted)] last:border-0"
+                    >
+                      {row}
+                    </p>
+                  ))}
+                </div>
+                {selected.previewButton ? (
+                  <button type="button" className={`mt-3 w-full ${primaryButtonClass}`}>
+                    {selected.previewButton}
+                  </button>
+                ) : null}
               </div>
-              {selected.previewButton ? (
-                <button type="button" className={`mt-3 w-full ${secondaryButtonClass}`}>
-                  {selected.previewButton}
-                </button>
-              ) : null}
             </div>
           )}
         </div>
