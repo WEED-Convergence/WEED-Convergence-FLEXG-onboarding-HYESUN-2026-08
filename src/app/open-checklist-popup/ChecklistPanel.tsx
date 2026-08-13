@@ -838,7 +838,7 @@ function PgApplicationForm() {
                   </div>
                   {checked && option.detailItems ? (
                     <div
-                      className="mb-3 ml-[25px] rounded-lg px-3.5 py-3"
+                      className="mb-3 rounded-lg px-3.5 py-3"
                       style={{ backgroundColor: "#FBEAF0" }}
                     >
                       <p className="text-[11px] font-bold" style={{ color: "#993556" }}>
