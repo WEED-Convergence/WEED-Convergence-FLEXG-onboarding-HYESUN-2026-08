@@ -199,10 +199,10 @@ const cellFieldClass =
   "w-full rounded-md border border-[var(--border)] bg-white px-2 py-1.5 text-[12px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
 
 const primaryButtonClass =
-  "rounded-md bg-[var(--cta)] px-4 py-2 text-[13px] font-medium text-white";
+  "rounded-[8px] bg-[var(--cta)] px-[28px] py-[10px] text-[13px] font-medium text-white";
 
 const secondaryButtonClass =
-  "rounded-md border border-[var(--border)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)]";
+  "rounded-[8px] border border-[var(--border)] px-[28px] py-[10px] text-[13px] font-medium text-[var(--text-secondary)]";
 
 function DragHandleIcon() {
   return (
@@ -413,17 +413,11 @@ function BusinessInfoForm() {
         </div>
       </div>
 
-      <div className="mt-6 flex justify-center gap-3">
-        <button
-          type="button"
-          className="rounded-md border border-[var(--border)] px-6 py-2.5 text-[13px] text-[var(--text-muted)]"
-        >
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
           건너뛰기
         </button>
-        <button
-          type="button"
-          className="rounded-md bg-[var(--cta)] px-6 py-2.5 text-[13px] font-medium text-white"
-        >
+        <button type="button" className={primaryButtonClass}>
           저장하기
         </button>
       </div>
@@ -509,28 +503,17 @@ function CashDepositForm() {
         </div>
 
         <div className="mt-3 flex justify-end">
-          <button
-            type="button"
-            className="rounded-md px-5 py-2 text-[13px] text-white"
-            style={{ backgroundColor: "#2C2C2A" }}
-          >
+          <button type="button" className={primaryButtonClass}>
             등록
           </button>
         </div>
       </div>
 
-      <div className="mt-6 flex justify-center gap-3">
-        <button
-          type="button"
-          className="rounded-md border border-[var(--border)] px-6 py-2.5 text-[13px] text-[var(--text-muted)]"
-        >
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
           건너뛰기
         </button>
-        <button
-          type="button"
-          className="rounded-md px-[28px] py-[10px] text-[13px]"
-          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
-        >
+        <button type="button" className={primaryButtonClass}>
           더 알아보기
         </button>
       </div>
@@ -572,26 +555,14 @@ function SupplierListForm() {
       </div>
 
       <div className="mt-6 flex flex-col items-center gap-3">
-        <button
-          type="button"
-          className="rounded-md px-8 py-[10px] text-[13px] text-white"
-          style={{ backgroundColor: "#2C2C2A" }}
-        >
+        <button type="button" className={primaryButtonClass}>
           등록
         </button>
-        <div className="flex gap-3">
-          <button
-            type="button"
-            className="rounded-md px-[28px] py-[10px] text-[13px]"
-            style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
-          >
+        <div className="flex gap-[10px]">
+          <button type="button" className={secondaryButtonClass}>
             건너뛰기
           </button>
-          <button
-            type="button"
-            className="rounded-md px-[28px] py-[10px] text-[13px]"
-            style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
-          >
+          <button type="button" className={primaryButtonClass}>
             더 알아보기
           </button>
         </div>
@@ -622,19 +593,11 @@ function PhoneNumberForm() {
         ⓘ 쇼핑몰 하단 고객센터 안내 영역에 전화번호 및 전화문의 버튼을 노출할 수 있습니다.
       </p>
 
-      <div className="mt-6 flex justify-center gap-3">
-        <button
-          type="button"
-          className="rounded-md px-6 py-2.5 text-[13px]"
-          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
-        >
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
           건너뛰기
         </button>
-        <button
-          type="button"
-          className="rounded-md px-6 py-2.5 text-[13px] text-white"
-          style={{ backgroundColor: "#2C2C2A" }}
-        >
+        <button type="button" className={primaryButtonClass}>
           저장하기
         </button>
       </div>
@@ -700,19 +663,11 @@ function ProductSampleForm() {
         ))}
       </div>
 
-      <div className="mt-6 flex justify-center gap-3">
-        <button
-          type="button"
-          className="rounded-md px-6 py-2.5 text-[13px]"
-          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
-        >
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
           건너뛰기
         </button>
-        <button
-          type="button"
-          className="flex items-center gap-1.5 rounded-md px-6 py-2.5 text-[13px] font-medium text-white"
-          style={{ backgroundColor: "#2C2C2A" }}
-        >
+        <button type="button" className={`flex items-center gap-1.5 ${primaryButtonClass}`}>
           상품 목록으로
           <ExternalLinkIcon />
         </button>
@@ -854,11 +809,7 @@ function PgApplicationForm() {
                       </span>
                       <span className="text-[11px] text-[var(--text-muted)]">{option.summary}</span>
                     </label>
-                    <button
-                      type="button"
-                      className="shrink-0 rounded-md px-3 py-[5px] text-[10px] font-medium text-white"
-                      style={{ backgroundColor: "#2C2C2A" }}
-                    >
+                    <button type="button" className={`shrink-0 ${primaryButtonClass}`}>
                       신청하기
                     </button>
                   </div>
@@ -900,7 +851,7 @@ function PgApplicationForm() {
                   <BrandWordmark brand={item.name} />
                 </span>
                 <span className="flex-1 text-[11px] text-[var(--text-muted)]">{item.desc}</span>
-                <button type="button" className={`shrink-0 ${secondaryButtonClass}`}>
+                <button type="button" className={`shrink-0 ${primaryButtonClass}`}>
                   신청하기
                 </button>
               </div>
@@ -930,18 +881,11 @@ function PgApplicationForm() {
         </div>
       </div>
 
-      <div className="mt-6 flex justify-center gap-3">
-        <button
-          type="button"
-          className="rounded-md border border-[var(--border)] px-6 py-2.5 text-[13px] text-[var(--text-muted)]"
-        >
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
           건너뛰기
         </button>
-        <button
-          type="button"
-          className="rounded-md px-[28px] py-[10px] text-[13px]"
-          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
-        >
+        <button type="button" className={primaryButtonClass}>
           더 알아보기
         </button>
       </div>
@@ -949,8 +893,7 @@ function PgApplicationForm() {
   );
 }
 
-const crmActionButtonClass =
-  "shrink-0 whitespace-nowrap rounded-[5px] px-5 py-[5px] text-[13px] font-medium text-white";
+const crmActionButtonClass = `shrink-0 whitespace-nowrap ${primaryButtonClass}`;
 
 function CampaignSettingsForm() {
   const [rejectionType, setRejectionType] = useState("신규");
@@ -999,7 +942,7 @@ function CampaignSettingsForm() {
           />
           직접 입력
         </label>
-        <button type="button" className={crmActionButtonClass} style={{ backgroundColor: "#5F5E5A" }}>
+        <button type="button" className={crmActionButtonClass}>
           신청 &gt;
         </button>
       </div>
@@ -1008,7 +951,7 @@ function CampaignSettingsForm() {
         <span className="flex shrink-0 items-center whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
           카카오톡 채널
         </span>
-        <button type="button" className={crmActionButtonClass} style={{ backgroundColor: "#5F5E5A" }}>
+        <button type="button" className={crmActionButtonClass}>
           등록 &gt;
         </button>
         <p className="text-[10px] text-[var(--text-muted)]">
@@ -1017,19 +960,11 @@ function CampaignSettingsForm() {
         </p>
       </div>
 
-      <div className="mt-6 flex justify-center gap-3">
-        <button
-          type="button"
-          className="rounded-md px-6 py-2.5 text-[13px]"
-          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
-        >
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
           건너뛰기
         </button>
-        <button
-          type="button"
-          className="rounded-md px-6 py-2.5 text-[13px]"
-          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
-        >
+        <button type="button" className={primaryButtonClass}>
           더 알아보기
         </button>
       </div>
@@ -1078,19 +1013,11 @@ function TermsCheckForm() {
         </p>
       </div>
 
-      <div className="mt-6 flex justify-center gap-3">
-        <button
-          type="button"
-          className="rounded-md px-6 py-2.5 text-[13px]"
-          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
-        >
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
           건너뛰기
         </button>
-        <button
-          type="button"
-          className="rounded-md px-6 py-2.5 text-[13px]"
-          style={{ border: "1px solid #D3D1C7", color: "#5F5E5A" }}
-        >
+        <button type="button" className={primaryButtonClass}>
           더 알아보기
         </button>
       </div>
