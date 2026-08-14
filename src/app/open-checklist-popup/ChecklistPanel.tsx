@@ -81,8 +81,9 @@ const items: ChecklistItemData[] = [
   {
     id: 7,
     title: "SNS 간편 로그인 등록(카카오, 네이버)",
-    description: "고객이 카카오·네이버 계정으로 바로 로그인할 수 있도록 키값을 등록해 주세요.",
-    duration: "약 5분이면 완료",
+    description:
+      "고객이 아이디를 새로 만들지 않고, 카카오·네이버 계정으로 바로 로그인할 수 있게 해주는 기능이에요. 각 서비스마다 설정 방법이 달라서, 아래 가이드를 보시면서 순서대로 진행해 주세요.",
+    duration: "약 40분이면 완료",
     previewTitle: "간편로그인 설정",
     previewRows: ["카카오 REST API 키: ****", "네이버 Client ID: ****"],
   },
@@ -1705,6 +1706,133 @@ function SeoSettingsForm() {
   );
 }
 
+function KakaoIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="#3C1E1E">
+      <path d="M12 4C6.48 4 2 7.58 2 12c0 2.79 1.85 5.24 4.65 6.65-.2.75-.73 2.71-.84 3.13-.14.52.19.51.4.37.17-.11 2.66-1.8 3.75-2.54.66.1 1.34.15 2.04.15 5.52 0 10-3.58 10-8s-4.48-8-10-8z" />
+    </svg>
+  );
+}
+
+function NaverIcon() {
+  return (
+    <span className="text-[20px] font-extrabold" style={{ color: "#03C75A" }}>
+      N
+    </span>
+  );
+}
+
+function SnsIntroCard({
+  icon,
+  iconBg,
+  title,
+  desc,
+  buttonLabel,
+}: {
+  icon: React.ReactNode;
+  iconBg: string;
+  title: string;
+  desc: string;
+  buttonLabel: string;
+}) {
+  return (
+    <div
+      className="flex items-center gap-4 rounded-[10px] px-4 py-4"
+      style={{ border: "1px solid #E4E2D8" }}
+    >
+      <span
+        className="flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-full"
+        style={{ backgroundColor: iconBg }}
+      >
+        {icon}
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="text-[13px] font-bold text-[var(--text-primary)]">{title}</p>
+        <p className="mt-1 text-[11px] leading-relaxed" style={{ color: "#5F5E5A" }}>
+          {desc}
+        </p>
+        <button
+          type="button"
+          className="mt-2 shrink-0 whitespace-nowrap rounded-[5px] px-3 py-[6px] text-[11px] font-medium text-white"
+          style={{ backgroundColor: "#D8342A" }}
+        >
+          {buttonLabel}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function SnsLoginForm() {
+  return (
+    <div className="mt-6 w-full">
+      <DetailCard>
+        <div className="space-y-[14px]">
+          <SnsIntroCard
+            icon={<KakaoIcon />}
+            iconBg="#FFF4CC"
+            title="카카오 로그인"
+            desc="카카오톡으로 바로 로그인할 수 있게 해주는 기능이에요. 카카오 비즈니스 채널 개설과 앱 등록 등 카카오 쪽에서 진행할 설정이 있어서 단계가 좀 있지만, 가이드를 그대로 따라가시면 어렵지 않아요."
+            buttonLabel="카카오 로그인 가이드 보기"
+          />
+          <SnsIntroCard
+            icon={<NaverIcon />}
+            iconBg="#E1F5EA"
+            title="네이버 로그인"
+            desc="네이버 계정으로 바로 로그인할 수 있게 해주는 기능이에요. 배너를 눌러 네이버 계정으로 로그인하고 간단한 정보만 입력하면 되기 때문에, 카카오보다 훨씬 빠르게 끝낼 수 있어요."
+            buttonLabel="네이버 로그인 가이드 보기"
+          />
+        </div>
+
+        <div className="mt-6">
+          <p className="text-[12px] font-bold text-[var(--text-primary)]">API 설정</p>
+          <p className="mt-1 text-[10px] text-[var(--text-muted)]">
+            가이드를 보고 발급받은 키값을 아래에 입력해 주세요.
+          </p>
+
+          <div className="mt-4">
+            <p className="text-[12px] font-bold text-[var(--text-primary)]">카카오 로그인</p>
+            <div className="mt-2 space-y-2">
+              <input type="text" placeholder="네이티브 앱 키 입력" className={inputClass} />
+              <input type="text" placeholder="REST API 키 입력" className={inputClass} />
+              <input type="text" placeholder="JavaScript 키 입력" className={inputClass} />
+              <input type="text" placeholder="Client Secret 코드 입력" className={inputClass} />
+            </div>
+          </div>
+
+          <div className="mt-5">
+            <p className="text-[12px] font-bold text-[var(--text-primary)]">네이버 로그인</p>
+            <div className="mt-2 grid grid-cols-2 gap-3">
+              <input type="text" placeholder="Client ID 입력" className={inputClass} />
+              <input type="text" placeholder="Client Secret 입력" className={inputClass} />
+            </div>
+          </div>
+
+          <div
+            className="mt-5 flex items-start gap-2 rounded-lg px-3.5 py-3"
+            style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+          >
+            <InfoIcon />
+            <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
+              연동된 키값은 수정이 불가하며, 키값을 삭제하거나 신규 진행 시엔 기존 회원은 신규 회원으로
+              진입되니 유의해 주세요.
+            </p>
+          </div>
+        </div>
+      </DetailCard>
+
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
+          건너뛰기
+        </button>
+        <button type="button" className={primaryButtonClass}>
+          저장하기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function PopbillForm() {
   return (
     <div className="mt-6 w-full">
@@ -1833,7 +1961,9 @@ export default function ChecklistPanel() {
 
           {selected.id !== 12 && (
             <>
-              <h2 className="mt-3 text-[16px] font-semibold text-[var(--text-primary)]">{selected.title}</h2>
+              <h2 className="mt-3 text-[16px] font-semibold text-[var(--text-primary)]">
+                {selected.id === 7 ? "SNS 간편 로그인 등록" : selected.title}
+              </h2>
               {selected.description && (
                 <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-muted)]">
                   {selected.description}
@@ -1870,6 +2000,8 @@ export default function ChecklistPanel() {
             <LiveCommerceForm />
           ) : selected.id === 9 ? (
             <SeoSettingsForm />
+          ) : selected.id === 7 ? (
+            <SnsLoginForm />
           ) : (
             <div className="mt-4 w-full">
               <DetailCard>
