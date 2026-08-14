@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SidebarNav from "./SidebarNav";
+import ProcessOverview from "./ProcessOverview";
 
 export const metadata: Metadata = {
   title: "플렉스지 판매자 온보딩 프로세스",
@@ -27,7 +28,7 @@ export default function RootLayout({
 
             {/* 우측: 화면 설명 영역 (모든 화면 공통 고정) */}
             <aside className="sticky top-10 w-[280px] shrink-0 self-start">
-              <p className="text-[12px] font-semibold text-[var(--text-muted)]">프로세스 개요</p>
+              <ProcessOverview />
             </aside>
           </div>
         </main>
