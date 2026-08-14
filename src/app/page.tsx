@@ -6,6 +6,8 @@ interface StepData {
   path?: string;
   highlight?: boolean;
   afterLabel?: string;
+  feedbackLabel?: string;
+  feedbackItems?: string[];
 }
 
 const stepsIntro: StepData[] = [
@@ -19,6 +21,13 @@ const stepsIntro: StepData[] = [
     title: "템플릿 선택",
     desc: "쇼핑몰 디자인 템플릿 선택 (선택한 템플릿에 카테고리별 샘플 상품이 자동으로 등록되어 있음)",
     highlight: true,
+    feedbackLabel: "영업팀 의견 추가",
+    feedbackItems: [
+      "1-1. 라이브 기능 전용 템플릿",
+      "1-2. 주문서 전용 템플릿",
+      "1-3. 출산 / 유아동 전용 템플릿",
+      "1-4. 건기식 / 다이어트 전용 템플릿",
+    ],
   },
 ];
 
@@ -64,7 +73,7 @@ const [step3, step5, step6, step7, step8, step9]: StepData[] = [
   },
 ];
 
-function Box({ id, title, desc, subItems, path, highlight }: StepData) {
+function Box({ id, title, desc, subItems, path, highlight, feedbackLabel, feedbackItems }: StepData) {
   return (
     <div
       id={id > 0 ? `step-${id}` : undefined}
@@ -105,6 +114,22 @@ function Box({ id, title, desc, subItems, path, highlight }: StepData) {
         <p className="mt-1.5 text-[11px] text-[var(--text-secondary)]">
           경로: {path}
         </p>
+      ) : null}
+      {feedbackItems ? (
+        <div className="mt-2 rounded-md border border-dashed border-[var(--accent)]/40 bg-[var(--accent-soft-bg)] px-2.5 py-2">
+          {feedbackLabel ? (
+            <p className="text-[11px] font-semibold text-[var(--accent-text)]">
+              {feedbackLabel}
+            </p>
+          ) : null}
+          <ul className="mt-1 space-y-0.5">
+            {feedbackItems.map((item) => (
+              <li key={item} className="text-[11px] text-[var(--accent-text)]">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
     </div>
   );
