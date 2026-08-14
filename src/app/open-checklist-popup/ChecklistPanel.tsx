@@ -1601,6 +1601,110 @@ function LiveCommerceForm() {
   );
 }
 
+const seoInputClass =
+  "w-[220px] shrink-0 rounded-md border border-[var(--border)] px-3 py-[9px] text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
+
+function SeoField({
+  label,
+  placeholder,
+  note,
+}: {
+  label: string;
+  placeholder: string;
+  note?: string;
+}) {
+  return (
+    <div>
+      <div className="flex items-center gap-3">
+        <span className="w-[110px] shrink-0 whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
+          {label}
+        </span>
+        <input type="text" placeholder={placeholder} className={seoInputClass} />
+      </div>
+      {note ? (
+        <p className="mt-1.5 pl-[122px] text-[10px] leading-relaxed text-[var(--text-muted)]">
+          {note}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function SeoSettingsForm() {
+  return (
+    <div className="mt-6 w-full">
+      <DetailCard>
+        <div
+          className="flex items-start gap-2 rounded-lg px-3.5 py-3"
+          style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+        >
+          <InfoIcon />
+          <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
+            <span className="font-semibold">
+              아래 항목을 모두 입력해야 SEO 설정을 완료할 수 있어요.
+            </span>
+            <br />
+            검색엔진 노출과 링크 공유 시 보여지는 정보를 결정하는 필수 항목이에요.
+          </p>
+        </div>
+
+        <div className="mt-5 space-y-4">
+          <SeoField
+            label="메타태그 제목"
+            placeholder="제목 입력"
+            note="ⓘ 쇼핑몰의 명칭으로 검색서비스에 노출되며 웹 브라우저 상단 표시와 즐겨찾기 등록시에 사용됩니다. (한글기준 32자 이하 권장)"
+          />
+          <SeoField
+            label="메타태그 설명"
+            placeholder="설명 입력"
+            note="ⓘ 쇼핑몰의 간단한 요약정보이며 검색서비스에 노출됩니다. (한글 기준 80자 이하 권장)"
+          />
+          <SeoField
+            label="메타태그 키워드"
+            placeholder="키워드 입력"
+            note="ⓘ 쇼핑몰을 대표하는 키워드를 콤마(,)로 구분해서 등록하실 수 있습니다."
+          />
+        </div>
+
+        <div className="my-5 border-t border-[var(--divider)]" />
+
+        <div className="space-y-4">
+          <SeoField
+            label="오픈 그래프 제목"
+            placeholder="오픈 그래프 제목 입력"
+            note="ⓘ 쇼핑몰 링크를 공유하실 때 사용되는 이미지와 내용입니다."
+          />
+          <SeoField label="오픈 그래프 설명" placeholder="오픈 그래프 설명 입력" />
+          <div className="flex items-center gap-3">
+            <span className="w-[110px] shrink-0 whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
+              오픈 그래프 이미지
+            </span>
+            <button
+              type="button"
+              className="shrink-0 rounded-[5px] px-3 py-[6px] text-[11px] font-medium text-white"
+              style={{ backgroundColor: "#5F5E5A" }}
+            >
+              파일 선택
+            </button>
+            <span className="text-[10px]" style={{ color: "#B4B2A9" }}>
+              등록된 이미지가 없습니다.
+            </span>
+          </div>
+        </div>
+      </DetailCard>
+
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
+          건너뛰기
+        </button>
+        <button type="button" className={primaryButtonClass}>
+          저장하기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function PopbillForm() {
   return (
     <div className="mt-6 w-full">
@@ -1764,6 +1868,8 @@ export default function ChecklistPanel() {
             <AlimtalkForm />
           ) : selected.id === 12 ? (
             <LiveCommerceForm />
+          ) : selected.id === 9 ? (
+            <SeoSettingsForm />
           ) : (
             <div className="mt-4 w-full">
               <DetailCard>
