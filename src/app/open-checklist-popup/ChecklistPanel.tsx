@@ -322,6 +322,9 @@ const primaryButtonClass =
 const secondaryButtonClass =
   "rounded-[8px] border border-[var(--border)] px-[28px] py-[10px] text-[13px] font-medium text-[var(--text-secondary)]";
 
+const pgRowSecondaryButtonClass =
+  "shrink-0 whitespace-nowrap rounded-[6px] border border-[var(--border)] px-3 py-1.5 text-[11px] font-medium text-[var(--text-secondary)]";
+
 function ToggleSwitch({ checked, onChange }: { checked: boolean; onChange: () => void }) {
   return (
     <button
@@ -957,9 +960,19 @@ function PgApplicationForm() {
                       </span>
                       <span className="text-[11px] text-[var(--text-muted)]">{option.summary}</span>
                     </label>
-                    <button type="button" className={`shrink-0 ${primaryButtonClass}`}>
-                      신청하기
-                    </button>
+                    <div className="flex shrink-0 items-center gap-[6px]">
+                      {option.name === "나이스페이" ? (
+                        <button type="button" className={pgRowSecondaryButtonClass}>
+                          신청 가이드
+                        </button>
+                      ) : null}
+                      <button type="button" className={pgRowSecondaryButtonClass}>
+                        자세히 보기
+                      </button>
+                      <button type="button" className={`shrink-0 ${primaryButtonClass}`}>
+                        신청하기
+                      </button>
+                    </div>
                   </div>
                   {checked && option.detailItems ? (
                     <div
