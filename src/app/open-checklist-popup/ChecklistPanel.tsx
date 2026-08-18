@@ -764,18 +764,6 @@ const pgOptions: PgOption[] = [
   },
 ];
 
-interface EasyPayItem {
-  name: string;
-  desc: string;
-}
-
-const contractPayments: EasyPayItem[] = [
-  { name: "네이버페이", desc: "" },
-  { name: "카카오페이", desc: "" },
-  { name: "토스페이", desc: "" },
-  { name: "내통장 바로결제", desc: "" },
-];
-
 function SubsectionTitle({
   children,
   description,
@@ -865,29 +853,6 @@ function PgApplicationForm() {
                 </div>
               );
             })}
-          </div>
-        </DetailCard>
-
-        <DetailCard>
-          <SubsectionTitle>별도 계약이 필요한 간편결제 (선택)</SubsectionTitle>
-          <p className="mt-1 text-[11px] text-[var(--text-muted)]">
-            아래 결제수단은 PG와 별개로 각 서비스사와 직접 계약을 진행해야 해요.
-          </p>
-          <div className="mt-2">
-            {contractPayments.map((item) => (
-              <div
-                key={item.name}
-                className="flex items-center gap-3 border-b border-[var(--divider)] py-[14px] last:border-0"
-              >
-                <span className="w-[110px] shrink-0">
-                  <BrandWordmark brand={item.name} />
-                </span>
-                <span className="flex-1 text-[11px] text-[var(--text-muted)]">{item.desc}</span>
-                <button type="button" className={`shrink-0 ${primaryButtonClass}`}>
-                  신청하기
-                </button>
-              </div>
-            ))}
           </div>
         </DetailCard>
 
