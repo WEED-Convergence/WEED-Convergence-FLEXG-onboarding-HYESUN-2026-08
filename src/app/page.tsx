@@ -116,7 +116,7 @@ function MessageBlock({
   desc,
   note,
 }: {
-  label: "알림톡" | "해피콜";
+  label: "알림톡";
   title: string;
   desc?: string;
   note?: string;
@@ -183,12 +183,6 @@ export default function Home() {
         label="알림톡"
         title="승인 완료 안내"
         desc="오픈채팅방 입장 링크 안내"
-      />
-      <ArrowDown />
-      <MessageBlock
-        label="해피콜"
-        title="가입 경로 확인 · 오픈채팅방 재안내"
-        note="메시지로 오픈채팅방 미인입 시"
       />
       <ArrowDown label={step3.afterLabel} />
 
