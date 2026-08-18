@@ -14,13 +14,6 @@ const overviewNotes: Record<string, { label: string; desc?: string; items: strin
       ],
     },
   ],
-  "/open-checklist-popup": [
-    {
-      label: "영업팀 의견",
-      desc: "SEO 설정하기 단계에서 아래 항목을 필수 설정사항으로 안내",
-      items: ["메타태그 설정", "오픈그래프 설정"],
-    },
-  ],
 };
 
 export default function ProcessOverview() {
