@@ -970,7 +970,7 @@ function PgApplicationForm() {
                         자세히 보기
                       </button>
                       <button type="button" className={`shrink-0 ${primaryButtonClass}`}>
-                        신청하기
+                        신청
                       </button>
                     </div>
                   </div>
