@@ -25,13 +25,6 @@ const items: ChecklistItemData[] = [
     previewRows: ["상호명: 이수모 스토어", "사업자번호: 123-45-...", "정산계좌: 신한 110-..."],
   },
   {
-    id: 14,
-    title: "무통장입금 설정하기",
-    description: "무통장 입금 시 사용할 정산계좌 정보를 입력해 주세요.",
-    previewTitle: "무통장입금 계좌 정보",
-    previewRows: ["은행: 신한은행", "계좌번호: 110-123-456789", "예금주: 이수모"],
-  },
-  {
     id: 2,
     title: "공급사 등록하기",
     description: "",
@@ -130,7 +123,7 @@ const items: ChecklistItemData[] = [
 ];
 
 const categories: CategoryData[] = [
-  { name: "결제 준비", itemIds: [1, 14, 2, 3, 4, 5] },
+  { name: "결제 준비", itemIds: [1, 2, 3, 4, 5] },
   { name: "운영 필수 정보", itemIds: [6, 7, 8] },
   { name: "권장 설정 기능", itemIds: [9, 10, 15, 16] },
   { name: "매출 확장 기능", itemIds: [11, 12] },
@@ -531,104 +524,6 @@ function BusinessInfoForm() {
         </button>
         <button type="button" className={primaryButtonClass}>
           저장하기
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function CashDepositForm() {
-  const [methodEnabled, setMethodEnabled] = useState(false);
-  const [methodName, setMethodName] = useState("무통장입금");
-  const [hideBenefit, setHideBenefit] = useState(false);
-
-  return (
-    <div className="mt-6 w-full">
-      <div className="space-y-4">
-        <DetailCard>
-          <SubsectionTitle>무통장입금 계좌 정보</SubsectionTitle>
-          <div className="mt-4 flex items-end gap-2">
-            <select className={`${cellFieldClass} flex-1`} defaultValue="">
-              <option value="" disabled>
-                은행선택
-              </option>
-            </select>
-            <input type="text" placeholder="계좌번호 입력" className={`${cellFieldClass} flex-1`} />
-            <input type="text" placeholder="예금주 입력" className={`${cellFieldClass} flex-1`} />
-            <button type="button" className={`shrink-0 ${primaryButtonClass}`}>
-              등록
-            </button>
-          </div>
-        </DetailCard>
-
-        <DetailCard>
-          <SubsectionTitle>결제수단 설정</SubsectionTitle>
-
-          <div className="mt-4 space-y-3">
-            <div className="flex flex-wrap items-center gap-4">
-              <div className="flex items-center gap-2">
-                <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
-                  사용여부
-                </span>
-                <ToggleSwitch checked={methodEnabled} onChange={() => setMethodEnabled((v) => !v)} />
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
-                  결제수단명칭
-                </span>
-                <div className="flex items-center gap-1.5">
-                  <input
-                    type="text"
-                    value={methodName}
-                    maxLength={12}
-                    onChange={(e) => setMethodName(e.target.value.slice(0, 12))}
-                    className={`${cellFieldClass} w-28`}
-                  />
-                  <span className="whitespace-nowrap text-[11px] text-[var(--text-muted)]">
-                    {methodName.length}/12
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-4">
-              <div className="flex items-center gap-2">
-                <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
-                  혜택노출
-                </span>
-                <label className="flex items-center gap-1.5 whitespace-nowrap text-[11px] text-[var(--text-secondary)]">
-                  <input
-                    type="checkbox"
-                    checked={hideBenefit}
-                    onChange={() => setHideBenefit((v) => !v)}
-                    className="h-3.5 w-3.5 accent-[var(--accent-text)]"
-                  />
-                  주문시 입금통장 미노출
-                </label>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[11px]" style={{ color: "#5F5E5A" }}>
-                  수수료
-                </span>
-                <span className="text-[11px] text-[var(--text-muted)]">-</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-4 flex justify-end">
-            <button type="button" className={primaryButtonClass}>
-              등록
-            </button>
-          </div>
-        </DetailCard>
-      </div>
-
-      <div className="mt-6 flex justify-center gap-[10px]">
-        <button type="button" className={secondaryButtonClass}>
-          건너뛰기
-        </button>
-        <button type="button" className={primaryButtonClass}>
-          더 알아보기
         </button>
       </div>
     </div>
@@ -2047,7 +1942,7 @@ export default function ChecklistPanel() {
           <div className="pr-6">
             <div className="flex items-center justify-between">
               <span className="text-[12px] text-[var(--text-muted)]">전체 진행률</span>
-              <span className="text-[12px] text-[var(--text-muted)]">0/15개 · 0%</span>
+              <span className="text-[12px] text-[var(--text-muted)]">0/14개 · 0%</span>
             </div>
             <div className="mt-1.5 h-[5px] w-full rounded-full bg-[var(--divider)]">
               <div className="h-[5px] rounded-full bg-[var(--accent)]" style={{ width: "0%" }} />
@@ -2101,8 +1996,6 @@ export default function ChecklistPanel() {
 
           {selected.id === 5 ? (
             <BusinessInfoForm />
-          ) : selected.id === 14 ? (
-            <CashDepositForm />
           ) : selected.id === 2 ? (
             <SupplierListForm />
           ) : selected.id === 1 ? (
