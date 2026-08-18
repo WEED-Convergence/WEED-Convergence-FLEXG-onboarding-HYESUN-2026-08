@@ -292,6 +292,24 @@ function InfoIcon() {
   );
 }
 
+function WarningIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      fill="none"
+      stroke="#8A5A0A"
+      strokeWidth="2"
+      className="mt-0.5 shrink-0"
+    >
+      <path d="M12 3.5L22 20.5H2L12 3.5Z" strokeLinejoin="round" />
+      <path d="M12 10v4.5" strokeLinecap="round" />
+      <path d="M12 17.5h.01" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 const inputClass =
   "w-full rounded-md border border-[var(--border)] px-3 py-[9px] text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
 
@@ -907,6 +925,16 @@ function PgApplicationForm() {
 
   return (
     <div className="mt-6 w-full">
+      <div
+        className="mb-4 flex items-start gap-2 rounded-lg px-3.5 py-3"
+        style={{ border: "1.5px solid #F2A623", backgroundColor: "#FEF3E0" }}
+      >
+        <WarningIcon />
+        <p className="text-[13px] font-bold leading-relaxed" style={{ color: "#8A5A0A" }}>
+          PG 심사는 3주 이상 소요될 수 있어, 먼저 PG 신청 후 쇼핑몰 설정을 진행해 주시길 권장드립니다.
+        </p>
+      </div>
+
       <div className="space-y-4">
         <DetailCard>
           <SubsectionTitle>PG사 선택</SubsectionTitle>
@@ -935,13 +963,13 @@ function PgApplicationForm() {
                   </div>
                   {checked && option.detailItems ? (
                     <div
-                      className="mb-3 rounded-lg px-3.5 py-3"
-                      style={{ backgroundColor: "#FBEAF0" }}
+                      className="mb-3 rounded-lg border border-[var(--border)] px-3.5 py-3"
+                      style={{ backgroundColor: "var(--surface-1)" }}
                     >
-                      <p className="text-[11px] font-bold" style={{ color: "#993556" }}>
+                      <p className="text-[11px] font-bold text-[var(--text-primary)]">
                         {option.name} 상세정보
                       </p>
-                      <div className="mt-1 text-[10.5px]" style={{ color: "#7A2438", lineHeight: 2 }}>
+                      <div className="mt-1 text-[10.5px] text-[var(--text-secondary)]" style={{ lineHeight: 2 }}>
                         {option.detailItems.map((item) => (
                           <div key={item.label}>
                             · {item.label} : {item.value}
