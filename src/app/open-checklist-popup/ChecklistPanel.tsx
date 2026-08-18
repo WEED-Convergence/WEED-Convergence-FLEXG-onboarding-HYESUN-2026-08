@@ -170,6 +170,100 @@ function ItemCircle({ active }: { active: boolean }) {
   );
 }
 
+type PgStatus = "미신청" | "신청접수" | "심사중" | "승인완료" | "반려";
+
+// 실데이터 연동 전 데모용 고정값. 상태를 바꾸려면 이 값만 수정하면 좌측 리스트/우측 배지에 동일하게 반영됩니다.
+const PG_STATUS: PgStatus = "신청접수";
+
+const PG_REJECTION_REASON = "제출하신 서류 정보가 사업자등록증과 일치하지 않습니다.";
+
+const pgStatusConfig: Record<
+  PgStatus,
+  {
+    circleBg?: string;
+    icon?: "check" | "x";
+    labelColor: string;
+    labelMedium: boolean;
+    badge: { bg: string; color: string } | null;
+  }
+> = {
+  미신청: { labelColor: "#B4B2A9", labelMedium: false, badge: null },
+  신청접수: {
+    circleBg: "#F2A623",
+    labelColor: "#BA7517",
+    labelMedium: true,
+    badge: { bg: "#FAEEDA", color: "#633806" },
+  },
+  심사중: {
+    circleBg: "#378ADD",
+    labelColor: "#0C447C",
+    labelMedium: true,
+    badge: { bg: "#E6F1FB", color: "#0C447C" },
+  },
+  승인완료: {
+    circleBg: "#639922",
+    icon: "check",
+    labelColor: "#3B6D11",
+    labelMedium: true,
+    badge: { bg: "#EAF3E0", color: "#3B6D11" },
+  },
+  반려: {
+    circleBg: "#D8342A",
+    icon: "x",
+    labelColor: "#993556",
+    labelMedium: true,
+    badge: { bg: "#FBEAF0", color: "#993556" },
+  },
+};
+
+function PgStatusCircle({ status, active }: { status: PgStatus; active: boolean }) {
+  if (status === "미신청") {
+    return <ItemCircle active={active} />;
+  }
+  const config = pgStatusConfig[status];
+  return (
+    <span
+      className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full"
+      style={{ backgroundColor: config.circleBg }}
+    >
+      {config.icon === "check" ? (
+        <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="white" strokeWidth="3.5">
+          <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      ) : config.icon === "x" ? (
+        <svg viewBox="0 0 24 24" width="7" height="7" fill="none" stroke="white" strokeWidth="3.5">
+          <path d="M6 6L18 18M18 6L6 18" strokeLinecap="round" />
+        </svg>
+      ) : null}
+    </span>
+  );
+}
+
+function PgStatusLabel({ status }: { status: PgStatus }) {
+  const config = pgStatusConfig[status];
+  return (
+    <span
+      className="shrink-0 text-[10px]"
+      style={{ color: config.labelColor, fontWeight: config.labelMedium ? 500 : 400 }}
+    >
+      {status}
+    </span>
+  );
+}
+
+function PgStatusBadge({ status }: { status: PgStatus }) {
+  const badge = pgStatusConfig[status].badge;
+  if (!badge) return null;
+  return (
+    <span
+      className="rounded-[12px] text-[10px] font-semibold"
+      style={{ backgroundColor: badge.bg, color: badge.color, padding: "3px 10px" }}
+    >
+      {status}
+    </span>
+  );
+}
+
 function RequiredMark() {
   return <span className="mr-1 text-[var(--success)]">✔</span>;
 }
@@ -1882,8 +1976,18 @@ export default function ChecklistPanel() {
                         color: active ? "var(--accent-text)" : "var(--text-secondary)",
                       }}
                     >
-                      <ItemCircle active={active} />
-                      {item.title}
+                      {id === 1 ? (
+                        <>
+                          <PgStatusCircle status={PG_STATUS} active={active} />
+                          <span className="flex-1">{item.title}</span>
+                          <PgStatusLabel status={PG_STATUS} />
+                        </>
+                      ) : (
+                        <>
+                          <ItemCircle active={active} />
+                          {item.title}
+                        </>
+                      )}
                     </button>
                   );
                 })}
@@ -1903,11 +2007,26 @@ export default function ChecklistPanel() {
             </div>
           </div>
 
-          {selected.id !== 12 && (
-            <div className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--accent-bg)] px-3 py-1.5 text-[13px] font-semibold text-[var(--accent-text)]">
-              <ClockIcon />
-              {selected.duration}
+          {selected.id === 1 && PG_STATUS === "반려" ? (
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <p className="text-[12px]" style={{ color: "#993556" }}>
+                {PG_REJECTION_REASON}
+              </p>
+              <button
+                type="button"
+                className="shrink-0 rounded-[5px] text-[11px] font-medium text-white"
+                style={{ backgroundColor: "#D8342A", padding: "6px 14px" }}
+              >
+                다시 신청하기
+              </button>
             </div>
+          ) : (
+            selected.id !== 12 && (
+              <div className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--accent-bg)] px-3 py-1.5 text-[13px] font-semibold text-[var(--accent-text)]">
+                <ClockIcon />
+                {selected.duration}
+              </div>
+            )
           )}
 
           {selected.id === 2 && (
@@ -1926,9 +2045,12 @@ export default function ChecklistPanel() {
 
           {selected.id !== 12 && (
             <>
-              <h2 className="mt-3 text-[16px] font-semibold text-[var(--text-primary)]">
-                {selected.id === 7 ? "SNS 간편 로그인 등록" : selected.title}
-              </h2>
+              <div className="mt-3 flex items-center gap-2">
+                <h2 className="text-[16px] font-semibold text-[var(--text-primary)]">
+                  {selected.id === 7 ? "SNS 간편 로그인 등록" : selected.title}
+                </h2>
+                {selected.id === 1 ? <PgStatusBadge status={PG_STATUS} /> : null}
+              </div>
               {selected.description && (
                 <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-muted)]">
                   {selected.description}
