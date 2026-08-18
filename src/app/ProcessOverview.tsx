@@ -33,7 +33,7 @@ export default function ProcessOverview() {
 
   return (
     <div>
-      <p className="text-[12px] font-semibold text-[var(--text-muted)]">프로세스 개요</p>
+      <p className="text-[15px] font-semibold text-[var(--text-primary)]">화면설명</p>
       {notes ? (
         <div className="mt-2 space-y-3">
           {notes.map((note) => (
