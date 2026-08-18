@@ -40,13 +40,6 @@ const items: ChecklistItemData[] = [
     previewRows: ["상품명: 베이직 티셔츠", "가격: 19,900원", "재고: 100개"],
   },
   {
-    id: 4,
-    title: "유선번호 등록하기",
-    description: "고객 문의용 유선번호를 등록해 주세요.",
-    previewTitle: "고객센터 연락처",
-    previewRows: ["유선번호: 02-1234-5678"],
-  },
-  {
     id: 5,
     title: "사업자 정보 · 통신판매업신고번호 입력",
     description: "",
@@ -124,7 +117,7 @@ const items: ChecklistItemData[] = [
 ];
 
 const categories: CategoryData[] = [
-  { name: "결제 준비", itemIds: [1, 2, 3, 4, 5] },
+  { name: "결제 준비", itemIds: [1, 2, 3, 5] },
   { name: "운영 필수 정보", itemIds: [6, 7, 8] },
   { name: "권장 설정 기능", itemIds: [9, 10, 15, 16] },
   { name: "매출 확장 기능", itemIds: [11, 12] },
@@ -566,44 +559,6 @@ function SupplierListForm() {
         </button>
         <button type="button" className={primaryButtonClass}>
           상세 정보 입력
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function PhoneNumberForm() {
-  const [enabled, setEnabled] = useState(false);
-
-  return (
-    <div className="mt-6 w-full">
-      <DetailCard>
-        <SubsectionTitle>고객센터 연락처</SubsectionTitle>
-
-        <div className="mt-4 flex items-center gap-4">
-          <span className="flex shrink-0 items-center text-[12px] text-[var(--text-primary)]">
-            <RequiredMark />
-            고객센터 전화
-          </span>
-          <ToggleSwitch checked={enabled} onChange={() => setEnabled((v) => !v)} />
-          <input
-            type="text"
-            placeholder="유선번호 입력"
-            className="flex-1 rounded-md border border-[var(--border)] px-3 py-[9px] text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]"
-          />
-        </div>
-
-        <p className="mt-2 text-[11px] text-[var(--text-muted)]">
-          ⓘ 쇼핑몰 하단 고객센터 안내 영역에 전화번호 및 전화문의 버튼을 노출할 수 있습니다.
-        </p>
-      </DetailCard>
-
-      <div className="mt-6 flex justify-center gap-[10px]">
-        <button type="button" className={secondaryButtonClass}>
-          건너뛰기
-        </button>
-        <button type="button" className={primaryButtonClass}>
-          저장하기
         </button>
       </div>
     </div>
@@ -1930,7 +1885,7 @@ export default function ChecklistPanel() {
           <div className="pr-6">
             <div className="flex items-center justify-between">
               <span className="text-[12px] text-[var(--text-muted)]">전체 진행률</span>
-              <span className="text-[12px] text-[var(--text-muted)]">0/14개 · 0%</span>
+              <span className="text-[12px] text-[var(--text-muted)]">0/13개 · 0%</span>
             </div>
             <div className="mt-1.5 h-[5px] w-full rounded-full bg-[var(--divider)]">
               <div className="h-[5px] rounded-full bg-[var(--accent)]" style={{ width: "0%" }} />
@@ -1992,8 +1947,6 @@ export default function ChecklistPanel() {
             <PgApplicationForm />
           ) : selected.id === 3 ? (
             <ProductSampleForm />
-          ) : selected.id === 4 ? (
-            <PhoneNumberForm />
           ) : selected.id === 11 ? (
             <CampaignSettingsForm />
           ) : selected.id === 15 ? (
