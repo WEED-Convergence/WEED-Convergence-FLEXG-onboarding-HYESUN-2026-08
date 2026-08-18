@@ -306,9 +306,6 @@ function WarningIcon() {
 const inputClass =
   "w-full rounded-md border border-[var(--border)] px-3 py-[9px] text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
 
-const cellFieldClass =
-  "w-full rounded-md border border-[var(--border)] bg-white px-2 py-1.5 text-[12px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
-
 const primaryButtonClass =
   "rounded-[8px] bg-[var(--cta)] px-[28px] py-[10px] text-[13px] font-medium text-white";
 
@@ -550,20 +547,9 @@ function SupplierListForm() {
       <DetailCard>
         <SubsectionTitle>공급사 정보 입력</SubsectionTitle>
 
-        <div className="mt-4 space-y-1 text-[11px] leading-relaxed text-[var(--text-muted)]">
-          <p>· 등록 시 업체명, 이메일은 필수 입력 사항입니다. 정산메일 발송 시엔 담당자 정보까지 입력해야 합니다.</p>
-          <p>· 등록된 공급사 삭제 시 원복 불가합니다.</p>
-        </div>
-
-        <div className="mt-6 grid grid-cols-2 gap-4">
+        <div className="mt-4 grid grid-cols-2 gap-4">
           <SupplierField label="업체명" placeholder="업체명 입력" />
           <SupplierField label="이메일" placeholder="이메일 입력" />
-        </div>
-
-        <div className="mt-4 grid grid-cols-3 gap-4">
-          <SupplierField label="담당자" placeholder="담당자명 입력" />
-          <SupplierField label="담당자 연락처" placeholder="연락처 입력" />
-          <SupplierField label="담당자 SMS발송번호" placeholder="SMS발송번호 입력" />
         </div>
 
         <div className="mt-6 flex justify-center">
