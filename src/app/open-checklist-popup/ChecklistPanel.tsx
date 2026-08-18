@@ -6,7 +6,6 @@ interface ChecklistItemData {
   id: number;
   title: string;
   description: string;
-  duration: string;
   previewTitle: string;
   previewRows: string[];
   previewButton?: string;
@@ -22,7 +21,6 @@ const items: ChecklistItemData[] = [
     id: 1,
     title: "PG 신청하기",
     description: "",
-    duration: "약 3분이면 완료",
     previewTitle: "PG 계약 정보 입력",
     previewRows: ["상호명: 이수모 스토어", "사업자번호: 123-45-...", "정산계좌: 신한 110-..."],
   },
@@ -30,7 +28,6 @@ const items: ChecklistItemData[] = [
     id: 14,
     title: "무통장입금 설정하기",
     description: "무통장 입금 시 사용할 정산계좌 정보를 입력해 주세요.",
-    duration: "약 3분이면 완료",
     previewTitle: "무통장입금 계좌 정보",
     previewRows: ["은행: 신한은행", "계좌번호: 110-123-456789", "예금주: 이수모"],
   },
@@ -38,7 +35,6 @@ const items: ChecklistItemData[] = [
     id: 2,
     title: "공급사 등록하기",
     description: "",
-    duration: "약 2분이면 완료",
     previewTitle: "공급사 정보 입력",
     previewRows: ["공급사명: (주)이수모상사", "담당자: 김담당", "연락처: 02-123-4567"],
   },
@@ -46,7 +42,6 @@ const items: ChecklistItemData[] = [
     id: 3,
     title: "상품 등록하기",
     description: "",
-    duration: "약 10분이면 완료",
     previewTitle: "상품 등록",
     previewRows: ["상품명: 베이직 티셔츠", "가격: 19,900원", "재고: 100개"],
   },
@@ -54,7 +49,6 @@ const items: ChecklistItemData[] = [
     id: 4,
     title: "유선번호 등록하기",
     description: "고객 문의용 유선번호를 등록해 주세요.",
-    duration: "약 1분이면 완료",
     previewTitle: "고객센터 연락처",
     previewRows: ["유선번호: 02-1234-5678"],
   },
@@ -62,7 +56,6 @@ const items: ChecklistItemData[] = [
     id: 5,
     title: "사업자 정보 · 통신판매업신고번호 입력",
     description: "",
-    duration: "약 3분이면 완료",
     previewTitle: "사업자 정보",
     previewRows: [
       "상호명: 이수모 스토어",
@@ -74,7 +67,6 @@ const items: ChecklistItemData[] = [
     id: 6,
     title: "발신번호 신청하기",
     description: "인증번호·주문 안내 문자에 사용할 발신번호를 등록해 주세요.",
-    duration: "약 10분이면 완료",
     previewTitle: "발신번호 신청",
     previewRows: ["신청 번호: 02-1234-5678", "서류: 통신서비스 이용증명원"],
   },
@@ -83,7 +75,6 @@ const items: ChecklistItemData[] = [
     title: "SNS 간편 로그인 등록(카카오, 네이버)",
     description:
       "고객이 아이디를 새로 만들지 않고, 카카오·네이버 계정으로 바로 로그인할 수 있게 해주는 기능이에요. 각 서비스마다 설정 방법이 달라서, 아래 가이드를 보시면서 순서대로 진행해 주세요.",
-    duration: "약 40분이면 완료",
     previewTitle: "간편로그인 설정",
     previewRows: ["카카오 REST API 키: ****", "네이버 Client ID: ****"],
   },
@@ -91,7 +82,6 @@ const items: ChecklistItemData[] = [
     id: 8,
     title: "알림톡 등록하기",
     description: "카카오 비즈니스 채널 개설 및 심사 완료 후 채널을 등록해 주세요.",
-    duration: "약 30분이면 완료",
     previewTitle: "알림톡 채널 연동",
     previewRows: ["카카오 채널 ID: @isumo_store"],
   },
@@ -99,7 +89,6 @@ const items: ChecklistItemData[] = [
     id: 9,
     title: "SEO 설정하기",
     description: "검색 유입을 높이기 위한 페이지 제목, 설명, 키워드를 설정해 주세요.",
-    duration: "약 3분이면 완료",
     previewTitle: "SEO 설정",
     previewRows: ["페이지 제목: 이수모 스토어 - 베이직 캐주얼", "설명: 데일리룩 전문 쇼핑몰"],
   },
@@ -107,7 +96,6 @@ const items: ChecklistItemData[] = [
     id: 10,
     title: "팝빌 신청하기",
     description: "",
-    duration: "약 10분이면 완료",
     previewTitle: "팝빌 연동 신청",
     previewRows: ["사업자번호: 123-45-...", "정산계좌: 신한 110-..."],
   },
@@ -115,7 +103,6 @@ const items: ChecklistItemData[] = [
     id: 15,
     title: "약관 확인하기",
     description: "",
-    duration: "약 15분이면 완료",
     previewTitle: "약관 관리",
     previewRows: ["이용약관: 기본 템플릿 적용됨", "개인정보처리방침: 기본 템플릿 적용됨"],
   },
@@ -123,7 +110,6 @@ const items: ChecklistItemData[] = [
     id: 16,
     title: "보안 설정하기",
     description: "",
-    duration: "약 2분이면 완료",
     previewTitle: "보안 설정",
     previewRows: ["2단계 인증: 미설정", "로그인 알림: 미설정"],
   },
@@ -131,7 +117,6 @@ const items: ChecklistItemData[] = [
     id: 11,
     title: "CRM 캠페인 설정하기",
     description: "",
-    duration: "약 5분이면 완료",
     previewTitle: "캠페인 빌더",
     previewRows: ["캠페인 유형: 신규가입 웰컴", "발송시점: 가입 직후"],
   },
@@ -139,7 +124,6 @@ const items: ChecklistItemData[] = [
     id: 12,
     title: "라이브커머스 설정하기",
     description: "",
-    duration: "약 4분이면 완료",
     previewTitle: "라이브 설정",
     previewRows: ["방송 채널: 미연동", "판매 상품: 미지정"],
   },
@@ -151,15 +135,6 @@ const categories: CategoryData[] = [
   { name: "권장 설정 기능", itemIds: [9, 10, 15, 16] },
   { name: "매출 확장 기능", itemIds: [11, 12] },
 ];
-
-function ClockIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--accent-text)" strokeWidth="1.8">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7V12L15.5 14" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 function ItemCircle({ active }: { active: boolean }) {
   return (
@@ -2046,14 +2021,7 @@ export default function ChecklistPanel() {
                 다시 신청하기
               </button>
             </div>
-          ) : (
-            selected.id !== 12 && (
-              <div className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--accent-bg)] px-3 py-1.5 text-[13px] font-semibold text-[var(--accent-text)]">
-                <ClockIcon />
-                {selected.duration}
-              </div>
-            )
-          )}
+          ) : null}
 
           {selected.id === 2 && (
             <div
