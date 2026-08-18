@@ -177,6 +177,14 @@ const PG_STATUS: PgStatus = "신청접수";
 
 const PG_REJECTION_REASON = "제출하신 서류 정보가 사업자등록증과 일치하지 않습니다.";
 
+const PG_STATUS_CODE: Record<PgStatus, number> = {
+  미신청: 1,
+  신청접수: 2,
+  심사중: 3,
+  승인완료: 4,
+  반려: 5,
+};
+
 const pgStatusConfig: Record<
   PgStatus,
   {
@@ -246,7 +254,7 @@ function PgStatusLabel({ status }: { status: PgStatus }) {
       className="shrink-0 text-[10px]"
       style={{ color: config.labelColor, fontWeight: config.labelMedium ? 500 : 400 }}
     >
-      {status}
+      {PG_STATUS_CODE[status]}
     </span>
   );
 }
@@ -259,7 +267,7 @@ function PgStatusBadge({ status }: { status: PgStatus }) {
       className="rounded-[12px] text-[10px] font-semibold"
       style={{ backgroundColor: badge.bg, color: badge.color, padding: "3px 10px" }}
     >
-      {status}
+      {PG_STATUS_CODE[status]}
     </span>
   );
 }
