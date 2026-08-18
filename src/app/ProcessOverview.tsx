@@ -2,9 +2,15 @@
 
 import { usePathname } from "next/navigation";
 
-const overviewNotes: Record<string, { label: string; desc?: string | string[]; items: string[] }[]> = {
+type NoteParagraph = string | { title: string; body: string };
+
+const overviewNotes: Record<
+  string,
+  { id: string; label?: string; desc?: NoteParagraph[]; items: string[] }[]
+> = {
   "/signup-complete": [
     {
+      id: "signup-complete-templates",
       label: "영업팀 의견 추가",
       items: [
         "1-1. 라이브 기능 전용 템플릿",
@@ -16,11 +22,20 @@ const overviewNotes: Record<string, { label: string; desc?: string | string[]; i
   ],
   "/open-checklist-popup": [
     {
-      label: "영업팀 의견 · PG 신청하기",
+      id: "pg-application-status",
       desc: [
-        "선행 개발 필요사항: PG 또는 내부 시스템으로부터 PG 심사 상태값(신청접수/심사중/승인완료/반려)을 조회할 수 있는 기능이 먼저 개발되어야 합니다. PG사 API 연동을 통해 실시간으로 받아올지, 내부 신청 테이블에서 상태 컬럼을 두고 운영자가 수동으로 갱신하는 방식으로 갈지 협의가 필요합니다.",
-        "완료 조건: 상태값이 \"신청접수\" 이상인 경우, 체크리스트 항목을 완료 처리합니다. 판매자의 \"신청하기\" 버튼 클릭 자체는 완료의 조건이 아니며 실제 상태값 확인을 거쳐야 합니다.",
-        "상태 표시: 체크리스트 항목 옆 배지와 상세화면 타이틀 영역에 조회된 상태값(신청접수/심사중/승인완료/반려)을 그대로 노출합니다. 상태값이 확인되지 않은 경우(선행 기능 미개발 또는 조회 실패 시) \"확인중\"으로 표시하고 추정값을 임의로 보여주지 않습니다.",
+        {
+          title: "선행 개발 필요사항",
+          body: "PG 또는 내부 시스템으로부터 PG 심사 상태값(신청접수/심사중/승인완료/반려)을 조회할 수 있는 기능이 먼저 개발되어야 합니다. PG사 API 연동을 통해 실시간으로 받아올지, 내부 신청 테이블에서 상태 컬럼을 두고 운영자가 수동으로 갱신하는 방식으로 갈지 협의가 필요합니다.",
+        },
+        {
+          title: "완료 조건",
+          body: "상태값이 \"신청접수\" 이상인 경우, 체크리스트 항목을 완료 처리합니다. 판매자의 \"신청하기\" 버튼 클릭 자체는 완료의 조건이 아니며 실제 상태값 확인을 거쳐야 합니다.",
+        },
+        {
+          title: "상태 표시",
+          body: "체크리스트 항목 옆 배지와 상세화면 타이틀 영역에 조회된 상태값(신청접수/심사중/승인완료/반려)을 그대로 노출합니다. 상태값이 확인되지 않은 경우(선행 기능 미개발 또는 조회 실패 시) \"확인중\"으로 표시하고 추정값을 임의로 보여주지 않습니다.",
+        },
       ],
       items: [],
     },
@@ -38,24 +53,35 @@ export default function ProcessOverview() {
         <div className="mt-2 space-y-3">
           {notes.map((note) => (
             <div
-              key={note.label}
+              key={note.id}
               className="rounded-md border border-dashed border-[var(--accent)]/40 bg-[var(--accent-soft-bg)] px-3 py-2.5"
             >
-              <p className="text-[11px] font-semibold text-[var(--accent-text)]">{note.label}</p>
-              {note.desc
-                ? (Array.isArray(note.desc) ? note.desc : [note.desc]).map((paragraph) => (
-                    <p
-                      key={paragraph}
-                      className="mt-1.5 text-[11px] leading-relaxed text-[var(--accent-text)]"
-                    >
-                      {paragraph}
-                    </p>
-                  ))
-                : null}
+              {note.label ? (
+                <p className="text-[11px] font-semibold text-[var(--text-primary)]">{note.label}</p>
+              ) : null}
+              {note.desc ? (
+                <div className={note.label ? "mt-1.5" : undefined}>
+                  {note.desc.map((paragraph, idx) => {
+                    const title = typeof paragraph === "string" ? null : paragraph.title;
+                    const body = typeof paragraph === "string" ? paragraph : paragraph.body;
+                    return (
+                      <p
+                        key={title ?? body}
+                        className={`py-2 text-[11px] leading-relaxed text-[var(--text-primary)] ${
+                          idx > 0 ? "border-t border-dashed border-[var(--accent)]/30" : ""
+                        }`}
+                      >
+                        {title ? <span className="font-bold">{title}: </span> : null}
+                        {body}
+                      </p>
+                    );
+                  })}
+                </div>
+              ) : null}
               {note.items.length > 0 ? (
                 <ul className="mt-1 space-y-0.5">
                   {note.items.map((item) => (
-                    <li key={item} className="text-[11px] text-[var(--accent-text)]">
+                    <li key={item} className="text-[11px] text-[var(--text-primary)]">
                       · {item}
                     </li>
                   ))}
