@@ -247,14 +247,29 @@ function PgStatusCircle({ status, active }: { status: PgStatus; active: boolean 
   );
 }
 
+function PgStatusNumberBadge({ status }: { status: PgStatus }) {
+  const badge = pgStatusConfig[status].badge ?? { bg: "var(--divider)", color: "var(--text-muted)" };
+  return (
+    <span
+      className="inline-flex h-[14px] min-w-[14px] shrink-0 items-center justify-center rounded-full px-1 text-[9px] font-bold"
+      style={{ backgroundColor: badge.bg, color: badge.color }}
+    >
+      {PG_STATUS_CODE[status]}
+    </span>
+  );
+}
+
 function PgStatusLabel({ status }: { status: PgStatus }) {
   const config = pgStatusConfig[status];
   return (
-    <span
-      className="shrink-0 text-[10px]"
-      style={{ color: config.labelColor, fontWeight: config.labelMedium ? 500 : 400 }}
-    >
-      {PG_STATUS_CODE[status]}
+    <span className="flex shrink-0 items-center gap-1">
+      <span
+        className="text-[10px]"
+        style={{ color: config.labelColor, fontWeight: config.labelMedium ? 500 : 400 }}
+      >
+        {status}
+      </span>
+      <PgStatusNumberBadge status={status} />
     </span>
   );
 }
@@ -263,11 +278,14 @@ function PgStatusBadge({ status }: { status: PgStatus }) {
   const badge = pgStatusConfig[status].badge;
   if (!badge) return null;
   return (
-    <span
-      className="rounded-[12px] text-[10px] font-semibold"
-      style={{ backgroundColor: badge.bg, color: badge.color, padding: "3px 10px" }}
-    >
-      {PG_STATUS_CODE[status]}
+    <span className="inline-flex items-center gap-1.5">
+      <span
+        className="rounded-[12px] text-[10px] font-semibold"
+        style={{ backgroundColor: badge.bg, color: badge.color, padding: "3px 10px" }}
+      >
+        {status}
+      </span>
+      <PgStatusNumberBadge status={status} />
     </span>
   );
 }
