@@ -1959,6 +1959,8 @@ export default function ChecklistPanel() {
             >
               <InfoIcon />
               <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
+                현재 샘플 공급사가 등록되어 있어요.
+                <br />
                 <span className="font-semibold">자체적으로 배송하고 계신다면 별도의 공급사가 없어도 괜찮아요.</span>
                 <br />
                 이 경우엔 <span className="font-semibold">내 사업자 정보를 그대로 입력</span>하시면 됩니다.
