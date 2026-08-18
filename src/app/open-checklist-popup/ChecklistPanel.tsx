@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useState } from "react";
+import { useSelectedChecklistItem } from "../SelectedChecklistItemContext";
 
 interface ChecklistItemData {
   id: number;
@@ -1872,7 +1873,8 @@ function PopbillForm() {
 }
 
 export default function ChecklistPanel() {
-  const [selectedId, setSelectedId] = useState(1);
+  const { selectedChecklistItemId: selectedId, setSelectedChecklistItemId: setSelectedId } =
+    useSelectedChecklistItem();
 
   const selected = items.find((item) => item.id === selectedId) ?? items[0];
 

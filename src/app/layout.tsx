@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SidebarNav from "./SidebarNav";
 import ProcessOverview from "./ProcessOverview";
+import { SelectedChecklistItemProvider } from "./SelectedChecklistItemContext";
 
 export const metadata: Metadata = {
   title: "플렉스지 판매자 온보딩 프로세스",
@@ -24,12 +25,14 @@ export default function RootLayout({
             </aside>
 
             {/* 가운데: 콘텐츠 영역 (화면별로 교체) */}
-            <div className="min-w-0 flex-1">{children}</div>
+            <SelectedChecklistItemProvider>
+              <div className="min-w-0 flex-1">{children}</div>
 
-            {/* 우측: 화면 설명 영역 (모든 화면 공통 고정) */}
-            <aside className="sticky top-10 w-[280px] shrink-0 self-start">
-              <ProcessOverview />
-            </aside>
+              {/* 우측: 화면 설명 영역 (모든 화면 공통 고정) */}
+              <aside className="sticky top-10 w-[280px] shrink-0 self-start">
+                <ProcessOverview />
+              </aside>
+            </SelectedChecklistItemProvider>
           </div>
         </main>
       </body>
