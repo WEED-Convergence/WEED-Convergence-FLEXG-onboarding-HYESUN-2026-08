@@ -222,12 +222,15 @@ function PgStatusCircle({ status, active }: { status: PgStatus; active: boolean 
   );
 }
 
-function PgStatusNumberBadge({ status }: { status: PgStatus }) {
+function PgStatusNumberBadge({ status, size }: { status: PgStatus; size?: "sm" | "lg" }) {
   const badge = pgStatusConfig[status].badge ?? { bg: "var(--divider)", color: "var(--text-muted)" };
+  const large = size === "lg";
   return (
     <span
-      className="inline-flex h-[14px] min-w-[14px] shrink-0 items-center justify-center rounded-full px-1 text-[9px] font-bold"
-      style={{ backgroundColor: badge.bg, color: badge.color }}
+      className={`inline-flex shrink-0 items-center justify-center rounded-full font-bold ${
+        large ? "h-[18px] min-w-[18px] px-1.5 text-[11px]" : "h-[14px] min-w-[14px] px-1 text-[9px]"
+      }`}
+      style={{ backgroundColor: "rgba(255,255,255,0.55)", color: badge.color }}
     >
       {PG_STATUS_CODE[status]}
     </span>
@@ -235,15 +238,13 @@ function PgStatusNumberBadge({ status }: { status: PgStatus }) {
 }
 
 function PgStatusLabel({ status }: { status: PgStatus }) {
-  const config = pgStatusConfig[status];
+  const badge = pgStatusConfig[status].badge ?? { bg: "var(--divider)", color: "var(--text-muted)" };
   return (
-    <span className="flex shrink-0 items-center gap-1">
-      <span
-        className="text-[10px]"
-        style={{ color: config.labelColor, fontWeight: config.labelMedium ? 500 : 400 }}
-      >
-        {status}
-      </span>
+    <span
+      className="inline-flex shrink-0 items-center gap-1 rounded-full text-[10px] font-bold"
+      style={{ backgroundColor: badge.bg, color: badge.color, padding: "3px 8px", border: `1px solid ${badge.color}` }}
+    >
+      {status}
       <PgStatusNumberBadge status={status} />
     </span>
   );
@@ -253,14 +254,18 @@ function PgStatusBadge({ status }: { status: PgStatus }) {
   const badge = pgStatusConfig[status].badge;
   if (!badge) return null;
   return (
-    <span className="inline-flex items-center gap-1.5">
-      <span
-        className="rounded-[12px] text-[10px] font-semibold"
-        style={{ backgroundColor: badge.bg, color: badge.color, padding: "3px 10px" }}
-      >
-        {status}
-      </span>
-      <PgStatusNumberBadge status={status} />
+    <span
+      className="inline-flex items-center gap-2 rounded-full text-[13px] font-bold tracking-tight"
+      style={{
+        backgroundColor: badge.bg,
+        color: badge.color,
+        padding: "5px 16px",
+        border: `1.5px solid ${badge.color}`,
+        boxShadow: "0 1px 4px rgba(0,0,0,0.18)",
+      }}
+    >
+      {status}
+      <PgStatusNumberBadge status={status} size="lg" />
     </span>
   );
 }
@@ -978,7 +983,7 @@ function PgApplicationForm() {
           건너뛰기
         </button>
         <button type="button" className={primaryButtonClass}>
-          더 알아보기
+          가이드 보기
         </button>
       </div>
     </div>
