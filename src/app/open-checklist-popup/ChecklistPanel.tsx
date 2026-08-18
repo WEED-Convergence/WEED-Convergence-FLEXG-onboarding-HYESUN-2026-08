@@ -564,7 +564,7 @@ function SupplierListForm() {
           건너뛰기
         </button>
         <button type="button" className={primaryButtonClass}>
-          더 알아보기
+          상세 정보 입력
         </button>
       </div>
     </div>
