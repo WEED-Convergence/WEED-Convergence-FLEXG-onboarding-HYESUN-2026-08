@@ -52,8 +52,8 @@ const [step3, step5, step6, step7, step8, step9]: StepData[] = [
     desc: "쇼핑몰 운영에 필요한 부가 기능 설정",
     subItems: [
       "발신번호 신청",
-      "SNS 간편 로그인 등록 (카카오, 네이버)",
       "알림톡 등록",
+      "SNS 간편 로그인 등록 (카카오, 네이버)",
     ],
   },
   {
