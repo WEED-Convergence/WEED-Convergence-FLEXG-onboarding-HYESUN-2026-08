@@ -2,10 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-const links = [
-  { href: "/template-select", label: "템플릿 선택" },
-  { href: "/alimtalk-preview", label: "알림톡 예시" },
-];
+const links = [{ href: "/alimtalk-preview", label: "알림톡 예시" }];
 
 const specDocs = [
   { href: "/signup-complete", label: "디자인 템플릿 선택" },
