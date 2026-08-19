@@ -11,6 +11,7 @@ const specDocs = [
   { href: "/home-with-checklist", label: "홈" },
   { href: "/open-checklist-popup", label: "오픈 체크리스트" },
   { href: "/message-collection", label: "메시지 모음" },
+  { href: "/bubble-cases", label: "말풍선 케이스" },
 ];
 
 export default function SidebarNav() {
