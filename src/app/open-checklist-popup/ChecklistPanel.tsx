@@ -1976,6 +1976,20 @@ export default function ChecklistPanel() {
             </div>
           )}
 
+          {selected.id === 8 && (
+            <div className="mt-1.5 flex items-center gap-2">
+              <span
+                className="shrink-0 rounded-[10px] text-[9px] font-medium"
+                style={{ backgroundColor: "#F1EFE8", color: "#5F5E5A", padding: "2px 8px" }}
+              >
+                이전 단계
+              </span>
+              <span className="text-[11px]" style={{ color: "#888780" }}>
+                발신번호 등록까지 완료되어야 알림톡 발송이 가능해요.
+              </span>
+            </div>
+          )}
+
           {selected.id === 5 ? (
             <BusinessInfoForm />
           ) : selected.id === 2 ? (
