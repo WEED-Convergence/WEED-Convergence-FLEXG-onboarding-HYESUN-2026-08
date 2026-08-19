@@ -740,7 +740,52 @@ function PgApplicationForm() {
   const [selectedPg, setSelectedPg] = useState("EasyPAY");
 
   return (
-    <div className="mt-6 w-full">
+    <div className="relative mt-6 w-full">
+      <div
+        style={{
+          position: "absolute",
+          top: 70,
+          right: 16,
+          width: 220,
+          backgroundColor: "#D8342A",
+          borderRadius: 10,
+          padding: "12px 14px",
+          color: "#FFFFFF",
+          boxShadow: "0 4px 14px rgba(216,52,42,0.25)",
+          zIndex: 20,
+        }}
+      >
+        <p style={{ fontSize: 12, fontWeight: 600 }}>간편결제 기능이 필요하신가요?</p>
+        <p className="mt-1" style={{ fontSize: 10, color: "#FBEAF0" }}>
+          네이버페이·카카오페이·토스페이를 추가로 연결하실 수 있어요.
+        </p>
+        <button
+          type="button"
+          className="mt-2 w-full text-center"
+          style={{
+            backgroundColor: "#FFFFFF",
+            color: "#D8342A",
+            fontSize: 10,
+            fontWeight: 600,
+            borderRadius: 6,
+            padding: "6px 0",
+          }}
+        >
+          추가 간편결제 신청하기
+        </button>
+        <span
+          style={{
+            position: "absolute",
+            bottom: -6,
+            left: "50%",
+            transform: "translateX(-50%) rotate(45deg)",
+            width: 12,
+            height: 12,
+            backgroundColor: "#D8342A",
+          }}
+        />
+      </div>
+
       <div
         className="mb-4 flex items-start gap-2 rounded-lg px-3.5 py-3"
         style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
@@ -835,9 +880,6 @@ function PgApplicationForm() {
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
           건너뛰기
-        </button>
-        <button type="button" className={primaryButtonClass}>
-          가이드 보기
         </button>
       </div>
     </div>
