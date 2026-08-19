@@ -1876,10 +1876,10 @@ export default function ChecklistPanel() {
   return (
     <div className="flex w-full items-stretch bg-white">
       <div className="w-[300px] shrink-0 bg-[var(--surface-1)] p-5">
-          <div className="rounded-[10px] p-[14px]" style={{ backgroundColor: "#FBEAF0", border: "1px solid #F0C4CE" }}>
+          <div className="rounded-[10px] p-[14px]" style={{ backgroundColor: "#FAF9F5", border: "1px solid #E4E2D8" }}>
             {categories
               .slice(0, 2)
-              .map((category) => renderCategory(category, { trackColor: "#F0C4CE", progressTextColor: "#993556" }))}
+              .map((category) => renderCategory(category, { titleColor: "#5F5E5A", progressTextColor: "#B4B2A9" }))}
           </div>
 
           <div className="flex justify-center" style={{ marginTop: 18, marginBottom: 18 }}>
