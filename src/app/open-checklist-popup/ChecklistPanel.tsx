@@ -279,24 +279,6 @@ function InfoIcon() {
   );
 }
 
-function WarningIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="18"
-      height="18"
-      fill="none"
-      stroke="#8A5A0A"
-      strokeWidth="2"
-      className="mt-0.5 shrink-0"
-    >
-      <path d="M12 3.5L22 20.5H2L12 3.5Z" strokeLinejoin="round" />
-      <path d="M12 10v4.5" strokeLinecap="round" />
-      <path d="M12 17.5h.01" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 const inputClass =
   "w-full rounded-md border border-[var(--border)] px-3 py-[9px] text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
 
@@ -546,7 +528,10 @@ function SupplierListForm() {
           <SupplierField label="이메일" placeholder="이메일 입력" />
         </div>
 
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex justify-center gap-[10px]">
+          <button type="button" className={secondaryButtonClass}>
+            초기화
+          </button>
           <button type="button" className={primaryButtonClass}>
             등록
           </button>
@@ -595,18 +580,6 @@ function ProductSampleForm() {
     <div className="mt-6 w-full">
       <DetailCard>
         <SubsectionTitle>상품 등록</SubsectionTitle>
-
-        <div
-          className="mt-4 flex items-start gap-2 rounded-lg px-3.5 py-3"
-          style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
-        >
-          <InfoIcon />
-          <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
-            <span className="font-semibold">선택하신 카테고리에 맞춰 샘플 상품 3개가 이미 등록되어 있어요.</span>
-            <br />
-            아래에서 확인하고, <span className="font-semibold">실제 판매하실 상품으로 수정</span>해 주세요.
-          </p>
-        </div>
 
         <div className="mt-4">
           {sampleProducts.map((item) => (
@@ -767,10 +740,10 @@ function PgApplicationForm() {
     <div className="mt-6 w-full">
       <div
         className="mb-4 flex items-start gap-2 rounded-lg px-3.5 py-3"
-        style={{ border: "1.5px solid #F2A623", backgroundColor: "#FEF3E0" }}
+        style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
       >
-        <WarningIcon />
-        <p className="text-[13px] font-bold leading-relaxed" style={{ color: "#8A5A0A" }}>
+        <InfoIcon />
+        <p className="text-[13px] font-bold leading-relaxed text-[var(--accent-text)]">
           PG 심사는 3주 이상 소요될 수 있어, 먼저 PG 신청 후 쇼핑몰 설정을 진행해 주시길 권장드립니다.
         </p>
       </div>
@@ -994,14 +967,18 @@ function TermsCheckForm() {
             확인하고 수정해 보세요.
           </p>
         </div>
+
+        <div className="mt-6 flex justify-center">
+          <button type="button" className={`flex items-center gap-1.5 ${primaryButtonClass}`}>
+            약관 보기
+            <ExternalLinkIcon />
+          </button>
+        </div>
       </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
           건너뛰기
-        </button>
-        <button type="button" className={primaryButtonClass}>
-          약관 보기
         </button>
       </div>
     </div>
@@ -1145,14 +1122,20 @@ function SecuritySettingsForm() {
             </div>
           </div>
         </div>
+
+        <div className="mt-6 flex justify-center gap-[10px]">
+          <button type="button" className={secondaryButtonClass}>
+            초기화
+          </button>
+          <button type="button" className={primaryButtonClass}>
+            저장
+          </button>
+        </div>
       </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
           건너뛰기
-        </button>
-        <button type="button" className={primaryButtonClass}>
-          저장
         </button>
       </div>
     </div>
@@ -1907,6 +1890,22 @@ export default function ChecklistPanel() {
             </div>
           ) : null}
 
+          {selected.id !== 12 && (
+            <>
+              <div className="mt-3 flex items-center gap-2">
+                <h2 className="text-[16px] font-semibold text-[var(--text-primary)]">
+                  {selected.id === 7 ? "SNS 간편 로그인 등록" : selected.title}
+                </h2>
+                {selected.id === 1 ? <PgStatusBadge status={PG_STATUS} /> : null}
+              </div>
+              {selected.description && (
+                <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-muted)]">
+                  {selected.description}
+                </p>
+              )}
+            </>
+          )}
+
           {selected.id === 2 && (
             <div
               className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
@@ -1923,20 +1922,18 @@ export default function ChecklistPanel() {
             </div>
           )}
 
-          {selected.id !== 12 && (
-            <>
-              <div className="mt-3 flex items-center gap-2">
-                <h2 className="text-[16px] font-semibold text-[var(--text-primary)]">
-                  {selected.id === 7 ? "SNS 간편 로그인 등록" : selected.title}
-                </h2>
-                {selected.id === 1 ? <PgStatusBadge status={PG_STATUS} /> : null}
-              </div>
-              {selected.description && (
-                <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-muted)]">
-                  {selected.description}
-                </p>
-              )}
-            </>
+          {selected.id === 3 && (
+            <div
+              className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
+              style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
+            >
+              <InfoIcon />
+              <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
+                <span className="font-semibold">선택하신 카테고리에 맞춰 샘플 상품 3개가 이미 등록되어 있어요.</span>
+                <br />
+                아래에서 확인하고, <span className="font-semibold">실제 판매하실 상품으로 수정</span>해 주세요.
+              </p>
+            </div>
           )}
 
           {selected.id === 5 ? (
