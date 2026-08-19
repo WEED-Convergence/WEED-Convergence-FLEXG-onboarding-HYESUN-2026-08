@@ -1317,18 +1317,9 @@ function AlimtalkForm() {
             className="rounded-[8px] px-4 py-[14px]"
             style={{ border: "1px solid #E4E2D8", backgroundColor: "#FAF9F5" }}
           >
-            <div className="flex items-center justify-between">
-              <p className="text-[12px] font-bold" style={{ color: "#2C2C2A" }}>
-                유의사항
-              </p>
-              <button
-                type="button"
-                className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
-                style={{ backgroundColor: "#D8342A" }}
-              >
-                가이드 보기
-              </button>
-            </div>
+            <p className="text-[12px] font-bold" style={{ color: "#2C2C2A" }}>
+              유의사항
+            </p>
             <div className="mt-2">
               {alimtalkNotices.map((notice, index) => (
                 <p
@@ -1342,14 +1333,23 @@ function AlimtalkForm() {
             </div>
           </div>
         </div>
+
+        <div className="mt-6 flex justify-center gap-[10px]">
+          <button type="button" className={secondaryButtonClass}>
+            초기화
+          </button>
+          <button type="button" className={primaryButtonClass}>
+            등록
+          </button>
+        </div>
       </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
-          건너뛰기
+          가이드
         </button>
-        <button type="button" className={primaryButtonClass}>
-          알림톡 등록하기
+        <button type="button" className={secondaryButtonClass}>
+          건너뛰기
         </button>
       </div>
     </div>
