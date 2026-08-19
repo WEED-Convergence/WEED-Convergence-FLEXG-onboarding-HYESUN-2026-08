@@ -190,7 +190,7 @@ export default function ApprovalPendingPage() {
             영업일 기준 보통 1일 이내에 완료됩니다.
             <br />
             승인이 완료되면{" "}
-            <span className="font-medium text-[var(--accent)]">이메일과 오픈채팅방 안내</span>를
+            <span className="font-medium text-[var(--accent)]">이메일과 알림톡</span>을
             보내드립니다.
           </p>
 
