@@ -56,7 +56,7 @@ const bubbleCases: BubbleCaseRow[] = [
   {
     completedItem: "사업자 정보 입력 (카테고리 완료)",
     title: "결제 준비를 모두 마치셨어요!",
-    description: "다음은 운영 필수 기능예요.",
+    description: "다음은 운영 필수예요.",
     button1: "닫기",
     button2: "다음 단계",
   },
@@ -76,8 +76,8 @@ const bubbleCases: BubbleCaseRow[] = [
   },
   {
     completedItem: "알림톡 등록하기 (카테고리 완료)",
-    title: "운영 필수 기능를 모두 마치셨어요!",
-    description: "다음은 권장 설정 기능이에요.",
+    title: "운영 필수를 모두 마치셨어요!",
+    description: "다음은 권장 설정이에요.",
     button1: "닫기",
     button2: "다음 단계",
   },
@@ -104,8 +104,8 @@ const bubbleCases: BubbleCaseRow[] = [
   },
   {
     completedItem: "보안 설정하기 (카테고리 완료)",
-    title: "권장 설정 기능을 모두 마치셨어요!",
-    description: "다음은 매출 확장 기능이에요.",
+    title: "권장 설정을 모두 마치셨어요!",
+    description: "다음은 매출 확장이에요.",
     button1: "닫기",
     button2: "다음 단계",
   },

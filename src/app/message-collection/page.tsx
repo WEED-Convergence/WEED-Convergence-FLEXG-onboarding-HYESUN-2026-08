@@ -16,7 +16,7 @@ interface MessageCardData {
 const cards: MessageCardData[] = [
   {
     id: 1,
-    timing: "발송 시점: '운영 필수 기능' 카테고리 완료 시 자동 발송",
+    timing: "발송 시점: '운영 필수' 카테고리 완료 시 자동 발송",
     imageBg: "#FBEAF0",
     iconColor: "#D8342A",
     sender: "플렉스지 · 오픈안내",
