@@ -43,7 +43,7 @@ const staticOverviewNotes: Record<string, OverviewNote[]> = {
         },
         {
           title: "권한 범위",
-          body: "15개 항목 중 \"보안 설정하기\"만 주계정 전용이며, 나머지 항목은 부계정도 조회·입력이 가능합니다.",
+          body: "\"보안 설정하기\"만 주계정 전용이며, 나머지 항목은 부계정도 조회·입력이 가능합니다.",
         },
       ],
       items: [],
