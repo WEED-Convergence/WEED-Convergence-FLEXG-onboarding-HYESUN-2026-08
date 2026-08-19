@@ -42,7 +42,7 @@ const items: ChecklistItemData[] = [
   {
     id: 5,
     title: "사업자 정보 · 통신판매업신고번호 입력",
-    description: "",
+    description: "회원가입 당시 입력한 정보가 디폴트로 입력되어 있습니다.",
     previewTitle: "사업자 정보",
     previewRows: [
       "상호명: 이수모 스토어",
@@ -480,15 +480,9 @@ function BusinessInfoForm() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 전화번호</p>
-              <input type="text" placeholder="연락처 입력" className={inputClass} />
-            </div>
-            <div>
-              <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 팩스번호</p>
-              <input type="text" placeholder="연락처 입력" className={inputClass} />
-            </div>
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 전화번호</p>
+            <input type="text" placeholder="연락처 입력" className={inputClass} />
           </div>
 
           <div
@@ -507,14 +501,20 @@ function BusinessInfoForm() {
             </p>
           </div>
         </div>
+
+        <div className="mt-6 flex justify-center gap-[10px]">
+          <button type="button" className={secondaryButtonClass}>
+            초기화
+          </button>
+          <button type="button" className={primaryButtonClass}>
+            등록
+          </button>
+        </div>
       </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
           건너뛰기
-        </button>
-        <button type="button" className={primaryButtonClass}>
-          저장하기
         </button>
       </div>
     </div>
