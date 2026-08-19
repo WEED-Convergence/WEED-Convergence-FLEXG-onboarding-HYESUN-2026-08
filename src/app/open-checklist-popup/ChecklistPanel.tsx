@@ -1761,8 +1761,7 @@ function SnsLoginForm() {
           >
             <InfoIcon />
             <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
-              연동된 키값은 수정이 불가하며, 키값을 삭제하거나 신규 진행 시엔 기존 회원은 신규 회원으로
-              진입되니 유의해 주세요.
+              키값을 삭제하거나 신규 진행 시엔 기존 회원은 신규 회원으로 진입되니 유의해 주세요.
             </p>
           </div>
         </div>
