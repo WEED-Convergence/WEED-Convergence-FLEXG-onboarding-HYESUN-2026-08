@@ -351,7 +351,7 @@ const bubbleCaseColumns = ["완료된 항목", "말풍선 제목", "말풍선 �
 
 function BubbleCaseTable() {
   return (
-    <div className="mt-6">
+    <div className="mt-12 border-t border-[var(--border)] pt-8">
       <p className="text-[13px] font-medium text-[var(--text-primary)]">말풍선 케이스 정리</p>
       <div className="mt-3 overflow-x-auto rounded-xl border border-[var(--border)]">
         <table className="w-full min-w-[900px] border-collapse text-left text-[12px]">
