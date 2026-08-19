@@ -1821,52 +1821,76 @@ export default function ChecklistPanel() {
 
   const selected = items.find((item) => item.id === selectedId) ?? items[0];
 
+  const renderCategory = (
+    category: CategoryData,
+    style?: { titleColor?: string; trackColor?: string; progressTextColor?: string }
+  ) => (
+    <div key={category.name} className="mb-5 last:mb-0">
+      <p className="text-[13px] font-semibold" style={{ color: style?.titleColor ?? "var(--text-primary)" }}>
+        {category.name}
+      </p>
+      <div
+        className="mt-2 h-1 w-full rounded-full"
+        style={{ backgroundColor: style?.trackColor ?? "var(--divider)" }}
+      >
+        <div className="h-1 rounded-full bg-[var(--accent)]" style={{ width: "0%" }} />
+      </div>
+      <p className="mt-1 text-[11px]" style={{ color: style?.progressTextColor ?? "var(--text-muted)" }}>
+        0/{category.itemIds.length}개 · 0%
+      </p>
+
+      <div className="mt-2.5 space-y-1">
+        {category.itemIds.map((id) => {
+          const item = items.find((it) => it.id === id)!;
+          const active = id === selectedId;
+          return (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setSelectedId(id)}
+              className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[12px]"
+              style={{
+                backgroundColor: active ? "var(--accent-bg)" : "transparent",
+                color: active ? "var(--accent-text)" : "var(--text-secondary)",
+              }}
+            >
+              {id === 1 ? (
+                <>
+                  <PgStatusCircle status={PG_STATUS} active={active} />
+                  <span className="flex-1">{item.title}</span>
+                  <PgStatusLabel status={PG_STATUS} />
+                </>
+              ) : (
+                <>
+                  <ItemCircle active={active} />
+                  {item.title}
+                </>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+
   return (
     <div className="flex w-full items-stretch bg-white">
       <div className="w-[300px] shrink-0 bg-[var(--surface-1)] p-5">
-          {categories.map((category) => (
-            <div key={category.name} className="mb-5 last:mb-0">
-              <p className="text-[13px] font-semibold text-[var(--text-primary)]">{category.name}</p>
-              <div className="mt-2 h-1 w-full rounded-full bg-[var(--divider)]">
-                <div className="h-1 rounded-full bg-[var(--accent)]" style={{ width: "0%" }} />
-              </div>
-              <p className="mt-1 text-[11px] text-[var(--text-muted)]">
-                0/{category.itemIds.length}개 · 0%
-              </p>
+          <div className="rounded-[10px] p-[14px]" style={{ backgroundColor: "#FBEAF0", border: "1px solid #F0C4CE" }}>
+            {categories
+              .slice(0, 2)
+              .map((category) => renderCategory(category, { trackColor: "#F0C4CE", progressTextColor: "#993556" }))}
+          </div>
 
-              <div className="mt-2.5 space-y-1">
-                {category.itemIds.map((id) => {
-                  const item = items.find((it) => it.id === id)!;
-                  const active = id === selectedId;
-                  return (
-                    <button
-                      key={id}
-                      type="button"
-                      onClick={() => setSelectedId(id)}
-                      className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[12px]"
-                      style={{
-                        backgroundColor: active ? "var(--accent-bg)" : "transparent",
-                        color: active ? "var(--accent-text)" : "var(--text-secondary)",
-                      }}
-                    >
-                      {id === 1 ? (
-                        <>
-                          <PgStatusCircle status={PG_STATUS} active={active} />
-                          <span className="flex-1">{item.title}</span>
-                          <PgStatusLabel status={PG_STATUS} />
-                        </>
-                      ) : (
-                        <>
-                          <ItemCircle active={active} />
-                          {item.title}
-                        </>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
+          <p className="my-4 text-center text-[10px]" style={{ color: "#888780" }}>
+            여기까지 완료하면 오픈 가능해요
+          </p>
+
+          <div className="rounded-[10px] p-[14px]" style={{ backgroundColor: "#FAF9F5", border: "1px solid #E4E2D8" }}>
+            {categories
+              .slice(2)
+              .map((category) => renderCategory(category, { titleColor: "#5F5E5A", progressTextColor: "#B4B2A9" }))}
+          </div>
         </div>
 
         <div className="flex min-w-0 flex-1 flex-col p-6">
