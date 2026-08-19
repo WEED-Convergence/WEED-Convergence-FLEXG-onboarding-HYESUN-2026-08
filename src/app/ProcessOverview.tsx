@@ -10,13 +10,6 @@ type NoteParagraph = string | { title: string; body?: string; list?: NoteListIte
 type OverviewNote = { id: string; label?: string; desc?: NoteParagraph[]; items: string[] };
 
 const staticOverviewNotes: Record<string, OverviewNote[]> = {
-  "/signup-complete": [
-    {
-      id: "signup-complete-templates",
-      label: "영업팀 의견 추가",
-      items: ["1-1. 주문서 전용 템플릿"],
-    },
-  ],
   "/home-with-checklist": [
     {
       id: "home-checklist-note",
