@@ -41,7 +41,7 @@ const items: ChecklistItemData[] = [
   },
   {
     id: 5,
-    title: "사업자 정보 · 통신판매업신고번호 입력",
+    title: "사업자 정보 · 통신판매업신고번호 등록",
     description: "회원가입 당시 입력한 정보가 디폴트로 입력되어 있습니다.",
     previewTitle: "사업자 정보",
     previewRows: [
