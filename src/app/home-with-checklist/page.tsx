@@ -187,7 +187,7 @@ interface ChecklistCategory {
 
 const checklistCategories: ChecklistCategory[] = [
   { name: "결제 준비", total: 5, highlighted: true },
-  { name: "운영 필수 정보", total: 3 },
+  { name: "운영 필수 기능", total: 3 },
   { name: "권장 설정 기능", total: 2 },
   { name: "매출 확장 기능", total: 3 },
 ];
@@ -278,7 +278,7 @@ const bubbleCases: BubbleCaseRow[] = [
   {
     completedItem: "사업자 정보 입력 (카테고리 완료)",
     title: "결제 준비를 모두 마치셨어요!",
-    description: "다음은 운영 필수 정보예요.",
+    description: "다음은 운영 필수 기능예요.",
     button1: "닫기",
     button2: "다음 단계",
   },
@@ -298,7 +298,7 @@ const bubbleCases: BubbleCaseRow[] = [
   },
   {
     completedItem: "알림톡 등록하기 (카테고리 완료)",
-    title: "운영 필수 정보를 모두 마치셨어요!",
+    title: "운영 필수 기능를 모두 마치셨어요!",
     description: "다음은 권장 설정 기능이에요.",
     button1: "닫기",
     button2: "다음 단계",
