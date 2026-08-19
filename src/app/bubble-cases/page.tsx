@@ -21,13 +21,6 @@ const bubbleCases: BubbleCaseRow[] = [
   {
     completedItem: "PG 신청하기",
     title: "PG 신청을 완료하셨어요!",
-    description: "이어서 무통장입금 설정을 진행해볼까요?",
-    button1: "닫기",
-    button2: "이어하기",
-  },
-  {
-    completedItem: "무통장입금 설정하기",
-    title: "무통장입금 설정을 완료하셨어요!",
     description: "이어서 공급사 등록을 진행해볼까요?",
     button1: "닫기",
     button2: "이어하기",
@@ -42,19 +35,12 @@ const bubbleCases: BubbleCaseRow[] = [
   {
     completedItem: "상품 등록하기",
     title: "상품 등록을 완료하셨어요!",
-    description: "이어서 유선번호 등록을 진행해볼까요?",
-    button1: "닫기",
-    button2: "이어하기",
-  },
-  {
-    completedItem: "유선번호 등록하기",
-    title: "유선번호 등록을 완료하셨어요!",
     description: "이어서 사업자 정보를 입력해볼까요?",
     button1: "닫기",
     button2: "이어하기",
   },
   {
-    completedItem: "사업자 정보 입력 (카테고리 완료)",
+    completedItem: "사업자 정보 등록하기 (카테고리 완료)",
     title: "결제 준비를 모두 마치셨어요!",
     description: "다음은 운영 필수예요.",
     button1: "닫기",
@@ -63,19 +49,19 @@ const bubbleCases: BubbleCaseRow[] = [
   {
     completedItem: "발신번호 신청하기",
     title: "발신번호 신청을 완료하셨어요!",
-    description: "이어서 SNS 간편 로그인 등록하기를 진행해볼까요?",
-    button1: "닫기",
-    button2: "이어하기",
-  },
-  {
-    completedItem: "SNS 간편 로그인 등록하기",
-    title: "SNS 간편 로그인 등록하기를 완료하셨어요!",
     description: "이어서 알림톡을 등록해볼까요?",
     button1: "닫기",
     button2: "이어하기",
   },
   {
-    completedItem: "알림톡 등록하기 (카테고리 완료)",
+    completedItem: "알림톡 등록하기",
+    title: "알림톡 등록을 완료하셨어요!",
+    description: "이어서 SNS 간편 로그인을 등록해볼까요?",
+    button1: "닫기",
+    button2: "이어하기",
+  },
+  {
+    completedItem: "SNS 간편 로그인 등록하기 (카테고리 완료)",
     title: "운영 필수를 모두 마치셨어요!",
     description: "다음은 권장 설정이에요.",
     button1: "닫기",
@@ -111,7 +97,7 @@ const bubbleCases: BubbleCaseRow[] = [
   },
   {
     completedItem: "CRM 설정하기",
-    title: "CRM 캠페인 설정을 완료하셨어요!",
+    title: "CRM 설정을 완료하셨어요!",
     description: "이어서 라이브커머스를 설정해볼까요?",
     button1: "닫기",
     button2: "이어하기",
