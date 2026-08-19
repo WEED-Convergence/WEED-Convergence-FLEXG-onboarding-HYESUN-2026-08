@@ -1882,9 +1882,26 @@ export default function ChecklistPanel() {
               .map((category) => renderCategory(category, { trackColor: "#F0C4CE", progressTextColor: "#993556" }))}
           </div>
 
-          <p className="my-4 text-center text-[10px]" style={{ color: "#888780" }}>
-            여기까지 완료하면 오픈 가능해요
-          </p>
+          <div className="flex justify-center" style={{ marginTop: 18, marginBottom: 18 }}>
+            <span
+              className="inline-flex items-center"
+              style={{
+                backgroundColor: "#FBEAF0",
+                padding: "6px 12px",
+                borderRadius: 20,
+                whiteSpace: "nowrap",
+                gap: 6,
+              }}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <path d="M5 3v18" stroke="#D8342A" strokeWidth="2" strokeLinecap="round" />
+                <path d="M5 4h13l-3 4 3 4H5" fill="#D8342A" />
+              </svg>
+              <span className="text-[11px] font-bold" style={{ color: "#D8342A" }}>
+                여기까지 완료하면 오픈 가능해요
+              </span>
+            </span>
+          </div>
 
           <div className="rounded-[10px] p-[14px]" style={{ backgroundColor: "#FAF9F5", border: "1px solid #E4E2D8" }}>
             {categories
