@@ -29,7 +29,7 @@ const items: ChecklistItemData[] = [
     id: 2,
     title: "공급사 등록하기",
     description: "",
-    previewTitle: "공급사 정보 입력",
+    previewTitle: "공급사 정보",
     previewRows: ["공급사명: (주)이수모상사", "담당자: 김담당", "연락처: 02-123-4567"],
   },
   {
@@ -521,7 +521,7 @@ function SupplierListForm() {
   return (
     <div className="mt-6 w-full">
       <DetailCard>
-        <SubsectionTitle>공급사 정보 입력</SubsectionTitle>
+        <SubsectionTitle>공급사 정보</SubsectionTitle>
 
         <div className="mt-4 grid grid-cols-2 gap-4">
           <SupplierField label="업체명" placeholder="업체명 입력" />
