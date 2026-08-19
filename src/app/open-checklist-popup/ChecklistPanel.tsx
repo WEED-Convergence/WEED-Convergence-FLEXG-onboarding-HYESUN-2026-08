@@ -1576,21 +1576,9 @@ function SeoSettingsForm() {
   return (
     <div className="mt-6 w-full">
       <DetailCard>
-        <div
-          className="flex items-start gap-2 rounded-lg px-3.5 py-3"
-          style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
-        >
-          <InfoIcon />
-          <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
-            <span className="font-semibold">
-              아래 항목을 모두 입력해야 SEO 설정을 완료할 수 있어요.
-            </span>
-            <br />
-            검색엔진 노출과 링크 공유 시 보여지는 정보를 결정하는 필수 항목이에요.
-          </p>
-        </div>
+        <SubsectionTitle>검색 노출 및 공유 정보</SubsectionTitle>
 
-        <div className="mt-5 space-y-4">
+        <div className="mt-4 space-y-4">
           <SeoField
             label="메타태그 제목"
             placeholder="제목 입력"
@@ -1992,6 +1980,20 @@ export default function ChecklistPanel() {
               <span className="text-[11px]" style={{ color: "#888780" }}>
                 발신번호 등록까지 완료되어야 알림톡 발송이 가능해요.
               </span>
+            </div>
+          )}
+
+          {selected.id === 9 && (
+            <div
+              className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
+              style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
+            >
+              <InfoIcon />
+              <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
+                <span className="font-semibold">아래 항목을 모두 입력해야 SEO 설정을 완료할 수 있어요.</span>
+                <br />
+                검색엔진 노출과 링크 공유 시 보여지는 정보를 결정하는 필수 항목이에요.
+              </p>
             </div>
           )}
 
