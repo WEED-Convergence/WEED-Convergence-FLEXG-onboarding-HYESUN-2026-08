@@ -332,7 +332,7 @@ const bubbleCases: BubbleCaseRow[] = [
     button2: "다음 단계",
   },
   {
-    completedItem: "CRM 캠페인 설정하기",
+    completedItem: "CRM 설정",
     title: "CRM 캠페인 설정을 완료하셨어요!",
     description: "이어서 라이브커머스를 설정해볼까요?",
     button1: "닫기",

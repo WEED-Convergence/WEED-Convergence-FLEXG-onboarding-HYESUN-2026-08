@@ -102,7 +102,7 @@ const items: ChecklistItemData[] = [
   },
   {
     id: 11,
-    title: "CRM 캠페인 설정하기",
+    title: "CRM 설정",
     description: "",
     previewTitle: "캠페인 빌더",
     previewRows: ["캠페인 유형: 신규가입 웰컴", "발송시점: 가입 직후"],
@@ -853,20 +853,6 @@ function CampaignSettingsForm() {
     <div className="mt-6 w-full">
       <DetailCard>
         <SubsectionTitle>기본 설정</SubsectionTitle>
-
-        <div
-          className="mt-4 flex items-start gap-2 rounded-lg px-3.5 py-3"
-          style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
-        >
-          <InfoIcon />
-          <div className="space-y-1 text-[11px] leading-relaxed text-[var(--accent-text)]">
-            <p>
-              · 기존에 쇼핑몰 운영을 위한 SMS/알림톡 설정을 완료하셨더라도 CRM 기능을 이용하시려면 무료
-              수신거부번호와 카카오톡 채널을 반드시 등록해 주세요.
-            </p>
-            <p>· 수신거부를 신청한 고객의 휴대폰 번호는 신청 일의 다음 날부터 수신거부 처리가 적용됩니다.</p>
-          </div>
-        </div>
 
         <div className="mt-4 border-t border-[var(--divider)]" />
 
@@ -1980,6 +1966,22 @@ export default function ChecklistPanel() {
               <span className="text-[11px]" style={{ color: "#888780" }}>
                 발신번호 등록까지 완료되어야 알림톡 발송이 가능해요.
               </span>
+            </div>
+          )}
+
+          {selected.id === 11 && (
+            <div
+              className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
+              style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
+            >
+              <InfoIcon />
+              <div className="space-y-1 text-[11px] leading-relaxed text-[var(--accent-text)]">
+                <p>
+                  · 기존에 쇼핑몰 운영을 위한 SMS/알림톡 설정을 완료하셨더라도 CRM 기능을 이용하시려면 무료
+                  수신거부번호와 카카오톡 채널을 반드시 등록해 주세요.
+                </p>
+                <p>· 수신거부를 신청한 고객의 휴대폰 번호는 신청 일의 다음 날부터 수신거부 처리가 적용됩니다.</p>
+              </div>
             </div>
           )}
 
