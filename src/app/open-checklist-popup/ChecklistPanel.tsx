@@ -1617,20 +1617,25 @@ function SeoSettingsForm() {
             note="ⓘ 쇼핑몰 링크를 공유하실 때 사용되는 이미지와 내용입니다."
           />
           <SeoField label="오픈 그래프 설명" placeholder="오픈 그래프 설명 입력" />
-          <div className="flex items-center gap-3">
-            <span className="w-[110px] shrink-0 whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
-              오픈 그래프 이미지
-            </span>
-            <button
-              type="button"
-              className="shrink-0 rounded-[5px] px-3 py-[6px] text-[11px] font-medium text-white"
-              style={{ backgroundColor: "#5F5E5A" }}
-            >
-              파일 선택
-            </button>
-            <span className="text-[10px]" style={{ color: "#B4B2A9" }}>
-              등록된 이미지가 없습니다.
-            </span>
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="w-[110px] shrink-0 whitespace-nowrap text-[13px] font-medium text-[var(--text-primary)]">
+                오픈 그래프 이미지
+              </span>
+              <button
+                type="button"
+                className="shrink-0 rounded-[5px] px-3 py-[6px] text-[11px] font-medium text-white"
+                style={{ backgroundColor: "#5F5E5A" }}
+              >
+                파일 선택
+              </button>
+              <span className="text-[10px]" style={{ color: "#B4B2A9" }}>
+                등록된 이미지가 없습니다.
+              </span>
+            </div>
+            <p className="mt-1.5 pl-[122px] text-[10px] leading-relaxed text-[var(--text-muted)]">
+              ⓘ 500x250 크기의 JPG,PNG 파일만 등록하실 수 있습니다.
+            </p>
           </div>
         </div>
 
