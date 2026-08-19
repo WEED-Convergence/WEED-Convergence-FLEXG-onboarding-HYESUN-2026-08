@@ -753,7 +753,7 @@ function PgApplicationForm() {
 
       <div className="space-y-4">
         <DetailCard>
-          <SubsectionTitle>PG사 선택</SubsectionTitle>
+          <SubsectionTitle>PG사</SubsectionTitle>
           <div className="mt-2">
             {pgOptions.map((option) => {
               const checked = selectedPg === option.name;
