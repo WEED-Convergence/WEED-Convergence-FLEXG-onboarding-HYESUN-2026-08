@@ -53,7 +53,7 @@ const [step3, step5, step6, step7, step8, step9]: StepData[] = [
     subItems: [
       "발신번호 신청",
       "알림톡 등록",
-      "SNS 간편 로그인 등록 (카카오, 네이버)",
+      "SNS 간편 로그인 등록하기 (카카오, 네이버)",
     ],
   },
   {

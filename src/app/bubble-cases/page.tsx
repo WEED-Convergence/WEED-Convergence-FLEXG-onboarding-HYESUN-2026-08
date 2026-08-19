@@ -63,13 +63,13 @@ const bubbleCases: BubbleCaseRow[] = [
   {
     completedItem: "발신번호 신청하기",
     title: "발신번호 신청을 완료하셨어요!",
-    description: "이어서 SNS 간편 로그인 등록을 진행해볼까요?",
+    description: "이어서 SNS 간편 로그인 등록하기를 진행해볼까요?",
     button1: "닫기",
     button2: "이어하기",
   },
   {
-    completedItem: "SNS 간편 로그인 등록",
-    title: "SNS 간편 로그인 등록을 완료하셨어요!",
+    completedItem: "SNS 간편 로그인 등록하기",
+    title: "SNS 간편 로그인 등록하기를 완료하셨어요!",
     description: "이어서 알림톡을 등록해볼까요?",
     button1: "닫기",
     button2: "이어하기",
