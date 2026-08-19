@@ -14,12 +14,7 @@ const staticOverviewNotes: Record<string, OverviewNote[]> = {
     {
       id: "signup-complete-templates",
       label: "영업팀 의견 추가",
-      items: [
-        "1-1. 라이브 기능 전용 템플릿",
-        "1-2. 주문서 전용 템플릿",
-        "1-3. 출산 / 유아동 전용 템플릿",
-        "1-4. 건기식 / 다이어트 전용 템플릿",
-      ],
+      items: ["1-1. 주문서 전용 템플릿"],
     },
   ],
   "/home-with-checklist": [

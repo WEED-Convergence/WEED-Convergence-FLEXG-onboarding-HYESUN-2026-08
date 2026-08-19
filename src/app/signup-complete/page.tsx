@@ -16,6 +16,9 @@ const categories: Category[] = [
   { name: "가구/인테리어", colors: ["#F0E6D8", "#E4D4BE", "#F7F0E6"] },
   { name: "디지털/가전", colors: ["#DCEEFB", "#C6E2F5", "#EAF5FC"] },
   { name: "생활/스포츠", colors: ["#FFF3CD", "#FCE8B4", "#FFF8E1"] },
+  { name: "라이브커머스", colors: ["#FDE4D6", "#FAD0B8", "#FEF1E9"] },
+  { name: "출산/유아동", colors: ["#DFF3F1", "#C2E8E3", "#EEF9F7"] },
+  { name: "건강기능식품/다이어트", colors: ["#EAF2D7", "#D7E8B0", "#F3F8E8"] },
 ];
 
 function PhoneMockup({
