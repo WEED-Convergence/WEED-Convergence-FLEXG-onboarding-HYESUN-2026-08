@@ -136,6 +136,21 @@ const CRM_SETTINGS_NOTE: OverviewNote = {
   items: [],
 };
 
+const CASH_RECEIPT_NOTE: OverviewNote = {
+  id: "cash-receipt-note",
+  desc: [
+    {
+      title: "선행 개발 필요사항",
+      body: "팝빌 가입 여부를 조회할 수 있는 기능(팝빌 API 연동 또는 내부 상태값)이 먼저 개발되어 있어야 합니다.",
+    },
+    {
+      title: "완료 조건",
+      body: "팝빌 가입정보가 실제로 존재하는 것이 데이터로 확인되는 시점에 완료 처리합니다. \"팝빌가입하기\" 버튼 클릭만으로는 완료 처리하지 않으며, 실제 가입 완료 여부를 데이터로 확인합니다.",
+    },
+  ],
+  items: [],
+};
+
 const LIVE_COMMERCE_NOTE: OverviewNote = {
   id: "live-commerce-note",
   desc: [
@@ -175,6 +190,7 @@ const CHECKLIST_ITEM_NOTES: Record<number, OverviewNote> = {
   9: SEO_SETTINGS_NOTE, // SEO 설정하기
   11: CRM_SETTINGS_NOTE, // CRM 설정하기
   12: LIVE_COMMERCE_NOTE, // 라이브커머스 설정하기
+  17: CASH_RECEIPT_NOTE, // 현금영수증 설정하기
   15: TERMS_CHECK_NOTE, // 약관 확인하기
 };
 
