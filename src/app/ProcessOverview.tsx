@@ -124,7 +124,7 @@ const LIVE_COMMERCE_NOTE: OverviewNote = {
   desc: [
     {
       title: "완료 조건",
-      body: "판매자가 화면 내 \"더 알아보기\" 버튼을 1회 이상 클릭하면 즉시 완료 처리합니다.",
+      body: "판매자가 화면 내 \"지금 시작하기\" 버튼을 1회 이상 클릭하면 즉시 완료 처리합니다.",
     },
     {
       title: "비고",
