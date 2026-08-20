@@ -100,7 +100,20 @@ const PRODUCT_REGISTRATION_NOTE: OverviewNote = {
 
 const SENDER_NUMBER_NOTE: OverviewNote = {
   id: "sender-number-note",
-  desc: ["가이드: https://guide.flexgate.co.kr/22592892ccf680e79a2edf72fbe01d6c 새창열림"],
+  desc: [
+    {
+      title: "선행 개발 필요사항",
+      body: "발신번호 신청 상태값(접수/심사중/승인완료/반려 등)을 조회할 수 있는 기능이 먼저 개발되어 있어야 합니다.",
+    },
+    {
+      title: "완료 조건",
+      body: "발신번호 신청 데이터가 실제로 접수된 것이 확인되는 시점에 완료 처리합니다. \"신청 요청\" 버튼 클릭만으로는 완료 처리하지 않으며, 실제 접수 여부를 데이터로 확인합니다.",
+    },
+    {
+      title: "가이드",
+      body: "https://guide.flexgate.co.kr/22592892ccf680e79a2edf72fbe01d6c 새창열림",
+    },
+  ],
   items: [],
 };
 
