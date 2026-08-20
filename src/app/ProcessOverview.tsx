@@ -81,14 +81,21 @@ const BUSINESS_INFO_NOTE: OverviewNote = {
   items: [],
 };
 
+const PRODUCT_REGISTRATION_NOTE: OverviewNote = {
+  id: "product-registration-note",
+  desc: ["가이드 버튼: https://guide.flexgate.co.kr/27092892ccf68026b3e9d2e303b3a630"],
+  items: [],
+};
+
 const CHECKLIST_PLACEHOLDER_NOTE: OverviewNote = {
   id: "checklist-item-placeholder",
   desc: ["정책 준비중입니다."],
   items: [],
 };
 
-// PG 신청하기(id: 1), 사업자 정보 등록(id: 5)만 화면설명이 작성되어 있고, 나머지 항목은 플레이스홀더로 대체.
+// PG 신청하기(id: 1), 상품 등록하기(id: 3), 사업자 정보 등록(id: 5)만 화면설명이 작성되어 있고, 나머지 항목은 플레이스홀더로 대체.
 const PG_APPLICATION_ITEM_ID = 1;
+const PRODUCT_REGISTRATION_ITEM_ID = 3;
 const BUSINESS_INFO_ITEM_ID = 5;
 
 export default function ProcessOverview() {
@@ -98,9 +105,11 @@ export default function ProcessOverview() {
   const checklistPopupNote =
     selectedChecklistItemId === PG_APPLICATION_ITEM_ID
       ? PG_APPLICATION_NOTE
-      : selectedChecklistItemId === BUSINESS_INFO_ITEM_ID
-        ? BUSINESS_INFO_NOTE
-        : CHECKLIST_PLACEHOLDER_NOTE;
+      : selectedChecklistItemId === PRODUCT_REGISTRATION_ITEM_ID
+        ? PRODUCT_REGISTRATION_NOTE
+        : selectedChecklistItemId === BUSINESS_INFO_ITEM_ID
+          ? BUSINESS_INFO_NOTE
+          : CHECKLIST_PLACEHOLDER_NOTE;
 
   const notes: OverviewNote[] | undefined =
     pathname === "/open-checklist-popup" ? [checklistPopupNote] : staticOverviewNotes[pathname];
