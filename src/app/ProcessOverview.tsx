@@ -261,6 +261,7 @@ export default function ProcessOverview() {
                     const title = typeof paragraph === "string" ? null : paragraph.title;
                     const body = typeof paragraph === "string" ? paragraph : paragraph.body;
                     const list = typeof paragraph === "string" ? null : paragraph.list;
+                    const titleColor = title === "선행 개발 필요사항" ? "#D8342A" : undefined;
                     return (
                       <div
                         key={title ?? body ?? idx}
@@ -270,7 +271,11 @@ export default function ProcessOverview() {
                       >
                         {list ? (
                           <>
-                            {title ? <p className="font-bold">{title}</p> : null}
+                            {title ? (
+                              <p className="font-bold" style={{ color: titleColor }}>
+                                {title}
+                              </p>
+                            ) : null}
                             <ol className={title ? "mt-1 space-y-1.5" : "space-y-1.5"}>
                               {list.map((entry, i) => (
                                 <li key={entry.heading ?? entry.body}>
@@ -285,7 +290,11 @@ export default function ProcessOverview() {
                           </>
                         ) : (
                           <p>
-                            {title ? <span className="font-bold">{title}: </span> : null}
+                            {title ? (
+                              <span className="font-bold" style={{ color: titleColor }}>
+                                {title}:{" "}
+                              </span>
+                            ) : null}
                             {body}
                           </p>
                         )}
