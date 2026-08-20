@@ -1786,7 +1786,7 @@ const cashReceiptMandatoryNotices = [
 ];
 
 function CashReceiptForm() {
-  const [cashReceiptEnabled, setCashReceiptEnabled] = useState(true);
+  const [cashReceiptEnabled, setCashReceiptEnabled] = useState(false);
   const [defaultOption, setDefaultOption] = useState("개인소득공제");
   const [autoIssueBasis, setAutoIssueBasis] = useState("배송완료");
   const [voluntaryIssueCondition, setVoluntaryIssueCondition] = useState("10만원 이상의 결제건");
