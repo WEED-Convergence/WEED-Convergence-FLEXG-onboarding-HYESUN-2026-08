@@ -20,19 +20,10 @@ interface MessageCardData {
 const cards: MessageCardData[] = [
   {
     id: 1,
-    badgeLines: ["발송 시점: '운영 필수' 카테고리 완료 시 자동 발송"],
-    category: "정보성",
-    icon: "check",
-    imageBg: "#FBEAF0",
-    iconColor: "#D8342A",
-    sender: "플렉스지 · 오픈안내",
-    title: "쇼핑몰 오픈 준비가 끝났어요!",
-    body: "운영에 꼭 필요한 필수 항목을 모두 완료하셨어요. 지금 바로 쇼핑몰을 오픈하실 수 있어요.",
-    button: "쇼핑몰 바로가기",
-  },
-  {
-    id: 2,
-    badgeLines: ["발송 시점: 가입 승인 처리 완료 즉시"],
+    badgeLines: [
+      "발송 조건: 회원가입 심사가 승인 처리된 즉시",
+      "발송 횟수: 조건 충족 시 최대 1회",
+    ],
     category: "정보성",
     icon: "check",
     imageBg: "#E1F5EE",
@@ -43,10 +34,26 @@ const cards: MessageCardData[] = [
     button: "오픈 체크리스트",
   },
   {
+    id: 2,
+    badgeLines: [
+      "발송 조건: 회원가입 승인 완료 후 24시간 경과 + 템플릿 선택 미완료",
+      "발송 횟수: 조건 충족 시 최대 1회",
+    ],
+    category: "마케팅성",
+    icon: "home",
+    imageBg: "#F1EFE8",
+    iconColor: "#D3D1C7",
+    sender: "(광고) 플렉스지",
+    title: "#{판매자명}님, 이제 템플릿만 선택하면 돼요",
+    body: "템플릿 선택만 완료하면 승인 심사가 바로 시작돼요.",
+    button: "템플릿 선택하기",
+    optOutText: "무료 수신거부 1600-0000",
+  },
+  {
     id: 3,
     badgeLines: [
-      "발송 조건: 가입 승인 완료 후 3일 경과 + PG 신청 미완료",
-      "발송 횟수: 조건 충족 시 1회",
+      "발송 조건: 회원가입 승인 완료 후 3일 경과 + PG 신청 미완료",
+      "발송 횟수: 조건 충족 시 최대 1회",
     ],
     category: "마케팅성",
     icon: "exclamation",
@@ -61,8 +68,8 @@ const cards: MessageCardData[] = [
   {
     id: 4,
     badgeLines: [
-      "발송 조건: PG 신청 완료 시, 결제준비 또는 운영필수 중 미완료 단계가 있는 경우",
-      "발송 횟수: 완료 시 1회",
+      "발송 조건: PG 신청 완료 처리 시점, 결제준비 또는 운영필수 카테고리 중 미완료 항목이 남아있는 경우",
+      "발송 횟수: 조건 충족 시 최대 1회",
     ],
     category: "정보성",
     icon: "check",
@@ -78,8 +85,8 @@ const cards: MessageCardData[] = [
   {
     id: 5,
     badgeLines: [
-      "발송 조건: PG사로부터 반려 처리된 경우",
-      "발송 횟수: 반려 처리될 때마다 발송 (재신청 후 재반려 시 재발송)",
+      "발송 조건: PG사로부터 반려 처리 통보를 받은 시점",
+      "발송 횟수: 반려 처리될 때마다 발송 (재신청 후 다시 반려되면 재발송)",
     ],
     category: "정보성",
     icon: "x",
@@ -93,8 +100,8 @@ const cards: MessageCardData[] = [
   {
     id: 6,
     badgeLines: [
-      "발송 조건: 가입 승인 후 5일 경과 + 결제준비 또는 운영필수 중 미완료 항목 존재",
-      "발송 횟수: 조건 충족 시 1회",
+      "발송 조건: 회원가입 승인 완료 후 5일 경과 + 결제준비 또는 운영필수 카테고리 중 미완료 항목 존재",
+      "발송 횟수: 조건 충족 시 최대 1회",
     ],
     category: "마케팅성",
     icon: "check",
@@ -109,18 +116,17 @@ const cards: MessageCardData[] = [
   {
     id: 7,
     badgeLines: [
-      "발송 조건: 가입 후 24시간 경과 + 템플릿 선택 미완료",
-      "발송 횟수: 조건 충족 시 1회",
+      "발송 조건: 결제준비, 운영필수 카테고리가 모두 완료 처리된 시점",
+      "발송 횟수: 조건 충족 시 최대 1회",
     ],
-    category: "마케팅성",
-    icon: "home",
-    imageBg: "#F1EFE8",
-    iconColor: "#D3D1C7",
-    sender: "(광고) 플렉스지",
-    title: "#{판매자명}님, 이제 템플릿만 선택하면 돼요",
-    body: "템플릿 선택만 완료하면 승인 심사가 바로 시작돼요.",
-    button: "템플릿 선택하기",
-    optOutText: "무료 수신거부 1600-0000",
+    category: "정보성",
+    icon: "check",
+    imageBg: "#FBEAF0",
+    iconColor: "#D8342A",
+    sender: "플렉스지 · 오픈안내",
+    title: "쇼핑몰 오픈 준비가 끝났어요!",
+    body: "운영에 꼭 필요한 필수 항목을 모두 완료하셨어요. 지금 바로 쇼핑몰을 오픈하실 수 있어요.",
+    button: "쇼핑몰 바로가기",
   },
 ];
 
