@@ -166,10 +166,10 @@ function HomeIcon({ bgColor }: { bgColor: string }) {
 
 function MessageCard({ card }: { card: MessageCardData }) {
   return (
-    <div className="flex w-[230px] flex-col">
+    <div className="flex w-[250px] flex-col">
       <div
-        className="mb-3 rounded-lg"
-        style={{ border: "1px solid #D3D1C7", backgroundColor: "#F1EFE8", padding: "10px 12px" }}
+        className="mb-4 rounded-lg"
+        style={{ border: "1px solid #D3D1C7", backgroundColor: "#F1EFE8", padding: "12px 14px" }}
       >
         <div className="flex gap-2 pb-2" style={{ borderBottom: "1px solid #D3D1C7" }}>
           <span className="w-10 shrink-0 text-[15px] font-bold" style={{ color: "#2C2C2A" }}>
@@ -190,7 +190,7 @@ function MessageCard({ card }: { card: MessageCardData }) {
       </div>
 
       <span
-        className="mb-2 inline-block w-fit rounded-full px-2 py-0.5 text-[11px] font-medium"
+        className="mb-3 inline-block w-fit rounded-full px-2 py-0.5 text-[11px] font-medium"
         style={
           card.category === "정보성"
             ? { backgroundColor: "#E1F5EE", color: "#04342C" }
@@ -201,7 +201,7 @@ function MessageCard({ card }: { card: MessageCardData }) {
       </span>
 
       <div className="overflow-hidden rounded-[14px] border border-[var(--border)] bg-white">
-        <div className="flex h-[100px] items-center justify-center" style={{ backgroundColor: card.imageBg }}>
+        <div className="flex h-[110px] items-center justify-center" style={{ backgroundColor: card.imageBg }}>
           {card.icon === "check" ? (
             <CheckIcon color={card.iconColor} />
           ) : card.icon === "exclamation" ? (
@@ -212,7 +212,7 @@ function MessageCard({ card }: { card: MessageCardData }) {
             <HomeIcon bgColor={card.iconColor} />
           )}
         </div>
-        <div className="px-3.5 py-3">
+        <div className="px-4 py-4">
           <p className="text-[11px] text-[var(--text-secondary)]">{card.sender}</p>
           <p className="mt-1.5 text-[13px] font-semibold text-[var(--text-primary)]">{card.title}</p>
           <p className="mt-1 text-[12px] leading-relaxed text-[var(--text-secondary)]">{card.body}</p>
@@ -277,7 +277,7 @@ export default function MessageCollectionPage() {
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-[repeat(4,230px)] gap-4">
+      <div className="mt-8 grid grid-cols-[repeat(4,250px)] gap-x-8 gap-y-10">
         {cards.map((card) => (
           <MessageCard key={card.id} card={card} />
         ))}
