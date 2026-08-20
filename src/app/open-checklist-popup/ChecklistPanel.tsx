@@ -1643,120 +1643,100 @@ function KakaoIcon() {
   );
 }
 
-function NaverIcon() {
+function SnsSectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <span className="text-[20px] font-extrabold" style={{ color: "#03C75A" }}>
-      N
-    </span>
-  );
-}
-
-function SnsIntroCard({
-  icon,
-  iconBg,
-  title,
-  desc,
-  buttonLabel,
-}: {
-  icon: React.ReactNode;
-  iconBg: string;
-  title: string;
-  desc: string;
-  buttonLabel: string;
-}) {
-  return (
-    <div
-      className="flex items-center gap-4 rounded-[10px] px-4 py-4"
-      style={{ border: "1px solid #E4E2D8" }}
-    >
+    <div className="flex items-center gap-1.5">
       <span
-        className="flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-full"
-        style={{ backgroundColor: iconBg }}
-      >
-        {icon}
-      </span>
-      <div className="min-w-0 flex-1">
-        <p className="text-[13px] font-bold text-[var(--text-primary)]">{title}</p>
-        <p className="mt-1 text-[11px] leading-relaxed" style={{ color: "#5F5E5A" }}>
-          {desc}
-        </p>
-        <button
-          type="button"
-          className="mt-2 shrink-0 whitespace-nowrap rounded-[5px] px-3 py-[6px] text-[11px] font-medium text-white"
-          style={{ backgroundColor: "#D8342A" }}
-        >
-          {buttonLabel}
-        </button>
-      </div>
+        className="w-[3px] shrink-0"
+        style={{ height: 14, backgroundColor: "#D8342A", borderRadius: 2 }}
+      />
+      <p className="text-[14px] font-bold" style={{ color: "#2C2C2A" }}>
+        {children}
+      </p>
     </div>
   );
 }
 
+const snsCardStyle = { border: "1px solid #E4E2D8" };
+const snsCardClass = "rounded-[10px] bg-white p-4";
+
 function SnsLoginForm() {
   return (
     <div className="mt-6 w-full">
-      <DetailCard>
-        <div className="space-y-[14px]">
-          <SnsIntroCard
-            icon={<KakaoIcon />}
-            iconBg="#FFF4CC"
-            title="카카오 로그인"
-            desc="카카오톡으로 바로 로그인할 수 있게 해주는 기능이에요. 카카오 비즈니스 채널 개설과 앱 등록 등 카카오 쪽에서 진행할 설정이 있어서 단계가 좀 있지만, 가이드를 그대로 따라가시면 어렵지 않아요."
-            buttonLabel="카카오 로그인 가이드 보기"
-          />
-          <SnsIntroCard
-            icon={<NaverIcon />}
-            iconBg="#E1F5EA"
-            title="네이버 로그인"
-            desc="네이버 계정으로 바로 로그인할 수 있게 해주는 기능이에요. 배너를 눌러 네이버 계정으로 로그인하고 간단한 정보만 입력하면 되기 때문에, 카카오보다 훨씬 빠르게 끝낼 수 있어요."
-            buttonLabel="네이버 로그인 가이드 보기"
-          />
-        </div>
-
-        <div className="mt-6">
-          <p className="text-[12px] font-bold text-[var(--text-primary)]">API 설정</p>
-          <p className="mt-1 text-[10px] text-[var(--text-muted)]">
-            가이드를 보고 발급받은 키값을 아래에 입력해 주세요.
-          </p>
-
-          <div className="mt-4">
-            <p className="text-[12px] font-bold text-[var(--text-primary)]">카카오 로그인</p>
-            <div className="mt-2 space-y-2">
-              <input type="text" placeholder="네이티브 앱 키 입력" className={inputClass} />
-              <input type="text" placeholder="REST API 키 입력" className={inputClass} />
-              <input type="text" placeholder="JavaScript 키 입력" className={inputClass} />
-              <input type="text" placeholder="Client Secret 코드 입력" className={inputClass} />
-            </div>
-          </div>
-
-          <div className="mt-5">
-            <p className="text-[12px] font-bold text-[var(--text-primary)]">네이버 로그인</p>
-            <div className="mt-2 grid grid-cols-2 gap-3">
-              <input type="text" placeholder="Client ID 입력" className={inputClass} />
-              <input type="text" placeholder="Client Secret 입력" className={inputClass} />
-            </div>
-          </div>
-
-          <div
-            className="mt-5 flex items-start gap-2 rounded-lg px-3.5 py-3"
-            style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+      <div className={snsCardClass} style={snsCardStyle}>
+        <SnsSectionTitle>네이버 로그인</SnsSectionTitle>
+        <div className="mt-4 flex items-center gap-2">
+          <button
+            type="button"
+            className="flex-1 rounded-[8px] py-[10px] text-center text-[12px] font-bold text-white"
+            style={{ backgroundColor: "#03C75A" }}
           >
-            <InfoIcon />
-            <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
-              키값을 삭제하거나 신규 진행 시엔 기존 회원은 신규 회원으로 진입되니 유의해 주세요.
-            </p>
-          </div>
+            네이버 로그인 플러스 신청하기
+          </button>
+          <button
+            type="button"
+            className="shrink-0 whitespace-nowrap rounded-[8px] text-[12px] font-medium text-white"
+            style={{ backgroundColor: "#D8342A", padding: "10px 20px" }}
+          >
+            가이드 보기
+          </button>
+        </div>
+      </div>
+
+      <div className={`mt-4 ${snsCardClass}`} style={snsCardStyle}>
+        <SnsSectionTitle>카카오 로그인</SnsSectionTitle>
+
+        <div className="mt-4 flex items-center gap-4">
+          <span
+            className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full"
+            style={{ backgroundColor: "#FFF4CC" }}
+          >
+            <KakaoIcon />
+          </span>
+          <p className="flex-1 text-[11px] leading-relaxed" style={{ color: "#5F5E5A" }}>
+            카카오톡으로 바로 로그인할 수 있게 해주는 기능이에요. 카카오 비즈니스 채널 개설과 앱
+            등록 등 카카오 쪽 설정이 있어서 단계가 좀 있지만, 가이드를 그대로 따라가시면 어렵지
+            않아요.
+          </p>
+          <button
+            type="button"
+            className="shrink-0 whitespace-nowrap rounded-[5px] px-3 py-[6px] text-[11px] font-medium text-white"
+            style={{ backgroundColor: "#D8342A" }}
+          >
+            가이드 보기
+          </button>
         </div>
 
-        <div className="mt-6 flex justify-center gap-[10px]">
+        <div className="mt-4 space-y-2">
+          <input type="text" placeholder="네이티브 앱 키 입력" className={inputClass} />
+          <input type="text" placeholder="REST API 키 입력" className={inputClass} />
+          <input type="text" placeholder="JavaScript 키 입력" className={inputClass} />
+          <input type="text" placeholder="Client Secret 코드 입력" className={inputClass} />
+        </div>
+
+        <div
+          className="mt-4 flex items-start gap-2 rounded-lg px-3.5 py-3"
+          style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+        >
+          <InfoIcon color="#D8342A" />
+          <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
+            키값을 삭제하거나 신규 진행 시엔 기존 회원은 신규 회원으로 진입되니 유의해 주세요.
+          </p>
+        </div>
+
+        <div className="mt-5 flex justify-center gap-[10px]">
           <button type="button" className={secondaryButtonClass}>
             초기화
           </button>
-          <button type="button" className={primaryButtonClass}>
-            등록
+          <button
+            type="button"
+            className={primaryButtonClass}
+            style={{ backgroundColor: "#2C2C2A" }}
+          >
+            저장하기
           </button>
         </div>
-      </DetailCard>
+      </div>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
