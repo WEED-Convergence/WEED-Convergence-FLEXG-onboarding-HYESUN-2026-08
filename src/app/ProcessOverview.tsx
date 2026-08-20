@@ -79,7 +79,16 @@ const BUSINESS_INFO_NOTE: OverviewNote = {
 
 const SUPPLIER_REGISTRATION_NOTE: OverviewNote = {
   id: "supplier-registration-note",
-  desc: ["상세 정보 입력: /Good/center 새창열림"],
+  desc: [
+    {
+      title: "완료 조건",
+      body: "업체명과 이메일이 모두 입력되면 완료로 처리합니다.",
+    },
+    {
+      title: "상세 정보 입력",
+      body: "/Good/center 새창열림",
+    },
+  ],
   items: [],
 };
 
