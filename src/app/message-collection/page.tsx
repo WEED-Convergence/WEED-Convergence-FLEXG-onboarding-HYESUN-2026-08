@@ -6,7 +6,7 @@ interface MessageCardData {
   id: number;
   badgeLines: string[];
   category: "정보성" | "마케팅성";
-  icon: "check" | "exclamation" | "x";
+  icon: "check" | "exclamation" | "x" | "home";
   imageBg: string;
   iconColor: string;
   sender: string;
@@ -106,6 +106,22 @@ const cards: MessageCardData[] = [
     button: "남은 항목 확인하기",
     optOutText: "무료 수신거부 1600-0000",
   },
+  {
+    id: 7,
+    badgeLines: [
+      "발송 조건: 가입 후 24시간 경과 + 템플릿 선택 미완료",
+      "발송 횟수: 조건 충족 시 1회",
+    ],
+    category: "마케팅성",
+    icon: "home",
+    imageBg: "#F1EFE8",
+    iconColor: "#D3D1C7",
+    sender: "(광고) 플렉스지",
+    title: "#{판매자명}님, 이제 템플릿만 선택하면 돼요",
+    body: "템플릿 선택만 완료하면 승인 심사가 바로 시작돼요.",
+    button: "템플릿 선택하기",
+    optOutText: "무료 수신거부 1600-0000",
+  },
 ];
 
 function CheckIcon({ color }: { color: string }) {
@@ -137,6 +153,19 @@ function XIcon({ color }: { color: string }) {
       <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke={color} strokeWidth="2">
         <circle cx="12" cy="12" r="9" />
         <path d="M9 9L15 15M15 9L9 15" strokeLinecap="round" />
+      </svg>
+    </span>
+  );
+}
+
+function HomeIcon({ bgColor }: { bgColor: string }) {
+  return (
+    <span
+      className="flex h-14 w-14 items-center justify-center rounded-xl"
+      style={{ backgroundColor: bgColor }}
+    >
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="white" stroke="none">
+        <path d="M12 3L4 10V21H9V14H15V21H20V10L12 3Z" />
       </svg>
     </span>
   );
@@ -178,8 +207,10 @@ function MessageCard({ card }: { card: MessageCardData }) {
             <CheckIcon color={card.iconColor} />
           ) : card.icon === "exclamation" ? (
             <ExclamationIcon color={card.iconColor} />
-          ) : (
+          ) : card.icon === "x" ? (
             <XIcon color={card.iconColor} />
+          ) : (
+            <HomeIcon bgColor={card.iconColor} />
           )}
         </div>
         <div className="px-3.5 py-3">
