@@ -108,6 +108,17 @@ const TERMS_CHECK_NOTE: OverviewNote = {
   items: [],
 };
 
+const CRM_SETTINGS_NOTE: OverviewNote = {
+  id: "crm-settings-note",
+  desc: [
+    {
+      title: "완료 조건",
+      body: "\"무료 수신거부번호\" 신청과 \"카카오톡 채널\" 등록, 두 가지가 모두 완료되어야 항목이 완료 처리됩니다. 하나만 진행된 상태는 미완료로 유지합니다.",
+    },
+  ],
+  items: [],
+};
+
 const CHECKLIST_PLACEHOLDER_NOTE: OverviewNote = {
   id: "checklist-item-placeholder",
   desc: ["정책 준비중입니다."],
@@ -115,12 +126,13 @@ const CHECKLIST_PLACEHOLDER_NOTE: OverviewNote = {
 };
 
 // PG 신청하기(id: 1), 상품 등록하기(id: 3), 사업자 정보 등록(id: 5), 발신번호 신청하기(id: 6),
-// 약관 확인하기(id: 15)만 화면설명이 작성되어 있고, 나머지 항목은 플레이스홀더로 대체.
+// 약관 확인하기(id: 15), CRM 설정하기(id: 11)만 화면설명이 작성되어 있고, 나머지 항목은 플레이스홀더로 대체.
 const PG_APPLICATION_ITEM_ID = 1;
 const PRODUCT_REGISTRATION_ITEM_ID = 3;
 const BUSINESS_INFO_ITEM_ID = 5;
 const SENDER_NUMBER_ITEM_ID = 6;
 const TERMS_CHECK_ITEM_ID = 15;
+const CRM_SETTINGS_ITEM_ID = 11;
 
 export default function ProcessOverview() {
   const pathname = usePathname();
@@ -131,13 +143,15 @@ export default function ProcessOverview() {
       ? PG_APPLICATION_NOTE
       : selectedChecklistItemId === PRODUCT_REGISTRATION_ITEM_ID
         ? PRODUCT_REGISTRATION_NOTE
-        : selectedChecklistItemId === BUSINESS_INFO_ITEM_ID
-          ? BUSINESS_INFO_NOTE
-          : selectedChecklistItemId === SENDER_NUMBER_ITEM_ID
-            ? SENDER_NUMBER_NOTE
-            : selectedChecklistItemId === TERMS_CHECK_ITEM_ID
-              ? TERMS_CHECK_NOTE
-              : CHECKLIST_PLACEHOLDER_NOTE;
+        : selectedChecklistItemId === CRM_SETTINGS_ITEM_ID
+          ? CRM_SETTINGS_NOTE
+          : selectedChecklistItemId === BUSINESS_INFO_ITEM_ID
+            ? BUSINESS_INFO_NOTE
+            : selectedChecklistItemId === SENDER_NUMBER_ITEM_ID
+              ? SENDER_NUMBER_NOTE
+              : selectedChecklistItemId === TERMS_CHECK_ITEM_ID
+                ? TERMS_CHECK_NOTE
+                : CHECKLIST_PLACEHOLDER_NOTE;
 
   const notes: OverviewNote[] | undefined =
     pathname === "/open-checklist-popup" ? [checklistPopupNote] : staticOverviewNotes[pathname];
