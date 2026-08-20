@@ -77,6 +77,12 @@ const BUSINESS_INFO_NOTE: OverviewNote = {
   items: [],
 };
 
+const SUPPLIER_REGISTRATION_NOTE: OverviewNote = {
+  id: "supplier-registration-note",
+  desc: ["상세 정보 입력: /Good/center 새창열림"],
+  items: [],
+};
+
 const PRODUCT_REGISTRATION_NOTE: OverviewNote = {
   id: "product-registration-note",
   desc: ["가이드 버튼: https://guide.flexgate.co.kr/27092892ccf68026b3e9d2e303b3a630"],
@@ -110,6 +116,10 @@ const CRM_SETTINGS_NOTE: OverviewNote = {
     {
       title: "완료 조건",
       body: "\"무료 수신거부번호\" 신청과 \"카카오톡 채널\" 등록, 두 가지가 모두 완료되어야 항목이 완료 처리됩니다. 하나만 진행된 상태는 미완료로 유지합니다.",
+    },
+    {
+      title: "지금 시작하기",
+      body: "/CRM/CampaignList 새창열림",
     },
   ],
   items: [],
@@ -147,6 +157,7 @@ const CHECKLIST_PLACEHOLDER_NOTE: OverviewNote = {
 // 화면설명이 작성된 체크리스트 항목만 여기 등록하고, 나머지는 플레이스홀더로 대체.
 const CHECKLIST_ITEM_NOTES: Record<number, OverviewNote> = {
   1: PG_APPLICATION_NOTE, // PG 신청하기
+  2: SUPPLIER_REGISTRATION_NOTE, // 공급사 등록하기
   3: PRODUCT_REGISTRATION_NOTE, // 상품 등록하기
   5: BUSINESS_INFO_NOTE, // 사업자 정보 등록
   6: SENDER_NUMBER_NOTE, // 발신번호 신청하기

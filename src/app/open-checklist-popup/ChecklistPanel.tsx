@@ -1481,9 +1481,6 @@ function LiveCommerceForm() {
       </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
-        <button type="button" className={secondaryButtonClass}>
-          건너뛰기
-        </button>
         <button type="button" className={primaryButtonClass}>
           지금 시작하기
         </button>
