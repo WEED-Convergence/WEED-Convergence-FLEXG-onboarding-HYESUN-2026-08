@@ -14,6 +14,7 @@ interface MessageCardData {
   body: string;
   button: string;
   optOutText?: string;
+  footnote?: string;
 }
 
 const cards: MessageCardData[] = [
@@ -56,6 +57,23 @@ const cards: MessageCardData[] = [
     body: "PG 신청이 완료되어야 쇼핑몰을 정상적으로 오픈하실 수 있어요. 아래 버튼을 눌러 바로 신청하실 수 있어요.",
     button: "PG 신청하러 가기",
     optOutText: "무료 수신거부 1600-0000",
+  },
+  {
+    id: 4,
+    badgeLines: [
+      "발송 조건: PG 신청 완료 시, 결제준비 또는 운영필수 중 미완료 단계가 있는 경우",
+      "발송 횟수: 완료 시 1회",
+    ],
+    category: "정보성",
+    icon: "check",
+    imageBg: "#E1F5EE",
+    iconColor: "#0F6E56",
+    sender: "플렉스지 · 진행상황 안내",
+    title: "PG 신청이 완료되었어요!",
+    body: "쇼핑몰 오픈까지 아직 몇 가지 단계가 남아있어요. 오픈 체크리스트에서 이어서 진행해 보세요.",
+    button: "오픈 체크리스트로 이동",
+    footnote:
+      "결제준비·운영필수가 모두 완료된 상태라면 이 메시지 대신 별도의 '오픈 가능 안내' 메시지가 발송됩니다.",
   },
 ];
 
@@ -136,6 +154,10 @@ function MessageCard({ card }: { card: MessageCardData }) {
           )}
         </div>
       </div>
+
+      {card.footnote && (
+        <p className="mt-2 text-[11px] leading-relaxed text-[var(--text-secondary)]">{card.footnote}</p>
+      )}
     </div>
   );
 }
