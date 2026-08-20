@@ -236,10 +236,46 @@ function MessageCard({ card }: { card: MessageCardData }) {
   );
 }
 
+const constraints = [
+  {
+    title: "1. 중복 발송 방지",
+    body: "동일한 회원에게 동일한 메시지는 1회만 발송하는 것을 원칙으로 합니다. 조건이 반복 충족되더라도 이미 발송된 메시지는 재발송하지 않습니다. \"PG 신청이 반려되었어요\" 메시지는 예외로, 반려가 발생할 때마다 매번 발송합니다.",
+  },
+  {
+    title: "2. 발송 시간 제한",
+    body: "카카오 알림톡·브랜드메시지 정책상 발송이 제한되는 야간 시간대에는 메시지를 발송하지 않습니다. 발송 조건이 이 시간대에 충족되더라도, 가장 가까운 발송 가능 시간으로 이월하여 발송합니다.",
+  },
+  {
+    title: "3. 발송 우선순위 (동시 조건 충족 시)",
+    body: "한 회원에게 두 개 이상의 메시지 발송 조건이 동시에 충족되는 경우, 먼저 발생한 이벤트(승인 완료 → PG 신청 미완료 → PG 완료/반려 → 오픈 임박 안내 → 오픈 준비 완료) 순서대로만 발송하고, 이미 목적이 달성된 이전 단계 메시지는 발송하지 않습니다.",
+  },
+];
+
 export default function MessageCollectionPage() {
   return (
     <div>
       <p className="text-[15px] font-semibold text-[var(--text-primary)]">메시지 모음</p>
+
+      <div
+        className="mt-4 rounded-[10px]"
+        style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0", padding: "16px 18px" }}
+      >
+        <p className="text-[13px] font-bold" style={{ color: "#993556" }}>
+          메시지 발송 공통 제약사항
+        </p>
+        <div className="mt-3 flex flex-col gap-3">
+          {constraints.map((item) => (
+            <div key={item.title}>
+              <p className="text-[12px] font-bold" style={{ color: "#993556" }}>
+                {item.title}
+              </p>
+              <p className="text-[12px] font-medium" style={{ color: "#7A2438", lineHeight: 1.7 }}>
+                {item.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div className="mt-6 grid grid-cols-[repeat(4,230px)] gap-4">
         {cards.map((card) => (
