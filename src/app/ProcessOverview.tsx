@@ -117,6 +117,42 @@ const SENDER_NUMBER_NOTE: OverviewNote = {
   items: [],
 };
 
+const SNS_LOGIN_NOTE: OverviewNote = {
+  id: "sns-login-note",
+  desc: [
+    {
+      title: "선행 개발 필요사항",
+      list: [
+        {
+          body: "네이버 로그인 플러스 연동 완료 여부(Client ID/Secret 등록 상태)를 조회할 수 있는 기능이 먼저 개발되어야 합니다.",
+        },
+        {
+          body: "카카오 4개 키값 저장 시, 값이 실제로 유효한지(형식 검증 등)까지는 필요 없으며, 4개 필드가 모두 비어있지 않은지만 확인하면 됩니다.",
+        },
+      ],
+    },
+    {
+      title: "완료 조건",
+      body: "아래 둘 중 하나라도 충족되면 이 항목을 완료 처리합니다.",
+      list: [
+        {
+          heading: "네이버 경로",
+          body: "\"네이버 로그인 플러스 신청하기\" 클릭을 통해 실제 연동 완료(Client ID/Secret 발급 및 등록)가 데이터로 확인되는 경우",
+        },
+        {
+          heading: "카카오 경로",
+          body: "카카오 4개 키값(네이티브 앱 키, REST API 키, JavaScript 키, Client Secret 코드)이 모두 입력된 상태로 \"저장\" 버튼을 클릭하는 경우",
+        },
+      ],
+    },
+    {
+      title: "비고",
+      body: "두 서비스 중 하나만 연동해도 \"고객이 SNS로 로그인할 수 있다\"는 기능 목적은 달성되므로, 둘 다 연동할 필요는 없습니다.",
+    },
+  ],
+  items: [],
+};
+
 const SEO_SETTINGS_NOTE: OverviewNote = {
   id: "seo-settings-note",
   desc: [
@@ -224,6 +260,7 @@ const CHECKLIST_ITEM_NOTES: Record<number, OverviewNote> = {
   3: PRODUCT_REGISTRATION_NOTE, // 상품 등록하기
   5: BUSINESS_INFO_NOTE, // 사업자 정보 등록
   6: SENDER_NUMBER_NOTE, // 발신번호 신청하기
+  7: SNS_LOGIN_NOTE, // SNS 간편 로그인 등록하기
   9: SEO_SETTINGS_NOTE, // SEO 설정하기
   11: CRM_SETTINGS_NOTE, // CRM 설정하기
   12: LIVE_COMMERCE_NOTE, // 라이브커머스 설정하기
@@ -276,7 +313,8 @@ export default function ProcessOverview() {
                                 {title}
                               </p>
                             ) : null}
-                            <ol className={title ? "mt-1 space-y-1.5" : "space-y-1.5"}>
+                            {body ? <p className="mt-1">{body}</p> : null}
+                            <ol className={title || body ? "mt-1 space-y-1.5" : "space-y-1.5"}>
                               {list.map((entry, i) => (
                                 <li key={entry.heading ?? entry.body}>
                                   <span className="font-semibold">{i + 1}. </span>
