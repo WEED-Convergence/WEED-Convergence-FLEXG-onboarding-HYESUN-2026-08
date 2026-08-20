@@ -158,6 +158,21 @@ const CRM_SETTINGS_NOTE: OverviewNote = {
   items: [],
 };
 
+const SECURITY_SETTINGS_NOTE: OverviewNote = {
+  id: "security-settings-note",
+  desc: [
+    {
+      title: "완료 조건",
+      body: "4개 설정 항목(2단계 인증, 중복 로그인 제한, 로그인 실패 횟수 제한, 세션 만료 시간)은 기본값이 이미 선택되어 있는 상태이며, 판매자가 \"저장\" 버튼을 클릭하는 시점에 완료 처리합니다.",
+    },
+    {
+      title: "비고",
+      body: "값을 실제로 변경했는지 여부와 무관하게, 기본값 그대로 저장해도 완료로 인정합니다.",
+    },
+  ],
+  items: [],
+};
+
 const CASH_RECEIPT_NOTE: OverviewNote = {
   id: "cash-receipt-note",
   desc: [
@@ -212,6 +227,7 @@ const CHECKLIST_ITEM_NOTES: Record<number, OverviewNote> = {
   9: SEO_SETTINGS_NOTE, // SEO 설정하기
   11: CRM_SETTINGS_NOTE, // CRM 설정하기
   12: LIVE_COMMERCE_NOTE, // 라이브커머스 설정하기
+  16: SECURITY_SETTINGS_NOTE, // 보안 설정하기
   17: CASH_RECEIPT_NOTE, // 현금영수증 설정하기
   15: TERMS_CHECK_NOTE, // 약관 확인하기
 };
