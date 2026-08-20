@@ -6,7 +6,7 @@ interface MessageCardData {
   id: number;
   badgeLines: string[];
   category: "정보성" | "마케팅성";
-  icon: "check" | "exclamation";
+  icon: "check" | "exclamation" | "x";
   imageBg: string;
   iconColor: string;
   sender: string;
@@ -75,6 +75,21 @@ const cards: MessageCardData[] = [
     footnote:
       "결제준비·운영필수가 모두 완료된 상태라면 이 메시지 대신 별도의 '오픈 가능 안내' 메시지가 발송됩니다.",
   },
+  {
+    id: 5,
+    badgeLines: [
+      "발송 조건: PG사로부터 반려 처리된 경우",
+      "발송 횟수: 반려 처리될 때마다 발송 (재신청 후 재반려 시 재발송)",
+    ],
+    category: "정보성",
+    icon: "x",
+    imageBg: "#FBEAF0",
+    iconColor: "#D8342A",
+    sender: "플렉스지 · 진행상황 안내",
+    title: "PG 신청이 반려되었어요",
+    body: "사유를 확인하신 후 다시 신청해 주세요.",
+    button: "다시 신청하기",
+  },
 ];
 
 function CheckIcon({ color }: { color: string }) {
@@ -95,6 +110,17 @@ function ExclamationIcon({ color }: { color: string }) {
         <circle cx="12" cy="12" r="9" />
         <path d="M12 7.5V13" strokeLinecap="round" />
         <circle cx="12" cy="16.3" r="1" fill={color} stroke="none" />
+      </svg>
+    </span>
+  );
+}
+
+function XIcon({ color }: { color: string }) {
+  return (
+    <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke={color} strokeWidth="2">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M9 9L15 15M15 9L9 15" strokeLinecap="round" />
       </svg>
     </span>
   );
@@ -134,8 +160,10 @@ function MessageCard({ card }: { card: MessageCardData }) {
         <div className="flex h-[100px] items-center justify-center" style={{ backgroundColor: card.imageBg }}>
           {card.icon === "check" ? (
             <CheckIcon color={card.iconColor} />
-          ) : (
+          ) : card.icon === "exclamation" ? (
             <ExclamationIcon color={card.iconColor} />
+          ) : (
+            <XIcon color={card.iconColor} />
           )}
         </div>
         <div className="px-3.5 py-3">
