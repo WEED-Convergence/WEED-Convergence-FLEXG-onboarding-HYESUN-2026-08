@@ -2168,7 +2168,7 @@ export default function ChecklistPanel() {
             >
               <InfoIcon color="#D8342A" />
               <p className="text-[12px] font-semibold leading-relaxed" style={{ color: "#993556" }}>
-                현금영수증은 팝빌 서비스(유료) 이용 시에만 적용 가능합니다.
+                현금영수증은 팝빌 서비스 이용 시에만 적용 가능합니다.
               </p>
             </div>
           )}
