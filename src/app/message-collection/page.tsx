@@ -4,7 +4,8 @@ export const metadata = {
 
 interface MessageCardData {
   id: number;
-  badgeLines: string[];
+  condition: string;
+  count: string;
   category: "정보성" | "마케팅성";
   icon: "check" | "exclamation" | "x" | "home";
   imageBg: string;
@@ -20,10 +21,8 @@ interface MessageCardData {
 const cards: MessageCardData[] = [
   {
     id: 1,
-    badgeLines: [
-      "발송 조건: 회원가입 심사가 승인 처리된 즉시",
-      "발송 횟수: 조건 충족 시 최대 1회",
-    ],
+    condition: "회원가입 승인 처리 즉시",
+    count: "조건 충족 시 최대 1회",
     category: "정보성",
     icon: "check",
     imageBg: "#E1F5EE",
@@ -35,10 +34,8 @@ const cards: MessageCardData[] = [
   },
   {
     id: 2,
-    badgeLines: [
-      "발송 조건: 회원가입 승인 완료 후 24시간 경과 + 템플릿 선택 미완료",
-      "발송 횟수: 조건 충족 시 최대 1회",
-    ],
+    condition: "승인 후 24시간 경과, 템플릿 미선택",
+    count: "조건 충족 시 최대 1회",
     category: "마케팅성",
     icon: "home",
     imageBg: "#F1EFE8",
@@ -51,10 +48,8 @@ const cards: MessageCardData[] = [
   },
   {
     id: 3,
-    badgeLines: [
-      "발송 조건: 회원가입 승인 완료 후 3일 경과 + PG 신청 미완료",
-      "발송 횟수: 조건 충족 시 최대 1회",
-    ],
+    condition: "승인 후 3일 경과, PG 신청 미완료",
+    count: "조건 충족 시 최대 1회",
     category: "마케팅성",
     icon: "exclamation",
     imageBg: "#FAEEDA",
@@ -67,10 +62,8 @@ const cards: MessageCardData[] = [
   },
   {
     id: 4,
-    badgeLines: [
-      "발송 조건: PG 신청 완료 처리 시점, 결제준비 또는 운영필수 카테고리 중 미완료 항목이 남아있는 경우",
-      "발송 횟수: 조건 충족 시 최대 1회",
-    ],
+    condition: "PG 신청 완료 시, 결제준비·운영필수 미완료 항목 존재",
+    count: "조건 충족 시 최대 1회",
     category: "정보성",
     icon: "check",
     imageBg: "#E1F5EE",
@@ -84,10 +77,8 @@ const cards: MessageCardData[] = [
   },
   {
     id: 5,
-    badgeLines: [
-      "발송 조건: PG사로부터 반려 처리 통보를 받은 시점",
-      "발송 횟수: 반려 처리될 때마다 발송 (재신청 후 다시 반려되면 재발송)",
-    ],
+    condition: "PG사 반려 통보 시점",
+    count: "반려될 때마다 발송 (재신청 후 다시 반려되면 재발송)",
     category: "정보성",
     icon: "x",
     imageBg: "#FBEAF0",
@@ -99,10 +90,8 @@ const cards: MessageCardData[] = [
   },
   {
     id: 6,
-    badgeLines: [
-      "발송 조건: 회원가입 승인 완료 후 5일 경과 + 결제준비 또는 운영필수 카테고리 중 미완료 항목 존재",
-      "발송 횟수: 조건 충족 시 최대 1회",
-    ],
+    condition: "승인 후 5일 경과, 결제준비·운영필수 미완료 항목 존재",
+    count: "조건 충족 시 최대 1회",
     category: "마케팅성",
     icon: "check",
     imageBg: "#E6F1FB",
@@ -115,10 +104,8 @@ const cards: MessageCardData[] = [
   },
   {
     id: 7,
-    badgeLines: [
-      "발송 조건: 결제준비, 운영필수 카테고리가 모두 완료 처리된 시점",
-      "발송 횟수: 조건 충족 시 최대 1회",
-    ],
+    condition: "결제준비·운영필수 모두 완료 처리된 시점",
+    count: "조건 충족 시 최대 1회",
     category: "정보성",
     icon: "check",
     imageBg: "#FBEAF0",
@@ -180,21 +167,27 @@ function HomeIcon({ bgColor }: { bgColor: string }) {
 function MessageCard({ card }: { card: MessageCardData }) {
   return (
     <div className="flex w-[230px] flex-col">
-      <span
-        className="mb-3 inline-block w-fit rounded-full font-semibold"
-        style={{
-          backgroundColor: "#FBEAF0",
-          color: "#993556",
-          padding: card.badgeLines.length > 1 ? "5px 12px" : "6px 14px",
-          fontSize: card.badgeLines.length > 1 ? 11 : 12,
-        }}
+      <div
+        className="mb-3 rounded-lg"
+        style={{ border: "1px solid #D3D1C7", backgroundColor: "#F1EFE8", padding: "10px 12px" }}
       >
-        {card.badgeLines.map((line, i) => (
-          <span key={i} className="block">
-            {line}
+        <div className="flex gap-2 pb-2" style={{ borderBottom: "1px solid #D3D1C7" }}>
+          <span className="w-8 shrink-0 text-[10px] font-bold" style={{ color: "#2C2C2A" }}>
+            조건
           </span>
-        ))}
-      </span>
+          <span className="text-[10px] font-medium" style={{ color: "#3B3A36" }}>
+            {card.condition}
+          </span>
+        </div>
+        <div className="flex gap-2 pt-2">
+          <span className="w-8 shrink-0 text-[10px] font-bold" style={{ color: "#2C2C2A" }}>
+            횟수
+          </span>
+          <span className="text-[10px] font-medium" style={{ color: "#3B3A36" }}>
+            {card.count}
+          </span>
+        </div>
+      </div>
 
       <span
         className="mb-2 inline-block w-fit rounded-full px-2 py-0.5 text-[11px] font-medium"
@@ -248,7 +241,7 @@ export default function MessageCollectionPage() {
     <div>
       <p className="text-[15px] font-semibold text-[var(--text-primary)]">메시지 모음</p>
 
-      <div className="mt-6 flex flex-wrap gap-5">
+      <div className="mt-6 grid grid-cols-[repeat(4,230px)] gap-4">
         {cards.map((card) => (
           <MessageCard key={card.id} card={card} />
         ))}
