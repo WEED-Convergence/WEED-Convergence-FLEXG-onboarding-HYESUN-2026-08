@@ -95,6 +95,17 @@ const SENDER_NUMBER_NOTE: OverviewNote = {
   items: [],
 };
 
+const SEO_SETTINGS_NOTE: OverviewNote = {
+  id: "seo-settings-note",
+  desc: [
+    {
+      title: "완료 조건",
+      body: "메타태그 제목·설명·키워드, 오픈그래프 제목·설명·이미지 6개 항목이 모두 입력·저장되어야 완료 처리합니다. 하나라도 비어있으면 미완료로 유지합니다.",
+    },
+  ],
+  items: [],
+};
+
 const TERMS_CHECK_NOTE: OverviewNote = {
   id: "terms-check-note",
   desc: [
@@ -161,6 +172,7 @@ const CHECKLIST_ITEM_NOTES: Record<number, OverviewNote> = {
   3: PRODUCT_REGISTRATION_NOTE, // 상품 등록하기
   5: BUSINESS_INFO_NOTE, // 사업자 정보 등록
   6: SENDER_NUMBER_NOTE, // 발신번호 신청하기
+  9: SEO_SETTINGS_NOTE, // SEO 설정하기
   11: CRM_SETTINGS_NOTE, // CRM 설정하기
   12: LIVE_COMMERCE_NOTE, // 라이브커머스 설정하기
   15: TERMS_CHECK_NOTE, // 약관 확인하기
