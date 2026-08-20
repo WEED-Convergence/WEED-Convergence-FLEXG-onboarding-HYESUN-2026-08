@@ -125,7 +125,7 @@ const items: ChecklistItemData[] = [
 
 const categories: CategoryData[] = [
   { name: "결제 준비", itemIds: [1, 2, 3, 5] },
-  { name: "운영 필수", itemIds: [6, 8, 7, 17] },
+  { name: "운영 필수", itemIds: [6, 8, 17, 7] },
   { name: "권장 설정", itemIds: [9, 10, 15, 16] },
   { name: "매출 확장", itemIds: [11, 12] },
 ];
