@@ -1016,6 +1016,9 @@ function SecuritySettingsForm() {
               <p className="mt-1.5 text-[10px] text-[var(--text-muted)]">
                 ⓘ 사용 시 모든 부계정에도 동일하게 적용됩니다.
               </p>
+              <p className="mt-1 text-[10px] text-[var(--text-muted)]">
+                ⓘ 발신번호 및 알림톡 설정이 완료되어야 합니다.
+              </p>
             </div>
           </div>
 
