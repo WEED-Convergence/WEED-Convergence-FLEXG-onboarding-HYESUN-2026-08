@@ -119,39 +119,52 @@ const CRM_SETTINGS_NOTE: OverviewNote = {
   items: [],
 };
 
+const LIVE_COMMERCE_NOTE: OverviewNote = {
+  id: "live-commerce-note",
+  desc: [
+    {
+      title: "완료 조건",
+      body: "판매자가 화면 내 \"더 알아보기\" 버튼을 1회 이상 클릭하면 즉시 완료 처리합니다.",
+    },
+    {
+      title: "비고",
+      body: "실제로 라이브 방송을 개설했는지, 라이브커머스 기능을 실제 사용 중인지는 완료 조건에 포함하지 않습니다.",
+    },
+    {
+      title: "전체 가이드 보기",
+      body: "https://guide.flexgate.co.kr/live 새창열림",
+    },
+    {
+      title: "지금 시작하기",
+      body: "/Live/LiveSetting 새창열림",
+    },
+  ],
+  items: [],
+};
+
 const CHECKLIST_PLACEHOLDER_NOTE: OverviewNote = {
   id: "checklist-item-placeholder",
   desc: ["정책 준비중입니다."],
   items: [],
 };
 
-// PG 신청하기(id: 1), 상품 등록하기(id: 3), 사업자 정보 등록(id: 5), 발신번호 신청하기(id: 6),
-// 약관 확인하기(id: 15), CRM 설정하기(id: 11)만 화면설명이 작성되어 있고, 나머지 항목은 플레이스홀더로 대체.
-const PG_APPLICATION_ITEM_ID = 1;
-const PRODUCT_REGISTRATION_ITEM_ID = 3;
-const BUSINESS_INFO_ITEM_ID = 5;
-const SENDER_NUMBER_ITEM_ID = 6;
-const TERMS_CHECK_ITEM_ID = 15;
-const CRM_SETTINGS_ITEM_ID = 11;
+// 화면설명이 작성된 체크리스트 항목만 여기 등록하고, 나머지는 플레이스홀더로 대체.
+const CHECKLIST_ITEM_NOTES: Record<number, OverviewNote> = {
+  1: PG_APPLICATION_NOTE, // PG 신청하기
+  3: PRODUCT_REGISTRATION_NOTE, // 상품 등록하기
+  5: BUSINESS_INFO_NOTE, // 사업자 정보 등록
+  6: SENDER_NUMBER_NOTE, // 발신번호 신청하기
+  11: CRM_SETTINGS_NOTE, // CRM 설정하기
+  12: LIVE_COMMERCE_NOTE, // 라이브커머스 설정하기
+  15: TERMS_CHECK_NOTE, // 약관 확인하기
+};
 
 export default function ProcessOverview() {
   const pathname = usePathname();
   const { selectedChecklistItemId } = useSelectedChecklistItem();
 
   const checklistPopupNote =
-    selectedChecklistItemId === PG_APPLICATION_ITEM_ID
-      ? PG_APPLICATION_NOTE
-      : selectedChecklistItemId === PRODUCT_REGISTRATION_ITEM_ID
-        ? PRODUCT_REGISTRATION_NOTE
-        : selectedChecklistItemId === CRM_SETTINGS_ITEM_ID
-          ? CRM_SETTINGS_NOTE
-          : selectedChecklistItemId === BUSINESS_INFO_ITEM_ID
-            ? BUSINESS_INFO_NOTE
-            : selectedChecklistItemId === SENDER_NUMBER_ITEM_ID
-              ? SENDER_NUMBER_NOTE
-              : selectedChecklistItemId === TERMS_CHECK_ITEM_ID
-                ? TERMS_CHECK_NOTE
-                : CHECKLIST_PLACEHOLDER_NOTE;
+    CHECKLIST_ITEM_NOTES[selectedChecklistItemId] ?? CHECKLIST_PLACEHOLDER_NOTE;
 
   const notes: OverviewNote[] | undefined =
     pathname === "/open-checklist-popup" ? [checklistPopupNote] : staticOverviewNotes[pathname];

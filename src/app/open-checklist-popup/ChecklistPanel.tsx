@@ -1525,7 +1525,7 @@ function LiveCommerceForm() {
           건너뛰기
         </button>
         <button type="button" className={primaryButtonClass}>
-          더 알아보기
+          지금 시작하기
         </button>
       </div>
     </div>
