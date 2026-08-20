@@ -139,14 +139,6 @@ const PG_STATUS: PgStatus = "신청접수";
 
 const PG_REJECTION_REASON = "제출하신 서류 정보가 사업자등록증과 일치하지 않습니다.";
 
-const PG_STATUS_CODE: Record<PgStatus, number> = {
-  미신청: 1,
-  신청접수: 2,
-  심사중: 3,
-  승인완료: 4,
-  반려: 5,
-};
-
 const pgStatusConfig: Record<
   PgStatus,
   {
@@ -209,21 +201,6 @@ function PgStatusCircle({ status, active }: { status: PgStatus; active: boolean 
   );
 }
 
-function PgStatusNumberBadge({ status, size }: { status: PgStatus; size?: "sm" | "lg" }) {
-  const badge = pgStatusConfig[status].badge ?? { bg: "var(--divider)", color: "var(--text-muted)" };
-  const large = size === "lg";
-  return (
-    <span
-      className={`inline-flex shrink-0 items-center justify-center rounded-full font-bold ${
-        large ? "h-[18px] min-w-[18px] px-1.5 text-[11px]" : "h-[14px] min-w-[14px] px-1 text-[9px]"
-      }`}
-      style={{ backgroundColor: "rgba(255,255,255,0.55)", color: badge.color }}
-    >
-      {PG_STATUS_CODE[status]}
-    </span>
-  );
-}
-
 function PgStatusLabel({ status }: { status: PgStatus }) {
   const badge = pgStatusConfig[status].badge ?? { bg: "var(--divider)", color: "var(--text-muted)" };
   return (
@@ -232,7 +209,6 @@ function PgStatusLabel({ status }: { status: PgStatus }) {
       style={{ backgroundColor: badge.bg, color: badge.color, padding: "3px 8px", border: `1px solid ${badge.color}` }}
     >
       {status}
-      <PgStatusNumberBadge status={status} />
     </span>
   );
 }
@@ -252,7 +228,6 @@ function PgStatusBadge({ status }: { status: PgStatus }) {
       }}
     >
       {status}
-      <PgStatusNumberBadge status={status} size="lg" />
     </span>
   );
 }
@@ -600,12 +575,12 @@ function ProductSampleForm() {
         </div>
 
         <div className="mt-6 flex justify-center gap-[10px]">
+          <button type="button" className={secondaryButtonClass}>
+            가이드
+          </button>
           <button type="button" className={`flex items-center gap-1.5 ${primaryButtonClass}`}>
             상품 목록으로
             <ExternalLinkIcon />
-          </button>
-          <button type="button" className={secondaryButtonClass}>
-            가이드
           </button>
         </div>
       </DetailCard>
@@ -904,7 +879,7 @@ function CampaignSettingsForm() {
           건너뛰기
         </button>
         <button type="button" className={primaryButtonClass}>
-          더 알아보기
+          지금 시작하기
         </button>
       </div>
     </div>
@@ -940,21 +915,6 @@ function TermsCheckForm() {
 
         <div className="mt-4">
           <TermsIllustration />
-        </div>
-
-        <div
-          className="mt-5 flex items-start gap-2 rounded-lg px-3.5 py-3 text-left"
-          style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
-        >
-          <InfoIcon />
-          <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
-            <span className="font-semibold">
-              편의를 위해 제공해드리는 전자상거래 표준 양식이 등록되어 있어요.
-            </span>
-            <br />
-            내 쇼핑몰에 맞게 <span className="font-semibold">이용약관 · 개인정보처리방침 안내</span> 등을
-            확인하고 수정해 보세요.
-          </p>
         </div>
 
         <div className="mt-6 flex justify-center">
@@ -1955,18 +1915,24 @@ function CashReceiptForm() {
             </div>
           )}
         </div>
+
+        <div className="mt-6 flex justify-center gap-[10px]">
+          <button type="button" className={secondaryButtonClass}>
+            초기화
+          </button>
+          <button
+            type="button"
+            className={primaryButtonClass}
+            style={{ backgroundColor: "#2C2C2A" }}
+          >
+            저장
+          </button>
+        </div>
       </DetailCard>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
           건너뛰기
-        </button>
-        <button
-          type="button"
-          className={primaryButtonClass}
-          style={{ backgroundColor: "#2C2C2A" }}
-        >
-          저장
         </button>
       </div>
     </div>
@@ -2206,6 +2172,23 @@ export default function ChecklistPanel() {
               <InfoIcon color="#D8342A" />
               <p className="text-[12px] font-semibold leading-relaxed" style={{ color: "#993556" }}>
                 현금영수증은 팝빌 서비스(유료) 이용 시에만 적용 가능합니다.
+              </p>
+            </div>
+          )}
+
+          {selected.id === 15 && (
+            <div
+              className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3 text-left"
+              style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+            >
+              <InfoIcon />
+              <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
+                <span className="font-semibold">
+                  편의를 위해 제공해드리는 전자상거래 표준 양식이 등록되어 있어요.
+                </span>
+                <br />
+                내 쇼핑몰에 맞게 <span className="font-semibold">이용약관 · 개인정보처리방침 안내</span> 등을
+                확인하고 수정해 보세요.
               </p>
             </div>
           )}
