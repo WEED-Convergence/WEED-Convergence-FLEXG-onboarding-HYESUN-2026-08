@@ -172,18 +172,18 @@ function MessageCard({ card }: { card: MessageCardData }) {
         style={{ border: "1px solid #D3D1C7", backgroundColor: "#F1EFE8", padding: "10px 12px" }}
       >
         <div className="flex gap-2 pb-2" style={{ borderBottom: "1px solid #D3D1C7" }}>
-          <span className="w-8 shrink-0 text-[10px] font-bold" style={{ color: "#2C2C2A" }}>
+          <span className="w-10 shrink-0 text-[15px] font-bold" style={{ color: "#2C2C2A" }}>
             조건
           </span>
-          <span className="text-[10px] font-medium" style={{ color: "#3B3A36" }}>
+          <span className="text-[15px] font-medium" style={{ color: "#3B3A36" }}>
             {card.condition}
           </span>
         </div>
         <div className="flex gap-2 pt-2">
-          <span className="w-8 shrink-0 text-[10px] font-bold" style={{ color: "#2C2C2A" }}>
+          <span className="w-10 shrink-0 text-[15px] font-bold" style={{ color: "#2C2C2A" }}>
             횟수
           </span>
-          <span className="text-[10px] font-medium" style={{ color: "#3B3A36" }}>
+          <span className="text-[15px] font-medium" style={{ color: "#3B3A36" }}>
             {card.count}
           </span>
         </div>
