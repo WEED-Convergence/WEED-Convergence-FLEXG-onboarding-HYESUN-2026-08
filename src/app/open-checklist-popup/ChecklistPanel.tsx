@@ -114,11 +114,18 @@ const items: ChecklistItemData[] = [
     previewTitle: "라이브 설정",
     previewRows: ["방송 채널: 미연동", "판매 상품: 미지정"],
   },
+  {
+    id: 17,
+    title: "현금영수증 설정하기",
+    description: "",
+    previewTitle: "현금영수증 설정",
+    previewRows: ["현금영수증 발행: 미설정"],
+  },
 ];
 
 const categories: CategoryData[] = [
   { name: "결제 준비", itemIds: [1, 2, 3, 5] },
-  { name: "운영 필수", itemIds: [6, 8, 7] },
+  { name: "운영 필수", itemIds: [6, 8, 7, 17] },
   { name: "권장 설정", itemIds: [9, 10, 15, 16] },
   { name: "매출 확장", itemIds: [11, 12] },
 ];
@@ -261,14 +268,14 @@ function RequiredMark() {
   return <span className="mr-1 text-[var(--success)]">✔</span>;
 }
 
-function InfoIcon() {
+function InfoIcon({ color = "var(--accent)" }: { color?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
       width="16"
       height="16"
       fill="none"
-      stroke="var(--accent)"
+      stroke={color}
       strokeWidth="2"
       className="mt-0.5 shrink-0"
     >
@@ -1815,6 +1822,232 @@ function PopbillForm() {
   );
 }
 
+const cashReceiptAutoIssueNotices = [
+  "일반 가상계좌, 에스크로 가상계좌, 무통장입금 결제 건에 대해 자동 발행이 진행됩니다.",
+  "구매자가 현금영수증을 신청하지 않거나 발행번호를 입력하지 않은 경우에는 국세청 지정 코드(010-000-1234)로 자진 발행 처리됩니다.",
+  "현금영수증은 입금확인 또는 배송완료 시 면세/과세를 구분하여 자동 발행됩니다.",
+  "취소/반품완료 시 이미 발행된 현금영수증이 있으면 자동 취소됩니다.",
+  "부분취소 시 이미 발행된 현금영수증이 있으면 취소 후 남은 금액만큼 재발행됩니다.",
+];
+
+const cashReceiptMandatoryNotices = [
+  {
+    text: "현금영수증 의무발행업종 사업자가 건당 거래금액(부가가치세 포함)이 10만원 이상인 재화 또는 용역을 공급하고, 그 대금을 현금으로 받은 경우에는 소비자가 발행을 요청하지 않더라도 현금영수증을 발행해야 합니다.",
+  },
+  {
+    text: "현금영수증을 미발행할 경우 2018.12.31. 이전 발행의무 위반분은 미발행금액의 50% 과태료(구 조세범처벌법 제15조), 2019.1.1. 이후 발행의무 위반분은 미발행금액의 20% 가산세 부과(소득세법 제81조의9, 법인세법 제75조의6)",
+    color: "#D8342A",
+  },
+  {
+    text: "소비자가 현금영수증 발행을 원하지 않거나 소비자의 인적사항을 모르는 경우에도 현금을 받은 날부터 5일 이내 국세청 지정 코드(010-000-1234)로 자진발행 해야 합니다.",
+  },
+];
+
+function CashReceiptForm() {
+  const [cashReceiptEnabled, setCashReceiptEnabled] = useState(true);
+  const [defaultOption, setDefaultOption] = useState("개인소득공제");
+  const [autoIssueBasis, setAutoIssueBasis] = useState("배송완료");
+  const [voluntaryIssueCondition, setVoluntaryIssueCondition] = useState("10만원 이상의 결제건");
+  const [noticeOpen, setNoticeOpen] = useState(false);
+
+  return (
+    <div className="mt-6 w-full">
+      <DetailCard>
+        <SubsectionTitle>현금영수증 설정</SubsectionTitle>
+
+        <div className="mt-4 space-y-5">
+          <div className="flex items-start gap-4">
+            <span className="w-[120px] shrink-0 pt-[2px] text-[13px] font-medium text-[var(--text-primary)]">
+              팝빌 가입정보
+            </span>
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-[12px]" style={{ color: "#888780" }}>
+                  가입정보가 없습니다.
+                </span>
+                <button
+                  type="button"
+                  className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
+                  style={{ backgroundColor: "#5F5E5A" }}
+                >
+                  팝빌가입하기
+                </button>
+              </div>
+              <p className="mt-1.5 text-[10px] text-[var(--text-muted)]">
+                ⓘ 가입된 사업자번호인 경우 플렉스지 고객센터로 문의해 주세요.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <span className="w-[120px] shrink-0 pt-[2px] text-[13px] font-medium text-[var(--text-primary)]">
+              현금영수증
+            </span>
+            <div className="flex-1">
+              <ToggleSwitch
+                checked={cashReceiptEnabled}
+                onChange={() => setCashReceiptEnabled((v) => !v)}
+              />
+              <p className="mt-1.5 text-[10px] text-[var(--text-muted)]">
+                ⓘ 반드시 현금영수증 발급 기준을 확인하여 설정해 주세요.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <span className="w-[120px] shrink-0 pt-[2px] text-[13px] font-medium text-[var(--text-primary)]">
+              주문/결제 기본값
+            </span>
+            <div className="flex-1">
+              <div className="flex items-center gap-4">
+                <RadioOption
+                  name="cashReceiptDefaultOption"
+                  label="개인소득공제"
+                  checked={defaultOption === "개인소득공제"}
+                  onChange={() => setDefaultOption("개인소득공제")}
+                />
+                <RadioOption
+                  name="cashReceiptDefaultOption"
+                  label="미신청"
+                  checked={defaultOption === "미신청"}
+                  onChange={() => setDefaultOption("미신청")}
+                />
+              </div>
+              <p className="mt-1.5 text-[10px] text-[var(--text-muted)]">
+                ⓘ 주문/결제 페이지 현금영수증 신청 항목의 기본 선택값입니다.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <span className="w-[120px] shrink-0 pt-[2px] text-[13px] font-medium text-[var(--text-primary)]">
+              자동 발행 기준
+            </span>
+            <div className="flex-1">
+              <div className="flex items-center gap-4">
+                <RadioOption
+                  name="cashReceiptAutoIssueBasis"
+                  label="입금확인"
+                  checked={autoIssueBasis === "입금확인"}
+                  onChange={() => setAutoIssueBasis("입금확인")}
+                />
+                <RadioOption
+                  name="cashReceiptAutoIssueBasis"
+                  label="배송완료"
+                  checked={autoIssueBasis === "배송완료"}
+                  onChange={() => setAutoIssueBasis("배송완료")}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <span className="w-[120px] shrink-0 pt-[2px] text-[13px] font-medium text-[var(--text-primary)]">
+              자진 발행 조건
+            </span>
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center gap-4">
+                <RadioOption
+                  name="cashReceiptVoluntaryIssueCondition"
+                  label="1원 이상의 결제건"
+                  checked={voluntaryIssueCondition === "1원 이상의 결제건"}
+                  onChange={() => setVoluntaryIssueCondition("1원 이상의 결제건")}
+                />
+                <RadioOption
+                  name="cashReceiptVoluntaryIssueCondition"
+                  label="10만원 이상의 결제건"
+                  checked={voluntaryIssueCondition === "10만원 이상의 결제건"}
+                  onChange={() => setVoluntaryIssueCondition("10만원 이상의 결제건")}
+                />
+                <RadioOption
+                  name="cashReceiptVoluntaryIssueCondition"
+                  label="발행 안함"
+                  checked={voluntaryIssueCondition === "발행 안함"}
+                  onChange={() => setVoluntaryIssueCondition("발행 안함")}
+                />
+              </div>
+              <p className="mt-1.5 text-[10px] text-[var(--text-muted)]">
+                ⓘ 구매자가 현금영수증을 신청하지 않거나 발행번호를 입력하지 않은 경우의 자진 발행
+                조건입니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="mt-5 rounded-[8px] px-4 py-[14px]"
+          style={{ border: "1px solid #E4E2D8", backgroundColor: "#FAF9F5" }}
+        >
+          <button
+            type="button"
+            onClick={() => setNoticeOpen((v) => !v)}
+            className="flex w-full items-center justify-between"
+          >
+            <p className="text-[12px] font-bold" style={{ color: "#2C2C2A" }}>
+              ⓘ 유의사항
+            </p>
+            <span
+              style={{
+                display: "inline-flex",
+                transform: noticeOpen ? "rotate(90deg)" : "rotate(0deg)",
+                transition: "transform 0.2s",
+              }}
+            >
+              <ChevronRightIcon />
+            </span>
+          </button>
+
+          {noticeOpen && (
+            <div className="mt-3 space-y-4">
+              <div>
+                <p className="text-[11px] font-bold" style={{ color: "#3B3A36" }}>
+                  현금영수증 자동 발행 안내
+                </p>
+                <div className="mt-1">
+                  {cashReceiptAutoIssueNotices.map((text) => (
+                    <p key={text} className="text-[11px]" style={{ color: "#5F5E5A", lineHeight: 1.8 }}>
+                      · {text}
+                    </p>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-[11px] font-bold" style={{ color: "#3B3A36" }}>
+                  현금영수증 발행의무(의무발행업종) 안내
+                </p>
+                <div className="mt-1">
+                  {cashReceiptMandatoryNotices.map((notice) => (
+                    <p
+                      key={notice.text}
+                      className="text-[11px]"
+                      style={{ color: notice.color ?? "#5F5E5A", lineHeight: 1.8 }}
+                    >
+                      · {notice.text}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </DetailCard>
+
+      <div className="mt-6 flex justify-center gap-[10px]">
+        <button type="button" className={secondaryButtonClass}>
+          건너뛰기
+        </button>
+        <button
+          type="button"
+          className={primaryButtonClass}
+          style={{ backgroundColor: "#2C2C2A" }}
+        >
+          저장하기
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ChecklistPanel() {
   const { selectedChecklistItemId: selectedId, setSelectedChecklistItemId: setSelectedId } =
     useSelectedChecklistItem();
@@ -1914,7 +2147,7 @@ export default function ChecklistPanel() {
           <div className="pr-6">
             <div className="flex items-center justify-between">
               <span className="text-[12px] text-[var(--text-muted)]">전체 진행률</span>
-              <span className="text-[12px] text-[var(--text-muted)]">0/13개 · 0%</span>
+              <span className="text-[12px] text-[var(--text-muted)]">0/14개 · 0%</span>
             </div>
             <div className="mt-1.5 h-[5px] w-full rounded-full bg-[var(--divider)]">
               <div className="h-[5px] rounded-full bg-[var(--accent)]" style={{ width: "0%" }} />
@@ -2040,6 +2273,18 @@ export default function ChecklistPanel() {
             </div>
           )}
 
+          {selected.id === 17 && (
+            <div
+              className="mt-3 flex items-start gap-2 rounded-lg px-3.5 py-3"
+              style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
+            >
+              <InfoIcon color="#D8342A" />
+              <p className="text-[12px] font-semibold leading-relaxed" style={{ color: "#993556" }}>
+                현금영수증은 팝빌 서비스(유료) 이용 시에만 적용 가능합니다.
+              </p>
+            </div>
+          )}
+
           {selected.id === 5 ? (
             <BusinessInfoForm />
           ) : selected.id === 2 ? (
@@ -2066,6 +2311,8 @@ export default function ChecklistPanel() {
             <SeoSettingsForm />
           ) : selected.id === 7 ? (
             <SnsLoginForm />
+          ) : selected.id === 17 ? (
+            <CashReceiptForm />
           ) : (
             <div className="mt-4 w-full">
               <DetailCard>
