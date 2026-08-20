@@ -80,13 +80,6 @@ const items: ChecklistItemData[] = [
     previewRows: ["페이지 제목: 이수모 스토어 - 베이직 캐주얼", "설명: 데일리룩 전문 쇼핑몰"],
   },
   {
-    id: 10,
-    title: "팝빌 신청하기",
-    description: "",
-    previewTitle: "팝빌 연동 신청",
-    previewRows: ["사업자번호: 123-45-...", "정산계좌: 신한 110-..."],
-  },
-  {
     id: 15,
     title: "약관 확인하기",
     description: "",
@@ -126,7 +119,7 @@ const items: ChecklistItemData[] = [
 const categories: CategoryData[] = [
   { name: "결제 준비", itemIds: [1, 2, 3, 5] },
   { name: "운영 필수", itemIds: [6, 8, 17, 7] },
-  { name: "권장 설정", itemIds: [9, 10, 15, 16] },
+  { name: "권장 설정", itemIds: [9, 15, 16] },
   { name: "매출 확장", itemIds: [11, 12] },
 ];
 
@@ -1771,57 +1764,6 @@ function SnsLoginForm() {
   );
 }
 
-function PopbillForm() {
-  return (
-    <div className="mt-6 w-full">
-      <DetailCard>
-        <SubsectionTitle>팝빌 연동 신청</SubsectionTitle>
-
-        <div
-          className="mt-4 flex items-start gap-2 rounded-lg px-3.5 py-3"
-          style={{ border: "1.5px solid #D8342A", backgroundColor: "#FBEAF0" }}
-        >
-          <InfoIcon />
-          <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
-            <span className="font-semibold">팝빌은 무통장입금 확인을 자동화해주는 서비스예요.</span>
-            <br />
-            가입해두면 입금자명을 일일이 대조하지 않아도,{" "}
-            <span className="font-semibold">입금 여부가 자동으로 확인</span>돼요.
-          </p>
-        </div>
-
-        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
-          <span className="text-[12px]" style={{ color: "#3B3A36" }}>
-            팝빌 가입정보
-          </span>
-          <span className="text-[12px]" style={{ color: "#888780" }}>
-            가입정보가 없습니다.
-          </span>
-          <button
-            type="button"
-            className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
-            style={{ backgroundColor: "#5F5E5A" }}
-          >
-            팝빌가입하기
-          </button>
-          <span className="text-[10px] text-[var(--text-muted)]">
-            ⓘ 가입된 사업자번호인 경우 플렉스지 고객센터로 문의해 주세요.
-          </span>
-        </div>
-      </DetailCard>
-
-      <div className="mt-6 flex justify-center gap-[10px]">
-        <button type="button" className={secondaryButtonClass}>
-          건너뛰기
-        </button>
-        <button type="button" className={primaryButtonClass}>
-          더 알아보기
-        </button>
-      </div>
-    </div>
-  );
-}
-
 const cashReceiptAutoIssueNotices = [
   "일반 가상계좌, 에스크로 가상계좌, 무통장입금 결제 건에 대해 자동 발행이 진행됩니다.",
   "구매자가 현금영수증을 신청하지 않거나 발행번호를 입력하지 않은 경우에는 국세청 지정 코드(010-000-1234)로 자진 발행 처리됩니다.",
@@ -2147,7 +2089,7 @@ export default function ChecklistPanel() {
           <div className="pr-6">
             <div className="flex items-center justify-between">
               <span className="text-[12px] text-[var(--text-muted)]">전체 진행률</span>
-              <span className="text-[12px] text-[var(--text-muted)]">0/14개 · 0%</span>
+              <span className="text-[12px] text-[var(--text-muted)]">0/13개 · 0%</span>
             </div>
             <div className="mt-1.5 h-[5px] w-full rounded-full bg-[var(--divider)]">
               <div className="h-[5px] rounded-full bg-[var(--accent)]" style={{ width: "0%" }} />
@@ -2297,8 +2239,6 @@ export default function ChecklistPanel() {
             <CampaignSettingsForm />
           ) : selected.id === 15 ? (
             <TermsCheckForm />
-          ) : selected.id === 10 ? (
-            <PopbillForm />
           ) : selected.id === 16 ? (
             <SecuritySettingsForm />
           ) : selected.id === 6 ? (
