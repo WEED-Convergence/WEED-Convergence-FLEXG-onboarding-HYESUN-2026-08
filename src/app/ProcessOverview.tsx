@@ -93,17 +93,34 @@ const SENDER_NUMBER_NOTE: OverviewNote = {
   items: [],
 };
 
+const TERMS_CHECK_NOTE: OverviewNote = {
+  id: "terms-check-note",
+  desc: [
+    {
+      title: "완료 조건",
+      body: "판매자가 \"약관 보기\" 버튼을 1회 이상 클릭하면 즉시 완료 처리합니다.",
+    },
+    {
+      title: "비고",
+      body: "실제 약관 열람 여부, 열람 시간, 문서 수정 여부는 완료 조건에 포함하지 않습니다.",
+    },
+  ],
+  items: [],
+};
+
 const CHECKLIST_PLACEHOLDER_NOTE: OverviewNote = {
   id: "checklist-item-placeholder",
   desc: ["정책 준비중입니다."],
   items: [],
 };
 
-// PG 신청하기(id: 1), 상품 등록하기(id: 3), 사업자 정보 등록(id: 5), 발신번호 신청하기(id: 6)만 화면설명이 작성되어 있고, 나머지 항목은 플레이스홀더로 대체.
+// PG 신청하기(id: 1), 상품 등록하기(id: 3), 사업자 정보 등록(id: 5), 발신번호 신청하기(id: 6),
+// 약관 확인하기(id: 15)만 화면설명이 작성되어 있고, 나머지 항목은 플레이스홀더로 대체.
 const PG_APPLICATION_ITEM_ID = 1;
 const PRODUCT_REGISTRATION_ITEM_ID = 3;
 const BUSINESS_INFO_ITEM_ID = 5;
 const SENDER_NUMBER_ITEM_ID = 6;
+const TERMS_CHECK_ITEM_ID = 15;
 
 export default function ProcessOverview() {
   const pathname = usePathname();
@@ -118,7 +135,9 @@ export default function ProcessOverview() {
           ? BUSINESS_INFO_NOTE
           : selectedChecklistItemId === SENDER_NUMBER_ITEM_ID
             ? SENDER_NUMBER_NOTE
-            : CHECKLIST_PLACEHOLDER_NOTE;
+            : selectedChecklistItemId === TERMS_CHECK_ITEM_ID
+              ? TERMS_CHECK_NOTE
+              : CHECKLIST_PLACEHOLDER_NOTE;
 
   const notes: OverviewNote[] | undefined =
     pathname === "/open-checklist-popup" ? [checklistPopupNote] : staticOverviewNotes[pathname];

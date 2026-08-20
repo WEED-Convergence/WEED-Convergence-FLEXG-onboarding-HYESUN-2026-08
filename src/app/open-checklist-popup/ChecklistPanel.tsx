@@ -59,7 +59,7 @@ const items: ChecklistItemData[] = [
   },
   {
     id: 7,
-    title: "SNS 간편 로그인 등록하기(카카오, 네이버)",
+    title: "SNS 간편 로그인 등록하기",
     description:
       "고객이 아이디를 새로 만들지 않고, 복잡한 절차 없이 1초 만에 회원가입할 수 있게 해주는 기능이에요. 아래 가이드를 보시면서 순서대로 진행해 주세요.",
     previewTitle: "간편로그인 설정",
@@ -1212,7 +1212,7 @@ function SenderNumberForm() {
               className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
               style={{ backgroundColor: "#D8342A" }}
             >
-              가이드 보기
+              가이드
             </button>
           </div>
         </div>
@@ -1678,7 +1678,7 @@ function SnsLoginForm() {
             className="shrink-0 whitespace-nowrap rounded-[8px] text-[12px] font-medium text-white"
             style={{ backgroundColor: "#D8342A", padding: "10px 20px" }}
           >
-            가이드 보기
+            가이드
           </button>
         </div>
       </div>
@@ -1703,7 +1703,7 @@ function SnsLoginForm() {
             className="shrink-0 whitespace-nowrap rounded-[5px] px-3 py-[6px] text-[11px] font-medium text-white"
             style={{ backgroundColor: "#D8342A" }}
           >
-            가이드 보기
+            가이드
           </button>
         </div>
 
@@ -1733,7 +1733,7 @@ function SnsLoginForm() {
             className={primaryButtonClass}
             style={{ backgroundColor: "#2C2C2A" }}
           >
-            저장하기
+            저장
           </button>
         </div>
       </div>
@@ -1966,7 +1966,7 @@ function CashReceiptForm() {
           className={primaryButtonClass}
           style={{ backgroundColor: "#2C2C2A" }}
         >
-          저장하기
+          저장
         </button>
       </div>
     </div>
@@ -2098,7 +2098,7 @@ export default function ChecklistPanel() {
             <>
               <div className="mt-3 flex items-center gap-2">
                 <h2 className="text-[16px] font-semibold text-[var(--text-primary)]">
-                  {selected.id === 7 ? "SNS 간편 로그인 등록하기" : selected.title}
+                  {selected.title}
                 </h2>
                 {selected.id === 1 ? <PgStatusBadge status={PG_STATUS} /> : null}
               </div>
