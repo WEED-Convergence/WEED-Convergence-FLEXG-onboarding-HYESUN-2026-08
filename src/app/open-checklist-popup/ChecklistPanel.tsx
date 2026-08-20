@@ -599,10 +599,13 @@ function ProductSampleForm() {
           ))}
         </div>
 
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 flex justify-center gap-[10px]">
           <button type="button" className={`flex items-center gap-1.5 ${primaryButtonClass}`}>
             상품 목록으로
             <ExternalLinkIcon />
+          </button>
+          <button type="button" className={secondaryButtonClass}>
+            가이드
           </button>
         </div>
       </DetailCard>
