@@ -245,11 +245,6 @@ const constraints = [
     title: "2. 발송 시간 제한",
     body: "카카오 알림톡·브랜드메시지 정책상 발송이 제한되는 야간 시간대에는 메시지를 발송하지 않습니다. 발송 조건이 이 시간대에 충족되더라도, 가장 가까운 발송 가능 시간으로 이월하여 발송합니다.",
   },
-  {
-    title: "3. 발송 직전 상태 재확인",
-    body: "시간 경과 기반으로 발송되는 메시지(템플릿 미선택 리마인드, PG 미신청 리마인드, 오픈 임박 안내 등)는 배치 처리 시점에 조건 충족 여부를 판단합니다. 이때 발송 직전에 조건을 다시 한번 확인하여, 배치 판단 이후 상태가 이미 바뀐 경우(예: PG 미신청 리마인드 발송 대상이었으나 그 사이 PG 신청을 완료한 경우) 해당 메시지는 발송하지 않습니다.",
-    highlight: true,
-  },
 ];
 
 export default function MessageCollectionPage() {
@@ -267,16 +262,10 @@ export default function MessageCollectionPage() {
         <div className="mt-3 flex flex-col gap-3">
           {constraints.map((item) => (
             <div key={item.title}>
-              <p
-                className="text-[12px] font-bold"
-                style={{ color: item.highlight ? "#D8342A" : "#1A1A1A" }}
-              >
+              <p className="text-[12px] font-bold" style={{ color: "#1A1A1A" }}>
                 {item.title}
               </p>
-              <p
-                className="text-[12px] font-medium"
-                style={{ color: item.highlight ? "#D8342A" : "#1A1A1A", lineHeight: 1.7 }}
-              >
+              <p className="text-[12px] font-medium" style={{ color: "#1A1A1A", lineHeight: 1.7 }}>
                 {item.body}
               </p>
             </div>

@@ -171,8 +171,8 @@ export default function Home() {
       <ArrowDown />
       <MessageBlock
         label="알림톡"
-        title="미진행 리마인드"
-        desc="2단계(템플릿 선택) 미완료 상태 일정시간 지속 시 발송"
+        title="이제 템플릿만 선택하면 돼요"
+        desc="승인 후 24시간 경과 + 템플릿 선택 미완료 시 발송"
       />
       <ArrowDown />
 
@@ -181,12 +181,38 @@ export default function Home() {
       <ArrowDown />
       <MessageBlock
         label="알림톡"
-        title="승인 완료 안내"
-        desc="오픈채팅방 입장 링크 안내"
+        title="회원가입 승인이 완료되었습니다"
+        desc="승인 처리 즉시 발송"
       />
       <ArrowDown label={step3.afterLabel} />
 
+      <p className="text-[11px] font-semibold text-[var(--text-muted)]">PG 신청 관련 알림톡</p>
+      <div className="mt-2 flex flex-wrap justify-center gap-3">
+        <MessageBlock
+          label="알림톡"
+          title="아직 PG 신청을 완료하지 않으셨어요"
+          desc="승인 후 3일 경과 + PG 신청 미완료 시 발송"
+        />
+        <MessageBlock
+          label="알림톡"
+          title="PG 신청이 완료되었어요!"
+          desc="PG 신청 완료 시 (결제준비·운영필수 미완료 항목 존재)"
+        />
+        <MessageBlock
+          label="알림톡"
+          title="PG 신청이 반려되었어요"
+          desc="PG사 반려 통보 시점 발송"
+        />
+      </div>
+      <ArrowDown />
+
       <Box {...step5} />
+      <ArrowDown />
+      <MessageBlock
+        label="알림톡"
+        title="쇼핑몰 오픈까지 얼마 남지 않았어요"
+        desc="승인 후 5일 경과 + 결제준비·운영필수 미완료 항목 존재 시 발송"
+      />
       <ArrowDown />
       <Box {...step6} />
       <ArrowDown />
@@ -197,14 +223,8 @@ export default function Home() {
       <ArrowDown />
       <MessageBlock
         label="알림톡"
-        title="정체구간 리마인드"
-        desc="4~7단계 중 미완료 항목이 며칠 이상 지속 시 발송"
-      />
-      <ArrowDown />
-      <MessageBlock
-        label="알림톡"
-        title="오픈 가능 안내"
-        desc="7단계 완료 직후, 오픈 가능 상태 진입 안내"
+        title="쇼핑몰 오픈 준비가 끝났어요!"
+        desc="결제준비·운영필수 카테고리가 모두 완료 처리된 시점 발송"
       />
       <ArrowDown />
 
