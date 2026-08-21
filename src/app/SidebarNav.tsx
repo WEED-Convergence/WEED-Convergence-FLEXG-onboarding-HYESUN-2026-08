@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 
 const specDocs = [
+  { href: "/policy", label: "정책" },
   { href: "/signup-complete", label: "디자인 템플릿 선택" },
   { href: "/template-preview", label: "템플릿 미리보기" },
   { href: "/approval-pending", label: "승인 대기" },
@@ -10,7 +11,6 @@ const specDocs = [
   { href: "/open-checklist-popup", label: "오픈 체크리스트" },
   { href: "/message-collection", label: "메시지 모음" },
   { href: "/bubble-cases", label: "말풍선 케이스" },
-  { href: "/policy", label: "정책" },
 ];
 
 export default function SidebarNav() {
