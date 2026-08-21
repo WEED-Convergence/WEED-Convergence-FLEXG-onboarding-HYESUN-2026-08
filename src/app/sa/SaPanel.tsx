@@ -6,7 +6,6 @@ import {
   COMPANIES,
   MESSAGE_TEMPLATES,
   PERIOD_OPTIONS,
-  STAGE_CONFIG,
   STATS_BY_PERIOD,
   TOTAL_CHECKLIST_ITEMS,
   daysSince,
@@ -113,13 +112,65 @@ function ProgressCell({ completed }: { completed: number }) {
   );
 }
 
+const statCardStyle: React.CSSProperties = {
+  border: "1px solid #E4E2D8",
+  borderRadius: 8,
+  padding: 14,
+};
+
+function StatCardLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-[12px]" style={{ color: "#888780" }}>
+      {children}
+    </p>
+  );
+}
+
 function StatCard({ label, value, accentColor }: { label: string; value: number; accentColor?: string }) {
   return (
-    <div className="flex flex-col gap-1 rounded-xl border border-[var(--border)] bg-[var(--surface-1)] px-5 py-4">
-      <p className="text-[15px] text-[var(--text-muted)]">{label}</p>
+    <div className="flex flex-col gap-1 bg-[var(--surface-1)]" style={statCardStyle}>
+      <StatCardLabel>{label}</StatCardLabel>
       <p className="text-[25px] font-bold" style={{ color: accentColor ?? "var(--text-primary)" }}>
         {value}건
       </p>
+    </div>
+  );
+}
+
+function CombinedStatCard({
+  label,
+  inProgressCount,
+  inProgressColor,
+  completedCount,
+  completedColor,
+}: {
+  label: string;
+  inProgressCount: number;
+  inProgressColor: string;
+  completedCount: number;
+  completedColor: string;
+}) {
+  return (
+    <div className="flex flex-col gap-1 bg-[var(--surface-1)]" style={statCardStyle}>
+      <StatCardLabel>{label}</StatCardLabel>
+      <div className="mt-1 flex items-baseline gap-4">
+        <span className="flex items-baseline gap-1">
+          <span className="text-[20px] font-bold" style={{ color: inProgressColor }}>
+            {inProgressCount}
+          </span>
+          <span className="text-[11px]" style={{ color: "#888780" }}>
+            건 진행중
+          </span>
+        </span>
+        <span className="flex items-baseline gap-1">
+          <span className="text-[20px] font-bold" style={{ color: completedColor }}>
+            {completedCount}
+          </span>
+          <span className="text-[11px]" style={{ color: "#888780" }}>
+            건 완료
+          </span>
+        </span>
+      </div>
     </div>
   );
 }
@@ -703,6 +754,8 @@ export default function SaPanel() {
     };
     let recommendedInProgress = 0;
     let growthInProgress = 0;
+    let recommendedCompleted = 0;
+    let growthCompleted = 0;
 
     COMPANIES.forEach((c) => {
       const stage = deriveStage(c);
@@ -713,11 +766,26 @@ export default function SaPanel() {
         const recommendedDone = RECOMMENDED_IDS.filter((id) => c.completedItemIds.includes(id)).length;
         const growthDone = GROWTH_IDS.filter((id) => c.completedItemIds.includes(id)).length;
         if (recommendedDone > 0 && recommendedDone < RECOMMENDED_IDS.length) recommendedInProgress += 1;
+        if (recommendedDone === RECOMMENDED_IDS.length) recommendedCompleted += 1;
         if (growthDone > 0 && growthDone < GROWTH_IDS.length) growthInProgress += 1;
+        if (growthDone === GROWTH_IDS.length) growthCompleted += 1;
       }
     });
 
-    return { ...counts, recommendedInProgress, growthInProgress };
+    // 결제 준비/운영 필수는 그 카테고리가 완전히 끝나야 다음 단계로 넘어가므로,
+    // "완료" 건수는 해당 단계를 이미 지나친(더 앞선) 업체 수를 모두 더해 구합니다.
+    const paymentCompleted = counts["ops-prep"] + counts["open-ready"] + counts["all-done"];
+    const opsCompleted = counts["open-ready"] + counts["all-done"];
+
+    return {
+      ...counts,
+      recommendedInProgress,
+      growthInProgress,
+      recommendedCompleted,
+      growthCompleted,
+      paymentCompleted,
+      opsCompleted,
+    };
   }, []);
 
   const handlePeriodClick = (key: PeriodKey) => {
@@ -802,25 +870,37 @@ export default function SaPanel() {
         ) : null}
       </div>
 
-      <div className="mt-4 grid w-[760px] grid-cols-3 gap-3">
+      <div className="mt-4 grid w-[820px] grid-cols-3 gap-3">
         <StatCard label="신규가입" value={stats.newSignups} />
-        <StatCard
-          label="승인 대기"
-          value={stageCounts["approval-pending"]}
-          accentColor={STAGE_CONFIG["approval-pending"].color}
+        <StatCard label="승인 대기" value={stageCounts["approval-pending"]} accentColor="#378ADD" />
+        <CombinedStatCard
+          label="결제 준비"
+          inProgressCount={stageCounts["payment-prep"]}
+          inProgressColor="#BA7517"
+          completedCount={stageCounts.paymentCompleted}
+          completedColor="#639922"
         />
-        <StatCard
-          label="결제 준비중"
-          value={stageCounts["payment-prep"]}
-          accentColor={STAGE_CONFIG["payment-prep"].color}
+        <CombinedStatCard
+          label="운영 필수"
+          inProgressCount={stageCounts["ops-prep"]}
+          inProgressColor="#993556"
+          completedCount={stageCounts.opsCompleted}
+          completedColor="#639922"
         />
-        <StatCard
-          label="운영 필수 진행중"
-          value={stageCounts["ops-prep"]}
-          accentColor={STAGE_CONFIG["ops-prep"].color}
+        <CombinedStatCard
+          label="권장 설정"
+          inProgressCount={stageCounts.recommendedInProgress}
+          inProgressColor="#0C447C"
+          completedCount={stageCounts.recommendedCompleted}
+          completedColor="#639922"
         />
-        <StatCard label="권장 설정 진행중" value={stageCounts.recommendedInProgress} accentColor="#5B3FA6" />
-        <StatCard label="매출 확장 진행중" value={stageCounts.growthInProgress} accentColor="#378ADD" />
+        <CombinedStatCard
+          label="매출 확장"
+          inProgressCount={stageCounts.growthInProgress}
+          inProgressColor="#378ADD"
+          completedCount={stageCounts.growthCompleted}
+          completedColor="#639922"
+        />
       </div>
 
       <div className="mt-6 rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-4">
