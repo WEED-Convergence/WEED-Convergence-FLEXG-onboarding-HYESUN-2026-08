@@ -671,6 +671,14 @@ const pgCompoundTax = "지원";
 const pgGuaranteeInsurance = "기본 1배수";
 const pgInstantOpenDelayed: React.ReactNode = <>PG신청 2일 후에 적용 ⓘ</>;
 
+const pgDetailHrefs: Record<string, string> = {
+  나이스페이: "/Setting/pg_nicePay",
+  "NHN KCP": "/Setting/pg_kcpPay",
+  EasyPAY: "/Setting/pg_kicc",
+};
+
+const PG_APPLICATION_GUIDE_HREF = "data/commonimg/nicepay_Guide.pdf";
+
 const pgOptions: PgOption[] = [
   {
     name: "나이스페이",
@@ -793,13 +801,23 @@ function PgApplicationForm() {
                     </label>
                     <div className="flex shrink-0 items-center gap-[6px]">
                       {option.name === "나이스페이" ? (
-                        <button type="button" className={pgRowSecondaryButtonClass}>
+                        <a
+                          href={PG_APPLICATION_GUIDE_HREF}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={pgRowSecondaryButtonClass}
+                        >
                           신청 가이드
-                        </button>
+                        </a>
                       ) : null}
-                      <button type="button" className={pgRowSecondaryButtonClass}>
+                      <a
+                        href={pgDetailHrefs[option.name]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={pgRowSecondaryButtonClass}
+                      >
                         자세히 보기
-                      </button>
+                      </a>
                       <button type="button" className={`shrink-0 ${primaryButtonClass}`}>
                         신청
                       </button>
@@ -965,10 +983,15 @@ function TermsCheckForm() {
         </div>
 
         <div className="mt-6 flex justify-center">
-          <button type="button" className={`flex items-center gap-1.5 ${primaryButtonClass}`}>
+          <a
+            href="/Setting/operation"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex items-center gap-1.5 ${primaryButtonClass}`}
+          >
             약관 보기
             <ExternalLinkIcon />
-          </button>
+          </a>
         </div>
       </DetailCard>
 
@@ -1309,13 +1332,15 @@ function AlimtalkForm() {
               <p className="text-[12px] font-bold" style={{ color: "#2C2C2A" }}>
                 유의사항
               </p>
-              <button
-                type="button"
+              <a
+                href="https://guide.flexgate.co.kr/22592892ccf6800ba79ddf544091b83c"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
                 style={{ backgroundColor: "#D8342A" }}
               >
                 가이드
-              </button>
+              </a>
             </div>
             <div className="mt-2">
               {alimtalkNotices.map((notice, index) => (
@@ -1500,7 +1525,7 @@ function LiveCommerceForm() {
               className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
               style={{ backgroundColor: "#D8342A" }}
             >
-              전체 가이드 보기
+              전체 가이드
             </a>
           </div>
           <div className="mt-3 grid grid-cols-2 gap-3">
@@ -1677,13 +1702,15 @@ function SnsLoginForm() {
           >
             네이버 로그인 플러스 신청하기
           </button>
-          <button
-            type="button"
+          <a
+            href="https://guide.flexgate.co.kr/22592892ccf6803dbec8e7bae476e6d7"
+            target="_blank"
+            rel="noopener noreferrer"
             className="shrink-0 whitespace-nowrap rounded-[8px] text-[12px] font-medium text-white"
             style={{ backgroundColor: "#D8342A", padding: "10px 20px" }}
           >
             가이드
-          </button>
+          </a>
         </div>
       </div>
 
@@ -1702,13 +1729,15 @@ function SnsLoginForm() {
             등록 등 카카오 쪽 설정이 있어서 단계가 좀 있지만, 가이드를 그대로 따라가시면 어렵지
             않아요.
           </p>
-          <button
-            type="button"
+          <a
+            href="https://guide.flexgate.co.kr/26392892ccf680e8b975c221da2f6481"
+            target="_blank"
+            rel="noopener noreferrer"
             className="shrink-0 whitespace-nowrap rounded-[5px] px-3 py-[6px] text-[11px] font-medium text-white"
             style={{ backgroundColor: "#D8342A" }}
           >
             가이드
-          </button>
+          </a>
         </div>
 
         <div className="mt-4 space-y-2">
@@ -1782,7 +1811,18 @@ function CashReceiptForm() {
   return (
     <div className="mt-6 w-full">
       <DetailCard>
-        <SubsectionTitle>현금영수증 설정</SubsectionTitle>
+        <div className="flex items-center justify-between">
+          <SubsectionTitle>현금영수증 설정</SubsectionTitle>
+          <a
+            href="https://guide.flexgate.co.kr/23392892ccf68037a0fac3f6340de669"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
+            style={{ backgroundColor: "#D8342A" }}
+          >
+            가이드
+          </a>
+        </div>
 
         <div className="mt-4 space-y-5">
           <div className="flex items-start gap-4">
