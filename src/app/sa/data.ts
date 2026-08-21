@@ -18,12 +18,19 @@ export const STATS_BY_PERIOD: Record<PeriodKey, { newSignups: number; onboarding
   custom: { newSignups: 41, onboardingCompleted: 15 },
 };
 
-export type StageKey = "template-pending" | "approval-pending" | "payment-prep" | "open-ready" | "all-done";
+export type StageKey =
+  | "template-pending"
+  | "approval-pending"
+  | "payment-prep"
+  | "ops-prep"
+  | "open-ready"
+  | "all-done";
 
 export const STAGE_CONFIG: Record<StageKey, { label: string; bg: string; color: string }> = {
   "template-pending": { label: "템플릿 선택 대기", bg: "#F1EFE8", color: "#5F5E5A" },
   "approval-pending": { label: "승인 대기", bg: "#E6F1FB", color: "#0C447C" },
   "payment-prep": { label: "결제 준비 진행중", bg: "#FAEEDA", color: "#633806" },
+  "ops-prep": { label: "운영 필수 진행중", bg: "#FBEAF0", color: "#993556" },
   "open-ready": { label: "오픈 가능", bg: "#EAF3E0", color: "#3B6D11" },
   "all-done": { label: "전체 완료", bg: "#EAF3E0", color: "#0F6E56" },
 };
@@ -154,12 +161,27 @@ export interface CompanyRow {
   managerName: string;
   joinDate: string;
   templateCategory: string;
-  stage: StageKey;
   templateSelected: boolean;
   approvalDone: boolean;
   completedItemIds: ChecklistItemId[];
   recentMessageId: number | null;
   history: NotificationHistoryRow[];
+}
+
+const PAYMENT_PREP_IDS: ChecklistItemId[] = [1, 2, 3, 5];
+const OPS_REQUIRED_IDS: ChecklistItemId[] = [6, 8, 17, 7];
+
+// 현재 단계 뱃지는 저장된 값이 아니라 완료 항목으로부터 매번 계산합니다.
+// (회원가입 → 템플릿 선택 → 승인 대기 → 결제 준비 → 운영 필수 → 오픈 가능 → 전체 완료)
+export function deriveStage(company: Pick<CompanyRow, "templateSelected" | "approvalDone" | "completedItemIds">): StageKey {
+  if (!company.templateSelected) return "template-pending";
+  if (!company.approvalDone) return "approval-pending";
+  if (company.completedItemIds.length === TOTAL_CHECKLIST_ITEMS) return "all-done";
+  const paymentDone = PAYMENT_PREP_IDS.every((id) => company.completedItemIds.includes(id));
+  const opsDone = OPS_REQUIRED_IDS.every((id) => company.completedItemIds.includes(id));
+  if (paymentDone && opsDone) return "open-ready";
+  if (paymentDone) return "ops-prep";
+  return "payment-prep";
 }
 
 export const COMPANIES: CompanyRow[] = [
@@ -170,7 +192,6 @@ export const COMPANIES: CompanyRow[] = [
     managerName: "김이수",
     joinDate: "2026-07-20",
     templateCategory: "캐주얼 의류",
-    stage: "payment-prep",
     templateSelected: true,
     approvalDone: true,
     completedItemIds: [1, 2],
@@ -188,7 +209,6 @@ export const COMPANIES: CompanyRow[] = [
     managerName: "박그린",
     joinDate: "2026-07-15",
     templateCategory: "리빙 · 홈",
-    stage: "open-ready",
     templateSelected: true,
     approvalDone: true,
     completedItemIds: [1, 2, 3, 5, 6, 8, 17, 7],
@@ -207,7 +227,6 @@ export const COMPANIES: CompanyRow[] = [
     managerName: "최데일",
     joinDate: "2026-08-18",
     templateCategory: "데일리 잡화",
-    stage: "template-pending",
     templateSelected: false,
     approvalDone: false,
     completedItemIds: [],
@@ -223,7 +242,6 @@ export const COMPANIES: CompanyRow[] = [
     managerName: "이코지",
     joinDate: "2026-08-19",
     templateCategory: "홈웨어",
-    stage: "approval-pending",
     templateSelected: true,
     approvalDone: false,
     completedItemIds: [],
@@ -237,7 +255,6 @@ export const COMPANIES: CompanyRow[] = [
     managerName: "정베이직",
     joinDate: "2026-06-01",
     templateCategory: "유니섹스 베이직",
-    stage: "all-done",
     templateSelected: true,
     approvalDone: true,
     completedItemIds: [1, 2, 3, 5, 6, 8, 17, 7, 9, 15, 16, 11, 12],
@@ -247,6 +264,141 @@ export const COMPANIES: CompanyRow[] = [
       { sentAt: "2026-06-03 10:02", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
       { sentAt: "2026-06-05 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
       { sentAt: "2026-06-06 15:20", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
+    ],
+  },
+  {
+    key: "moodhouse",
+    storeName: "무드하우스",
+    loginId: "moodhouse_kr",
+    managerName: "한무드",
+    joinDate: "2026-08-10",
+    templateCategory: "인테리어 소품",
+    templateSelected: true,
+    approvalDone: true,
+    completedItemIds: [],
+    recentMessageId: 3,
+    history: [
+      { sentAt: "2026-08-10 10:05", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-08-13 09:00", messageTitle: "아직 PG 신청을 완료하지 않으셨어요", category: "마케팅성", received: true },
+    ],
+  },
+  {
+    key: "sewingstudio",
+    storeName: "소잉스튜디오",
+    loginId: "sewing_studio",
+    managerName: "정소잉",
+    joinDate: "2026-08-05",
+    templateCategory: "핸드메이드 소품",
+    templateSelected: true,
+    approvalDone: true,
+    completedItemIds: [],
+    recentMessageId: 5,
+    history: [
+      { sentAt: "2026-08-05 10:20", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-08-09 15:30", messageTitle: "PG 신청이 반려되었어요", category: "정보성", received: true },
+    ],
+  },
+  {
+    key: "sparklegoods",
+    storeName: "반짝잡화",
+    loginId: "sparkle_goods",
+    managerName: "오반짝",
+    joinDate: "2026-07-28",
+    templateCategory: "생활 잡화",
+    templateSelected: true,
+    approvalDone: true,
+    completedItemIds: [1, 2, 3, 5],
+    recentMessageId: 6,
+    history: [
+      { sentAt: "2026-07-28 09:50", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-07-30 11:10", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-08-02 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+    ],
+  },
+  {
+    key: "todaystable",
+    storeName: "오늘의식탁",
+    loginId: "today_table",
+    managerName: "서식탁",
+    joinDate: "2026-07-25",
+    templateCategory: "주방 · 식기",
+    templateSelected: true,
+    approvalDone: true,
+    completedItemIds: [1, 2, 3, 5, 6],
+    recentMessageId: 6,
+    history: [
+      { sentAt: "2026-07-25 09:30", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-07-27 10:40", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-07-30 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+    ],
+  },
+  {
+    key: "lifefit",
+    storeName: "라이프핏",
+    loginId: "lifefit_shop",
+    managerName: "노핏",
+    joinDate: "2026-07-10",
+    templateCategory: "스포츠 · 피트니스",
+    templateSelected: true,
+    approvalDone: true,
+    completedItemIds: [1, 2, 3, 5, 6, 8, 17, 7, 9],
+    recentMessageId: 7,
+    history: [
+      { sentAt: "2026-07-10 09:15", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-07-12 10:00", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-07-15 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+      { sentAt: "2026-07-16 14:00", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
+    ],
+  },
+  {
+    key: "homestyle",
+    storeName: "홈스타일",
+    loginId: "homestyle_biz",
+    managerName: "윤홈",
+    joinDate: "2026-07-08",
+    templateCategory: "홈 데코",
+    templateSelected: true,
+    approvalDone: true,
+    completedItemIds: [1, 2, 3, 5, 6, 8, 17, 7, 11],
+    recentMessageId: 7,
+    history: [
+      { sentAt: "2026-07-08 09:20", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-07-10 10:00", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-07-13 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+      { sentAt: "2026-07-14 14:30", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
+    ],
+  },
+  {
+    key: "basecamp",
+    storeName: "베이스캠프",
+    loginId: "basecamp_out",
+    managerName: "장베이스",
+    joinDate: "2026-06-20",
+    templateCategory: "아웃도어",
+    templateSelected: true,
+    approvalDone: true,
+    completedItemIds: [1, 2, 3, 5, 6, 8, 17, 7, 9, 15, 16, 11],
+    recentMessageId: 7,
+    history: [
+      { sentAt: "2026-06-20 09:00", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-06-22 10:00", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-06-25 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+      { sentAt: "2026-06-26 14:00", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
+    ],
+  },
+  {
+    key: "growmarket",
+    storeName: "그로우마켓",
+    loginId: "growmarket01",
+    managerName: "임그로우",
+    joinDate: "2026-08-20",
+    templateCategory: "가드닝",
+    templateSelected: true,
+    approvalDone: true,
+    completedItemIds: [],
+    recentMessageId: 1,
+    history: [
+      { sentAt: "2026-08-20 09:05", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
     ],
   },
 ];

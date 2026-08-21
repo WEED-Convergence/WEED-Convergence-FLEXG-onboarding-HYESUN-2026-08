@@ -9,20 +9,31 @@ import {
   STAGE_CONFIG,
   STATS_BY_PERIOD,
   TOTAL_CHECKLIST_ITEMS,
+  deriveStage,
   getItemValueFields,
   type CompanyRow,
   type PeriodKey,
+  type StageKey,
   type ValueFieldKey,
 } from "./data";
+
+const PAGE_SIZE = 5;
+
+function formatDate(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
 
 const primaryButtonClass =
   "rounded-[6px] bg-[var(--cta)] px-3.5 py-[7px] text-[11px] font-medium text-white";
 const secondaryButtonClass =
   "rounded-[6px] border border-[var(--border)] px-3.5 py-[7px] text-[11px] font-medium text-[var(--text-secondary)]";
 const rowPrimaryButtonClass =
-  "whitespace-nowrap rounded-[6px] bg-[var(--cta)] px-2 py-[6px] text-center text-[10.5px] font-medium text-white";
+  "whitespace-nowrap rounded-[6px] bg-[var(--cta)] px-1.5 py-[6px] text-center text-[10.5px] font-medium text-white";
 const rowSecondaryButtonClass =
-  "whitespace-nowrap rounded-[6px] border border-[var(--border)] px-2 py-[6px] text-center text-[10.5px] font-medium text-[var(--text-secondary)]";
+  "whitespace-nowrap rounded-[6px] border border-[var(--border)] px-1.5 py-[6px] text-center text-[10.5px] font-medium text-[var(--text-secondary)]";
 const inputClass =
   "rounded-md border border-[var(--border)] px-2.5 py-[7px] text-[12px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
 
@@ -49,7 +60,7 @@ function CheckIcon() {
   );
 }
 
-function StageBadge({ stage }: { stage: CompanyRow["stage"] }) {
+function StageBadge({ stage }: { stage: StageKey }) {
   const config = STAGE_CONFIG[stage];
   return (
     <span
@@ -78,11 +89,60 @@ function ProgressCell({ completed }: { completed: number }) {
   );
 }
 
-function StatCard({ label, value }: { label: string; value: number }) {
+function StatCard({ label, value, accentColor }: { label: string; value: number; accentColor?: string }) {
   return (
     <div className="flex flex-col gap-1 rounded-xl border border-[var(--border)] bg-[var(--surface-1)] px-5 py-4">
       <p className="text-[12px] text-[var(--text-muted)]">{label}</p>
-      <p className="text-[22px] font-bold text-[var(--text-primary)]">{value}건</p>
+      <p className="text-[22px] font-bold" style={{ color: accentColor ?? "var(--text-primary)" }}>
+        {value}건
+      </p>
+    </div>
+  );
+}
+
+function PaginationBar({
+  page,
+  totalPages,
+  onChange,
+}: {
+  page: number;
+  totalPages: number;
+  onChange: (page: number) => void;
+}) {
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  return (
+    <div className="mt-4 flex items-center justify-center gap-1.5">
+      <button
+        type="button"
+        onClick={() => onChange(Math.max(1, page - 1))}
+        disabled={page === 1}
+        className="rounded-md border border-[var(--border)] px-2.5 py-1.5 text-[12px] text-[var(--text-secondary)] disabled:opacity-40"
+      >
+        이전
+      </button>
+      {pages.map((p) => (
+        <button
+          key={p}
+          type="button"
+          onClick={() => onChange(p)}
+          className="h-8 w-8 rounded-md text-[12px] font-medium"
+          style={
+            p === page
+              ? { backgroundColor: "var(--cta)", color: "#fff" }
+              : { border: "1px solid var(--border)", color: "var(--text-secondary)" }
+          }
+        >
+          {p}
+        </button>
+      ))}
+      <button
+        type="button"
+        onClick={() => onChange(Math.min(totalPages, page + 1))}
+        disabled={page === totalPages}
+        className="rounded-md border border-[var(--border)] px-2.5 py-1.5 text-[12px] text-[var(--text-secondary)] disabled:opacity-40"
+      >
+        다음
+      </button>
     </div>
   );
 }
@@ -426,6 +486,8 @@ interface AppliedFilters {
 }
 
 export default function SaPanel() {
+  const today = useMemo(() => formatDate(new Date()), []);
+
   const [period, setPeriod] = useState<PeriodKey>("today");
   const [customFrom, setCustomFrom] = useState("");
   const [customTo, setCustomTo] = useState("");
@@ -436,12 +498,36 @@ export default function SaPanel() {
   const [joinFromInput, setJoinFromInput] = useState("");
   const [joinToInput, setJoinToInput] = useState("");
   const [appliedFilters, setAppliedFilters] = useState<AppliedFilters | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [detailCompanyKey, setDetailCompanyKey] = useState<string | null>(null);
   const [valueTarget, setValueTarget] = useState<ValueFieldKey | null>(null);
   const [sendCompanyKey, setSendCompanyKey] = useState<string | null>(null);
 
   const stats = STATS_BY_PERIOD[period];
+
+  const stageCounts = useMemo(() => {
+    const counts: Record<StageKey, number> = {
+      "template-pending": 0,
+      "approval-pending": 0,
+      "payment-prep": 0,
+      "ops-prep": 0,
+      "open-ready": 0,
+      "all-done": 0,
+    };
+    COMPANIES.forEach((c) => {
+      counts[deriveStage(c)] += 1;
+    });
+    return counts;
+  }, []);
+
+  const handlePeriodClick = (key: PeriodKey) => {
+    setPeriod(key);
+    if (key === "custom") {
+      setCustomFrom((prev) => prev || today);
+      setCustomTo((prev) => prev || today);
+    }
+  };
 
   const filteredCompanies = useMemo(() => {
     if (!appliedFilters) return COMPANIES;
@@ -455,6 +541,10 @@ export default function SaPanel() {
     });
   }, [appliedFilters]);
 
+  const totalPages = Math.max(1, Math.ceil(filteredCompanies.length / PAGE_SIZE));
+  const page = Math.min(currentPage, totalPages);
+  const pagedCompanies = filteredCompanies.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   const detailCompany = COMPANIES.find((c) => c.key === detailCompanyKey) ?? null;
   const sendCompany = COMPANIES.find((c) => c.key === sendCompanyKey) ?? null;
 
@@ -466,6 +556,7 @@ export default function SaPanel() {
       joinFrom: joinFromInput,
       joinTo: joinToInput,
     });
+    setCurrentPage(1);
   };
 
   return (
@@ -479,7 +570,7 @@ export default function SaPanel() {
             <button
               key={opt.key}
               type="button"
-              onClick={() => setPeriod(opt.key)}
+              onClick={() => handlePeriodClick(opt.key)}
               className="rounded-full px-3.5 py-[7px] text-[12px] font-medium"
               style={
                 active
@@ -510,9 +601,29 @@ export default function SaPanel() {
         ) : null}
       </div>
 
-      <div className="mt-4 grid w-[440px] grid-cols-2 gap-3">
+      <div className="mt-4 grid w-[760px] grid-cols-3 gap-3">
         <StatCard label="신규가입" value={stats.newSignups} />
         <StatCard label="온보딩 완료" value={stats.onboardingCompleted} />
+        <StatCard
+          label="승인 대기"
+          value={stageCounts["approval-pending"]}
+          accentColor={STAGE_CONFIG["approval-pending"].color}
+        />
+        <StatCard
+          label="결제 준비 중"
+          value={stageCounts["payment-prep"]}
+          accentColor={STAGE_CONFIG["payment-prep"].color}
+        />
+        <StatCard
+          label="운영 필수 진행 중"
+          value={stageCounts["ops-prep"]}
+          accentColor={STAGE_CONFIG["ops-prep"].color}
+        />
+        <StatCard
+          label="오픈 가능"
+          value={stageCounts["open-ready"] + stageCounts["all-done"]}
+          accentColor={STAGE_CONFIG["open-ready"].color}
+        />
       </div>
 
       <div className="mt-6 rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-4">
@@ -549,16 +660,20 @@ export default function SaPanel() {
         </div>
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-xl border border-[var(--border)]">
+      <p className="mt-6 text-[13px] text-[var(--text-secondary)]">
+        전체 <span className="font-semibold text-[var(--text-primary)]">{filteredCompanies.length}</span>건
+      </p>
+
+      <div className="mt-2 overflow-x-auto rounded-xl border border-[var(--border)]">
         <table className="w-full table-fixed border-collapse text-left text-[13px]">
           <colgroup>
-            <col style={{ width: 110 }} />
-            <col style={{ width: 110 }} />
-            <col style={{ width: 96 }} />
-            <col style={{ width: 130 }} />
-            <col style={{ width: 110 }} />
+            <col style={{ width: 118 }} />
+            <col style={{ width: 122 }} />
+            <col style={{ width: 92 }} />
+            <col style={{ width: 140 }} />
+            <col style={{ width: 105 }} />
             <col />
-            <col style={{ width: 104 }} />
+            <col style={{ width: 168 }} />
           </colgroup>
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)", backgroundColor: "var(--surface-1)" }}>
@@ -572,8 +687,8 @@ export default function SaPanel() {
             </tr>
           </thead>
           <tbody>
-            {filteredCompanies.length > 0 ? (
-              filteredCompanies.map((c) => {
+            {pagedCompanies.length > 0 ? (
+              pagedCompanies.map((c) => {
                 const recentMessage = MESSAGE_TEMPLATES.find((t) => t.id === c.recentMessageId);
                 const recentMessageText = recentMessage ? recentMessage.title : "-";
                 return (
@@ -582,7 +697,7 @@ export default function SaPanel() {
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.loginId}</td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.joinDate}</td>
                     <td className="px-3 py-3">
-                      <StageBadge stage={c.stage} />
+                      <StageBadge stage={deriveStage(c)} />
                     </td>
                     <td className="px-3 py-3">
                       <ProgressCell completed={c.completedItemIds.length} />
@@ -594,7 +709,7 @@ export default function SaPanel() {
                       {recentMessageText}
                     </td>
                     <td className="px-2 py-3">
-                      <div className="flex flex-col items-stretch gap-1.5">
+                      <div className="flex items-center gap-1.5">
                         <button
                           type="button"
                           onClick={() => setDetailCompanyKey(c.key)}
@@ -624,6 +739,8 @@ export default function SaPanel() {
           </tbody>
         </table>
       </div>
+
+      <PaginationBar page={page} totalPages={totalPages} onChange={setCurrentPage} />
 
       {detailCompany ? (
         <DetailModal
