@@ -5,7 +5,7 @@ export const metadata = {
 const highlightedPolicies = [
   "온보딩 체크리스트(홈 상단 배너 포함)는 신규 가입 회원에게만 노출합니다. 이미 셋업이 완료된 기존 회원에게는 노출하지 않습니다.",
   "온보딩 화면에서 직접 입력한 경우뿐 아니라, 실제 기능 메뉴에서 동일한 설정을 완료한 경우에도 해당 체크리스트 항목을 완료 처리합니다.",
-  "공급사 등록·상품 등록처럼 리스트형 데이터인 항목은, 샘플로 자동 생성된 데이터를 제외하고 사용자가 직접 등록한 레코드가 1건 이상 존재하는지를 완료 기준으로 삼습니다. 이를 위해 샘플 데이터에는 \"샘플 여부\" 플래그가 필요합니다.",
+  "공급사 등록·상품 등록처럼 리스트형 데이터인 항목은, 샘플로 자동 생성된 데이터를 제외하고 사용자가 직접 등록한 레코드가 1건 이상 존재하는지를 완료 기준으로 삼습니다. 이를 위해 샘플 데이터에는 \"샘플 여부\" 플래그가 필요합니다. 샘플 데이터라도 판매자가 필드 값을 1개 이상 수정하면, 해당 레코드의 \"샘플 여부\" 플래그를 즉시 해제하고 완료 판정 대상에 포함시킵니다.",
   "완료 판정은 실시간(이벤트 트리거) 기준으로 처리합니다. 데이터 생성·등록이 발생하는 즉시 체크리스트 상태에 반영합니다.",
   "완료 처리됐던 항목의 데이터가 이후 전부 삭제되면, 해당 체크리스트 항목은 다시 미완료 상태로 전환됩니다.",
   "체크리스트 진행 상태는 계정(로그인 사용자) 단위가 아니라 상점(스토어) 단위로 공유합니다. 대표계정·부계정 누구든 동일한 진행 상태를 봅니다.",
@@ -26,19 +26,19 @@ const allPolicies = [...highlightedPolicies, ...policies];
 export default function PolicyPage() {
   return (
     <div>
-      <p className="text-[16px] font-bold text-[var(--text-primary)]">정책</p>
+      <p className="text-[18px] font-bold text-[var(--text-primary)]">정책</p>
       <div className="mt-4 overflow-x-auto rounded-xl border border-[var(--border)]">
-        <table className="w-full min-w-[600px] border-collapse text-left text-[12px]">
+        <table className="w-full min-w-[600px] border-collapse text-left text-[13px]">
           <thead>
             <tr style={{ borderTop: "1.5px solid #3B3A36" }}>
               <th
-                className="w-[64px] px-4 py-2.5 font-medium"
+                className="w-[64px] px-4 py-2.5 text-[12px] font-medium"
                 style={{ borderBottom: "1px solid #E4E2D8", color: "#5F5E5A" }}
               >
                 No
               </th>
               <th
-                className="px-4 py-2.5 font-medium"
+                className="px-4 py-2.5 text-[12px] font-medium"
                 style={{ borderBottom: "1px solid #E4E2D8", color: "#5F5E5A" }}
               >
                 정책
@@ -66,7 +66,7 @@ export default function PolicyPage() {
                     style={{
                       color: isHighlighted ? "#3B3A36" : "#888780",
                       fontWeight: isHighlighted ? 700 : 400,
-                      lineHeight: 1.6,
+                      lineHeight: 1.7,
                     }}
                   >
                     {index + 1}
@@ -76,7 +76,7 @@ export default function PolicyPage() {
                     style={{
                       color: "#3B3A36",
                       fontWeight: isHighlighted ? 700 : 400,
-                      lineHeight: 1.6,
+                      lineHeight: 1.7,
                     }}
                   >
                     {policy}
