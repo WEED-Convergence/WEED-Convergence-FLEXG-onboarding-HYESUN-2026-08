@@ -21,6 +21,40 @@ import {
 
 const PAGE_SIZE = 5;
 
+const RECOMMENDED_IDS = CHECKLIST_CATEGORIES.find((c) => c.name === "권장 설정")!.items.map((i) => i.id);
+const GROWTH_IDS = CHECKLIST_CATEGORIES.find((c) => c.name === "매출 확장")!.items.map((i) => i.id);
+
+const STAGE_SEARCH_OPTIONS: { value: string; label: string }[] = [
+  { value: "all", label: "전체" },
+  { value: "template-pending", label: "신규가입" },
+  { value: "approval-pending", label: "승인 대기" },
+  { value: "payment-prep", label: "결제 준비중" },
+  { value: "ops-prep", label: "운영 필수 진행중" },
+  { value: "recommended", label: "권장 설정 진행중" },
+  { value: "growth", label: "매출 확장 진행중" },
+];
+
+function matchesStageSearch(company: CompanyRow, option: string): boolean {
+  if (option === "all") return true;
+  const stage = deriveStage(company);
+  if (option === "template-pending") return stage === "template-pending";
+  if (option === "approval-pending") return stage === "approval-pending";
+  if (option === "payment-prep") return stage === "payment-prep";
+  if (option === "ops-prep") return stage === "ops-prep";
+
+  const unlocked = stage === "open-ready" || stage === "all-done";
+  if (!unlocked) return false;
+  if (option === "recommended") {
+    const done = RECOMMENDED_IDS.filter((id) => company.completedItemIds.includes(id)).length;
+    return done > 0 && done < RECOMMENDED_IDS.length;
+  }
+  if (option === "growth") {
+    const done = GROWTH_IDS.filter((id) => company.completedItemIds.includes(id)).length;
+    return done > 0 && done < GROWTH_IDS.length;
+  }
+  return true;
+}
+
 function formatDate(date: Date): string {
   const y = date.getFullYear();
   const m = String(date.getMonth() + 1).padStart(2, "0");
@@ -29,15 +63,15 @@ function formatDate(date: Date): string {
 }
 
 const primaryButtonClass =
-  "rounded-[6px] bg-[var(--cta)] px-3.5 py-[7px] text-[13px] font-medium text-white";
+  "rounded-[6px] bg-[var(--cta)] px-3.5 py-[7px] text-[14px] font-medium text-white";
 const secondaryButtonClass =
-  "rounded-[6px] border border-[var(--border)] px-3.5 py-[7px] text-[13px] font-medium text-[var(--text-secondary)]";
+  "rounded-[6px] border border-[var(--border)] px-3.5 py-[7px] text-[14px] font-medium text-[var(--text-secondary)]";
 const rowPrimaryButtonClass =
-  "whitespace-nowrap rounded-[6px] bg-[var(--cta)] px-1.5 py-[6px] text-center text-[12.5px] font-medium text-white";
+  "whitespace-nowrap rounded-[6px] bg-[var(--cta)] px-1.5 py-[6px] text-center text-[13.5px] font-medium text-white";
 const rowSecondaryButtonClass =
-  "whitespace-nowrap rounded-[6px] border border-[var(--border)] px-1.5 py-[6px] text-center text-[12.5px] font-medium text-[var(--text-secondary)]";
+  "whitespace-nowrap rounded-[6px] border border-[var(--border)] px-1.5 py-[6px] text-center text-[13.5px] font-medium text-[var(--text-secondary)]";
 const inputClass =
-  "rounded-md border border-[var(--border)] px-2.5 py-[7px] text-[14px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
+  "rounded-md border border-[var(--border)] px-2.5 py-[7px] text-[15px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none focus:border-[var(--accent-text)]";
 
 function getStepTitle(key: ValueFieldKey): string {
   if (key === "signup") return "회원가입 완료";
@@ -62,18 +96,6 @@ function CheckIcon() {
   );
 }
 
-function StageBadge({ stage }: { stage: StageKey }) {
-  const config = STAGE_CONFIG[stage];
-  return (
-    <span
-      className="inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-[3px] text-[13px] font-semibold"
-      style={{ backgroundColor: config.bg, color: config.color }}
-    >
-      {config.label}
-    </span>
-  );
-}
-
 function ProgressCell({ completed }: { completed: number }) {
   const percent = Math.round((completed / TOTAL_CHECKLIST_ITEMS) * 100);
   return (
@@ -84,7 +106,7 @@ function ProgressCell({ completed }: { completed: number }) {
           style={{ width: `${percent}%` }}
         />
       </div>
-      <p className="mt-1 text-[13px] text-[var(--text-muted)]">
+      <p className="mt-1 text-[14px] text-[var(--text-muted)]">
         {completed}/{TOTAL_CHECKLIST_ITEMS}개 · {percent}%
       </p>
     </div>
@@ -94,8 +116,8 @@ function ProgressCell({ completed }: { completed: number }) {
 function StatCard({ label, value, accentColor }: { label: string; value: number; accentColor?: string }) {
   return (
     <div className="flex flex-col gap-1 rounded-xl border border-[var(--border)] bg-[var(--surface-1)] px-5 py-4">
-      <p className="text-[14px] text-[var(--text-muted)]">{label}</p>
-      <p className="text-[24px] font-bold" style={{ color: accentColor ?? "var(--text-primary)" }}>
+      <p className="text-[15px] text-[var(--text-muted)]">{label}</p>
+      <p className="text-[25px] font-bold" style={{ color: accentColor ?? "var(--text-primary)" }}>
         {value}건
       </p>
     </div>
@@ -118,7 +140,7 @@ function PaginationBar({
         type="button"
         onClick={() => onChange(Math.max(1, page - 1))}
         disabled={page === 1}
-        className="rounded-md border border-[var(--border)] px-2.5 py-1.5 text-[14px] text-[var(--text-secondary)] disabled:opacity-40"
+        className="rounded-md border border-[var(--border)] px-2.5 py-1.5 text-[15px] text-[var(--text-secondary)] disabled:opacity-40"
       >
         이전
       </button>
@@ -127,7 +149,7 @@ function PaginationBar({
           key={p}
           type="button"
           onClick={() => onChange(p)}
-          className="h-8 w-8 rounded-md text-[14px] font-medium"
+          className="h-8 w-8 rounded-md text-[15px] font-medium"
           style={
             p === page
               ? { backgroundColor: "var(--cta)", color: "#fff" }
@@ -141,7 +163,7 @@ function PaginationBar({
         type="button"
         onClick={() => onChange(Math.min(totalPages, page + 1))}
         disabled={page === totalPages}
-        className="rounded-md border border-[var(--border)] px-2.5 py-1.5 text-[14px] text-[var(--text-secondary)] disabled:opacity-40"
+        className="rounded-md border border-[var(--border)] px-2.5 py-1.5 text-[15px] text-[var(--text-secondary)] disabled:opacity-40"
       >
         다음
       </button>
@@ -162,7 +184,7 @@ function SearchField({
 }) {
   return (
     <label className="flex flex-col gap-1">
-      <span className="text-[13px] font-medium text-[var(--text-secondary)]">{label}</span>
+      <span className="text-[14px] font-medium text-[var(--text-secondary)]">{label}</span>
       <input
         type="text"
         value={value}
@@ -189,11 +211,11 @@ function StepRow({
 }) {
   return (
     <div className="flex items-center gap-3 border-b border-[var(--divider)] py-3 last:border-0">
-      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--text-primary)] text-[12px] font-semibold text-white">
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--text-primary)] text-[13px] font-semibold text-white">
         {index}
       </span>
-      <span className="flex-1 text-[15px] font-medium text-[var(--text-primary)]">{title}</span>
-      <span className="text-[13px] font-medium" style={{ color: statusColor }}>
+      <span className="flex-1 text-[16px] font-medium text-[var(--text-primary)]">{title}</span>
+      <span className="text-[14px] font-medium" style={{ color: statusColor }}>
         {statusText}
       </span>
       {onOpenValue ? (
@@ -223,7 +245,7 @@ function CategoryItemRow({
         {done ? <CheckIcon /> : null}
       </span>
       <span
-        className="flex-1 text-[14.5px]"
+        className="flex-1 text-[15.5px]"
         style={{ color: done ? "var(--text-primary)" : "var(--placeholder)" }}
       >
         {title}
@@ -233,7 +255,7 @@ function CategoryItemRow({
           입력값 보기
         </button>
       ) : (
-        <span className="text-[13px] text-[var(--placeholder)]">미완료</span>
+        <span className="text-[14px] text-[var(--placeholder)]">미완료</span>
       )}
     </div>
   );
@@ -262,8 +284,8 @@ function DetailModal({
           <CloseIcon />
         </button>
 
-        <p className="text-[13px] text-[var(--text-muted)]">온보딩 진행 현황</p>
-        <h2 className="mt-1 text-[19px] font-bold text-[var(--text-primary)]">{company.storeName}</h2>
+        <p className="text-[14px] text-[var(--text-muted)]">온보딩 진행 현황</p>
+        <h2 className="mt-1 text-[20px] font-bold text-[var(--text-primary)]">{company.storeName}</h2>
 
         <div className="mt-4 rounded-lg border border-[var(--border)] px-4">
           <StepRow
@@ -291,7 +313,7 @@ function DetailModal({
         <div className="mt-5 space-y-4">
           {CHECKLIST_CATEGORIES.map((category) => (
             <div key={category.name} className="rounded-lg border border-[var(--border)] px-4">
-              <p className="pt-3 text-[14px] font-semibold text-[var(--text-secondary)]">{category.name}</p>
+              <p className="pt-3 text-[15px] font-semibold text-[var(--text-secondary)]">{category.name}</p>
               <div className="mt-1">
                 {category.items.map((item) => (
                   <CategoryItemRow
@@ -307,10 +329,10 @@ function DetailModal({
         </div>
 
         <div className="mt-6">
-          <p className="text-[15px] font-semibold text-[var(--text-primary)]">알림톡 발송 이력</p>
+          <p className="text-[16px] font-semibold text-[var(--text-primary)]">알림톡 발송 이력</p>
           <div className="mt-2 overflow-hidden rounded-lg border border-[var(--border)]">
             {company.history.length > 0 ? (
-              <table className="w-full border-collapse text-left text-[14px]">
+              <table className="w-full border-collapse text-left text-[15px]">
                 <thead>
                   <tr className="bg-[var(--surface-1)]">
                     <th className="px-3 py-2 font-medium text-[var(--text-muted)]">발송일시</th>
@@ -336,7 +358,7 @@ function DetailModal({
                 </tbody>
               </table>
             ) : (
-              <p className="px-3 py-4 text-center text-[14px] text-[var(--text-muted)]">
+              <p className="px-3 py-4 text-center text-[15px] text-[var(--text-muted)]">
                 발송 이력이 없습니다.
               </p>
             )}
@@ -371,14 +393,14 @@ function ValueModal({
           <CloseIcon />
         </button>
 
-        <p className="pr-6 text-[16px] font-bold text-[var(--text-primary)]">{getStepTitle(itemKey)} · 입력값</p>
-        <p className="mt-0.5 text-[13px] text-[var(--text-muted)]">{company.storeName}</p>
+        <p className="pr-6 text-[17px] font-bold text-[var(--text-primary)]">{getStepTitle(itemKey)} · 입력값</p>
+        <p className="mt-0.5 text-[14px] text-[var(--text-muted)]">{company.storeName}</p>
 
         <div className="mt-4 space-y-2.5">
           {fields.map((field) => (
             <div key={field.label} className="flex items-start gap-3">
-              <span className="w-[100px] shrink-0 text-[14px] text-[var(--text-muted)]">{field.label}</span>
-              <span className="text-[14px] font-medium text-[var(--text-primary)]">{field.value}</span>
+              <span className="w-[100px] shrink-0 text-[15px] text-[var(--text-muted)]">{field.label}</span>
+              <span className="text-[15px] font-medium text-[var(--text-primary)]">{field.value}</span>
             </div>
           ))}
         </div>
@@ -394,14 +416,14 @@ function ValueModal({
 }
 
 function SignupSectionTitle({ children }: { children: React.ReactNode }) {
-  return <p className="text-[13px] font-bold text-[var(--text-secondary)]">{children}</p>;
+  return <p className="text-[14px] font-bold text-[var(--text-secondary)]">{children}</p>;
 }
 
 function SignupField({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex items-start gap-3">
-      <span className="w-[100px] shrink-0 text-[14px] text-[var(--text-muted)]">{label}</span>
-      <span className="text-[14px] font-medium text-[var(--text-primary)]">{value}</span>
+      <span className="w-[100px] shrink-0 text-[15px] text-[var(--text-muted)]">{label}</span>
+      <span className="text-[15px] font-medium text-[var(--text-primary)]">{value}</span>
     </div>
   );
 }
@@ -409,7 +431,7 @@ function SignupField({ label, value }: { label: string; value: React.ReactNode }
 function VerifiedTag({ verified }: { verified: boolean }) {
   return (
     <span
-      className="ml-1.5 inline-block rounded-full px-1.5 py-[1px] align-middle text-[12px] font-semibold"
+      className="ml-1.5 inline-block rounded-full px-1.5 py-[1px] align-middle text-[13px] font-semibold"
       style={{
         backgroundColor: verified ? "#EAF3E0" : "#FBEAF0",
         color: verified ? "var(--success)" : "var(--accent)",
@@ -438,8 +460,8 @@ function SignupValueModal({ company, onClose }: { company: CompanyRow; onClose: 
           <CloseIcon />
         </button>
 
-        <p className="pr-6 text-[16px] font-bold text-[var(--text-primary)]">회원가입 완료 · 입력값</p>
-        <p className="mt-0.5 text-[13px] text-[var(--text-muted)]">{company.storeName}</p>
+        <p className="pr-6 text-[17px] font-bold text-[var(--text-primary)]">회원가입 완료 · 입력값</p>
+        <p className="mt-0.5 text-[14px] text-[var(--text-muted)]">{company.storeName}</p>
 
         <div className="mt-4 flex-1 space-y-5 overflow-y-auto pr-1">
           <div className="space-y-2.5">
@@ -515,14 +537,14 @@ function SignupValueModal({ company, onClose }: { company: CompanyRow; onClose: 
                   >
                     {term.agreed ? <CheckIcon /> : null}
                   </span>
-                  <span className="flex-1 text-[14px] text-[var(--text-primary)]">
+                  <span className="flex-1 text-[15px] text-[var(--text-primary)]">
                     <span className="mr-1 font-semibold" style={{ color: term.required ? "#D8342A" : "#888780" }}>
                       [{term.required ? "필수" : "선택"}]
                     </span>
                     {term.label}
                   </span>
                   <span
-                    className="text-[13px]"
+                    className="text-[14px]"
                     style={{ color: term.agreed ? "var(--success)" : "var(--placeholder)" }}
                   >
                     {term.agreed ? "동의완료" : "미동의"}
@@ -562,13 +584,13 @@ function SendMessageModal({ company, onClose }: { company: CompanyRow; onClose: 
           <CloseIcon />
         </button>
 
-        <p className="pr-6 text-[16px] font-bold text-[var(--text-primary)]">알림톡 발송</p>
-        <p className="mt-0.5 text-[13px] text-[var(--text-muted)]">
+        <p className="pr-6 text-[17px] font-bold text-[var(--text-primary)]">알림톡 발송</p>
+        <p className="mt-0.5 text-[14px] text-[var(--text-muted)]">
           {company.storeName} · {company.loginId}
         </p>
 
         <div className="mt-4">
-          <p className="mb-1.5 text-[14px] font-medium text-[var(--text-primary)]">발송할 메시지</p>
+          <p className="mb-1.5 text-[15px] font-medium text-[var(--text-primary)]">발송할 메시지</p>
           <select
             value={templateId}
             onChange={(e) => setTemplateId(Number(e.target.value))}
@@ -587,7 +609,7 @@ function SendMessageModal({ company, onClose }: { company: CompanyRow; onClose: 
           style={{ border: "1px solid var(--border)", backgroundColor: "var(--surface-1)" }}
         >
           <span
-            className="inline-block rounded-full px-2 py-0.5 text-[12px] font-medium"
+            className="inline-block rounded-full px-2 py-0.5 text-[13px] font-medium"
             style={
               template.category === "정보성"
                 ? { backgroundColor: "#E1F5EE", color: "#04342C" }
@@ -596,10 +618,10 @@ function SendMessageModal({ company, onClose }: { company: CompanyRow; onClose: 
           >
             {template.category}
           </span>
-          <p className="mt-2 text-[14.5px] font-semibold text-[var(--text-primary)]">{template.title}</p>
-          <p className="mt-1 text-[13.5px] leading-relaxed text-[var(--text-secondary)]">{template.body}</p>
+          <p className="mt-2 text-[15.5px] font-semibold text-[var(--text-primary)]">{template.title}</p>
+          <p className="mt-1 text-[14.5px] leading-relaxed text-[var(--text-secondary)]">{template.body}</p>
           <div
-            className="mt-2 rounded-md py-1.5 text-center text-[14px] font-semibold text-white"
+            className="mt-2 rounded-md py-1.5 text-center text-[15px] font-semibold text-white"
             style={{ backgroundColor: "#D8342A" }}
           >
             {template.button}
@@ -607,7 +629,7 @@ function SendMessageModal({ company, onClose }: { company: CompanyRow; onClose: 
         </div>
 
         <div className="mt-4">
-          <p className="mb-1.5 text-[14px] font-medium text-[var(--text-primary)]">수신 번호</p>
+          <p className="mb-1.5 text-[15px] font-medium text-[var(--text-primary)]">수신 번호</p>
           <input
             type="text"
             value={phone}
@@ -635,6 +657,7 @@ interface AppliedFilters {
   managerName: string;
   joinFrom: string;
   joinTo: string;
+  stage: string;
 }
 
 export default function SaPanel() {
@@ -658,10 +681,10 @@ export default function SaPanel() {
   const [managerNameInput, setManagerNameInput] = useState("");
   const [joinFromInput, setJoinFromInput] = useState("");
   const [joinToInput, setJoinToInput] = useState("");
+  const [stageSearchInput, setStageSearchInput] = useState("all");
   const [appliedFilters, setAppliedFilters] = useState<AppliedFilters | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOption, setSortOption] = useState("join-desc");
-  const [stageFilterOption, setStageFilterOption] = useState("all");
 
   const [detailCompanyKey, setDetailCompanyKey] = useState<string | null>(null);
   const [valueTarget, setValueTarget] = useState<ValueFieldKey | null>(null);
@@ -680,8 +703,6 @@ export default function SaPanel() {
     };
     let recommendedInProgress = 0;
     let growthInProgress = 0;
-    const recommendedIds = CHECKLIST_CATEGORIES.find((c) => c.name === "권장 설정")!.items.map((i) => i.id);
-    const growthIds = CHECKLIST_CATEGORIES.find((c) => c.name === "매출 확장")!.items.map((i) => i.id);
 
     COMPANIES.forEach((c) => {
       const stage = deriveStage(c);
@@ -689,10 +710,10 @@ export default function SaPanel() {
 
       const unlocked = stage === "open-ready" || stage === "all-done";
       if (unlocked) {
-        const recommendedDone = recommendedIds.filter((id) => c.completedItemIds.includes(id)).length;
-        const growthDone = growthIds.filter((id) => c.completedItemIds.includes(id)).length;
-        if (recommendedDone > 0 && recommendedDone < recommendedIds.length) recommendedInProgress += 1;
-        if (growthDone > 0 && growthDone < growthIds.length) growthInProgress += 1;
+        const recommendedDone = RECOMMENDED_IDS.filter((id) => c.completedItemIds.includes(id)).length;
+        const growthDone = GROWTH_IDS.filter((id) => c.completedItemIds.includes(id)).length;
+        if (recommendedDone > 0 && recommendedDone < RECOMMENDED_IDS.length) recommendedInProgress += 1;
+        if (growthDone > 0 && growthDone < GROWTH_IDS.length) growthInProgress += 1;
       }
     });
 
@@ -715,6 +736,7 @@ export default function SaPanel() {
       if (appliedFilters.managerName && !c.managerName.includes(appliedFilters.managerName)) return false;
       if (appliedFilters.joinFrom && c.joinDate < appliedFilters.joinFrom) return false;
       if (appliedFilters.joinTo && c.joinDate > appliedFilters.joinTo) return false;
+      if (!matchesStageSearch(c, appliedFilters.stage)) return false;
       return true;
     });
   }, [appliedFilters]);
@@ -733,13 +755,14 @@ export default function SaPanel() {
       managerName: managerNameInput.trim(),
       joinFrom: joinFromInput,
       joinTo: joinToInput,
+      stage: stageSearchInput,
     });
     setCurrentPage(1);
   };
 
   return (
     <div>
-      <p className="text-[18px] font-bold text-[var(--text-primary)]">판매자 온보딩 관리</p>
+      <p className="text-[19px] font-bold text-[var(--text-primary)]">판매자 온보딩 관리</p>
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
         {PERIOD_OPTIONS.map((opt) => {
@@ -749,7 +772,7 @@ export default function SaPanel() {
               key={opt.key}
               type="button"
               onClick={() => handlePeriodClick(opt.key)}
-              className="rounded-full px-3.5 py-[7px] text-[14px] font-medium"
+              className="rounded-full px-3.5 py-[7px] text-[15px] font-medium"
               style={
                 active
                   ? { backgroundColor: "var(--cta)", color: "#fff" }
@@ -768,7 +791,7 @@ export default function SaPanel() {
               onChange={(e) => setCustomFrom(e.target.value)}
               className={inputClass}
             />
-            <span className="text-[14px] text-[var(--text-muted)]">~</span>
+            <span className="text-[15px] text-[var(--text-muted)]">~</span>
             <input
               type="date"
               value={customTo}
@@ -811,7 +834,7 @@ export default function SaPanel() {
             placeholder="담당자명 검색"
           />
           <label className="flex flex-col gap-1">
-            <span className="text-[13px] font-medium text-[var(--text-secondary)]">가입일</span>
+            <span className="text-[14px] font-medium text-[var(--text-secondary)]">가입일</span>
             <div className="flex items-center gap-1.5">
               <input
                 type="date"
@@ -819,7 +842,7 @@ export default function SaPanel() {
                 onChange={(e) => setJoinFromInput(e.target.value)}
                 className={inputClass}
               />
-              <span className="text-[14px] text-[var(--text-muted)]">~</span>
+              <span className="text-[15px] text-[var(--text-muted)]">~</span>
               <input
                 type="date"
                 value={joinToInput}
@@ -828,6 +851,20 @@ export default function SaPanel() {
               />
             </div>
           </label>
+          <label className="flex flex-col gap-1">
+            <span className="text-[14px] font-medium text-[var(--text-secondary)]">현재 단계</span>
+            <select
+              value={stageSearchInput}
+              onChange={(e) => setStageSearchInput(e.target.value)}
+              className={`w-[160px] ${inputClass}`}
+            >
+              {STAGE_SEARCH_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </label>
           <button type="button" onClick={handleSearch} className={primaryButtonClass}>
             검색
           </button>
@@ -835,45 +872,29 @@ export default function SaPanel() {
       </div>
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-[15px] text-[var(--text-secondary)]">
+        <p className="text-[16px] text-[var(--text-secondary)]">
           전체 <span className="font-semibold text-[var(--text-primary)]">{filteredCompanies.length}</span>건
         </p>
-        <div className="flex items-center gap-2">
-          <select
-            value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
-            className={inputClass}
-          >
-            <option value="join-desc">가입일 최신순</option>
-            <option value="join-asc">가입일 오래된순</option>
-            <option value="progress-asc">진행률 낮은순</option>
-            <option value="progress-desc">진행률 높은순</option>
-            <option value="elapsed-desc">경과일 오래된순</option>
-          </select>
-          <select
-            value={stageFilterOption}
-            onChange={(e) => setStageFilterOption(e.target.value)}
-            className={inputClass}
-          >
-            <option value="all">전체</option>
-            <option value="payment-prep">결제 준비</option>
-            <option value="ops-prep">운영 필수</option>
-            <option value="recommended">권장 설정</option>
-            <option value="growth">매출 확장</option>
-            <option value="open-ready">오픈 가능</option>
-            <option value="all-done">전체 완료</option>
-          </select>
-        </div>
+        <select
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+          className={inputClass}
+        >
+          <option value="join-desc">가입일 최신순</option>
+          <option value="join-asc">가입일 오래된순</option>
+          <option value="progress-asc">진행률 낮은순</option>
+          <option value="progress-desc">진행률 높은순</option>
+          <option value="elapsed-desc">경과일 오래된순</option>
+        </select>
       </div>
 
       <div className="mt-2 overflow-x-auto rounded-xl border border-[var(--border)]">
-        <table className="w-full min-w-[1500px] table-fixed border-collapse text-left text-[15px]">
+        <table className="w-full min-w-[1340px] table-fixed border-collapse text-left text-[16px]">
           <colgroup>
             <col style={{ width: 150 }} />
             <col style={{ width: 150 }} />
             <col style={{ width: 110 }} />
             <col style={{ width: 190 }} />
-            <col style={{ width: 165 }} />
             <col style={{ width: 175 }} />
             <col style={{ width: 130 }} />
             <col />
@@ -881,15 +902,14 @@ export default function SaPanel() {
           </colgroup>
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)", backgroundColor: "var(--surface-1)" }}>
-              <th className="px-3 py-2.5 text-[14px] font-medium text-[var(--text-muted)]">회사명</th>
-              <th className="px-3 py-2.5 text-[14px] font-medium text-[var(--text-muted)]">아이디</th>
-              <th className="px-3 py-2.5 text-[14px] font-medium text-[var(--text-muted)]">담당자명</th>
-              <th className="px-3 py-2.5 text-[14px] font-medium text-[var(--text-muted)]">가입일</th>
-              <th className="px-3 py-2.5 text-[14px] font-medium text-[var(--text-muted)]">현재 단계</th>
-              <th className="px-3 py-2.5 text-[14px] font-medium text-[var(--text-muted)]">최근 활동일시</th>
-              <th className="px-3 py-2.5 text-[14px] font-medium text-[var(--text-muted)]">진행률</th>
-              <th className="px-3 py-2.5 text-[14px] font-medium text-[var(--text-muted)]">최근 알림톡</th>
-              <th className="px-3 py-2.5 text-[14px] font-medium text-[var(--text-muted)]">관리</th>
+              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">회사명</th>
+              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">아이디</th>
+              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">담당자명</th>
+              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">가입일</th>
+              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">최근 활동일시</th>
+              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">진행률</th>
+              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">최근 알림톡</th>
+              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">관리</th>
             </tr>
           </thead>
           <tbody>
@@ -907,21 +927,18 @@ export default function SaPanel() {
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">
                       {c.joinDate}
                       {today ? (
-                        <span className="text-[12px] text-[var(--placeholder)]">
+                        <span className="text-[13px] text-[var(--placeholder)]">
                           {" "}
                           (D+{daysSince(c.joinDate, today)})
                         </span>
                       ) : null}
-                    </td>
-                    <td className="px-3 py-3">
-                      <StageBadge stage={deriveStage(c)} />
                     </td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.lastActivityAt}</td>
                     <td className="px-3 py-3">
                       <ProgressCell completed={c.completedItemIds.length} />
                     </td>
                     <td
-                      className="truncate px-3 py-3 text-[14px] text-[var(--text-secondary)]"
+                      className="truncate px-3 py-3 text-[15px] text-[var(--text-secondary)]"
                       title={recentMessageText}
                     >
                       <span className="inline-flex items-center gap-1.5">
@@ -939,14 +956,14 @@ export default function SaPanel() {
                         <button
                           type="button"
                           onClick={() => setDetailCompanyKey(c.key)}
-                          className={rowSecondaryButtonClass}
+                          className={rowPrimaryButtonClass}
                         >
                           상세보기
                         </button>
                         <button
                           type="button"
                           onClick={() => setSendCompanyKey(c.key)}
-                          className={rowPrimaryButtonClass}
+                          className={rowSecondaryButtonClass}
                         >
                           알림톡 발송
                         </button>
@@ -957,7 +974,7 @@ export default function SaPanel() {
               })
             ) : (
               <tr>
-                <td colSpan={9} className="px-4 py-8 text-center text-[14px] text-[var(--text-muted)]">
+                <td colSpan={8} className="px-4 py-8 text-center text-[15px] text-[var(--text-muted)]">
                   검색 조건에 맞는 판매자가 없습니다.
                 </td>
               </tr>
