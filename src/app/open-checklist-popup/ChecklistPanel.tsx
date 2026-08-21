@@ -850,14 +850,12 @@ function PgApplicationForm() {
         </DetailCard>
       </div>
 
-      {PG_STATUS === "반려" ? (
-        <div
-          className="mt-6 rounded-[8px] text-[12px]"
-          style={{ border: "1px solid #E4E2D8", backgroundColor: "#FAF9F5", padding: "10px 14px", color: "#5F5E5A" }}
-        >
-          반려사유: {PG_REJECTION_REASON}
-        </div>
-      ) : null}
+      <div
+        className="mt-6 rounded-[8px] text-[12px]"
+        style={{ border: "1px solid #E4E2D8", backgroundColor: "#FAF9F5", padding: "10px 14px", color: "#5F5E5A" }}
+      >
+        반려사유: {PG_REJECTION_REASON}
+      </div>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
