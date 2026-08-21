@@ -116,6 +116,9 @@ const items: ChecklistItemData[] = [
   },
 ];
 
+// 발신번호 신청하기(6), SNS 간편 로그인 등록하기(7), 현금영수증 설정하기(17)
+const PLACEHOLDER_STATUS_ITEM_IDS = [6, 7, 17];
+
 const categories: CategoryData[] = [
   { name: "결제 준비", itemIds: [1, 2, 3, 5] },
   { name: "운영 필수", itemIds: [6, 8, 17, 7] },
@@ -228,6 +231,43 @@ function PgStatusBadge({ status }: { status: PgStatus }) {
       }}
     >
       {status}
+    </span>
+  );
+}
+
+// 실데이터 연동 전 placeholder 배지. PG 신청하기와 동일한 pill 스타일을 재사용합니다.
+const PLACEHOLDER_STATUS_TEXT = "상태값";
+const placeholderBadgeColors = { bg: "#FAEEDA", color: "#633806" };
+
+function PlaceholderStatusLabel() {
+  return (
+    <span
+      className="inline-flex shrink-0 items-center gap-1 rounded-full text-[10px] font-bold"
+      style={{
+        backgroundColor: placeholderBadgeColors.bg,
+        color: placeholderBadgeColors.color,
+        padding: "3px 8px",
+        border: `1px solid ${placeholderBadgeColors.color}`,
+      }}
+    >
+      {PLACEHOLDER_STATUS_TEXT}
+    </span>
+  );
+}
+
+function PlaceholderStatusBadge() {
+  return (
+    <span
+      className="inline-flex items-center gap-2 rounded-full text-[13px] font-bold tracking-tight"
+      style={{
+        backgroundColor: placeholderBadgeColors.bg,
+        color: placeholderBadgeColors.color,
+        padding: "5px 16px",
+        border: `1.5px solid ${placeholderBadgeColors.color}`,
+        boxShadow: "0 1px 4px rgba(0,0,0,0.18)",
+      }}
+    >
+      {PLACEHOLDER_STATUS_TEXT}
     </span>
   );
 }
@@ -1981,6 +2021,12 @@ export default function ChecklistPanel() {
                   <span className="flex-1">{item.title}</span>
                   <PgStatusLabel status={PG_STATUS} />
                 </>
+              ) : PLACEHOLDER_STATUS_ITEM_IDS.includes(id) ? (
+                <>
+                  <ItemCircle active={active} />
+                  <span className="flex-1">{item.title}</span>
+                  <PlaceholderStatusLabel />
+                </>
               ) : (
                 <>
                   <ItemCircle active={active} />
@@ -2064,6 +2110,7 @@ export default function ChecklistPanel() {
                   {selected.title}
                 </h2>
                 {selected.id === 1 ? <PgStatusBadge status={PG_STATUS} /> : null}
+                {PLACEHOLDER_STATUS_ITEM_IDS.includes(selected.id) ? <PlaceholderStatusBadge /> : null}
               </div>
               {selected.description && (
                 <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-muted)]">
