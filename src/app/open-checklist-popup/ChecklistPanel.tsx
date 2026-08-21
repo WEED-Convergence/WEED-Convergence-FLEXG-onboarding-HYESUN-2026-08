@@ -851,8 +851,8 @@ function PgApplicationForm() {
       </div>
 
       <div
-        className="mt-6 rounded-[8px] text-[12px]"
-        style={{ border: "1px solid #E4E2D8", backgroundColor: "#FAF9F5", padding: "10px 14px", color: "#5F5E5A" }}
+        className="mt-6 rounded-[8px] text-[12px] font-semibold"
+        style={{ border: "1.5px solid #BA7517", backgroundColor: "#FAEEDA", padding: "10px 14px", color: "#633806" }}
       >
         반려사유: {"{#반려사유}"}
       </div>
