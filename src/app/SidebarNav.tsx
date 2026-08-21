@@ -11,6 +11,7 @@ const specDocs = [
   { href: "/open-checklist-popup", label: "오픈 체크리스트" },
   { href: "/message-collection", label: "메시지 모음" },
   { href: "/bubble-cases", label: "말풍선 케이스" },
+  { href: "/sa", label: "SA (판매자 온보딩 관리)" },
 ];
 
 export default function SidebarNav() {
