@@ -160,6 +160,7 @@ export interface CompanyRow {
   loginId: string;
   managerName: string;
   joinDate: string;
+  lastActivityAt: string;
   templateCategory: string;
   templateSelected: boolean;
   approvalDone: boolean;
@@ -191,6 +192,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "isumo_store",
     managerName: "김이수",
     joinDate: "2026-07-20",
+    lastActivityAt: "2026-07-24 14:12",
     templateCategory: "캐주얼 의류",
     templateSelected: true,
     approvalDone: true,
@@ -208,6 +210,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "greenlife2026",
     managerName: "박그린",
     joinDate: "2026-07-15",
+    lastActivityAt: "2026-07-21 16:40",
     templateCategory: "리빙 · 홈",
     templateSelected: true,
     approvalDone: true,
@@ -226,6 +229,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "dailymarket01",
     managerName: "최데일",
     joinDate: "2026-08-18",
+    lastActivityAt: "2026-08-18 09:40",
     templateCategory: "데일리 잡화",
     templateSelected: false,
     approvalDone: false,
@@ -241,6 +245,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "cozyhome_biz",
     managerName: "이코지",
     joinDate: "2026-08-19",
+    lastActivityAt: "2026-08-19 11:05",
     templateCategory: "홈웨어",
     templateSelected: true,
     approvalDone: false,
@@ -254,6 +259,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "basiclab_kr",
     managerName: "정베이직",
     joinDate: "2026-06-01",
+    lastActivityAt: "2026-06-06 15:20",
     templateCategory: "유니섹스 베이직",
     templateSelected: true,
     approvalDone: true,
@@ -272,6 +278,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "moodhouse_kr",
     managerName: "한무드",
     joinDate: "2026-08-10",
+    lastActivityAt: "2026-08-13 09:00",
     templateCategory: "인테리어 소품",
     templateSelected: true,
     approvalDone: true,
@@ -288,6 +295,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "sewing_studio",
     managerName: "정소잉",
     joinDate: "2026-08-05",
+    lastActivityAt: "2026-08-09 15:30",
     templateCategory: "핸드메이드 소품",
     templateSelected: true,
     approvalDone: true,
@@ -304,6 +312,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "sparkle_goods",
     managerName: "오반짝",
     joinDate: "2026-07-28",
+    lastActivityAt: "2026-08-02 09:00",
     templateCategory: "생활 잡화",
     templateSelected: true,
     approvalDone: true,
@@ -321,6 +330,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "today_table",
     managerName: "서식탁",
     joinDate: "2026-07-25",
+    lastActivityAt: "2026-07-30 09:00",
     templateCategory: "주방 · 식기",
     templateSelected: true,
     approvalDone: true,
@@ -338,6 +348,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "lifefit_shop",
     managerName: "노핏",
     joinDate: "2026-07-10",
+    lastActivityAt: "2026-07-16 14:00",
     templateCategory: "스포츠 · 피트니스",
     templateSelected: true,
     approvalDone: true,
@@ -356,6 +367,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "homestyle_biz",
     managerName: "윤홈",
     joinDate: "2026-07-08",
+    lastActivityAt: "2026-07-14 14:30",
     templateCategory: "홈 데코",
     templateSelected: true,
     approvalDone: true,
@@ -374,6 +386,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "basecamp_out",
     managerName: "장베이스",
     joinDate: "2026-06-20",
+    lastActivityAt: "2026-06-26 14:00",
     templateCategory: "아웃도어",
     templateSelected: true,
     approvalDone: true,
@@ -392,6 +405,7 @@ export const COMPANIES: CompanyRow[] = [
     loginId: "growmarket01",
     managerName: "임그로우",
     joinDate: "2026-08-20",
+    lastActivityAt: "2026-08-20 09:05",
     templateCategory: "가드닝",
     templateSelected: true,
     approvalDone: true,
@@ -403,6 +417,104 @@ export const COMPANIES: CompanyRow[] = [
   },
 ];
 
+export function daysSince(dateStr: string, todayStr: string): number {
+  const from = new Date(`${dateStr}T00:00:00`);
+  const to = new Date(`${todayStr}T00:00:00`);
+  return Math.max(0, Math.round((to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24)));
+}
+
+export interface TermAgreement {
+  label: string;
+  required: boolean;
+  agreed: boolean;
+}
+
+export interface SignupDetailData {
+  joinType: "신규" | "기존 회원";
+  businessType: "개인사업자" | "법인사업자" | "개인";
+  businessRegistrationNumber: string;
+  businessCertAttached: boolean;
+  companyName: string;
+  shopName: string;
+  loginId: string;
+  ownerName: string;
+  businessCategory: string;
+  businessItem: string;
+  mailOrderStatus: "준비중" | "비대상" | "번호 있음";
+  mailOrderNumber: string | null;
+  representativePhone: string;
+  faxNumber: string | null;
+  zipCode: string;
+  addressBase: string;
+  addressDetail: string;
+  managerName: string;
+  managerPhone: string;
+  managerPhoneVerified: boolean;
+  managerEmail: string;
+  managerEmailVerified: boolean;
+  shopExperience: "없음" | "타 서비스 이용";
+  previousShopService: string | null;
+  terms: TermAgreement[];
+}
+
+const BUSINESS_TYPES: SignupDetailData["businessType"][] = ["개인사업자", "법인사업자", "개인"];
+const MAIL_ORDER_STATUSES: SignupDetailData["mailOrderStatus"][] = ["번호 있음", "준비중", "비대상"];
+const PREVIOUS_SHOP_SERVICES = ["카페24", "고도몰5", "메이크샵", "아임웹"];
+const ADDRESS_PRESETS = [
+  { zipCode: "08512", addressBase: "서울특별시 금천구 벚꽃로 298" },
+  { zipCode: "06181", addressBase: "서울특별시 강남구 테헤란로 212" },
+  { zipCode: "04524", addressBase: "서울특별시 중구 청계천로 100" },
+];
+
+// 회원가입 폼 전체 항목을 인덱스 기반으로 다양하게 생성합니다. (비밀번호·영업 대행사 항목은 제외)
+export function getSignupDetail(company: CompanyRow, index: number): SignupDetailData {
+  const businessType = BUSINESS_TYPES[index % BUSINESS_TYPES.length];
+  const mailOrderStatus = MAIL_ORDER_STATUSES[(index + 1) % MAIL_ORDER_STATUSES.length];
+  const address = ADDRESS_PRESETS[index % ADDRESS_PRESETS.length];
+  const shopExperience: SignupDetailData["shopExperience"] = index % 4 === 1 ? "타 서비스 이용" : "없음";
+
+  const companyName =
+    businessType === "법인사업자"
+      ? `(주)${company.storeName.replace(/\s/g, "")}`
+      : businessType === "개인사업자"
+        ? company.storeName
+        : "-";
+
+  return {
+    joinType: index % 5 === 4 ? "기존 회원" : "신규",
+    businessType,
+    businessRegistrationNumber: businessType === "개인" ? "-" : `${120 + index}-45-${67890 + index}`,
+    businessCertAttached: businessType !== "개인",
+    companyName,
+    shopName: company.storeName,
+    loginId: company.loginId,
+    ownerName: company.managerName,
+    businessCategory: "도소매업",
+    businessItem: company.templateCategory,
+    mailOrderStatus,
+    mailOrderNumber: mailOrderStatus === "번호 있음" ? `2026-서울금천-${String(1000 + index)}` : null,
+    representativePhone: `02-12${String(index).padStart(2, "0")}-5678`,
+    faxNumber: index % 3 === 0 ? `02-12${String(index).padStart(2, "0")}-5679` : null,
+    zipCode: address.zipCode,
+    addressBase: address.addressBase,
+    addressDetail: `${(index % 9) + 2}층 ${(index % 5) + 1}0${(index % 9) + 1}호`,
+    managerName: company.managerName,
+    managerPhone: `010-1234-${5670 + index}`,
+    managerPhoneVerified: index % 5 !== 3,
+    managerEmail: `${company.loginId}@example.com`,
+    managerEmailVerified: index % 5 !== 3,
+    shopExperience,
+    previousShopService:
+      shopExperience === "타 서비스 이용" ? PREVIOUS_SHOP_SERVICES[index % PREVIOUS_SHOP_SERVICES.length] : null,
+    terms: [
+      { label: "플렉스지 이용약관 동의", required: true, agreed: true },
+      { label: "플렉스지 개인정보 수집 및 이용 동의", required: true, agreed: true },
+      { label: "연동 업체 회원가입 동의", required: true, agreed: true },
+      { label: "광고성 정보 수신 동의", required: false, agreed: index % 2 === 0 },
+    ],
+  };
+}
+
 export type ValueFieldKey = "signup" | "template" | ChecklistItemId;
 
 export interface ValueField {
@@ -412,14 +524,6 @@ export interface ValueField {
 
 export function getItemValueFields(key: ValueFieldKey, company: CompanyRow): ValueField[] {
   switch (key) {
-    case "signup":
-      return [
-        { label: "아이디", value: company.loginId },
-        { label: "대표자명", value: company.managerName },
-        { label: "휴대폰번호", value: "010-1234-5678" },
-        { label: "이메일", value: `${company.loginId}@example.com` },
-        { label: "가입일시", value: `${company.joinDate} 10:24` },
-      ];
     case "template":
       return [
         { label: "선택한 템플릿", value: company.templateCategory },

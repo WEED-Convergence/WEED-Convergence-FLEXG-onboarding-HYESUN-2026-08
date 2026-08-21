@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   CHECKLIST_CATEGORIES,
   COMPANIES,
@@ -9,8 +9,10 @@ import {
   STAGE_CONFIG,
   STATS_BY_PERIOD,
   TOTAL_CHECKLIST_ITEMS,
+  daysSince,
   deriveStage,
   getItemValueFields,
+  getSignupDetail,
   type CompanyRow,
   type PeriodKey,
   type StageKey,
@@ -391,6 +393,155 @@ function ValueModal({
   );
 }
 
+function SignupSectionTitle({ children }: { children: React.ReactNode }) {
+  return <p className="text-[11px] font-bold text-[var(--text-secondary)]">{children}</p>;
+}
+
+function SignupField({ label, value }: { label: string; value: React.ReactNode }) {
+  return (
+    <div className="flex items-start gap-3">
+      <span className="w-[90px] shrink-0 text-[12px] text-[var(--text-muted)]">{label}</span>
+      <span className="text-[12px] font-medium text-[var(--text-primary)]">{value}</span>
+    </div>
+  );
+}
+
+function VerifiedTag({ verified }: { verified: boolean }) {
+  return (
+    <span
+      className="ml-1.5 inline-block rounded-full px-1.5 py-[1px] align-middle text-[10px] font-semibold"
+      style={{
+        backgroundColor: verified ? "#EAF3E0" : "#FBEAF0",
+        color: verified ? "var(--success)" : "var(--accent)",
+      }}
+    >
+      {verified ? "인증완료" : "미인증"}
+    </span>
+  );
+}
+
+function SignupValueModal({ company, onClose }: { company: CompanyRow; onClose: () => void }) {
+  const index = COMPANIES.findIndex((c) => c.key === company.key);
+  const detail = getSignupDetail(company, index);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-8"
+      style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+    >
+      <div className="relative flex max-h-[86vh] w-[460px] flex-col rounded-xl border border-[var(--border)] bg-[var(--bg)] p-5">
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute right-4 top-4 flex h-6 w-6 items-center justify-center text-[var(--text-muted)]"
+        >
+          <CloseIcon />
+        </button>
+
+        <p className="pr-6 text-[14px] font-bold text-[var(--text-primary)]">회원가입 완료 · 입력값</p>
+        <p className="mt-0.5 text-[11px] text-[var(--text-muted)]">{company.storeName}</p>
+
+        <div className="mt-4 flex-1 space-y-5 overflow-y-auto pr-1">
+          <div className="space-y-2.5">
+            <SignupSectionTitle>가입 정보</SignupSectionTitle>
+            <SignupField label="가입 유형" value={detail.joinType} />
+            <SignupField label="사업자 구분" value={detail.businessType} />
+            <SignupField label="사업자등록번호" value={detail.businessRegistrationNumber} />
+            <SignupField label="사업자등록증" value={detail.businessCertAttached ? "첨부됨" : "미첨부"} />
+            <SignupField label="회사명" value={detail.companyName} />
+            <SignupField label="쇼핑몰명" value={detail.shopName} />
+            <SignupField label="아이디" value={detail.loginId} />
+          </div>
+
+          <div className="space-y-2.5 border-t border-[var(--divider)] pt-4">
+            <SignupSectionTitle>사업자 상세 정보</SignupSectionTitle>
+            <SignupField label="대표자명" value={detail.ownerName} />
+            <SignupField label="업태 / 업종" value={`${detail.businessCategory} / ${detail.businessItem}`} />
+            <SignupField
+              label="통신판매신고"
+              value={
+                detail.mailOrderStatus === "번호 있음"
+                  ? `번호 있음 (${detail.mailOrderNumber})`
+                  : detail.mailOrderStatus
+              }
+            />
+            <SignupField label="대표번호" value={detail.representativePhone} />
+            <SignupField label="팩스번호" value={detail.faxNumber ?? "미입력"} />
+            <SignupField
+              label="사업장 주소"
+              value={`(${detail.zipCode}) ${detail.addressBase}, ${detail.addressDetail}`}
+            />
+          </div>
+
+          <div className="space-y-2.5 border-t border-[var(--divider)] pt-4">
+            <SignupSectionTitle>담당자 정보</SignupSectionTitle>
+            <SignupField label="담당자명" value={detail.managerName} />
+            <SignupField
+              label="담당자 연락처"
+              value={
+                <>
+                  {detail.managerPhone}
+                  <VerifiedTag verified={detail.managerPhoneVerified} />
+                </>
+              }
+            />
+            <SignupField
+              label="담당자 이메일"
+              value={
+                <>
+                  {detail.managerEmail}
+                  <VerifiedTag verified={detail.managerEmailVerified} />
+                </>
+              }
+            />
+            <SignupField label="운영 경험" value={detail.shopExperience} />
+            {detail.previousShopService ? (
+              <SignupField label="이용 서비스" value={detail.previousShopService} />
+            ) : null}
+          </div>
+
+          <div className="border-t border-[var(--divider)] pt-4">
+            <SignupSectionTitle>약관 동의 내역</SignupSectionTitle>
+            <div className="mt-1.5">
+              {detail.terms.map((term) => (
+                <div
+                  key={term.label}
+                  className="flex items-center gap-2.5 border-b border-[var(--divider)] py-2 last:border-0"
+                >
+                  <span
+                    className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
+                    style={{ backgroundColor: term.agreed ? "var(--success)" : "var(--divider)" }}
+                  >
+                    {term.agreed ? <CheckIcon /> : null}
+                  </span>
+                  <span className="flex-1 text-[12px] text-[var(--text-primary)]">
+                    <span className="mr-1 font-semibold" style={{ color: term.required ? "#D8342A" : "#888780" }}>
+                      [{term.required ? "필수" : "선택"}]
+                    </span>
+                    {term.label}
+                  </span>
+                  <span
+                    className="text-[11px]"
+                    style={{ color: term.agreed ? "var(--success)" : "var(--placeholder)" }}
+                  >
+                    {term.agreed ? "동의완료" : "미동의"}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 flex justify-center">
+          <button type="button" onClick={onClose} className={secondaryButtonClass}>
+            닫기
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function SendMessageModal({ company, onClose }: { company: CompanyRow; onClose: () => void }) {
   const [templateId, setTemplateId] = useState(MESSAGE_TEMPLATES[0].id);
   const [phone, setPhone] = useState("010-0000-0000");
@@ -486,11 +637,20 @@ interface AppliedFilters {
 }
 
 export default function SaPanel() {
-  const today = useMemo(() => formatDate(new Date()), []);
+  // 서버 렌더링 시점과 브라우저 시간대가 달라 하이드레이션 불일치가 나지 않도록,
+  // 오늘 날짜는 마운트 이후 useEffect에서만 계산해 채웁니다.
+  const [today, setToday] = useState("");
 
-  const [period, setPeriod] = useState<PeriodKey>("today");
+  const [period, setPeriod] = useState<PeriodKey>("custom");
   const [customFrom, setCustomFrom] = useState("");
   const [customTo, setCustomTo] = useState("");
+
+  useEffect(() => {
+    const t = formatDate(new Date());
+    setToday(t);
+    setCustomFrom((prev) => prev || t);
+    setCustomTo((prev) => prev || t);
+  }, []);
 
   const [storeNameInput, setStoreNameInput] = useState("");
   const [loginIdInput, setLoginIdInput] = useState("");
@@ -499,6 +659,8 @@ export default function SaPanel() {
   const [joinToInput, setJoinToInput] = useState("");
   const [appliedFilters, setAppliedFilters] = useState<AppliedFilters | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortOption, setSortOption] = useState("join-desc");
+  const [stageFilterOption, setStageFilterOption] = useState("all");
 
   const [detailCompanyKey, setDetailCompanyKey] = useState<string | null>(null);
   const [valueTarget, setValueTarget] = useState<ValueFieldKey | null>(null);
@@ -660,27 +822,59 @@ export default function SaPanel() {
         </div>
       </div>
 
-      <p className="mt-6 text-[13px] text-[var(--text-secondary)]">
-        전체 <span className="font-semibold text-[var(--text-primary)]">{filteredCompanies.length}</span>건
-      </p>
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-[13px] text-[var(--text-secondary)]">
+          전체 <span className="font-semibold text-[var(--text-primary)]">{filteredCompanies.length}</span>건
+        </p>
+        <div className="flex items-center gap-2">
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            className={inputClass}
+          >
+            <option value="join-desc">가입일 최신순</option>
+            <option value="join-asc">가입일 오래된순</option>
+            <option value="progress-asc">진행률 낮은순</option>
+            <option value="progress-desc">진행률 높은순</option>
+            <option value="elapsed-desc">경과일 오래된순</option>
+          </select>
+          <select
+            value={stageFilterOption}
+            onChange={(e) => setStageFilterOption(e.target.value)}
+            className={inputClass}
+          >
+            <option value="all">전체</option>
+            <option value="payment-prep">결제 준비</option>
+            <option value="ops-prep">운영 필수</option>
+            <option value="recommended">권장 설정</option>
+            <option value="growth">매출 확장</option>
+            <option value="open-ready">오픈 가능</option>
+            <option value="all-done">전체 완료</option>
+          </select>
+        </div>
+      </div>
 
       <div className="mt-2 overflow-x-auto rounded-xl border border-[var(--border)]">
-        <table className="w-full table-fixed border-collapse text-left text-[13px]">
+        <table className="w-full min-w-[1280px] table-fixed border-collapse text-left text-[13px]">
           <colgroup>
-            <col style={{ width: 118 }} />
-            <col style={{ width: 122 }} />
-            <col style={{ width: 92 }} />
+            <col style={{ width: 120 }} />
+            <col style={{ width: 120 }} />
+            <col style={{ width: 100 }} />
+            <col style={{ width: 160 }} />
             <col style={{ width: 140 }} />
-            <col style={{ width: 105 }} />
-            <col />
-            <col style={{ width: 168 }} />
+            <col style={{ width: 140 }} />
+            <col style={{ width: 110 }} />
+            <col style={{ width: 220 }} />
+            <col style={{ width: 170 }} />
           </colgroup>
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)", backgroundColor: "var(--surface-1)" }}>
               <th className="px-3 py-2.5 text-[12px] font-medium text-[var(--text-muted)]">상호명</th>
               <th className="px-3 py-2.5 text-[12px] font-medium text-[var(--text-muted)]">아이디</th>
+              <th className="px-3 py-2.5 text-[12px] font-medium text-[var(--text-muted)]">담당자명</th>
               <th className="px-3 py-2.5 text-[12px] font-medium text-[var(--text-muted)]">가입일</th>
               <th className="px-3 py-2.5 text-[12px] font-medium text-[var(--text-muted)]">현재 단계</th>
+              <th className="px-3 py-2.5 text-[12px] font-medium text-[var(--text-muted)]">최근 활동일시</th>
               <th className="px-3 py-2.5 text-[12px] font-medium text-[var(--text-muted)]">진행률</th>
               <th className="px-3 py-2.5 text-[12px] font-medium text-[var(--text-muted)]">최근 알림톡</th>
               <th className="px-2 py-2.5 text-[12px] font-medium text-[var(--text-muted)]">관리</th>
@@ -691,14 +885,26 @@ export default function SaPanel() {
               pagedCompanies.map((c) => {
                 const recentMessage = MESSAGE_TEMPLATES.find((t) => t.id === c.recentMessageId);
                 const recentMessageText = recentMessage ? recentMessage.title : "-";
+                const lastHistoryEntry = c.history[c.history.length - 1];
+                const dotColor = lastHistoryEntry ? (lastHistoryEntry.received ? "#639922" : "#D8342A") : null;
                 return (
                   <tr key={c.key} style={{ borderBottom: "1px solid var(--divider)" }}>
                     <td className="truncate px-3 py-3 font-medium text-[var(--text-primary)]">{c.storeName}</td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.loginId}</td>
-                    <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.joinDate}</td>
+                    <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.managerName}</td>
+                    <td className="truncate px-3 py-3 text-[var(--text-secondary)]">
+                      {c.joinDate}
+                      {today ? (
+                        <span className="text-[10px] text-[var(--placeholder)]">
+                          {" "}
+                          (D+{daysSince(c.joinDate, today)})
+                        </span>
+                      ) : null}
+                    </td>
                     <td className="px-3 py-3">
                       <StageBadge stage={deriveStage(c)} />
                     </td>
+                    <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.lastActivityAt}</td>
                     <td className="px-3 py-3">
                       <ProgressCell completed={c.completedItemIds.length} />
                     </td>
@@ -706,7 +912,15 @@ export default function SaPanel() {
                       className="truncate px-3 py-3 text-[12px] text-[var(--text-secondary)]"
                       title={recentMessageText}
                     >
-                      {recentMessageText}
+                      <span className="inline-flex items-center gap-1.5">
+                        {dotColor ? (
+                          <span
+                            className="h-1.5 w-1.5 shrink-0 rounded-full"
+                            style={{ backgroundColor: dotColor }}
+                          />
+                        ) : null}
+                        {recentMessageText}
+                      </span>
                     </td>
                     <td className="px-2 py-3">
                       <div className="flex items-center gap-1.5">
@@ -731,7 +945,7 @@ export default function SaPanel() {
               })
             ) : (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-[12px] text-[var(--text-muted)]">
+                <td colSpan={9} className="px-4 py-8 text-center text-[12px] text-[var(--text-muted)]">
                   검색 조건에 맞는 판매자가 없습니다.
                 </td>
               </tr>
@@ -751,7 +965,11 @@ export default function SaPanel() {
       ) : null}
 
       {detailCompany && valueTarget !== null ? (
-        <ValueModal itemKey={valueTarget} company={detailCompany} onClose={() => setValueTarget(null)} />
+        valueTarget === "signup" ? (
+          <SignupValueModal company={detailCompany} onClose={() => setValueTarget(null)} />
+        ) : (
+          <ValueModal itemKey={valueTarget} company={detailCompany} onClose={() => setValueTarget(null)} />
+        )
       ) : null}
 
       {sendCompany ? <SendMessageModal company={sendCompany} onClose={() => setSendCompanyKey(null)} /> : null}
