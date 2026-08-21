@@ -22,7 +22,7 @@ const stepsIntro: StepData[] = [
   },
 ];
 
-const [step3, step5, step6, step7, step8, step9]: StepData[] = [
+const [step3, step4, step5, step6, step7]: StepData[] = [
   {
     id: 3,
     title: "승인 대기",
@@ -38,16 +38,11 @@ const [step3, step5, step6, step7, step8, step9]: StepData[] = [
   {
     id: 5,
     title: "사업자 정보 등록",
-    desc: "사업자 정보 · 통신판매업신고번호 등록하기",
+    desc: "사업자 정보 · 통신판매업신고번호 · 대표 전화번호 등록하기",
     path: "/Setting/info",
   },
   {
     id: 6,
-    title: "유선번호 등록",
-    desc: "고객 문의용 유선번호 입력",
-  },
-  {
-    id: 7,
     title: "추가 세팅",
     desc: "쇼핑몰 운영에 필요한 부가 기능 설정",
     subItems: [
@@ -58,7 +53,7 @@ const [step3, step5, step6, step7, step8, step9]: StepData[] = [
     ],
   },
   {
-    id: 8,
+    id: 7,
     title: "운영 완성도를 높이는 권장 설정 안내",
     desc: "필수 세팅은 아니지만, 검색 유입 · 약관 확인 · 계정 보안을 강화하는 항목을 입력하도록 유도",
     subItems: ["검색 노출 정보 등록하기", "약관 확인하기", "보안 설정하기"],
@@ -207,7 +202,7 @@ export default function Home() {
       </div>
       <ArrowDown />
 
-      <Box {...step5} />
+      <Box {...step4} />
       <ArrowDown />
       <MessageBlock
         label="알림톡"
@@ -215,11 +210,9 @@ export default function Home() {
         desc="승인 후 5일 경과 + 결제준비·운영필수 미완료 항목 존재 시 발송"
       />
       <ArrowDown />
+      <Box {...step5} />
+      <ArrowDown />
       <Box {...step6} />
-      <ArrowDown />
-      <Box {...step7} />
-      <ArrowDown />
-      <Box {...step8} />
 
       <ArrowDown />
       <MessageBlock
@@ -229,7 +222,7 @@ export default function Home() {
       />
       <ArrowDown />
 
-      <Box {...step9} />
+      <Box {...step7} />
     </div>
   );
 }
