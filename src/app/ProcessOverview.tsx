@@ -224,6 +224,10 @@ const CRM_SETTINGS_NOTE: OverviewNote = {
       title: "지금 시작하기",
       body: "/CRM/CampaignList 새창열림",
     },
+    {
+      title: "상담 신청",
+      body: "/CRM/CRMConsultPopup",
+    },
   ],
   items: [],
 };

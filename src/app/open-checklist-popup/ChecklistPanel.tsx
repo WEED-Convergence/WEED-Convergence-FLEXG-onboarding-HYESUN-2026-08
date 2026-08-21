@@ -949,7 +949,7 @@ function CampaignSettingsForm() {
           className="shrink-0 whitespace-nowrap text-right text-[12px] font-bold underline"
           style={{ color: "#8B5A2B" }}
         >
-          CRM 상담 신청하기 &gt;
+          상담 신청 &gt;
         </button>
       </div>
 
