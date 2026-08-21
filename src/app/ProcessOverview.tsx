@@ -106,7 +106,13 @@ const SUPPLIER_REGISTRATION_NOTE: OverviewNote = {
 
 const PRODUCT_REGISTRATION_NOTE: OverviewNote = {
   id: "product-registration-note",
-  desc: ["가이드 버튼: https://guide.flexgate.co.kr/27092892ccf68026b3e9d2e303b3a630"],
+  desc: [
+    {
+      title: "완료 조건",
+      body: "공급사 등록·상품 등록처럼 리스트형 데이터인 항목은, 샘플로 자동 생성된 데이터를 제외하고 사용자가 직접 등록한 레코드가 1건 이상 존재하는지를 완료 기준으로 삼습니다. 이를 위해 샘플 데이터에는 \"샘플 여부\" 플래그가 필요합니다. 샘플 데이터라도 판매자가 필드 값을 1개 이상 수정하면, 해당 레코드의 \"샘플 여부\" 플래그를 즉시 해제하고 완료 판정 대상에 포함시킵니다.",
+    },
+    "가이드 버튼: https://guide.flexgate.co.kr/27092892ccf68026b3e9d2e303b3a630",
+  ],
   items: [],
 };
 
