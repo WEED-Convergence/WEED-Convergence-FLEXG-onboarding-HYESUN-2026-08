@@ -67,6 +67,18 @@ const PG_APPLICATION_NOTE: OverviewNote = {
       title: "상태 표시",
       body: "체크리스트 항목 옆 배지와 상세화면 타이틀 영역에 조회된 상태값을 상태명 배지로 노출합니다. 상태값이 확인되지 않은 경우(선행 기능 미개발 또는 조회 실패 시) \"확인중\"으로 표시하고 추정값을 임의로 보여주지 않습니다.",
     },
+    {
+      title: "자세히 보기",
+      list: [
+        { body: "/Setting/pg_nicePay 새창열림" },
+        { body: "/Setting/pg_kcpPay 새창열림" },
+        { body: "/Setting/pg_kicc 새창열림" },
+      ],
+    },
+    {
+      title: "신청 가이드",
+      body: "data/commonimg/nicepay_Guide.pdf",
+    },
   ],
   items: [],
 };
@@ -117,6 +129,17 @@ const SENDER_NUMBER_NOTE: OverviewNote = {
   items: [],
 };
 
+const ALIMTALK_REGISTRATION_NOTE: OverviewNote = {
+  id: "alimtalk-registration-note",
+  desc: [
+    {
+      title: "가이드",
+      body: "https://guide.flexgate.co.kr/22592892ccf6800ba79ddf544091b83c 새창열림",
+    },
+  ],
+  items: [],
+};
+
 const SNS_LOGIN_NOTE: OverviewNote = {
   id: "sns-login-note",
   desc: [
@@ -149,6 +172,13 @@ const SNS_LOGIN_NOTE: OverviewNote = {
       title: "비고",
       body: "두 서비스 중 하나만 연동해도 \"고객이 SNS로 로그인할 수 있다\"는 기능 목적은 달성되므로, 둘 다 연동할 필요는 없습니다.",
     },
+    {
+      title: "가이드",
+      list: [
+        { body: "https://guide.flexgate.co.kr/22592892ccf6803dbec8e7bae476e6d7 새창열림" },
+        { body: "https://guide.flexgate.co.kr/26392892ccf680e8b975c221da2f6481 새창열림" },
+      ],
+    },
   ],
   items: [],
 };
@@ -174,6 +204,10 @@ const TERMS_CHECK_NOTE: OverviewNote = {
     {
       title: "비고",
       body: "실제 약관 열람 여부, 열람 시간, 문서 수정 여부는 완료 조건에 포함하지 않습니다.",
+    },
+    {
+      title: "약관보기",
+      body: "/Setting/operation 새창열림",
     },
   ],
   items: [],
@@ -220,6 +254,10 @@ const CASH_RECEIPT_NOTE: OverviewNote = {
       title: "완료 조건",
       body: "팝빌 가입정보가 실제로 존재하는 것이 데이터로 확인되는 시점에 완료 처리합니다. \"팝빌가입하기\" 버튼 클릭만으로는 완료 처리하지 않으며, 실제 가입 완료 여부를 데이터로 확인합니다.",
     },
+    {
+      title: "가이드",
+      body: "https://guide.flexgate.co.kr/23392892ccf68037a0fac3f6340de669 새창열림",
+    },
   ],
   items: [],
 };
@@ -261,6 +299,7 @@ const CHECKLIST_ITEM_NOTES: Record<number, OverviewNote> = {
   5: BUSINESS_INFO_NOTE, // 사업자 정보 등록
   6: SENDER_NUMBER_NOTE, // 발신번호 신청하기
   7: SNS_LOGIN_NOTE, // SNS 간편 로그인 등록하기
+  8: ALIMTALK_REGISTRATION_NOTE, // 알림톡 등록하기
   9: SEO_SETTINGS_NOTE, // SEO 설정하기
   11: CRM_SETTINGS_NOTE, // CRM 설정하기
   12: LIVE_COMMERCE_NOTE, // 라이브커머스 설정하기
