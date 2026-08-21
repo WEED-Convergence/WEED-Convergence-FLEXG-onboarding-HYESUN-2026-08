@@ -11,11 +11,11 @@ export const PERIOD_OPTIONS: { key: PeriodKey; label: string }[] = [
   { key: "custom", label: "기간 설정" },
 ];
 
-export const STATS_BY_PERIOD: Record<PeriodKey, { newSignups: number; onboardingCompleted: number }> = {
-  today: { newSignups: 2, onboardingCompleted: 0 },
-  week: { newSignups: 9, onboardingCompleted: 3 },
-  month: { newSignups: 27, onboardingCompleted: 11 },
-  custom: { newSignups: 41, onboardingCompleted: 15 },
+export const STATS_BY_PERIOD: Record<PeriodKey, { newSignups: number }> = {
+  today: { newSignups: 2 },
+  week: { newSignups: 9 },
+  month: { newSignups: 27 },
+  custom: { newSignups: 41 },
 };
 
 export type StageKey =
@@ -437,6 +437,7 @@ export interface SignupDetailData {
   companyName: string;
   shopName: string;
   loginId: string;
+  salesAgency: string;
   ownerName: string;
   businessCategory: string;
   businessItem: string;
@@ -488,6 +489,7 @@ export function getSignupDetail(company: CompanyRow, index: number): SignupDetai
     companyName,
     shopName: company.storeName,
     loginId: company.loginId,
+    salesAgency: "해당 없음",
     ownerName: company.managerName,
     businessCategory: "도소매업",
     businessItem: company.templateCategory,
