@@ -868,6 +868,17 @@ function PgApplicationForm() {
 
 const crmActionButtonClass = `shrink-0 whitespace-nowrap ${primaryButtonClass}`;
 
+function HeadsetIcon({ color }: { color: string }) {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="1.8" className="shrink-0">
+      <path d="M4 13v-1a8 8 0 0116 0v1" strokeLinecap="round" />
+      <rect x="3" y="13" width="4" height="6" rx="1.5" />
+      <rect x="17" y="13" width="4" height="6" rx="1.5" />
+      <path d="M20 19v1a3 3 0 01-3 3h-3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function CampaignSettingsForm() {
   const [rejectionType, setRejectionType] = useState("신규");
 
@@ -920,6 +931,27 @@ function CampaignSettingsForm() {
           </p>
         </div>
       </DetailCard>
+
+      <div
+        className="mt-6 flex flex-wrap items-center gap-3 rounded-[8px]"
+        style={{ border: "1.5px solid #8B5A2B", backgroundColor: "#FBF0E3", padding: "12px 14px" }}
+      >
+        <HeadsetIcon color="#8B5A2B" />
+        <p className="flex-1 text-[12px] leading-relaxed" style={{ color: "#5C3A1E", minWidth: 200 }}>
+          캠페인 활용 방법이 궁금하시다면,{" "}
+          <span className="font-bold" style={{ color: "#7B4B27" }}>
+            마케팅 전문가 상담
+          </span>
+          을 통해 개별화된 솔루션을 안내 받으실 수 있습니다.
+        </p>
+        <button
+          type="button"
+          className="shrink-0 whitespace-nowrap text-right text-[12px] font-bold underline"
+          style={{ color: "#8B5A2B" }}
+        >
+          CRM 상담 신청하기 &gt;
+        </button>
+      </div>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
