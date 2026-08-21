@@ -22,6 +22,8 @@ const stepsIntro: StepData[] = [
   },
 ];
 
+// 아래 4개 박스는 오픈 체크리스트의 4개 카테고리(결제 준비 · 운영 필수 · 권장 설정 · 매출 확장)와
+// 각 카테고리 내 항목 순서를 그대로 반영합니다. 체크리스트가 바뀌면 이 배열도 함께 갱신해야 합니다.
 const [step3, step4, step5, step6, step7]: StepData[] = [
   {
     id: 3,
@@ -31,32 +33,32 @@ const [step3, step4, step5, step6, step7]: StepData[] = [
   },
   {
     id: 4,
-    title: "심사용 세팅",
-    desc: "PG 심사 통과를 위한 최소 조건 세팅",
-    subItems: ["공급사 등록 (자체배송 시 필수)", "템플릿 선택 시 자동 등록된 샘플 상품 확인"],
-  },
-  {
-    id: 5,
-    title: "사업자 정보 등록",
-    desc: "사업자 정보 · 통신판매업신고번호 · 대표 전화번호 등록하기",
-    path: "/Setting/info",
-  },
-  {
-    id: 6,
-    title: "추가 세팅",
-    desc: "쇼핑몰 운영에 필요한 부가 기능 설정",
+    title: "결제 준비",
+    desc: "오픈 체크리스트 · 결제 준비 카테고리",
     subItems: [
-      "발신번호 신청",
-      "알림톡 등록",
-      "현금영수증(팝빌) 설정",
-      "SNS 간편 로그인 등록하기 (카카오, 네이버)",
+      "PG 신청하기",
+      "공급사 등록하기",
+      "상품 등록하기",
+      "사업자 정보 · 통신판매업신고번호 등록하기",
     ],
   },
   {
-    id: 7,
-    title: "운영 완성도를 높이는 권장 설정 안내",
-    desc: "필수 세팅은 아니지만, 검색 유입 · 약관 확인 · 계정 보안을 강화하는 항목을 입력하도록 유도",
+    id: 5,
+    title: "운영 필수",
+    desc: "오픈 체크리스트 · 운영 필수 카테고리",
+    subItems: ["발신번호 신청하기", "알림톡 등록하기", "현금영수증 설정하기", "SNS 간편 로그인 등록하기"],
+  },
+  {
+    id: 6,
+    title: "권장 설정",
+    desc: "오픈 체크리스트 · 권장 설정 카테고리",
     subItems: ["검색 노출 정보 등록하기", "약관 확인하기", "보안 설정하기"],
+  },
+  {
+    id: 7,
+    title: "매출 확장",
+    desc: "오픈 체크리스트 · 매출 확장 카테고리",
+    subItems: ["CRM 설정하기", "라이브커머스 설정하기"],
   },
 ];
 
@@ -167,8 +169,8 @@ export default function Home() {
       <ArrowDown />
       <MessageBlock
         label="알림톡"
-        title="이제 템플릿만 선택하면 돼요"
-        desc="승인 후 24시간 경과 + 템플릿 선택 미완료 시 발송"
+        title="#{판매자명}님, 이제 템플릿만 선택하면 돼요"
+        desc="승인 후 24시간 경과, 템플릿 미선택 · 조건 충족 시 최대 1회"
       />
       <ArrowDown />
 
@@ -177,51 +179,51 @@ export default function Home() {
       <ArrowDown />
       <MessageBlock
         label="알림톡"
-        title="회원가입 승인이 완료되었습니다"
-        desc="승인 처리 즉시 발송"
+        title="플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다."
+        desc="회원가입 승인 처리 즉시 · 조건 충족 시 최대 1회"
       />
       <ArrowDown label={step3.afterLabel} />
 
+      <Box {...step4} />
+
+      <ArrowDown />
       <p className="text-[11px] font-semibold text-[var(--text-muted)]">PG 신청 관련 알림톡</p>
       <div className="mt-2 flex flex-wrap justify-center gap-3">
         <MessageBlock
           label="알림톡"
           title="아직 PG 신청을 완료하지 않으셨어요"
-          desc="승인 후 3일 경과 + PG 신청 미완료 시 발송"
+          desc="승인 후 3일 경과, PG 신청 미완료 · 조건 충족 시 최대 1회"
         />
         <MessageBlock
           label="알림톡"
           title="PG 신청이 완료되었어요!"
-          desc="PG 신청 완료 시 (결제준비·운영필수 미완료 항목 존재)"
+          desc="PG 신청 완료 시, 결제준비·운영필수 미완료 항목 존재 · 조건 충족 시 최대 1회"
         />
         <MessageBlock
           label="알림톡"
           title="PG 신청이 반려되었어요"
-          desc="PG사 반려 통보 시점 발송"
+          desc="PG사 반려 통보 시점 · 반려될 때마다 발송"
         />
       </div>
       <ArrowDown />
 
-      <Box {...step4} />
+      <Box {...step5} />
       <ArrowDown />
       <MessageBlock
         label="알림톡"
         title="쇼핑몰 오픈까지 얼마 남지 않았어요"
-        desc="승인 후 5일 경과 + 결제준비·운영필수 미완료 항목 존재 시 발송"
+        desc="승인 후 5일 경과, 결제준비·운영필수 미완료 항목 존재 · 조건 충족 시 최대 1회"
       />
-      <ArrowDown />
-      <Box {...step5} />
-      <ArrowDown />
-      <Box {...step6} />
-
       <ArrowDown />
       <MessageBlock
         label="알림톡"
         title="쇼핑몰 오픈 준비가 끝났어요!"
-        desc="결제준비·운영필수 카테고리가 모두 완료 처리된 시점 발송"
+        desc="결제준비·운영필수 모두 완료 처리된 시점 · 조건 충족 시 최대 1회"
       />
       <ArrowDown />
 
+      <Box {...step6} />
+      <ArrowDown />
       <Box {...step7} />
     </div>
   );
