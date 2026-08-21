@@ -2240,9 +2240,9 @@ export default function ChecklistPanel() {
             >
               <InfoIcon />
               <p className="text-[12px] leading-relaxed text-[var(--accent-text)]">
-                <span className="font-semibold">아래 항목을 모두 입력해야 SEO 설정을 완료할 수 있어요.</span>
+                검색엔진 노출과 링크 공유 시 보여지는 정보예요.
                 <br />
-                검색엔진 노출과 링크 공유 시 보여지는 정보를 결정하는 필수 항목이에요.
+                실제 SEO 설정은 상품을 등록하실 때 함께 진행하실 수 있어요.
               </p>
             </div>
           )}
