@@ -21,7 +21,8 @@ const items: ChecklistItemData[] = [
   {
     id: 1,
     title: "PG 신청하기",
-    description: "",
+    description:
+      "자세히 보기 : /Setting/pg_nicePay 새창열림\n/Setting/pg_kcpPay 새창열림\n/Setting/pg_kicc 새창열림\n신청 가이드 : data/commonimg/nicepay_Guide.pdf",
     previewTitle: "PG 계약 정보 입력",
     previewRows: ["상호명: 이수모 스토어", "사업자번호: 123-45-...", "정산계좌: 신한 110-..."],
   },
@@ -61,14 +62,15 @@ const items: ChecklistItemData[] = [
     id: 7,
     title: "SNS 간편 로그인 등록하기",
     description:
-      "복잡한 절차 없이 1초 만에 회원가입할 수 있게 해주는 기능이에요. 아래 가이드를 보시면서 순서대로 진행해 주세요.",
+      "복잡한 절차 없이 1초 만에 회원가입할 수 있게 해주는 기능이에요. 아래 가이드를 보시면서 순서대로 진행해 주세요.\n가이드 : https://guide.flexgate.co.kr/22592892ccf6803dbec8e7bae476e6d7 새창열림\nhttps://guide.flexgate.co.kr/26392892ccf680e8b975c221da2f6481 새창열림",
     previewTitle: "간편로그인 설정",
     previewRows: ["카카오 REST API 키: ****", "네이버 Client ID: ****"],
   },
   {
     id: 8,
     title: "알림톡 등록하기",
-    description: "카카오 비즈니스 채널 개설 및 심사 완료 후 채널을 등록해 주세요.",
+    description:
+      "카카오 비즈니스 채널 개설 및 심사 완료 후 채널을 등록해 주세요.\n가이드 : https://guide.flexgate.co.kr/22592892ccf6800ba79ddf544091b83c 새창열림",
     previewTitle: "알림톡 채널 연동",
     previewRows: ["카카오 채널 ID: @isumo_store"],
   },
@@ -82,7 +84,7 @@ const items: ChecklistItemData[] = [
   {
     id: 15,
     title: "약관 확인하기",
-    description: "",
+    description: "약관보기 : /Setting/operation 새창열림",
     previewTitle: "약관 관리",
     previewRows: ["이용약관: 기본 템플릿 적용됨", "개인정보처리방침: 기본 템플릿 적용됨"],
   },
@@ -110,7 +112,7 @@ const items: ChecklistItemData[] = [
   {
     id: 17,
     title: "현금영수증 설정하기",
-    description: "",
+    description: "가이드 : https://guide.flexgate.co.kr/23392892ccf68037a0fac3f6340de669 새창열림",
     previewTitle: "현금영수증 설정",
     previewRows: ["현금영수증 발행: 미설정"],
   },
@@ -1500,7 +1502,7 @@ function LiveCommerceForm() {
               className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
               style={{ backgroundColor: "#D8342A" }}
             >
-              전체 가이드 보기
+              전체 가이드
             </a>
           </div>
           <div className="mt-3 grid grid-cols-2 gap-3">
@@ -2120,7 +2122,7 @@ export default function ChecklistPanel() {
                 {PLACEHOLDER_STATUS_ITEM_IDS.includes(selected.id) ? <PlaceholderStatusBadge /> : null}
               </div>
               {selected.description && (
-                <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-muted)]">
+                <p className="mt-2 whitespace-pre-line text-[13px] leading-relaxed text-[var(--text-muted)]">
                   {selected.description}
                 </p>
               )}
