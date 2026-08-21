@@ -74,7 +74,7 @@ const items: ChecklistItemData[] = [
   },
   {
     id: 9,
-    title: "SEO 설정하기",
+    title: "검색 노출 및 공유 정보 등록하기",
     description: "검색 유입을 높이기 위한 페이지 제목, 설명, 키워드를 설정해 주세요.",
     previewTitle: "SEO 설정",
     previewRows: ["페이지 제목: 이수모 스토어 - 베이직 캐주얼", "설명: 데일리룩 전문 쇼핑몰"],
