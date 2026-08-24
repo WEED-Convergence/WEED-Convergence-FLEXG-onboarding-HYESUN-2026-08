@@ -994,16 +994,16 @@ export default function SaPanel() {
       </div>
 
       <div className="mt-2 overflow-x-auto rounded-xl border border-[var(--border)]">
-        <table className="table-fixed border-collapse text-left text-[16px]" style={{ width: 1235 }}>
+        <table className="w-full min-w-[1180px] table-fixed border-collapse text-left text-[16px]">
           <colgroup>
-            <col style={{ width: 170 }} />
-            <col style={{ width: 150 }} />
-            <col style={{ width: 130 }} />
-            <col style={{ width: 190 }} />
-            <col style={{ width: 175 }} />
-            <col style={{ width: 130 }} />
-            <col style={{ width: 190 }} />
-            <col style={{ width: 100 }} />
+            <col style={{ width: "15%" }} />
+            <col style={{ width: "12%" }} />
+            <col style={{ width: "11%" }} />
+            <col style={{ width: "15%" }} />
+            <col style={{ width: "14%" }} />
+            <col style={{ width: "10%" }} />
+            <col style={{ width: "14%" }} />
+            <col style={{ width: "9%" }} />
           </colgroup>
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)", backgroundColor: "var(--surface-1)" }}>
