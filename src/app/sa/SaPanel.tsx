@@ -4,16 +4,18 @@ import { useEffect, useMemo, useState } from "react";
 import {
   CHECKLIST_CATEGORIES,
   COMPANIES,
+  DISPLAY_STAGE_STYLE,
   MESSAGE_TEMPLATES,
   PERIOD_OPTIONS,
-  STAGE_CONFIG,
   STATS_BY_PERIOD,
   TOTAL_CHECKLIST_ITEMS,
   daysSince,
   deriveStage,
+  getDisplayStage,
   getItemValueFields,
   getSignupDetail,
   type CompanyRow,
+  type DisplayStage,
   type PeriodKey,
   type StageKey,
   type ValueFieldKey,
@@ -26,33 +28,17 @@ const GROWTH_IDS = CHECKLIST_CATEGORIES.find((c) => c.name === "매출 확장")!
 
 const STAGE_SEARCH_OPTIONS: { value: string; label: string }[] = [
   { value: "all", label: "전체" },
-  { value: "template-pending", label: "신규가입" },
-  { value: "approval-pending", label: "승인 대기" },
-  { value: "payment-prep", label: "결제 준비중" },
-  { value: "ops-prep", label: "운영 필수 진행중" },
-  { value: "recommended", label: "권장 설정 진행중" },
-  { value: "growth", label: "매출 확장 진행중" },
+  { value: "신규가입", label: "신규가입" },
+  { value: "승인 대기", label: "승인 대기" },
+  { value: "결제 준비중", label: "결제 준비중" },
+  { value: "운영 필수 진행중", label: "운영 필수 진행중" },
+  { value: "권장 설정 진행중", label: "권장 설정 진행중" },
+  { value: "매출 확장 진행중", label: "매출 확장 진행중" },
 ];
 
 function matchesStageSearch(company: CompanyRow, option: string): boolean {
   if (option === "all") return true;
-  const stage = deriveStage(company);
-  if (option === "template-pending") return stage === "template-pending";
-  if (option === "approval-pending") return stage === "approval-pending";
-  if (option === "payment-prep") return stage === "payment-prep";
-  if (option === "ops-prep") return stage === "ops-prep";
-
-  const unlocked = stage === "open-ready" || stage === "all-done";
-  if (!unlocked) return false;
-  if (option === "recommended") {
-    const done = RECOMMENDED_IDS.filter((id) => company.completedItemIds.includes(id)).length;
-    return done > 0 && done < RECOMMENDED_IDS.length;
-  }
-  if (option === "growth") {
-    const done = GROWTH_IDS.filter((id) => company.completedItemIds.includes(id)).length;
-    return done > 0 && done < GROWTH_IDS.length;
-  }
-  return true;
+  return getDisplayStage(company) === option;
 }
 
 function formatDate(date: Date): string {
@@ -96,23 +82,24 @@ function CheckIcon() {
   );
 }
 
-const STAGE_BADGE_NUMBER: Record<StageKey, string> = {
-  "template-pending": "①",
-  "approval-pending": "②",
-  "payment-prep": "③",
-  "ops-prep": "④",
-  "open-ready": "⑤",
-  "all-done": "⑥",
+const DISPLAY_STAGE_NUMBER: Record<DisplayStage, string> = {
+  "신규가입": "①",
+  "승인 대기": "②",
+  "결제 준비중": "③",
+  "운영 필수 진행중": "④",
+  "권장 설정 진행중": "⑤",
+  "매출 확장 진행중": "⑥",
 };
 
-function StageBadge({ stage }: { stage: StageKey }) {
-  const config = STAGE_CONFIG[stage];
+function StageBadge({ company }: { company: Pick<CompanyRow, "templateSelected" | "approvalDone" | "completedItemIds"> }) {
+  const label = getDisplayStage(company);
+  const style = DISPLAY_STAGE_STYLE[label];
   return (
     <span
       className="inline-flex w-fit items-center whitespace-nowrap rounded-full px-2 py-[3px] text-[12px] font-semibold"
-      style={{ backgroundColor: config.bg, color: config.color }}
+      style={{ backgroundColor: style.bg, color: style.color }}
     >
-      {STAGE_BADGE_NUMBER[stage]} {config.label}
+      {DISPLAY_STAGE_NUMBER[label]} {label}
     </span>
   );
 }
@@ -360,7 +347,7 @@ function DetailModal({
         <p className="text-[14px] text-[var(--text-muted)]">온보딩 진행 현황</p>
         <h2 className="mt-1 text-[20px] font-bold text-[var(--text-primary)]">{company.storeName}</h2>
         <div className="mt-2">
-          <StageBadge stage={deriveStage(company)} />
+          <StageBadge company={company} />
         </div>
 
         <div className="mt-4 rounded-lg border border-[var(--border)] px-4">
@@ -1029,7 +1016,7 @@ export default function SaPanel() {
                     <td className="px-3 py-3">
                       <div className="flex flex-col items-start gap-1">
                         <span className="truncate font-medium text-[var(--text-primary)]">{c.storeName}</span>
-                        <StageBadge stage={deriveStage(c)} />
+                        <StageBadge company={c} />
                       </div>
                     </td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.loginId}</td>

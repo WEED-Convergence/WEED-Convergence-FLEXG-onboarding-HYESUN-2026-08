@@ -26,15 +26,6 @@ export type StageKey =
   | "open-ready"
   | "all-done";
 
-export const STAGE_CONFIG: Record<StageKey, { label: string; bg: string; color: string }> = {
-  "template-pending": { label: "템플릿 선택 대기", bg: "#F1EFE8", color: "#5F5E5A" },
-  "approval-pending": { label: "승인 대기", bg: "#E6F1FB", color: "#0C447C" },
-  "payment-prep": { label: "결제 준비 진행중", bg: "#FAEEDA", color: "#633806" },
-  "ops-prep": { label: "운영 필수 진행중", bg: "#FBEAF0", color: "#993556" },
-  "open-ready": { label: "오픈 가능", bg: "#EAF3E0", color: "#3B6D11" },
-  "all-done": { label: "전체 완료", bg: "#EAF3E0", color: "#0F6E56" },
-};
-
 // 결제 준비 → 운영 필수 → 권장 설정 → 매출 확장, 13개 항목.
 export type ChecklistItemId = 1 | 2 | 3 | 5 | 6 | 8 | 17 | 7 | 9 | 15 | 16 | 11 | 12;
 
@@ -171,6 +162,7 @@ export interface CompanyRow {
 
 const PAYMENT_PREP_IDS: ChecklistItemId[] = [1, 2, 3, 5];
 const OPS_REQUIRED_IDS: ChecklistItemId[] = [6, 8, 17, 7];
+const RECOMMENDED_SETTING_IDS: ChecklistItemId[] = [9, 15, 16];
 
 // 현재 단계 뱃지는 저장된 값이 아니라 완료 항목으로부터 매번 계산합니다.
 // (회원가입 → 템플릿 선택 → 승인 대기 → 결제 준비 → 운영 필수 → 오픈 가능 → 전체 완료)
@@ -183,6 +175,36 @@ export function deriveStage(company: Pick<CompanyRow, "templateSelected" | "appr
   if (paymentDone && opsDone) return "open-ready";
   if (paymentDone) return "ops-prep";
   return "payment-prep";
+}
+
+// "현재 단계" 필터/리스트 표기에서 공통으로 쓰는 7개(전체 제외 6개) 단계값.
+// "오픈 가능"·"전체 완료"는 노출하지 않고, 결제 준비·운영 필수 이후에는
+// 권장 설정 항목이 모두 끝났는지를 기준으로 권장 설정/매출 확장 중 하나로 표시합니다.
+export type DisplayStage =
+  | "신규가입"
+  | "승인 대기"
+  | "결제 준비중"
+  | "운영 필수 진행중"
+  | "권장 설정 진행중"
+  | "매출 확장 진행중";
+
+export const DISPLAY_STAGE_STYLE: Record<DisplayStage, { bg: string; color: string }> = {
+  "신규가입": { bg: "#F1EFE8", color: "#5F5E5A" },
+  "승인 대기": { bg: "#E6F1FB", color: "#0C447C" },
+  "결제 준비중": { bg: "#FAEEDA", color: "#633806" },
+  "운영 필수 진행중": { bg: "#FBEAF0", color: "#993556" },
+  "권장 설정 진행중": { bg: "#F0EAFB", color: "#5B3A8C" },
+  "매출 확장 진행중": { bg: "#EAF3E0", color: "#3B6D11" },
+};
+
+export function getDisplayStage(company: Pick<CompanyRow, "templateSelected" | "approvalDone" | "completedItemIds">): DisplayStage {
+  const stage = deriveStage(company);
+  if (stage === "template-pending") return "신규가입";
+  if (stage === "approval-pending") return "승인 대기";
+  if (stage === "payment-prep") return "결제 준비중";
+  if (stage === "ops-prep") return "운영 필수 진행중";
+  const recommendedDone = RECOMMENDED_SETTING_IDS.every((id) => company.completedItemIds.includes(id));
+  return recommendedDone ? "매출 확장 진행중" : "권장 설정 진행중";
 }
 
 export const COMPANIES: CompanyRow[] = [
