@@ -969,7 +969,7 @@ export default function SaPanel() {
       </div>
 
       <div className="mt-2 overflow-x-auto rounded-xl border border-[var(--border)]">
-        <table className="w-full min-w-[1340px] table-fixed border-collapse text-left text-[16px]">
+        <table className="w-full min-w-[1230px] table-fixed border-collapse text-left text-[16px]">
           <colgroup>
             <col style={{ width: 150 }} />
             <col style={{ width: 150 }} />
@@ -978,7 +978,7 @@ export default function SaPanel() {
             <col style={{ width: 175 }} />
             <col style={{ width: 130 }} />
             <col />
-            <col style={{ width: 210 }} />
+            <col style={{ width: 100 }} />
           </colgroup>
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)", backgroundColor: "var(--surface-1)" }}>
@@ -1032,7 +1032,7 @@ export default function SaPanel() {
                       </span>
                     </td>
                     <td className="px-3 py-3">
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex flex-col items-stretch gap-1">
                         <button
                           type="button"
                           onClick={() => setDetailCompanyKey(c.key)}
@@ -1050,7 +1050,7 @@ export default function SaPanel() {
                         {deriveStage(c) === "approval-pending" ? (
                           <button
                             type="button"
-                            className="ti-external-link inline-flex items-center gap-1 whitespace-nowrap rounded-[5px] px-[10px] py-[5px] text-center text-[11px] font-medium text-white"
+                            className="ti-external-link inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-[5px] px-[10px] py-[5px] text-center text-[11px] font-medium text-white"
                             style={{ backgroundColor: "#D8342A" }}
                           >
                             승인처리
