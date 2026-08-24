@@ -6,6 +6,7 @@ import {
   COMPANIES,
   MESSAGE_TEMPLATES,
   PERIOD_OPTIONS,
+  STAGE_CONFIG,
   STATS_BY_PERIOD,
   TOTAL_CHECKLIST_ITEMS,
   daysSince,
@@ -92,6 +93,27 @@ function CheckIcon() {
     <svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="white" strokeWidth="3.2">
       <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
+  );
+}
+
+const STAGE_BADGE_NUMBER: Record<StageKey, string> = {
+  "template-pending": "①",
+  "approval-pending": "②",
+  "payment-prep": "③",
+  "ops-prep": "④",
+  "open-ready": "⑤",
+  "all-done": "⑥",
+};
+
+function StageBadge({ stage }: { stage: StageKey }) {
+  const config = STAGE_CONFIG[stage];
+  return (
+    <span
+      className="inline-flex w-fit items-center whitespace-nowrap rounded-full px-2 py-[3px] text-[12px] font-semibold"
+      style={{ backgroundColor: config.bg, color: config.color }}
+    >
+      {STAGE_BADGE_NUMBER[stage]} {config.label}
+    </span>
   );
 }
 
@@ -337,6 +359,9 @@ function DetailModal({
 
         <p className="text-[14px] text-[var(--text-muted)]">온보딩 진행 현황</p>
         <h2 className="mt-1 text-[20px] font-bold text-[var(--text-primary)]">{company.storeName}</h2>
+        <div className="mt-2">
+          <StageBadge stage={deriveStage(company)} />
+        </div>
 
         <div className="mt-4 rounded-lg border border-[var(--border)] px-4">
           <StepRow
@@ -969,15 +994,15 @@ export default function SaPanel() {
       </div>
 
       <div className="mt-2 overflow-x-auto rounded-xl border border-[var(--border)]">
-        <table className="w-full min-w-[1230px] table-fixed border-collapse text-left text-[16px]">
+        <table className="table-fixed border-collapse text-left text-[16px]" style={{ width: 1235 }}>
           <colgroup>
+            <col style={{ width: 170 }} />
             <col style={{ width: 150 }} />
-            <col style={{ width: 150 }} />
-            <col style={{ width: 110 }} />
+            <col style={{ width: 130 }} />
             <col style={{ width: 190 }} />
             <col style={{ width: 175 }} />
             <col style={{ width: 130 }} />
-            <col />
+            <col style={{ width: 190 }} />
             <col style={{ width: 100 }} />
           </colgroup>
           <thead>
@@ -1001,7 +1026,12 @@ export default function SaPanel() {
                 const dotColor = lastHistoryEntry ? (lastHistoryEntry.received ? "#639922" : "#D8342A") : null;
                 return (
                   <tr key={c.key} style={{ borderBottom: "1px solid var(--divider)" }}>
-                    <td className="truncate px-3 py-3 font-medium text-[var(--text-primary)]">{c.storeName}</td>
+                    <td className="px-3 py-3">
+                      <div className="flex flex-col items-start gap-1">
+                        <span className="truncate font-medium text-[var(--text-primary)]">{c.storeName}</span>
+                        <StageBadge stage={deriveStage(c)} />
+                      </div>
+                    </td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.loginId}</td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.managerName}</td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">
@@ -1038,7 +1068,7 @@ export default function SaPanel() {
                           onClick={() => setDetailCompanyKey(c.key)}
                           className={rowPrimaryButtonClass}
                         >
-                          상세보기
+                          상세
                         </button>
                         <button
                           type="button"

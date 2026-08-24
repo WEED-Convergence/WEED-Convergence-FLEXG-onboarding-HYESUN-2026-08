@@ -533,6 +533,7 @@ export function getItemValueFields(key: ValueFieldKey, company: CompanyRow): Val
       ];
     case 1:
       return [
+        { label: "PG사", value: "이지페이(EasyPAY)" },
         { label: "신청 상태", value: "신청접수" },
         { label: "신청일", value: "2026-07-21" },
       ];
@@ -542,6 +543,7 @@ export function getItemValueFields(key: ValueFieldKey, company: CompanyRow): Val
         { label: "이메일", value: "supply@isumo.co.kr" },
         { label: "담당자", value: "김담당" },
         { label: "담당자 연락처", value: "02-123-4567" },
+        { label: "담당자 SMS발송번호", value: "010-2345-6789" },
         { label: "등록일", value: "2026-07-21" },
       ];
     case 3:
@@ -552,40 +554,63 @@ export function getItemValueFields(key: ValueFieldKey, company: CompanyRow): Val
     case 5:
       return [
         { label: "상호명", value: company.storeName },
+        { label: "대표자 성함", value: company.managerName },
         { label: "사업자등록번호", value: "123-45-67890" },
-        { label: "주소", value: "서울특별시 금천구 벚꽃로 298" },
+        { label: "업태", value: "도소매업" },
+        { label: "업종", value: company.templateCategory },
+        { label: "통신판매신고번호", value: "번호 있음 · 2026-서울금천-1234" },
+        { label: "사업장 주소", value: "서울특별시 금천구 벚꽃로 298" },
         { label: "대표 전화번호", value: "02-1234-5678" },
+        { label: "팩스번호", value: "미입력" },
       ];
     case 6:
       return [
-        { label: "신청 상태", value: "심사중" },
+        { label: "구분", value: "법인 명의" },
+        { label: "발신자명", value: company.storeName },
+        { label: "발신번호", value: "0212345678" },
+        { label: "첨부서류 제출 여부", value: "제출완료" },
         { label: "신청일", value: "2026-07-23" },
       ];
     case 8:
       return [
         { label: "카카오톡 채널 아이디", value: `@${company.loginId}` },
+        { label: "카테고리", value: "쇼핑몰" },
+        { label: "관리자 휴대폰번호", value: "010-9876-5432" },
         { label: "인증 상태", value: "인증완료" },
       ];
     case 17:
       return [
-        { label: "사용 여부", value: "사용" },
         { label: "팝빌 가입 여부", value: "가입완료" },
+        { label: "현금영수증 사용 여부", value: "ON" },
+        { label: "주문/결제 기본값", value: "소득공제" },
+        { label: "자동 발행 기준", value: "1만원 이상 현금 결제 시" },
+        { label: "자진 발행 조건", value: "미발행 5일 경과 시" },
       ];
     case 7:
       return [
-        { label: "카카오 연동 여부", value: "연동완료" },
-        { label: "네이버 연동 여부", value: "미연동" },
+        { label: "카카오 로그인 등록 여부", value: "등록완료" },
+        { label: "네이버 로그인 등록 여부", value: "미등록" },
         { label: "등록일", value: "2026-07-25" },
       ];
     case 9:
       return [
-        { label: "입력 완료 항목 수", value: "4개 중 4개" },
-        { label: "마지막 저장일", value: "2026-07-26" },
+        { label: "메타태그 제목", value: `${company.storeName} | 온라인 쇼핑몰` },
+        { label: "메타태그 설명", value: `${company.storeName}에서 다양한 상품을 만나보세요.` },
+        { label: "메타태그 키워드", value: `${company.templateCategory}, 쇼핑몰, 온라인스토어` },
+        { label: "오픈그래프 제목", value: `${company.storeName} 공식 스토어` },
+        { label: "오픈그래프 설명", value: "지금 바로 방문해보세요." },
+        { label: "오픈그래프 이미지 등록 여부", value: "등록완료" },
       ];
     case 15:
       return [{ label: "확인일시", value: "2026-07-20 10:31" }];
     case 16:
-      return [{ label: "저장일시", value: "2026-07-20 10:40" }];
+      return [
+        { label: "2단계 인증", value: "사용 안 함" },
+        { label: "중복 로그인 제한", value: "사용 안 함" },
+        { label: "로그인 실패 횟수 제한", value: "5회" },
+        { label: "세션 만료 시간", value: "30분" },
+        { label: "저장일시", value: "2026-07-20 10:40" },
+      ];
     case 11:
       return [
         { label: "수신거부번호 상태", value: "등록완료" },
