@@ -1045,18 +1045,18 @@ export default function SaPanel() {
                     </td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.loginId}</td>
                     <td className="px-3 py-3">
-                      <div className="flex flex-col items-start gap-2">
+                      <div className="flex flex-col items-start gap-1.5">
                         {pgApps.map((app, idx) => {
                           const pgStyle = PG_STATUS_STYLE[app.status];
                           return (
-                            <div key={idx} className="flex flex-col items-start gap-1">
+                            <div key={idx} className="flex items-center gap-1.5">
                               {app.provider ? (
                                 <span className="truncate text-[15px] text-[var(--text-secondary)]">
                                   {app.provider}
                                 </span>
                               ) : null}
                               <span
-                                className="inline-flex w-fit items-center whitespace-nowrap rounded-full px-2 py-[3px] text-[12px] font-semibold"
+                                className="inline-flex w-fit shrink-0 items-center whitespace-nowrap rounded-full px-2 py-[3px] text-[12px] font-semibold"
                                 style={{ backgroundColor: pgStyle.bg, color: pgStyle.color }}
                               >
                                 {app.status}
