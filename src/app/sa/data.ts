@@ -551,13 +551,13 @@ export function getItemValueFields(key: ValueFieldKey, company: CompanyRow): Val
     case "template":
       return [
         { label: "선택한 템플릿", value: company.templateCategory },
-        { label: "선택일시", value: `${company.joinDate} 11:02` },
+        { label: "선택일시", value: `${company.joinDate} 11:02:07` },
       ];
     case 1:
       return [
         { label: "PG사", value: "이지페이(EasyPAY)" },
         { label: "신청 상태", value: "신청접수" },
-        { label: "신청일", value: "2026-07-21" },
+        { label: "신청일시", value: "2026-07-21 09:14:32" },
       ];
     case 2:
       return [
@@ -567,7 +567,7 @@ export function getItemValueFields(key: ValueFieldKey, company: CompanyRow): Val
     case 3:
       return [
         { label: "등록 상품 수", value: "3개" },
-        { label: "최근 등록일", value: "2026-07-22" },
+        { label: "최근 등록일시", value: "2026-07-22 13:47:08" },
       ];
     case 5:
       return [
@@ -621,7 +621,7 @@ export function getItemValueFields(key: ValueFieldKey, company: CompanyRow): Val
         { label: "오픈그래프 이미지", value: "og-image.jpg 등록완료" },
       ];
     case 15:
-      return [{ label: "확인일시", value: "2026-07-20 10:31" }];
+      return [{ label: "확인일시", value: "2026-07-20 10:31:05" }];
     case 16:
       return [
         { label: "2단계 인증", value: "사용안함" },
@@ -635,7 +635,7 @@ export function getItemValueFields(key: ValueFieldKey, company: CompanyRow): Val
         { label: "카카오톡 채널 상태", value: "등록완료" },
       ];
     case 12:
-      return [{ label: "연동 클릭일시", value: "2026-07-30 15:12" }];
+      return [{ label: "연동 클릭일시", value: "2026-07-30 15:12:47" }];
     default:
       return [];
   }

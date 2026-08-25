@@ -401,7 +401,6 @@ function DetailModal({
                     <th className="px-3 py-2 font-medium text-[var(--text-muted)]">발송일시</th>
                     <th className="px-3 py-2 font-medium text-[var(--text-muted)]">메시지명</th>
                     <th className="px-3 py-2 font-medium text-[var(--text-muted)]">유형</th>
-                    <th className="px-3 py-2 font-medium text-[var(--text-muted)]">수신여부</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -410,12 +409,6 @@ function DetailModal({
                       <td className="whitespace-nowrap px-3 py-2 text-[var(--text-secondary)]">{row.sentAt}</td>
                       <td className="px-3 py-2 text-[var(--text-primary)]">{row.messageTitle}</td>
                       <td className="px-3 py-2 text-[var(--text-secondary)]">{row.category}</td>
-                      <td
-                        className="px-3 py-2 font-medium"
-                        style={{ color: row.received ? "var(--success)" : "var(--accent)" }}
-                      >
-                        {row.received ? "수신" : "미수신"}
-                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -957,11 +950,11 @@ export default function SaPanel() {
               ))}
             </select>
           </label>
-          <button type="button" onClick={handleSearch} className={primaryButtonClass}>
-            검색
-          </button>
           <button type="button" onClick={handleReset} className={secondaryButtonClass}>
             초기화
+          </button>
+          <button type="button" onClick={handleSearch} className={primaryButtonClass}>
+            검색
           </button>
         </div>
       </div>
@@ -1035,18 +1028,25 @@ export default function SaPanel() {
                       <ProgressCell completed={c.completedItemIds.length} />
                     </td>
                     <td
-                      className="truncate px-3 py-3 text-[15px] text-[var(--text-secondary)]"
+                      className="px-3 py-3 text-[15px] text-[var(--text-secondary)]"
                       title={recentMessageText}
                     >
-                      <span className="inline-flex items-center gap-1.5">
-                        {dotColor ? (
-                          <span
-                            className="h-1.5 w-1.5 shrink-0 rounded-full"
-                            style={{ backgroundColor: dotColor }}
-                          />
+                      <div className="flex flex-col gap-0.5">
+                        <span className="inline-flex items-center gap-1.5 truncate">
+                          {dotColor ? (
+                            <span
+                              className="h-1.5 w-1.5 shrink-0 rounded-full"
+                              style={{ backgroundColor: dotColor }}
+                            />
+                          ) : null}
+                          {recentMessageText}
+                        </span>
+                        {lastHistoryEntry ? (
+                          <span className="text-[13px] text-[var(--placeholder)]">
+                            {lastHistoryEntry.sentAt.split(" ")[0]}
+                          </span>
                         ) : null}
-                        {recentMessageText}
-                      </span>
+                      </div>
                     </td>
                     <td className="px-3 py-3">
                       <div className="flex flex-col items-stretch gap-1">
