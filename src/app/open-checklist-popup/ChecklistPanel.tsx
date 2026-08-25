@@ -769,6 +769,13 @@ function PgApplicationForm() {
         </p>
       </div>
 
+      <div
+        className="mb-4 rounded-[8px] text-[12px] font-semibold"
+        style={{ border: "1.5px solid #BA7517", backgroundColor: "#FAEEDA", padding: "10px 14px", color: "#633806" }}
+      >
+        반려사유: {"{#반려사유}"}
+      </div>
+
       <div className="space-y-4">
         <DetailCard>
           <SubsectionTitle>PG사</SubsectionTitle>
@@ -851,11 +858,9 @@ function PgApplicationForm() {
       </div>
 
       <div
-        className="mt-6 rounded-[8px] text-[12px] font-semibold"
-        style={{ border: "1.5px solid #BA7517", backgroundColor: "#FAEEDA", padding: "10px 14px", color: "#633806" }}
-      >
-        반려사유: {"{#반려사유}"}
-      </div>
+        className="mt-6 h-[90px] w-full rounded-[12px]"
+        style={{ border: "1px solid #E4E2D8", backgroundColor: "var(--surface-1)" }}
+      />
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
