@@ -158,6 +158,7 @@ export interface CompanyRow {
   completedItemIds: ChecklistItemId[];
   recentMessageId: number | null;
   history: NotificationHistoryRow[];
+  pgApplications: PgApplicationEntry[];
 }
 
 const PAYMENT_PREP_IDS: ChecklistItemId[] = [1, 2, 3, 5];
@@ -216,25 +217,28 @@ export function getApprovalCompletedAt(company: Pick<CompanyRow, "approvalDone" 
   return entry ? entry.sentAt : null;
 }
 
-export type PgStatus = "승인완료" | "반려" | "미신청";
+export type PgStatus = "승인완료" | "심사중" | "반려" | "미신청";
+
+export interface PgApplicationEntry {
+  provider: string | null;
+  status: PgStatus;
+  appliedAt: string | null;
+}
 
 export const PG_STATUS_STYLE: Record<PgStatus, { bg: string; color: string }> = {
   "승인완료": { bg: "#EAF3E0", color: "#3B6D11" },
+  "심사중": { bg: "#E6F1FB", color: "#0C447C" },
   "반려": { bg: "#FBEAF0", color: "#D8342A" },
   "미신청": { bg: "#F1EFE8", color: "#5F5E5A" },
 };
 
-// PG 신청 체크리스트 항목(id 1) 완료 여부와 최근 알림톡(반려 안내)으로부터 PG사·상태를 도출합니다.
-export function getPgInfo(
-  company: Pick<CompanyRow, "completedItemIds" | "recentMessageId">
-): { provider: string | null; status: PgStatus } {
-  if (company.completedItemIds.includes(1)) {
-    return { provider: "이지페이(EasyPAY)", status: "승인완료" };
-  }
-  if (company.recentMessageId === 5) {
-    return { provider: null, status: "반려" };
-  }
-  return { provider: null, status: "미신청" };
+// 업체가 신청한 PG사가 여러 곳일 수 있어, PG사별로 상태를 확인합니다.
+// 신청 이력이 없으면 "미신청" 1건으로 채워 반환합니다.
+export function getPgApplications(
+  company: Pick<CompanyRow, "pgApplications">
+): PgApplicationEntry[] {
+  if (company.pgApplications.length > 0) return company.pgApplications;
+  return [{ provider: null, status: "미신청", appliedAt: null }];
 }
 
 export const COMPANIES: CompanyRow[] = [
@@ -255,6 +259,9 @@ export const COMPANIES: CompanyRow[] = [
       { sentAt: "2026-07-23 09:00:30", messageTitle: "아직 PG 신청을 완료하지 않으셨어요", category: "마케팅성", received: true },
       { sentAt: "2026-07-24 14:12:43", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
     ],
+    pgApplications: [
+      { provider: "이지페이(EasyPAY)", status: "승인완료", appliedAt: "2026-07-24 14:12:43" },
+    ],
   },
   {
     key: "greenlife",
@@ -274,6 +281,9 @@ export const COMPANIES: CompanyRow[] = [
       { sentAt: "2026-07-20 09:00:22", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
       { sentAt: "2026-07-21 16:40:35", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
     ],
+    pgApplications: [
+      { provider: "이지페이(EasyPAY)", status: "승인완료", appliedAt: "2026-07-18 11:00:09" },
+    ],
   },
   {
     key: "dailymarket",
@@ -290,6 +300,7 @@ export const COMPANIES: CompanyRow[] = [
     history: [
       { sentAt: "2026-08-19 09:00:48", messageTitle: "#{판매자명}님, 이제 템플릿만 선택하면 돼요", category: "마케팅성", received: false },
     ],
+    pgApplications: [],
   },
   {
     key: "cozyhome",
@@ -304,6 +315,7 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [],
     recentMessageId: null,
     history: [],
+    pgApplications: [],
   },
   {
     key: "basiclab",
@@ -323,6 +335,9 @@ export const COMPANIES: CompanyRow[] = [
       { sentAt: "2026-06-05 09:00:27", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
       { sentAt: "2026-06-06 15:20:40", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
     ],
+    pgApplications: [
+      { provider: "이지페이(EasyPAY)", status: "승인완료", appliedAt: "2026-06-03 10:02:14" },
+    ],
   },
   {
     key: "moodhouse",
@@ -340,6 +355,7 @@ export const COMPANIES: CompanyRow[] = [
       { sentAt: "2026-08-10 10:05:53", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
       { sentAt: "2026-08-13 09:00:06", messageTitle: "아직 PG 신청을 완료하지 않으셨어요", category: "마케팅성", received: true },
     ],
+    pgApplications: [],
   },
   {
     key: "sewingstudio",
@@ -356,6 +372,10 @@ export const COMPANIES: CompanyRow[] = [
     history: [
       { sentAt: "2026-08-05 10:20:19", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
       { sentAt: "2026-08-09 15:30:32", messageTitle: "PG 신청이 반려되었어요", category: "정보성", received: true },
+    ],
+    pgApplications: [
+      { provider: "토스페이먼츠", status: "반려", appliedAt: "2026-08-09 15:30:32" },
+      { provider: "나이스페이", status: "심사중", appliedAt: "2026-08-13 10:00:00" },
     ],
   },
   {
@@ -375,6 +395,9 @@ export const COMPANIES: CompanyRow[] = [
       { sentAt: "2026-07-30 11:10:58", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
       { sentAt: "2026-08-02 09:00:11", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
     ],
+    pgApplications: [
+      { provider: "이지페이(EasyPAY)", status: "승인완료", appliedAt: "2026-07-30 11:10:58" },
+    ],
   },
   {
     key: "todaystable",
@@ -392,6 +415,10 @@ export const COMPANIES: CompanyRow[] = [
       { sentAt: "2026-07-25 09:30:24", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
       { sentAt: "2026-07-27 10:40:37", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
       { sentAt: "2026-07-30 09:00:50", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+    ],
+    pgApplications: [
+      { provider: "KG이니시스", status: "반려", appliedAt: "2026-07-26 09:30:00" },
+      { provider: "이지페이(EasyPAY)", status: "승인완료", appliedAt: "2026-07-27 10:40:37" },
     ],
   },
   {
@@ -412,6 +439,9 @@ export const COMPANIES: CompanyRow[] = [
       { sentAt: "2026-07-15 09:00:29", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
       { sentAt: "2026-07-16 14:00:42", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
     ],
+    pgApplications: [
+      { provider: "이지페이(EasyPAY)", status: "승인완료", appliedAt: "2026-07-12 10:00:16" },
+    ],
   },
   {
     key: "homestyle",
@@ -430,6 +460,9 @@ export const COMPANIES: CompanyRow[] = [
       { sentAt: "2026-07-10 10:00:08", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
       { sentAt: "2026-07-13 09:00:21", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
       { sentAt: "2026-07-14 14:30:34", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
+    ],
+    pgApplications: [
+      { provider: "이지페이(EasyPAY)", status: "승인완료", appliedAt: "2026-07-10 10:00:08" },
     ],
   },
   {
@@ -450,6 +483,9 @@ export const COMPANIES: CompanyRow[] = [
       { sentAt: "2026-06-25 09:00:13", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
       { sentAt: "2026-06-26 14:00:26", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
     ],
+    pgApplications: [
+      { provider: "이지페이(EasyPAY)", status: "승인완료", appliedAt: "2026-06-22 10:00:00" },
+    ],
   },
   {
     key: "growmarket",
@@ -466,6 +502,7 @@ export const COMPANIES: CompanyRow[] = [
     history: [
       { sentAt: "2026-08-20 09:05:39", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
     ],
+    pgApplications: [],
   },
 ];
 
@@ -584,11 +621,10 @@ export function getItemValueFields(key: ValueFieldKey, company: CompanyRow): Val
         { label: "선택일시", value: `${company.joinDate} 11:02:07` },
       ];
     case 1:
-      return [
-        { label: "PG사", value: "이지페이(EasyPAY)" },
-        { label: "신청 상태", value: "신청접수" },
-        { label: "신청일시", value: "2026-07-21 09:14:32" },
-      ];
+      return getPgApplications(company).map((app) => ({
+        label: app.provider ?? "PG사",
+        value: app.appliedAt ? `${app.status} · ${app.appliedAt}` : app.status,
+      }));
     case 2:
       return [
         { label: "업체명", value: "(주)이수모상사" },

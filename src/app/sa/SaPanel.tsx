@@ -14,7 +14,7 @@ import {
   getApprovalCompletedAt,
   getDisplayStage,
   getItemValueFields,
-  getPgInfo,
+  getPgApplications,
   getSignupDetail,
   PG_STATUS_STYLE,
   type CompanyRow,
@@ -1034,8 +1034,7 @@ export default function SaPanel() {
               pagedCompanies.map((c) => {
                 const lastHistoryEntry = c.history[c.history.length - 1];
                 const dotColor = lastHistoryEntry ? (lastHistoryEntry.received ? "#639922" : "#D8342A") : null;
-                const pg = getPgInfo(c);
-                const pgStyle = PG_STATUS_STYLE[pg.status];
+                const pgApps = getPgApplications(c);
                 return (
                   <tr key={c.key} style={{ borderBottom: "1px solid var(--divider)" }}>
                     <td className="px-3 py-3">
@@ -1046,16 +1045,25 @@ export default function SaPanel() {
                     </td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.loginId}</td>
                     <td className="px-3 py-3">
-                      <div className="flex flex-col items-start gap-1">
-                        {pg.provider ? (
-                          <span className="truncate text-[15px] text-[var(--text-secondary)]">{pg.provider}</span>
-                        ) : null}
-                        <span
-                          className="inline-flex w-fit items-center whitespace-nowrap rounded-full px-2 py-[3px] text-[12px] font-semibold"
-                          style={{ backgroundColor: pgStyle.bg, color: pgStyle.color }}
-                        >
-                          {pg.status}
-                        </span>
+                      <div className="flex flex-col items-start gap-2">
+                        {pgApps.map((app, idx) => {
+                          const pgStyle = PG_STATUS_STYLE[app.status];
+                          return (
+                            <div key={idx} className="flex flex-col items-start gap-1">
+                              {app.provider ? (
+                                <span className="truncate text-[15px] text-[var(--text-secondary)]">
+                                  {app.provider}
+                                </span>
+                              ) : null}
+                              <span
+                                className="inline-flex w-fit items-center whitespace-nowrap rounded-full px-2 py-[3px] text-[12px] font-semibold"
+                                style={{ backgroundColor: pgStyle.bg, color: pgStyle.color }}
+                              >
+                                {app.status}
+                              </span>
+                            </div>
+                          );
+                        })}
                       </div>
                     </td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">
