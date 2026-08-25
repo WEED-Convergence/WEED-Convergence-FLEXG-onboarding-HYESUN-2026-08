@@ -261,6 +261,8 @@ export const COMPANIES: CompanyRow[] = [
     ],
     pgApplications: [
       { provider: "이지페이(EasyPAY)", status: "승인완료", appliedAt: "2026-07-24 14:12:43" },
+      { provider: "토스페이먼츠", status: "승인완료", appliedAt: "2026-07-25 11:30:00" },
+      { provider: "나이스페이", status: "심사중", appliedAt: "2026-07-26 09:45:00" },
     ],
   },
   {
