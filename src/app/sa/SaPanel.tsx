@@ -11,6 +11,7 @@ import {
   TOTAL_CHECKLIST_ITEMS,
   daysSince,
   deriveStage,
+  getApprovalCompletedAt,
   getDisplayStage,
   getItemValueFields,
   getSignupDetail,
@@ -21,7 +22,7 @@ import {
   type ValueFieldKey,
 } from "./data";
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE_OPTIONS = [100, 1000];
 
 const RECOMMENDED_IDS = CHECKLIST_CATEGORIES.find((c) => c.name === "권장 설정")!.items.map((i) => i.id);
 const GROWTH_IDS = CHECKLIST_CATEGORIES.find((c) => c.name === "매출 확장")!.items.map((i) => i.id);
@@ -368,7 +369,11 @@ function DetailModal({
           <StepRow
             index={3}
             title="승인 대기"
-            statusText={company.approvalDone ? "승인 완료" : "승인 검토중"}
+            statusText={
+              company.approvalDone
+                ? `승인 완료 (${getApprovalCompletedAt(company)})`
+                : "승인 검토중"
+            }
             statusColor={company.approvalDone ? "var(--success)" : "#BA7517"}
           />
         </div>
@@ -738,6 +743,7 @@ export default function SaPanel() {
   const [stageSearchInput, setStageSearchInput] = useState("all");
   const [appliedFilters, setAppliedFilters] = useState<AppliedFilters | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE_OPTIONS[0]);
   const [sortOption, setSortOption] = useState("join-desc");
 
   const [detailCompanyKey, setDetailCompanyKey] = useState<string | null>(null);
@@ -811,9 +817,9 @@ export default function SaPanel() {
     });
   }, [appliedFilters]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredCompanies.length / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(filteredCompanies.length / pageSize));
   const page = Math.min(currentPage, totalPages);
-  const pagedCompanies = filteredCompanies.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const pagedCompanies = filteredCompanies.slice((page - 1) * pageSize, page * pageSize);
 
   const detailCompany = COMPANIES.find((c) => c.key === detailCompanyKey) ?? null;
   const sendCompany = COMPANIES.find((c) => c.key === sendCompanyKey) ?? null;
@@ -960,20 +966,41 @@ export default function SaPanel() {
       </div>
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-[16px] text-[var(--text-secondary)]">
-          전체 <span className="font-semibold text-[var(--text-primary)]">{filteredCompanies.length}</span>건
-        </p>
-        <select
-          value={sortOption}
-          onChange={(e) => setSortOption(e.target.value)}
-          className={inputClass}
-        >
-          <option value="join-desc">가입일 최신순</option>
-          <option value="join-asc">가입일 오래된순</option>
-          <option value="progress-asc">진행률 낮은순</option>
-          <option value="progress-desc">진행률 높은순</option>
-          <option value="elapsed-desc">경과일 오래된순</option>
-        </select>
+        <div className="flex items-center gap-3">
+          <p className="text-[16px] text-[var(--text-secondary)]">
+            전체 <span className="font-semibold text-[var(--text-primary)]">{filteredCompanies.length}</span>건
+          </p>
+          <button type="button" className={secondaryButtonClass}>
+            정보수집
+          </button>
+        </div>
+        <div className="flex items-center gap-2">
+          <select
+            value={pageSize}
+            onChange={(e) => {
+              setPageSize(Number(e.target.value));
+              setCurrentPage(1);
+            }}
+            className={inputClass}
+          >
+            {PAGE_SIZE_OPTIONS.map((size) => (
+              <option key={size} value={size}>
+                {size}개씩 보기
+              </option>
+            ))}
+          </select>
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            className={inputClass}
+          >
+            <option value="join-desc">가입일 최신순</option>
+            <option value="join-asc">가입일 오래된순</option>
+            <option value="progress-asc">진행률 낮은순</option>
+            <option value="progress-desc">진행률 높은순</option>
+            <option value="elapsed-desc">경과일 오래된순</option>
+          </select>
+        </div>
       </div>
 
       <div className="mt-2 overflow-x-auto rounded-xl border border-[var(--border)]">
@@ -1043,7 +1070,7 @@ export default function SaPanel() {
                         </span>
                         {lastHistoryEntry ? (
                           <span className="text-[13px] text-[var(--placeholder)]">
-                            {lastHistoryEntry.sentAt.split(" ")[0]}
+                            {lastHistoryEntry.sentAt}
                           </span>
                         ) : null}
                       </div>

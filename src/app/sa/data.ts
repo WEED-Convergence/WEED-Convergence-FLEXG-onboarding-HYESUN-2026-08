@@ -207,6 +207,15 @@ export function getDisplayStage(company: Pick<CompanyRow, "templateSelected" | "
   return recommendedDone ? "매출 확장 진행중" : "권장 설정 진행중";
 }
 
+const APPROVAL_MESSAGE_TITLE = "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.";
+
+// 별도 저장 필드 없이, 승인 완료 알림톡 발송 이력에서 승인 완료 일시를 가져옵니다.
+export function getApprovalCompletedAt(company: Pick<CompanyRow, "approvalDone" | "history">): string | null {
+  if (!company.approvalDone) return null;
+  const entry = company.history.find((h) => h.messageTitle === APPROVAL_MESSAGE_TITLE);
+  return entry ? entry.sentAt : null;
+}
+
 export const COMPANIES: CompanyRow[] = [
   {
     key: "isumo",
@@ -221,9 +230,9 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [1, 2],
     recentMessageId: 4,
     history: [
-      { sentAt: "2026-07-20 10:24", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
-      { sentAt: "2026-07-23 09:00", messageTitle: "아직 PG 신청을 완료하지 않으셨어요", category: "마케팅성", received: true },
-      { sentAt: "2026-07-24 14:12", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-07-20 10:24:17", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-07-23 09:00:30", messageTitle: "아직 PG 신청을 완료하지 않으셨어요", category: "마케팅성", received: true },
+      { sentAt: "2026-07-24 14:12:43", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
     ],
   },
   {
@@ -239,10 +248,10 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [1, 2, 3, 5, 6, 8, 17, 7],
     recentMessageId: 7,
     history: [
-      { sentAt: "2026-07-15 09:12", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
-      { sentAt: "2026-07-18 11:00", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
-      { sentAt: "2026-07-20 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
-      { sentAt: "2026-07-21 16:40", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
+      { sentAt: "2026-07-15 09:12:56", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-07-18 11:00:09", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-07-20 09:00:22", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+      { sentAt: "2026-07-21 16:40:35", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
     ],
   },
   {
@@ -258,7 +267,7 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [],
     recentMessageId: 2,
     history: [
-      { sentAt: "2026-08-19 09:00", messageTitle: "#{판매자명}님, 이제 템플릿만 선택하면 돼요", category: "마케팅성", received: false },
+      { sentAt: "2026-08-19 09:00:48", messageTitle: "#{판매자명}님, 이제 템플릿만 선택하면 돼요", category: "마케팅성", received: false },
     ],
   },
   {
@@ -288,10 +297,10 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [1, 2, 3, 5, 6, 8, 17, 7, 9, 15, 16, 11, 12],
     recentMessageId: 7,
     history: [
-      { sentAt: "2026-06-01 09:40", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
-      { sentAt: "2026-06-03 10:02", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
-      { sentAt: "2026-06-05 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
-      { sentAt: "2026-06-06 15:20", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
+      { sentAt: "2026-06-01 09:40:01", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-06-03 10:02:14", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-06-05 09:00:27", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+      { sentAt: "2026-06-06 15:20:40", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
     ],
   },
   {
@@ -307,8 +316,8 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [],
     recentMessageId: 3,
     history: [
-      { sentAt: "2026-08-10 10:05", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
-      { sentAt: "2026-08-13 09:00", messageTitle: "아직 PG 신청을 완료하지 않으셨어요", category: "마케팅성", received: true },
+      { sentAt: "2026-08-10 10:05:53", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-08-13 09:00:06", messageTitle: "아직 PG 신청을 완료하지 않으셨어요", category: "마케팅성", received: true },
     ],
   },
   {
@@ -324,8 +333,8 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [],
     recentMessageId: 5,
     history: [
-      { sentAt: "2026-08-05 10:20", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
-      { sentAt: "2026-08-09 15:30", messageTitle: "PG 신청이 반려되었어요", category: "정보성", received: true },
+      { sentAt: "2026-08-05 10:20:19", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-08-09 15:30:32", messageTitle: "PG 신청이 반려되었어요", category: "정보성", received: true },
     ],
   },
   {
@@ -341,9 +350,9 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [1, 2, 3, 5],
     recentMessageId: 6,
     history: [
-      { sentAt: "2026-07-28 09:50", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
-      { sentAt: "2026-07-30 11:10", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
-      { sentAt: "2026-08-02 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+      { sentAt: "2026-07-28 09:50:45", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-07-30 11:10:58", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-08-02 09:00:11", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
     ],
   },
   {
@@ -359,9 +368,9 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [1, 2, 3, 5, 6],
     recentMessageId: 6,
     history: [
-      { sentAt: "2026-07-25 09:30", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
-      { sentAt: "2026-07-27 10:40", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
-      { sentAt: "2026-07-30 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+      { sentAt: "2026-07-25 09:30:24", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-07-27 10:40:37", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-07-30 09:00:50", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
     ],
   },
   {
@@ -377,10 +386,10 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [1, 2, 3, 5, 6, 8, 17, 7, 9],
     recentMessageId: 7,
     history: [
-      { sentAt: "2026-07-10 09:15", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
-      { sentAt: "2026-07-12 10:00", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
-      { sentAt: "2026-07-15 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
-      { sentAt: "2026-07-16 14:00", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
+      { sentAt: "2026-07-10 09:15:03", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-07-12 10:00:16", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-07-15 09:00:29", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+      { sentAt: "2026-07-16 14:00:42", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
     ],
   },
   {
@@ -396,10 +405,10 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [1, 2, 3, 5, 6, 8, 17, 7, 11],
     recentMessageId: 7,
     history: [
-      { sentAt: "2026-07-08 09:20", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
-      { sentAt: "2026-07-10 10:00", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
-      { sentAt: "2026-07-13 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
-      { sentAt: "2026-07-14 14:30", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
+      { sentAt: "2026-07-08 09:20:55", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-07-10 10:00:08", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-07-13 09:00:21", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+      { sentAt: "2026-07-14 14:30:34", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
     ],
   },
   {
@@ -415,10 +424,10 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [1, 2, 3, 5, 6, 8, 17, 7, 9, 15, 16, 11],
     recentMessageId: 7,
     history: [
-      { sentAt: "2026-06-20 09:00", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
-      { sentAt: "2026-06-22 10:00", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
-      { sentAt: "2026-06-25 09:00", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
-      { sentAt: "2026-06-26 14:00", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
+      { sentAt: "2026-06-20 09:00:47", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-06-22 10:00:00", messageTitle: "PG 신청이 완료되었어요!", category: "정보성", received: true },
+      { sentAt: "2026-06-25 09:00:13", messageTitle: "쇼핑몰 오픈까지 얼마 남지 않았어요", category: "마케팅성", received: true },
+      { sentAt: "2026-06-26 14:00:26", messageTitle: "쇼핑몰 오픈 준비가 끝났어요!", category: "정보성", received: true },
     ],
   },
   {
@@ -434,7 +443,7 @@ export const COMPANIES: CompanyRow[] = [
     completedItemIds: [],
     recentMessageId: 1,
     history: [
-      { sentAt: "2026-08-20 09:05", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
+      { sentAt: "2026-08-20 09:05:39", messageTitle: "플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다.", category: "정보성", received: true },
     ],
   },
 ];
