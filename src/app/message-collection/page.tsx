@@ -115,6 +115,20 @@ const cards: MessageCardData[] = [
     body: "운영에 꼭 필요한 필수 항목을 모두 완료하셨어요. 지금 바로 쇼핑몰을 오픈하실 수 있어요.",
     button: "쇼핑몰 바로가기",
   },
+  {
+    id: 8,
+    condition: "승인 후 10일 경과, 결제준비·운영필수 미완료 항목 존재",
+    count: "조건 충족 시 최대 1회",
+    category: "마케팅성",
+    icon: "check",
+    imageBg: "#E6F1FB",
+    iconColor: "#378ADD",
+    sender: "(광고) 플렉스지",
+    title: "쇼핑몰 오픈까지 얼마 남지 않았어요",
+    body: "결제 준비와 운영 필수 항목만 마치면 바로 오픈할 수 있어요. 아래 버튼을 눌러 남은 항목을 확인해 보세요.",
+    button: "남은 항목 확인하기",
+    optOutText: "무료 수신거부 1600-0000",
+  },
 ];
 
 function CheckIcon({ color }: { color: string }) {
