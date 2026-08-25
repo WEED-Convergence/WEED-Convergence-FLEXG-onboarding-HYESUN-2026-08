@@ -858,9 +858,11 @@ function PgApplicationForm() {
       </div>
 
       <div
-        className="mt-6 h-[90px] w-full rounded-[12px]"
-        style={{ border: "1px solid #E4E2D8", backgroundColor: "var(--surface-1)" }}
-      />
+        className="mt-6 flex h-[90px] w-full items-center justify-center rounded-[12px] text-[12px]"
+        style={{ border: "1px solid #E4E2D8", backgroundColor: "var(--surface-1)", color: "#888780" }}
+      >
+        배너
+      </div>
 
       <div className="mt-6 flex justify-center gap-[10px]">
         <button type="button" className={secondaryButtonClass}>
