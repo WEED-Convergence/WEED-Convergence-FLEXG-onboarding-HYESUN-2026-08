@@ -14,7 +14,9 @@ import {
   getApprovalCompletedAt,
   getDisplayStage,
   getItemValueFields,
+  getPgInfo,
   getSignupDetail,
+  PG_STATUS_STYLE,
   type CompanyRow,
   type DisplayStage,
   type PeriodKey,
@@ -1004,20 +1006,22 @@ export default function SaPanel() {
       </div>
 
       <div className="mt-2 overflow-x-auto rounded-xl border border-[var(--border)]">
-        <table className="w-full min-w-[1080px] table-fixed border-collapse text-left text-[16px]">
+        <table className="w-full min-w-[1220px] table-fixed border-collapse text-left text-[16px]">
           <colgroup>
-            <col style={{ width: "16%" }} />
-            <col style={{ width: "13%" }} />
-            <col style={{ width: "16%" }} />
-            <col style={{ width: "15%" }} />
+            <col style={{ width: "14%" }} />
             <col style={{ width: "11%" }} />
-            <col style={{ width: "15%" }} />
+            <col style={{ width: "12%" }} />
+            <col style={{ width: "13%" }} />
+            <col style={{ width: "13%" }} />
+            <col style={{ width: "10%" }} />
+            <col style={{ width: "13%" }} />
             <col style={{ width: "14%" }} />
           </colgroup>
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)", backgroundColor: "var(--surface-1)" }}>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">쇼핑몰명</th>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">아이디</th>
+              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">PG사</th>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">가입일</th>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">최근 활동일시</th>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">진행률</th>
@@ -1032,6 +1036,8 @@ export default function SaPanel() {
                 const recentMessageText = recentMessage ? recentMessage.title : "-";
                 const lastHistoryEntry = c.history[c.history.length - 1];
                 const dotColor = lastHistoryEntry ? (lastHistoryEntry.received ? "#639922" : "#D8342A") : null;
+                const pg = getPgInfo(c);
+                const pgStyle = PG_STATUS_STYLE[pg.status];
                 return (
                   <tr key={c.key} style={{ borderBottom: "1px solid var(--divider)" }}>
                     <td className="px-3 py-3">
@@ -1041,6 +1047,19 @@ export default function SaPanel() {
                       </div>
                     </td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.loginId}</td>
+                    <td className="px-3 py-3">
+                      <div className="flex flex-col items-start gap-1">
+                        {pg.provider ? (
+                          <span className="truncate text-[15px] text-[var(--text-secondary)]">{pg.provider}</span>
+                        ) : null}
+                        <span
+                          className="inline-flex w-fit items-center whitespace-nowrap rounded-full px-2 py-[3px] text-[12px] font-semibold"
+                          style={{ backgroundColor: pgStyle.bg, color: pgStyle.color }}
+                        >
+                          {pg.status}
+                        </span>
+                      </div>
+                    </td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">
                       {c.joinDate}
                       {today ? (
@@ -1127,7 +1146,7 @@ export default function SaPanel() {
               })
             ) : (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-[15px] text-[var(--text-muted)]">
+                <td colSpan={8} className="px-4 py-8 text-center text-[15px] text-[var(--text-muted)]">
                   검색 조건에 맞는 판매자가 없습니다.
                 </td>
               </tr>

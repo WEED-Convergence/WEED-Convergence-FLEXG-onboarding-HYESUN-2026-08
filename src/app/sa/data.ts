@@ -216,6 +216,27 @@ export function getApprovalCompletedAt(company: Pick<CompanyRow, "approvalDone" 
   return entry ? entry.sentAt : null;
 }
 
+export type PgStatus = "승인완료" | "반려" | "미신청";
+
+export const PG_STATUS_STYLE: Record<PgStatus, { bg: string; color: string }> = {
+  "승인완료": { bg: "#EAF3E0", color: "#3B6D11" },
+  "반려": { bg: "#FBEAF0", color: "#D8342A" },
+  "미신청": { bg: "#F1EFE8", color: "#5F5E5A" },
+};
+
+// PG 신청 체크리스트 항목(id 1) 완료 여부와 최근 알림톡(반려 안내)으로부터 PG사·상태를 도출합니다.
+export function getPgInfo(
+  company: Pick<CompanyRow, "completedItemIds" | "recentMessageId">
+): { provider: string | null; status: PgStatus } {
+  if (company.completedItemIds.includes(1)) {
+    return { provider: "이지페이(EasyPAY)", status: "승인완료" };
+  }
+  if (company.recentMessageId === 5) {
+    return { provider: null, status: "반려" };
+  }
+  return { provider: null, status: "미신청" };
+}
+
 export const COMPANIES: CompanyRow[] = [
   {
     key: "isumo",
