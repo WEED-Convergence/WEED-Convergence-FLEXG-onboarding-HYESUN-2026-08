@@ -1032,8 +1032,6 @@ export default function SaPanel() {
           <tbody>
             {pagedCompanies.length > 0 ? (
               pagedCompanies.map((c) => {
-                const recentMessage = MESSAGE_TEMPLATES.find((t) => t.id === c.recentMessageId);
-                const recentMessageText = recentMessage ? recentMessage.title : "-";
                 const lastHistoryEntry = c.history[c.history.length - 1];
                 const dotColor = lastHistoryEntry ? (lastHistoryEntry.received ? "#639922" : "#D8342A") : null;
                 const pg = getPgInfo(c);
@@ -1073,26 +1071,16 @@ export default function SaPanel() {
                     <td className="px-3 py-3">
                       <ProgressCell completed={c.completedItemIds.length} />
                     </td>
-                    <td
-                      className="px-3 py-3 text-[15px] text-[var(--text-secondary)]"
-                      title={recentMessageText}
-                    >
-                      <div className="flex flex-col gap-0.5">
-                        <span className="inline-flex items-center gap-1.5 truncate">
-                          {dotColor ? (
-                            <span
-                              className="h-1.5 w-1.5 shrink-0 rounded-full"
-                              style={{ backgroundColor: dotColor }}
-                            />
-                          ) : null}
-                          {recentMessageText}
-                        </span>
-                        {lastHistoryEntry ? (
-                          <span className="text-[13px] text-[var(--placeholder)]">
-                            {lastHistoryEntry.sentAt}
-                          </span>
+                    <td className="px-3 py-3 text-[15px] text-[var(--text-secondary)]">
+                      <span className="inline-flex items-center gap-1.5">
+                        {dotColor ? (
+                          <span
+                            className="h-1.5 w-1.5 shrink-0 rounded-full"
+                            style={{ backgroundColor: dotColor }}
+                          />
                         ) : null}
-                      </div>
+                        {lastHistoryEntry ? lastHistoryEntry.sentAt : "-"}
+                      </span>
                     </td>
                     <td className="px-3 py-3">
                       <div className="flex flex-col items-stretch gap-1">
