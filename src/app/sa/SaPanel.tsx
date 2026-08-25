@@ -717,7 +717,6 @@ function SendMessageModal({ company, onClose }: { company: CompanyRow; onClose: 
 interface AppliedFilters {
   storeName: string;
   loginId: string;
-  managerName: string;
   joinFrom: string;
   joinTo: string;
   stage: string;
@@ -741,7 +740,6 @@ export default function SaPanel() {
 
   const [storeNameInput, setStoreNameInput] = useState("");
   const [loginIdInput, setLoginIdInput] = useState("");
-  const [managerNameInput, setManagerNameInput] = useState("");
   const [joinFromInput, setJoinFromInput] = useState("");
   const [joinToInput, setJoinToInput] = useState("");
   const [stageSearchInput, setStageSearchInput] = useState("all");
@@ -813,7 +811,6 @@ export default function SaPanel() {
     return COMPANIES.filter((c) => {
       if (appliedFilters.storeName && !c.storeName.includes(appliedFilters.storeName)) return false;
       if (appliedFilters.loginId && !c.loginId.includes(appliedFilters.loginId)) return false;
-      if (appliedFilters.managerName && !c.managerName.includes(appliedFilters.managerName)) return false;
       if (appliedFilters.joinFrom && c.joinDate < appliedFilters.joinFrom) return false;
       if (appliedFilters.joinTo && c.joinDate > appliedFilters.joinTo) return false;
       if (!matchesStageSearch(c, appliedFilters.stage)) return false;
@@ -832,11 +829,20 @@ export default function SaPanel() {
     setAppliedFilters({
       storeName: storeNameInput.trim(),
       loginId: loginIdInput.trim(),
-      managerName: managerNameInput.trim(),
       joinFrom: joinFromInput,
       joinTo: joinToInput,
       stage: stageSearchInput,
     });
+    setCurrentPage(1);
+  };
+
+  const handleReset = () => {
+    setStoreNameInput("");
+    setLoginIdInput("");
+    setJoinFromInput("");
+    setJoinToInput("");
+    setStageSearchInput("all");
+    setAppliedFilters(null);
     setCurrentPage(1);
   };
 
@@ -917,14 +923,8 @@ export default function SaPanel() {
 
       <div className="mt-6 rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-4">
         <div className="flex flex-wrap items-end gap-3">
-          <SearchField label="회사명" value={storeNameInput} onChange={setStoreNameInput} placeholder="회사명 검색" />
+          <SearchField label="쇼핑몰명" value={storeNameInput} onChange={setStoreNameInput} placeholder="쇼핑몰명 검색" />
           <SearchField label="아이디" value={loginIdInput} onChange={setLoginIdInput} placeholder="아이디 검색" />
-          <SearchField
-            label="담당자명"
-            value={managerNameInput}
-            onChange={setManagerNameInput}
-            placeholder="담당자명 검색"
-          />
           <label className="flex flex-col gap-1">
             <span className="text-[14px] font-medium text-[var(--text-secondary)]">가입일</span>
             <div className="flex items-center gap-1.5">
@@ -960,6 +960,9 @@ export default function SaPanel() {
           <button type="button" onClick={handleSearch} className={primaryButtonClass}>
             검색
           </button>
+          <button type="button" onClick={handleReset} className={secondaryButtonClass}>
+            초기화
+          </button>
         </div>
       </div>
 
@@ -981,22 +984,20 @@ export default function SaPanel() {
       </div>
 
       <div className="mt-2 overflow-x-auto rounded-xl border border-[var(--border)]">
-        <table className="w-full min-w-[1180px] table-fixed border-collapse text-left text-[16px]">
+        <table className="w-full min-w-[1080px] table-fixed border-collapse text-left text-[16px]">
           <colgroup>
+            <col style={{ width: "16%" }} />
+            <col style={{ width: "13%" }} />
+            <col style={{ width: "16%" }} />
             <col style={{ width: "15%" }} />
-            <col style={{ width: "12%" }} />
             <col style={{ width: "11%" }} />
             <col style={{ width: "15%" }} />
             <col style={{ width: "14%" }} />
-            <col style={{ width: "10%" }} />
-            <col style={{ width: "14%" }} />
-            <col style={{ width: "9%" }} />
           </colgroup>
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)", backgroundColor: "var(--surface-1)" }}>
-              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">회사명</th>
+              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">쇼핑몰명</th>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">아이디</th>
-              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">담당자명</th>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">가입일</th>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">최근 활동일시</th>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">진행률</th>
@@ -1020,7 +1021,6 @@ export default function SaPanel() {
                       </div>
                     </td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.loginId}</td>
-                    <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.managerName}</td>
                     <td className="truncate px-3 py-3 text-[var(--text-secondary)]">
                       {c.joinDate}
                       {today ? (
@@ -1064,6 +1064,12 @@ export default function SaPanel() {
                         >
                           알림톡 발송
                         </button>
+                        <button type="button" className={rowSecondaryButtonClass}>
+                          관리자 페이지
+                        </button>
+                        <button type="button" className={rowSecondaryButtonClass}>
+                          사이트 이동
+                        </button>
                         {deriveStage(c) === "approval-pending" ? (
                           <button
                             type="button"
@@ -1094,7 +1100,7 @@ export default function SaPanel() {
               })
             ) : (
               <tr>
-                <td colSpan={8} className="px-4 py-8 text-center text-[15px] text-[var(--text-muted)]">
+                <td colSpan={7} className="px-4 py-8 text-center text-[15px] text-[var(--text-muted)]">
                   검색 조건에 맞는 판매자가 없습니다.
                 </td>
               </tr>

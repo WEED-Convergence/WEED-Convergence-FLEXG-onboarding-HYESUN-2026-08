@@ -1720,7 +1720,7 @@ function SnsLoginForm() {
       </div>
 
       <div className={`mt-4 ${snsCardClass}`} style={snsCardStyle}>
-        <SnsSectionTitle>카카오 로그인</SnsSectionTitle>
+        <SnsSectionTitle>카카오 1초 로그인</SnsSectionTitle>
 
         <div className="mt-4 flex items-center gap-4">
           <span
