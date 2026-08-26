@@ -1823,13 +1823,6 @@ function CashReceiptForm() {
                 <span className="text-[12px]" style={{ color: "#888780" }}>
                   가입정보가 없습니다.
                 </span>
-                <button
-                  type="button"
-                  className="shrink-0 whitespace-nowrap rounded-[5px] px-[14px] py-[6px] text-[11px] font-medium text-white"
-                  style={{ backgroundColor: "#5F5E5A" }}
-                >
-                  팝빌가입하기
-                </button>
               </div>
               <p className="mt-1.5 text-[10px] text-[var(--text-muted)]">
                 ⓘ 가입된 사업자번호인 경우 플렉스지 고객센터로 문의해 주세요.
@@ -1998,7 +1991,7 @@ function CashReceiptForm() {
             className={primaryButtonClass}
             style={{ backgroundColor: "#2C2C2A" }}
           >
-            저장
+            팝빌 가입하기
           </button>
         </div>
       </DetailCard>
