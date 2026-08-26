@@ -930,9 +930,9 @@ export default function SaPanel() {
 
       <div className="mt-6 rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-4">
         <div className="flex flex-wrap items-end gap-3">
-          <SearchField label="쇼핑몰명" value={storeNameInput} onChange={setStoreNameInput} placeholder="쇼핑몰명 검색" />
-          <SearchField label="회사명" value={companyNameInput} onChange={setCompanyNameInput} placeholder="회사명 검색" />
           <SearchField label="아이디" value={loginIdInput} onChange={setLoginIdInput} placeholder="아이디 검색" />
+          <SearchField label="회사명" value={companyNameInput} onChange={setCompanyNameInput} placeholder="회사명 검색" />
+          <SearchField label="쇼핑몰명" value={storeNameInput} onChange={setStoreNameInput} placeholder="쇼핑몰명 검색" />
           <label className="flex flex-col gap-1">
             <span className="text-[14px] font-medium text-[var(--text-secondary)]">가입일</span>
             <div className="flex items-center gap-1.5">
@@ -1015,9 +1015,9 @@ export default function SaPanel() {
       <div className="mt-2 overflow-x-auto rounded-xl border border-[var(--border)]">
         <table className="w-full min-w-[1320px] table-fixed border-collapse text-left text-[16px]">
           <colgroup>
-            <col style={{ width: "13%" }} />
-            <col style={{ width: "12%" }} />
             <col style={{ width: "10%" }} />
+            <col style={{ width: "12%" }} />
+            <col style={{ width: "13%" }} />
             <col style={{ width: "11%" }} />
             <col style={{ width: "12%" }} />
             <col style={{ width: "12%" }} />
@@ -1027,9 +1027,9 @@ export default function SaPanel() {
           </colgroup>
           <thead>
             <tr style={{ borderBottom: "1px solid var(--border)", backgroundColor: "var(--surface-1)" }}>
-              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">쇼핑몰명</th>
-              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">회사명</th>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">아이디</th>
+              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">회사명</th>
+              <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">쇼핑몰명</th>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">PG사</th>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">가입일</th>
               <th className="px-3 py-2.5 text-[15px] font-medium text-[var(--text-muted)]">최근 활동일시</th>
@@ -1048,14 +1048,14 @@ export default function SaPanel() {
                 const companyName = getCompanyName(c, companyIndex);
                 return (
                   <tr key={c.key} style={{ borderBottom: "1px solid var(--divider)" }}>
+                    <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.loginId}</td>
+                    <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{companyName}</td>
                     <td className="px-3 py-3">
                       <div className="flex flex-col items-start gap-1">
                         <span className="truncate font-medium text-[var(--text-primary)]">{c.storeName}</span>
                         <StageBadge company={c} />
                       </div>
                     </td>
-                    <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{companyName}</td>
-                    <td className="truncate px-3 py-3 text-[var(--text-secondary)]">{c.loginId}</td>
                     <td className="px-3 py-3">
                       <div className="flex flex-col items-start gap-1.5">
                         {pgApps.map((app, idx) => {
