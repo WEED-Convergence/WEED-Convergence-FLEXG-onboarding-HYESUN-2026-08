@@ -40,7 +40,7 @@ const bubbleCases: BubbleCaseRow[] = [
     button2: "이어하기",
   },
   {
-    completedItem: "사업자 정보 · 통신판매업신고번호 등록하기 (카테고리 완료)",
+    completedItem: "사업자 정보 등록하기 (카테고리 완료)",
     title: "결제 준비를 모두 마치셨어요!",
     description: "다음은 운영 필수예요.",
     button1: "닫기",

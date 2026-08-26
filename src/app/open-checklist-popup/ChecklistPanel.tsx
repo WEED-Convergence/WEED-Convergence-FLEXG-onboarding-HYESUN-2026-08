@@ -41,7 +41,7 @@ const items: ChecklistItemData[] = [
   },
   {
     id: 5,
-    title: "사업자 정보 · 통신판매업신고번호 등록하기",
+    title: "사업자 정보 등록하기",
     description: "",
     previewTitle: "사업자 정보",
     previewRows: [
