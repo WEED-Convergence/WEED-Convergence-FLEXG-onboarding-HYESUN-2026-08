@@ -1764,6 +1764,9 @@ function SnsLoginForm() {
           <InfoIcon color="#D8342A" />
           <p className="text-[12px] leading-relaxed" style={{ color: "#993556" }}>
             키값을 삭제하거나 신규 진행 시엔 기존 회원은 신규 회원으로 진입되니 유의해 주세요.
+            <br />
+            SNS 간편 로그인 설정을 완료하셨다면, 쇼핑몰에서 로그인 및 회원가입이 정상적으로
+            진행되는지 직접 테스트해 보시기를 권장드립니다.
           </p>
         </div>
 
