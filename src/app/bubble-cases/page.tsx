@@ -40,7 +40,7 @@ const bubbleCases: BubbleCaseRow[] = [
     button2: "이어하기",
   },
   {
-    completedItem: "사업자 정보 등록하기 (카테고리 완료)",
+    completedItem: "사업자 정보 · 통신판매업신고번호 등록하기 (카테고리 완료)",
     title: "결제 준비를 모두 마치셨어요!",
     description: "다음은 운영 필수예요.",
     button1: "닫기",
@@ -56,6 +56,13 @@ const bubbleCases: BubbleCaseRow[] = [
   {
     completedItem: "알림톡 등록하기",
     title: "알림톡 등록을 완료하셨어요!",
+    description: "이어서 현금영수증을 설정해볼까요?",
+    button1: "닫기",
+    button2: "이어하기",
+  },
+  {
+    completedItem: "현금영수증 설정하기",
+    title: "현금영수증 설정을 완료하셨어요!",
     description: "이어서 SNS 간편 로그인을 등록해볼까요?",
     button1: "닫기",
     button2: "이어하기",
@@ -68,15 +75,8 @@ const bubbleCases: BubbleCaseRow[] = [
     button2: "다음 단계",
   },
   {
-    completedItem: "SEO 설정하기",
-    title: "SEO 설정을 완료하셨어요!",
-    description: "이어서 팝빌 신청을 진행해볼까요?",
-    button1: "닫기",
-    button2: "이어하기",
-  },
-  {
-    completedItem: "팝빌 신청하기",
-    title: "팝빌 신청을 완료하셨어요!",
+    completedItem: "검색 노출 정보 등록하기",
+    title: "검색 노출 정보 등록을 완료하셨어요!",
     description: "이어서 약관을 확인해볼까요?",
     button1: "닫기",
     button2: "이어하기",
