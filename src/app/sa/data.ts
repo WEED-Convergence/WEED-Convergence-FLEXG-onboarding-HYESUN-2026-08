@@ -558,19 +558,28 @@ const ADDRESS_PRESETS = [
   { zipCode: "04524", addressBase: "서울특별시 중구 청계천로 100" },
 ];
 
+function resolveBusinessType(index: number): SignupDetailData["businessType"] {
+  return BUSINESS_TYPES[index % BUSINESS_TYPES.length];
+}
+
+// 목록/검색에서도 동일한 회사명이 보이도록 회원가입 상세와 같은 로직을 공유합니다.
+export function getCompanyName(company: Pick<CompanyRow, "storeName">, index: number): string {
+  const businessType = resolveBusinessType(index);
+  return businessType === "법인사업자"
+    ? `(주)${company.storeName.replace(/\s/g, "")}`
+    : businessType === "개인사업자"
+      ? company.storeName
+      : "-";
+}
+
 // 회원가입 폼 전체 항목을 인덱스 기반으로 다양하게 생성합니다. (비밀번호·영업 대행사 항목은 제외)
 export function getSignupDetail(company: CompanyRow, index: number): SignupDetailData {
-  const businessType = BUSINESS_TYPES[index % BUSINESS_TYPES.length];
+  const businessType = resolveBusinessType(index);
   const mailOrderStatus = MAIL_ORDER_STATUSES[(index + 1) % MAIL_ORDER_STATUSES.length];
   const address = ADDRESS_PRESETS[index % ADDRESS_PRESETS.length];
   const shopExperience: SignupDetailData["shopExperience"] = index % 4 === 1 ? "타 서비스 이용" : "없음";
 
-  const companyName =
-    businessType === "법인사업자"
-      ? `(주)${company.storeName.replace(/\s/g, "")}`
-      : businessType === "개인사업자"
-        ? company.storeName
-        : "-";
+  const companyName = getCompanyName(company, index);
 
   return {
     joinType: index % 5 === 4 ? "기존 회원" : "신규",
