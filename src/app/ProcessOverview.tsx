@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useSelectedChecklistItem } from "./SelectedChecklistItemContext";
 
-type NoteListItem = { heading?: string; body: string };
+type NoteListItem = { heading?: string; body: string; color?: string };
 
 type NoteParagraph = string | { title: string; body?: string; list?: NoteListItem[] };
 
@@ -64,7 +64,7 @@ const staticOverviewNotes: Record<string, OverviewNote[]> = {
             { body: "일반결제는 휴대폰 제외(고객지원팀 최종 확정 필요_" },
             { body: "간편결제는 모두 진행" },
             { body: "에스크로 사용" },
-            { body: "약관 동의 URL 제공되는지 체크 필요" },
+            { body: "각 PG사 별 약관 동의 URL 제공되는지 체크 필요", color: "#D8342A" },
           ],
         },
       ],
@@ -391,7 +391,7 @@ export default function ProcessOverview() {
                             {body ? <p className="mt-1">{body}</p> : null}
                             <ol className={title || body ? "mt-1 space-y-1.5" : "space-y-1.5"}>
                               {list.map((entry, i) => (
-                                <li key={entry.heading ?? entry.body}>
+                                <li key={entry.heading ?? entry.body} style={{ color: entry.color }}>
                                   <span className="font-semibold">{i + 1}. </span>
                                   {entry.heading ? (
                                     <span className="font-semibold">{entry.heading}: </span>
