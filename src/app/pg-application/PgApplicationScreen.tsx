@@ -242,6 +242,89 @@ const termRows: TermRow[] = [
   { id: "third", label: "세번째 약관 동의" },
 ];
 
+function YesNoToggle({
+  name,
+  value,
+  onChange,
+}: {
+  name: string;
+  value: boolean;
+  onChange: (value: boolean) => void;
+}) {
+  return (
+    <div className="flex items-center gap-5">
+      <label className="flex items-center gap-1.5 text-[13px] text-[var(--text-primary)]">
+        <input
+          type="radio"
+          name={name}
+          checked={value}
+          onChange={() => onChange(true)}
+          className="h-3.5 w-3.5 accent-[var(--accent)]"
+        />
+        사용(Y)
+      </label>
+      <label className="flex items-center gap-1.5 text-[13px] text-[var(--text-primary)]">
+        <input
+          type="radio"
+          name={name}
+          checked={!value}
+          onChange={() => onChange(false)}
+          className="h-3.5 w-3.5 accent-[var(--accent)]"
+        />
+        미사용(N)
+      </label>
+    </div>
+  );
+}
+
+function ToggleFieldRow({
+  label,
+  name,
+  value,
+  onChange,
+}: {
+  label: string;
+  name: string;
+  value: boolean;
+  onChange: (value: boolean) => void;
+}) {
+  return (
+    <div className="flex items-center justify-between border-b border-[var(--border)] px-4 py-3 last:border-b-0">
+      <span className="text-[13px] font-medium text-[var(--text-primary)]" style={{ wordBreak: "keep-all" }}>
+        {label}
+        <RequiredMark />
+      </span>
+      <YesNoToggle name={name} value={value} onChange={onChange} />
+    </div>
+  );
+}
+
+function SplitInput({
+  values,
+  onChange,
+  segmentWidths,
+}: {
+  values: [string, string, string];
+  onChange: (index: 0 | 1 | 2, value: string) => void;
+  segmentWidths: [string, string, string];
+}) {
+  return (
+    <div className="flex items-center gap-1.5">
+      {([0, 1, 2] as const).map((idx) => (
+        <span key={idx} className="flex items-center gap-1.5">
+          <input
+            className={`${inputClass} text-center`}
+            style={{ width: segmentWidths[idx] }}
+            value={values[idx]}
+            onChange={(e) => onChange(idx, e.target.value)}
+          />
+          {idx < 2 ? <span className="text-[var(--text-muted)]">-</span> : null}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export default function PgApplicationScreen() {
   const [companyName] = useState("테스트하는축구");
   const [businessNumber] = useState("1588601603");
@@ -288,6 +371,21 @@ export default function PgApplicationScreen() {
     const next = !allTermsChecked;
     setTerms(Object.fromEntries(termRows.map((t) => [t.id, next])));
   };
+
+  const [kcpUseCard, setKcpUseCard] = useState(true);
+  const [kcpUseVcnt, setKcpUseVcnt] = useState(true);
+  const [kcpUseEasyPay, setKcpUseEasyPay] = useState(true);
+  const [kcpUseEscVcnt, setKcpUseEscVcnt] = useState(true);
+  const [kcpKeyinYn, setKcpKeyinYn] = useState(false);
+  const [kcpMngNm, setKcpMngNm] = useState("테스트하는축구선수");
+  const [kcpMngEmail, setKcpMngEmail] = useState("ABC111@itweed.net");
+  const [kcpMngTel, setKcpMngTel] = useState<[string, string, string]>(["", "", ""]);
+  const [kcpMngMob, setKcpMngMob] = useState<[string, string, string]>(["", "", ""]);
+  const [kcpZipCode, setKcpZipCode] = useState("");
+  const [kcpAddr1, setKcpAddr1] = useState("");
+  const [kcpAddr2, setKcpAddr2] = useState("");
+  const [kcpNavrMidx, setKcpNavrMidx] = useState("");
+  const [kcpRetUrl, setKcpRetUrl] = useState("");
 
   return (
     <div className="w-full">
@@ -457,6 +555,149 @@ export default function PgApplicationScreen() {
                   <span className="text-[11px] text-[var(--text-muted)] underline">보기</span>
                 </div>
               ))}
+            </div>
+          </div>
+
+          <div className="mt-8 flex justify-center gap-[10px]">
+            <button type="button" className={primaryButtonClass}>
+              신청하기
+            </button>
+            <button type="button" className={secondaryButtonClass}>
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-8 w-full overflow-hidden rounded-xl border border-[var(--border)]">
+        <div className="flex items-center justify-between px-5 py-3.5" style={{ backgroundColor: "#1A1A1A" }}>
+          <div className="flex items-center gap-2">
+            <span className="flex h-6 w-6 items-center justify-center rounded bg-white/10">
+              <DocIcon />
+            </span>
+            <span className="text-[14px] font-semibold text-white">KCP 온보딩</span>
+          </div>
+          <span className="flex h-6 w-6 items-center justify-center text-white/70">
+            <CloseIcon />
+          </span>
+        </div>
+
+        <div className="bg-[var(--bg)] px-6 py-6">
+          <SectionTitle required>결제 수단 사용여부</SectionTitle>
+          <div className="mt-2 overflow-hidden rounded-lg border border-[var(--border)]">
+            <ToggleFieldRow label="신용카드 사용유무" name="kcpUseCard" value={kcpUseCard} onChange={setKcpUseCard} />
+            <ToggleFieldRow label="가상계좌 사용유무" name="kcpUseVcnt" value={kcpUseVcnt} onChange={setKcpUseVcnt} />
+            <ToggleFieldRow
+              label="간편결제 사용유무"
+              name="kcpUseEasyPay"
+              value={kcpUseEasyPay}
+              onChange={setKcpUseEasyPay}
+            />
+          </div>
+
+          <div className="mt-7">
+            <SectionTitle required>에스크로 가상계좌 사용유무</SectionTitle>
+            <div className="mt-2 rounded-lg border border-[var(--border)] px-4 py-3">
+              <YesNoToggle name="kcpUseEscVcnt" value={kcpUseEscVcnt} onChange={setKcpUseEscVcnt} />
+            </div>
+          </div>
+
+          <div className="mt-7">
+            <SectionTitle required>KEYIN(수기) 결제 사용유무</SectionTitle>
+            <div className="mt-2 rounded-lg border border-[var(--border)] px-4 py-3">
+              <YesNoToggle name="kcpKeyinYn" value={kcpKeyinYn} onChange={setKcpKeyinYn} />
+            </div>
+          </div>
+
+          <div className="mt-7">
+            <SectionTitle required>담당자 정보</SectionTitle>
+            <div className="mt-3 overflow-hidden rounded-lg border border-[var(--border)]">
+              <FieldRow>
+                <FieldCell label="담당자명" required>
+                  <input className={inputClass} value={kcpMngNm} onChange={(e) => setKcpMngNm(e.target.value)} />
+                </FieldCell>
+                <FieldCell label="담당자 이메일" required>
+                  <input
+                    className={inputClass}
+                    type="email"
+                    value={kcpMngEmail}
+                    onChange={(e) => setKcpMngEmail(e.target.value)}
+                  />
+                </FieldCell>
+              </FieldRow>
+              <div className="border-b border-[var(--border)]">
+                <FieldCell label="담당자 전화번호" required>
+                  <SplitInput
+                    values={kcpMngTel}
+                    segmentWidths={["56px", "72px", "72px"]}
+                    onChange={(idx, value) =>
+                      setKcpMngTel((prev) => {
+                        const next: [string, string, string] = [...prev];
+                        next[idx] = value;
+                        return next;
+                      })
+                    }
+                  />
+                </FieldCell>
+              </div>
+              <div>
+                <FieldCell label="담당자 휴대폰번호" required>
+                  <SplitInput
+                    values={kcpMngMob}
+                    segmentWidths={["56px", "72px", "72px"]}
+                    onChange={(idx, value) =>
+                      setKcpMngMob((prev) => {
+                        const next: [string, string, string] = [...prev];
+                        next[idx] = value;
+                        return next;
+                      })
+                    }
+                  />
+                </FieldCell>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-7">
+            <SectionTitle required>주소 정보</SectionTitle>
+            <div className="mt-3 overflow-hidden rounded-lg border border-[var(--border)]">
+              <FieldRow>
+                <FieldCell label="도로명 우편번호" required>
+                  <input className={inputClass} value={kcpZipCode} onChange={(e) => setKcpZipCode(e.target.value)} />
+                </FieldCell>
+                <FieldCell label="가맹점고유번호/몰 아이디" required>
+                  <input
+                    className={inputClass}
+                    value={kcpNavrMidx}
+                    onChange={(e) => setKcpNavrMidx(e.target.value)}
+                    placeholder="호스팅사에서 관리하는 고유 ID 또는 mall ID"
+                  />
+                </FieldCell>
+              </FieldRow>
+              <div className="border-b border-[var(--border)]">
+                <FieldCell label="도로명 주소" required>
+                  <input className={inputClass} value={kcpAddr1} onChange={(e) => setKcpAddr1(e.target.value)} />
+                </FieldCell>
+              </div>
+              <div>
+                <FieldCell label="도로명 상세주소" required>
+                  <input className={inputClass} value={kcpAddr2} onChange={(e) => setKcpAddr2(e.target.value)} />
+                </FieldCell>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-7">
+            <SectionTitle required>공통리턴 URL</SectionTitle>
+            <div className="mt-2 overflow-hidden rounded-lg border border-[var(--border)]">
+              <FieldCell label="retUrl" required>
+                <input
+                  className={inputClass}
+                  value={kcpRetUrl}
+                  onChange={(e) => setKcpRetUrl(e.target.value)}
+                  placeholder="https://test.com/webhook"
+                />
+              </FieldCell>
             </div>
           </div>
 
