@@ -141,7 +141,6 @@ export default function PgApplicationScreen() {
   const [kcpZipCode] = useState("06132");
   const [kcpAddr1] = useState("서울특별시 강남구 테헤란로 123");
   const [kcpAddr2] = useState("4층 401호");
-  const [kcpNavrMidx, setKcpNavrMidx] = useState("");
 
   const [kcpCompName] = useState("테스트하는축구");
   const [kcpCompTaxNo] = useState("1588601603");
@@ -384,7 +383,7 @@ export default function PgApplicationScreen() {
           <div className="mt-7">
             <SectionTitle required>주소 정보</SectionTitle>
             <div className="mt-3 overflow-hidden rounded-lg border border-[var(--border)]">
-              <div className="border-b border-[var(--border)]">
+              <div>
                 <FieldCell label="주소" required>
                   <div className="flex w-full items-center gap-1.5">
                     <input
@@ -406,16 +405,6 @@ export default function PgApplicationScreen() {
                       disabled
                     />
                   </div>
-                </FieldCell>
-              </div>
-              <div>
-                <FieldCell label="가맹점고유번호/몰 아이디" required>
-                  <input
-                    className={inputClass}
-                    value={kcpNavrMidx}
-                    onChange={(e) => setKcpNavrMidx(e.target.value)}
-                    placeholder="호스팅사에서 관리하는 고유 ID 또는 mall ID"
-                  />
                 </FieldCell>
               </div>
             </div>
