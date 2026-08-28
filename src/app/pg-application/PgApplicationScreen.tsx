@@ -296,7 +296,7 @@ export default function PgApplicationScreen() {
                 <input className={inputClass} value={kcpCompOwnName} disabled />
               </FieldCell>
             </FieldRow>
-            <div className="border-b border-[var(--border)]">
+            <FieldRow>
               <FieldCell label="대표자 생년월일" required>
                 <input
                   className={inputClass}
@@ -305,12 +305,10 @@ export default function PgApplicationScreen() {
                   placeholder="YYMMDD"
                 />
               </FieldCell>
-            </div>
-            <div className="border-b border-[var(--border)]">
               <FieldCell label="대표자 휴대폰번호" required>
                 <SplitInput
                   values={kcpCompOwnMob}
-                  segmentWidths={["56px", "72px", "72px"]}
+                  segmentWidths={["44px", "60px", "60px"]}
                   onChange={(idx, value) =>
                     setKcpCompOwnMob((prev) => {
                       const next: [string, string, string] = [...prev];
@@ -320,8 +318,8 @@ export default function PgApplicationScreen() {
                   }
                 />
               </FieldCell>
-            </div>
-            <div className="border-b border-[var(--border)]">
+            </FieldRow>
+            <FieldRow>
               <FieldCell label="대표 이메일" required>
                 <input
                   className={inputClass}
@@ -330,12 +328,10 @@ export default function PgApplicationScreen() {
                   onChange={(e) => setKcpCompEmail(e.target.value)}
                 />
               </FieldCell>
-            </div>
-            <div>
               <FieldCell label="업체 전화번호" required>
                 <SplitInput
                   values={kcpCompTel}
-                  segmentWidths={["56px", "72px", "72px"]}
+                  segmentWidths={["44px", "60px", "60px"]}
                   onChange={(idx, value) =>
                     setKcpCompTel((prev) => {
                       const next: [string, string, string] = [...prev];
@@ -345,7 +341,7 @@ export default function PgApplicationScreen() {
                   }
                 />
               </FieldCell>
-            </div>
+            </FieldRow>
           </div>
 
           <div className="mt-7">
