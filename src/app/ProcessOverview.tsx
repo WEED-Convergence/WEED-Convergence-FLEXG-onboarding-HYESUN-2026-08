@@ -54,6 +54,23 @@ const staticOverviewNotes: Record<string, OverviewNote[]> = {
       items: [],
     },
   ],
+  "/pg-application": [
+    {
+      id: "pg-application-screen-note",
+      desc: [
+        {
+          title: "NICEPAY 결제 서비스 설정 확인 필요",
+          list: [
+            { body: "일반결제는 휴대폰 제외" },
+            { body: "간편결제는 모두 진행" },
+            { body: "에스크로 사용" },
+            { body: "약관 동의 URL 제공되는지 체크 필요" },
+          ],
+        },
+      ],
+      items: [],
+    },
+  ],
 };
 
 const PG_APPLICATION_NOTE: OverviewNote = {

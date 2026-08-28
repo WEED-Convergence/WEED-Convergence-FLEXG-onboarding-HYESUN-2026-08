@@ -328,11 +328,11 @@ function SplitInput({
 export default function PgApplicationScreen() {
   const [companyName] = useState("테스트하는축구");
   const [businessNumber] = useState("1588601603");
-  const [ceoName, setCeoName] = useState("최혜선");
-  const [businessUrl, setBusinessUrl] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [managerName, setManagerName] = useState("테스트하는축구선수");
-  const [managerPhone, setManagerPhone] = useState("");
+  const [ceoName] = useState("최혜선");
+  const [businessUrl] = useState("https://testfootball.flexg.co.kr");
+  const [address1] = useState("서울특별시 금천구 벚꽃로 298 대륭포스트타워6차 313호");
+  const [managerName] = useState("테스트하는축구선수");
+  const [managerPhone] = useState("02-1234-5678");
   const [managerEmail, setManagerEmail] = useState("ABC111@itweed.net");
 
   const [selectedPayments, setSelectedPayments] = useState<Set<string>>(
@@ -439,38 +439,23 @@ export default function PgApplicationScreen() {
             </FieldRow>
             <FieldRow>
               <FieldCell label="대표자명" required>
-                <input className={inputClass} value={ceoName} onChange={(e) => setCeoName(e.target.value)} />
+                <input className={inputClass} value={ceoName} disabled />
               </FieldCell>
               <FieldCell label="사업자 URL" required>
-                <input
-                  className={inputClass}
-                  value={businessUrl}
-                  onChange={(e) => setBusinessUrl(e.target.value)}
-                  placeholder="https://"
-                />
+                <input className={inputClass} value={businessUrl} disabled />
               </FieldCell>
             </FieldRow>
             <div className="border-b border-[var(--border)]">
               <FieldCell label="주소1" required>
-                <input
-                  className={inputClass}
-                  value={address1}
-                  onChange={(e) => setAddress1(e.target.value)}
-                  placeholder="사업장 주소를 입력해 주세요"
-                />
+                <input className={inputClass} value={address1} disabled />
               </FieldCell>
             </div>
             <FieldRow>
               <FieldCell label="가맹점 담당자" required>
-                <input className={inputClass} value={managerName} onChange={(e) => setManagerName(e.target.value)} />
+                <input className={inputClass} value={managerName} disabled />
               </FieldCell>
               <FieldCell label="가맹점 전화번호" required>
-                <input
-                  className={inputClass}
-                  value={managerPhone}
-                  onChange={(e) => setManagerPhone(e.target.value)}
-                  placeholder="담당자 전화번호를 입력해 주세요"
-                />
+                <input className={inputClass} value={managerPhone} disabled />
               </FieldCell>
             </FieldRow>
             <div>
