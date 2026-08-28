@@ -83,63 +83,6 @@ const termRows: TermRow[] = [
   { id: "third", label: "세번째 약관 동의" },
 ];
 
-function YesNoToggle({
-  name,
-  value,
-  onChange,
-}: {
-  name: string;
-  value: boolean;
-  onChange: (value: boolean) => void;
-}) {
-  return (
-    <div className="flex items-center gap-5">
-      <label className="flex items-center gap-1.5 text-[13px] text-[var(--text-primary)]">
-        <input
-          type="radio"
-          name={name}
-          checked={value}
-          onChange={() => onChange(true)}
-          className="h-3.5 w-3.5 accent-[var(--accent)]"
-        />
-        사용(Y)
-      </label>
-      <label className="flex items-center gap-1.5 text-[13px] text-[var(--text-primary)]">
-        <input
-          type="radio"
-          name={name}
-          checked={!value}
-          onChange={() => onChange(false)}
-          className="h-3.5 w-3.5 accent-[var(--accent)]"
-        />
-        미사용(N)
-      </label>
-    </div>
-  );
-}
-
-function ToggleFieldRow({
-  label,
-  name,
-  value,
-  onChange,
-}: {
-  label: string;
-  name: string;
-  value: boolean;
-  onChange: (value: boolean) => void;
-}) {
-  return (
-    <div className="flex items-center justify-between border-b border-[var(--border)] px-4 py-3 last:border-b-0">
-      <span className="text-[13px] font-medium text-[var(--text-primary)]" style={{ wordBreak: "keep-all" }}>
-        {label}
-        <RequiredMark />
-      </span>
-      <YesNoToggle name={name} value={value} onChange={onChange} />
-    </div>
-  );
-}
-
 function SplitInput({
   values,
   onChange,
@@ -188,11 +131,6 @@ export default function PgApplicationScreen() {
     setTerms(Object.fromEntries(termRows.map((t) => [t.id, next])));
   };
 
-  const [kcpUseCard, setKcpUseCard] = useState(true);
-  const [kcpUseVcnt, setKcpUseVcnt] = useState(true);
-  const [kcpUseEasyPay, setKcpUseEasyPay] = useState(true);
-  const [kcpUseEscVcnt, setKcpUseEscVcnt] = useState(true);
-  const [kcpKeyinYn, setKcpKeyinYn] = useState(false);
   const [kcpMngNm, setKcpMngNm] = useState("테스트하는축구선수");
   const [kcpMngEmail, setKcpMngEmail] = useState("ABC111@itweed.net");
   const [kcpMngTel, setKcpMngTel] = useState<[string, string, string]>(["", "", ""]);
@@ -404,34 +342,6 @@ export default function PgApplicationScreen() {
                   }
                 />
               </FieldCell>
-            </div>
-          </div>
-
-          <div className="mt-7">
-            <SectionTitle required>결제 수단 사용여부</SectionTitle>
-            <div className="mt-2 overflow-hidden rounded-lg border border-[var(--border)]">
-              <ToggleFieldRow label="신용카드 사용유무" name="kcpUseCard" value={kcpUseCard} onChange={setKcpUseCard} />
-              <ToggleFieldRow label="가상계좌 사용유무" name="kcpUseVcnt" value={kcpUseVcnt} onChange={setKcpUseVcnt} />
-              <ToggleFieldRow
-                label="간편결제 사용유무"
-                name="kcpUseEasyPay"
-                value={kcpUseEasyPay}
-                onChange={setKcpUseEasyPay}
-              />
-            </div>
-          </div>
-
-          <div className="mt-7">
-            <SectionTitle required>에스크로 가상계좌 사용유무</SectionTitle>
-            <div className="mt-2 rounded-lg border border-[var(--border)] px-4 py-3">
-              <YesNoToggle name="kcpUseEscVcnt" value={kcpUseEscVcnt} onChange={setKcpUseEscVcnt} />
-            </div>
-          </div>
-
-          <div className="mt-7">
-            <SectionTitle required>KEYIN(수기) 결제 사용유무</SectionTitle>
-            <div className="mt-2 rounded-lg border border-[var(--border)] px-4 py-3">
-              <YesNoToggle name="kcpKeyinYn" value={kcpKeyinYn} onChange={setKcpKeyinYn} />
             </div>
           </div>
 
