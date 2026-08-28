@@ -149,7 +149,7 @@ export default function PgApplicationScreen() {
   const [kcpCompOwnNo, setKcpCompOwnNo] = useState("");
   const [kcpCompOwnMob, setKcpCompOwnMob] = useState<[string, string, string]>(["", "", ""]);
   const [kcpCompEmail, setKcpCompEmail] = useState("ABC111@itweed.net");
-  const [kcpCompTel, setKcpCompTel] = useState<[string, string, string]>(["", "", ""]);
+  const [kcpCompTel] = useState<[string, string, string]>(["02", "1234", "5678"]);
   const [kcpAgree, setKcpAgree] = useState(false);
 
   return (
@@ -331,13 +331,8 @@ export default function PgApplicationScreen() {
                 <SplitInput
                   values={kcpCompTel}
                   segmentWidths={["44px", "60px", "60px"]}
-                  onChange={(idx, value) =>
-                    setKcpCompTel((prev) => {
-                      const next: [string, string, string] = [...prev];
-                      next[idx] = value;
-                      return next;
-                    })
-                  }
+                  onChange={() => {}}
+                  disabled
                 />
               </FieldCell>
             </FieldRow>
