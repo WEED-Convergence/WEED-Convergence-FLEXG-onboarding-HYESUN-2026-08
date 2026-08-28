@@ -76,57 +76,18 @@ interface PaymentOption {
   id: string;
   name: string;
   badgeColor: string;
-  feeLines: string[];
-  tags?: string[];
-  note?: string;
 }
 
 const generalPayments: PaymentOption[] = [
-  {
-    id: "card",
-    name: "신용카드",
-    badgeColor: "#2C2C2A",
-    feeLines: ["수수료 3.3%", "정산 일할(+5일)"],
-    tags: ["에스크로 제공(수수료 면제)", "부분취소 사용"],
-  },
-  {
-    id: "vbank",
-    name: "가상계좌",
-    badgeColor: "#378ADD",
-    feeLines: ["수수료 건당 300원", "정산 일할(+5일)"],
-    tags: ["에스크로 제공(수수료 면제)"],
-  },
-  {
-    id: "mobile",
-    name: "휴대폰",
-    badgeColor: "#639922",
-    feeLines: ["수수료 4.5%", "정산 주1회(수)"],
-    note: "실물 배송 상품만 결제 가능",
-  },
+  { id: "card", name: "신용카드", badgeColor: "#2C2C2A" },
+  { id: "vbank", name: "가상계좌", badgeColor: "#378ADD" },
+  { id: "mobile", name: "휴대폰", badgeColor: "#639922" },
 ];
 
 const easyPayments: PaymentOption[] = [
-  {
-    id: "kakaopay",
-    name: "카카오페이",
-    badgeColor: "#F2A623",
-    feeLines: ["카드 3.3%", "머니 3.3%"],
-    tags: ["부분취소 사용"],
-  },
-  {
-    id: "payco",
-    name: "PAYCO",
-    badgeColor: "#D8342A",
-    feeLines: ["카드 3.3%", "쿠폰/포인트 3.3%"],
-    tags: ["부분취소 사용"],
-  },
-  {
-    id: "applepay",
-    name: "애플페이",
-    badgeColor: "#2C2C2A",
-    feeLines: ["수수료 3.3%"],
-    tags: ["부분취소 사용"],
-  },
+  { id: "kakaopay", name: "카카오페이", badgeColor: "#F2A623" },
+  { id: "payco", name: "PAYCO", badgeColor: "#D8342A" },
+  { id: "applepay", name: "애플페이", badgeColor: "#2C2C2A" },
 ];
 
 function CheckBadge({ checked }: { checked: boolean }) {
@@ -183,49 +144,22 @@ function PaymentGroup({
               key={option.id}
               type="button"
               onClick={() => onToggle(option.id)}
-              className="flex flex-col items-start gap-2 rounded-[10px] px-3.5 py-3 text-left"
+              className="flex items-center justify-between gap-2 rounded-[10px] px-3.5 py-3 text-left"
               style={{
                 border: checked ? "1.5px solid var(--accent)" : "1px solid var(--border)",
                 backgroundColor: checked ? "var(--accent-bg)" : "var(--bg)",
               }}
             >
-              <div className="flex w-full items-center justify-between">
-                <span className="flex items-center gap-1.5">
-                  <span
-                    className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[9px] font-bold text-white"
-                    style={{ backgroundColor: option.badgeColor }}
-                  >
-                    {option.name.slice(0, 1)}
-                  </span>
-                  <span className="text-[12.5px] font-semibold text-[var(--text-primary)]">{option.name}</span>
+              <span className="flex items-center gap-1.5">
+                <span
+                  className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[9px] font-bold text-white"
+                  style={{ backgroundColor: option.badgeColor }}
+                >
+                  {option.name.slice(0, 1)}
                 </span>
-                <CheckBadge checked={checked} />
-              </div>
-              <div className="space-y-0.5">
-                {option.feeLines.map((line) => (
-                  <p key={line} className="text-[10.5px] text-[var(--text-secondary)]">
-                    {line}
-                  </p>
-                ))}
-              </div>
-              {option.tags ? (
-                <div className="flex flex-wrap gap-1">
-                  {option.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full px-1.5 py-[2px] text-[9.5px] font-medium"
-                      style={{ backgroundColor: "var(--surface-1)", color: "var(--text-muted)" }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              ) : null}
-              {option.note ? (
-                <p className="text-[9.5px]" style={{ color: "var(--accent-text)" }}>
-                  * {option.note}
-                </p>
-              ) : null}
+                <span className="text-[12.5px] font-semibold text-[var(--text-primary)]">{option.name}</span>
+              </span>
+              <CheckBadge checked={checked} />
             </button>
           );
         })}
@@ -240,31 +174,29 @@ interface TermRow {
 }
 
 const termRows: TermRow[] = [
-  { id: "service", label: "이용약관 동의" },
-  { id: "privacy", label: "개인정보 수집·이용 동의" },
-  { id: "thirdParty", label: "제3자 정보제공 동의" },
+  { id: "first", label: "첫번째 약관 동의" },
+  { id: "second", label: "두번째 약관 동의" },
+  { id: "third", label: "세번째 약관 동의" },
 ];
 
 export default function PgApplicationScreen() {
   const [companyName] = useState("테스트하는축구");
   const [businessNumber] = useState("1588601603");
-  const [corpNumber, setCorpNumber] = useState("");
   const [ceoName, setCeoName] = useState("최혜선");
-  const [birthDate, setBirthDate] = useState("");
   const [businessUrl, setBusinessUrl] = useState("");
   const [address1, setAddress1] = useState("");
   const [managerName, setManagerName] = useState("테스트하는축구선수");
   const [managerPhone, setManagerPhone] = useState("");
-  const [managerMobile, setManagerMobile] = useState("111111111");
   const [managerEmail, setManagerEmail] = useState("ABC111@itweed.net");
 
   const [selectedPayments, setSelectedPayments] = useState<Set<string>>(
     new Set([...generalPayments, ...easyPayments].map((o) => o.id))
   );
+  const [escrowUsed, setEscrowUsed] = useState(true);
   const [terms, setTerms] = useState<Record<string, boolean>>({
-    service: false,
-    privacy: false,
-    thirdParty: false,
+    first: false,
+    second: false,
+    third: false,
   });
 
   const togglePayment = (id: string) => {
@@ -315,7 +247,7 @@ export default function PgApplicationScreen() {
             <span className="flex h-6 w-6 items-center justify-center rounded bg-white/10">
               <DocIcon />
             </span>
-            <span className="text-[14px] font-semibold text-white">PG사 신청</span>
+            <span className="text-[14px] font-semibold text-white">NICEPAY 온보딩</span>
           </div>
           <span className="flex h-6 w-6 items-center justify-center text-white/70">
             <CloseIcon />
@@ -327,7 +259,7 @@ export default function PgApplicationScreen() {
 
           <div className="mt-3 overflow-hidden rounded-lg border border-[var(--border)]">
             <FieldRow>
-              <FieldCell label="회사명" required>
+              <FieldCell label="상호명" required>
                 <input className={inputClass} value={companyName} disabled />
               </FieldCell>
               <FieldCell label="사업자번호" required>
@@ -335,26 +267,8 @@ export default function PgApplicationScreen() {
               </FieldCell>
             </FieldRow>
             <FieldRow>
-              <FieldCell label="법인등록번호">
-                <input
-                  className={inputClass}
-                  value={corpNumber}
-                  onChange={(e) => setCorpNumber(e.target.value)}
-                  placeholder="법인등록번호를 입력해 주세요"
-                />
-              </FieldCell>
               <FieldCell label="대표자명" required>
                 <input className={inputClass} value={ceoName} onChange={(e) => setCeoName(e.target.value)} />
-              </FieldCell>
-            </FieldRow>
-            <FieldRow>
-              <FieldCell label="생년월일">
-                <input
-                  className={inputClass}
-                  value={birthDate}
-                  onChange={(e) => setBirthDate(e.target.value)}
-                  placeholder="YYMMDD"
-                />
               </FieldCell>
               <FieldCell label="사업자 URL" required>
                 <input
@@ -388,14 +302,7 @@ export default function PgApplicationScreen() {
                 />
               </FieldCell>
             </FieldRow>
-            <FieldRow>
-              <FieldCell label="가맹점 휴대폰번호" required>
-                <input
-                  className={inputClass}
-                  value={managerMobile}
-                  onChange={(e) => setManagerMobile(e.target.value)}
-                />
-              </FieldCell>
+            <div>
               <FieldCell label="가맹점 이메일" required>
                 <input
                   className={inputClass}
@@ -404,21 +311,7 @@ export default function PgApplicationScreen() {
                   onChange={(e) => setManagerEmail(e.target.value)}
                 />
               </FieldCell>
-            </FieldRow>
-          </div>
-
-          <div
-            className="mt-4 rounded-lg px-4 py-3.5"
-            style={{ backgroundColor: "var(--surface-1)", border: "1px solid var(--border)" }}
-          >
-            <p className="text-[12px] font-semibold text-[var(--text-primary)]">
-              계약 관련 심사를 위한 구비서류 전달 (이메일 : pgch@kicc.co.kr)
-            </p>
-            <ul className="mt-2 space-y-0.5 text-[11px] text-[var(--text-secondary)]">
-              <li>· 법인 : 법인등기부 등본, 사업자등록증</li>
-              <li>· 개인 : 사업자등록증</li>
-              <li>· 공통요청 내용 : 월 승인한도, 상호 영문명, 담당자 정보</li>
-            </ul>
+            </div>
           </div>
 
           <div className="mt-7">
@@ -439,6 +332,32 @@ export default function PgApplicationScreen() {
               onToggle={togglePayment}
               onToggleAll={() => toggleGroupAll(easyPayments)}
             />
+          </div>
+
+          <div className="mt-7">
+            <SectionTitle required>에스크로 사용여부</SectionTitle>
+            <div className="mt-2 flex items-center gap-5 rounded-lg border border-[var(--border)] px-4 py-3">
+              <label className="flex items-center gap-1.5 text-[13px] text-[var(--text-primary)]">
+                <input
+                  type="radio"
+                  name="escrowUsed"
+                  checked={escrowUsed}
+                  onChange={() => setEscrowUsed(true)}
+                  className="h-3.5 w-3.5 accent-[var(--accent)]"
+                />
+                사용
+              </label>
+              <label className="flex items-center gap-1.5 text-[13px] text-[var(--text-primary)]">
+                <input
+                  type="radio"
+                  name="escrowUsed"
+                  checked={!escrowUsed}
+                  onChange={() => setEscrowUsed(false)}
+                  className="h-3.5 w-3.5 accent-[var(--accent)]"
+                />
+                미사용
+              </label>
+            </div>
           </div>
 
           <div className="mt-7">
