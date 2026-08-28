@@ -199,7 +199,7 @@ export default function PgApplicationScreen() {
               </FieldCell>
             </FieldRow>
             <div className="border-b border-[var(--border)]">
-              <FieldCell label="주소1" required>
+              <FieldCell label="주소" required>
                 <input className={inputClass} value={address1} disabled />
               </FieldCell>
             </div>
