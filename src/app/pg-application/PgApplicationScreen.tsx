@@ -204,8 +204,8 @@ export default function PgApplicationScreen() {
 
   const [kcpCompName] = useState("테스트하는축구");
   const [kcpCompTaxNo] = useState("1588601603");
-  const [kcpCompUrl, setKcpCompUrl] = useState("");
-  const [kcpCompOwnName, setKcpCompOwnName] = useState("최혜선");
+  const [kcpCompUrl] = useState("testfootball.flexg.co.kr");
+  const [kcpCompOwnName] = useState("최혜선");
   const [kcpCompOwnNo, setKcpCompOwnNo] = useState("");
   const [kcpCompOwnMob, setKcpCompOwnMob] = useState<[string, string, string]>(["", "", ""]);
   const [kcpCompEmail, setKcpCompEmail] = useState("ABC111@itweed.net");
@@ -347,24 +347,15 @@ export default function PgApplicationScreen() {
                 <input className={inputClass} value={kcpCompTaxNo} disabled />
               </FieldCell>
             </FieldRow>
-            <div className="border-b border-[var(--border)]">
-              <FieldCell label="사이트URL" required>
-                <input
-                  className={inputClass}
-                  value={kcpCompUrl}
-                  onChange={(e) => setKcpCompUrl(e.target.value)}
-                  placeholder="http:// 또는 https:// 프로토콜 제외"
-                />
-              </FieldCell>
-            </div>
             <FieldRow>
-              <FieldCell label="대표자명" required>
-                <input
-                  className={inputClass}
-                  value={kcpCompOwnName}
-                  onChange={(e) => setKcpCompOwnName(e.target.value)}
-                />
+              <FieldCell label="사이트URL" required>
+                <input className={inputClass} value={kcpCompUrl} disabled />
               </FieldCell>
+              <FieldCell label="대표자명" required>
+                <input className={inputClass} value={kcpCompOwnName} disabled />
+              </FieldCell>
+            </FieldRow>
+            <div className="border-b border-[var(--border)]">
               <FieldCell label="대표자 생년월일" required>
                 <input
                   className={inputClass}
@@ -373,7 +364,7 @@ export default function PgApplicationScreen() {
                   placeholder="YYMMDD"
                 />
               </FieldCell>
-            </FieldRow>
+            </div>
             <div className="border-b border-[var(--border)]">
               <FieldCell label="대표자 휴대폰번호" required>
                 <SplitInput
@@ -496,63 +487,40 @@ export default function PgApplicationScreen() {
           <div className="mt-7">
             <SectionTitle required>주소 정보</SectionTitle>
             <div className="mt-3 overflow-hidden rounded-lg border border-[var(--border)]">
-              <FieldRow>
-                <FieldCell label="도로명 우편번호" required>
-                  <input className={inputClass} value={kcpZipCode} onChange={(e) => setKcpZipCode(e.target.value)} />
+              <div className="border-b border-[var(--border)]">
+                <FieldCell label="주소" required>
+                  <div className="flex w-full items-center gap-1.5">
+                    <input
+                      className={inputClass}
+                      style={{ flex: "0 0 100px" }}
+                      value={kcpZipCode}
+                      onChange={(e) => setKcpZipCode(e.target.value)}
+                      placeholder="우편번호"
+                    />
+                    <input
+                      className={inputClass}
+                      style={{ flex: "1 1 0%", minWidth: 0 }}
+                      value={kcpAddr1}
+                      onChange={(e) => setKcpAddr1(e.target.value)}
+                      placeholder="도로명 주소"
+                    />
+                    <input
+                      className={inputClass}
+                      style={{ flex: "1 1 0%", minWidth: 0 }}
+                      value={kcpAddr2}
+                      onChange={(e) => setKcpAddr2(e.target.value)}
+                      placeholder="상세주소"
+                    />
+                  </div>
                 </FieldCell>
+              </div>
+              <div>
                 <FieldCell label="가맹점고유번호/몰 아이디" required>
                   <input
                     className={inputClass}
                     value={kcpNavrMidx}
                     onChange={(e) => setKcpNavrMidx(e.target.value)}
                     placeholder="호스팅사에서 관리하는 고유 ID 또는 mall ID"
-                  />
-                </FieldCell>
-              </FieldRow>
-              <div className="border-b border-[var(--border)]">
-                <FieldCell label="도로명 주소" required>
-                  <input className={inputClass} value={kcpAddr1} onChange={(e) => setKcpAddr1(e.target.value)} />
-                </FieldCell>
-              </div>
-              <div>
-                <FieldCell label="도로명 상세주소" required>
-                  <input className={inputClass} value={kcpAddr2} onChange={(e) => setKcpAddr2(e.target.value)} />
-                </FieldCell>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-7">
-            <SectionTitle required>인증 정보</SectionTitle>
-            <p className="mt-1 text-[11.5px] text-[var(--text-muted)]">
-              계약·요청 시점에 시스템에서 자동으로 설정되는 값으로, 판매자가 직접 입력하지 않습니다.
-            </p>
-            <div className="mt-2 overflow-hidden rounded-lg border border-[var(--border)]">
-              <FieldRow>
-                <FieldCell label="hostCode" required>
-                  <input className={inputClass} value="2015241" disabled />
-                </FieldCell>
-                <FieldCell label="reqDt" required>
-                  <input className={inputClass} value="" placeholder="요청 시점에 자동 생성" disabled />
-                </FieldCell>
-              </FieldRow>
-              <div className="border-b border-[var(--border)]">
-                <FieldCell label="kcpCertInfo" required>
-                  <input
-                    className={inputClass}
-                    value=""
-                    placeholder="KCP 발급 서비스 인증서(pem)가 시스템에서 자동 첨부됩니다"
-                    disabled
-                  />
-                </FieldCell>
-              </div>
-              <div>
-                <FieldCell label="kcpSignData" required>
-                  <input
-                    className={inputClass}
-                    value=""
-                    placeholder="hostCode+사업자번호+요청일시 기반으로 자동 생성됩니다"
-                    disabled
                   />
                 </FieldCell>
               </div>
