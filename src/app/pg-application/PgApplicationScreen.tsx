@@ -387,6 +387,16 @@ export default function PgApplicationScreen() {
   const [kcpNavrMidx, setKcpNavrMidx] = useState("");
   const [kcpRetUrl, setKcpRetUrl] = useState("");
 
+  const [kcpCompName] = useState("테스트하는축구");
+  const [kcpCompTaxNo] = useState("1588601603");
+  const [kcpCompUrl, setKcpCompUrl] = useState("");
+  const [kcpCompOwnName, setKcpCompOwnName] = useState("최혜선");
+  const [kcpCompOwnNo, setKcpCompOwnNo] = useState("");
+  const [kcpCompOwnMob, setKcpCompOwnMob] = useState<[string, string, string]>(["", "", ""]);
+  const [kcpCompEmail, setKcpCompEmail] = useState("ABC111@itweed.net");
+  const [kcpCompTel, setKcpCompTel] = useState<[string, string, string]>(["", "", ""]);
+  const [kcpAgree, setKcpAgree] = useState(false);
+
   return (
     <div className="w-full">
       <h1 className="mb-4 text-[16px] font-semibold text-[var(--text-primary)]">
@@ -583,16 +593,97 @@ export default function PgApplicationScreen() {
         </div>
 
         <div className="bg-[var(--bg)] px-6 py-6">
-          <SectionTitle required>결제 수단 사용여부</SectionTitle>
-          <div className="mt-2 overflow-hidden rounded-lg border border-[var(--border)]">
-            <ToggleFieldRow label="신용카드 사용유무" name="kcpUseCard" value={kcpUseCard} onChange={setKcpUseCard} />
-            <ToggleFieldRow label="가상계좌 사용유무" name="kcpUseVcnt" value={kcpUseVcnt} onChange={setKcpUseVcnt} />
-            <ToggleFieldRow
-              label="간편결제 사용유무"
-              name="kcpUseEasyPay"
-              value={kcpUseEasyPay}
-              onChange={setKcpUseEasyPay}
-            />
+          <SectionTitle required>가맹점 정보</SectionTitle>
+          <div className="mt-3 overflow-hidden rounded-lg border border-[var(--border)]">
+            <FieldRow>
+              <FieldCell label="상호명" required>
+                <input className={inputClass} value={kcpCompName} disabled />
+              </FieldCell>
+              <FieldCell label="사업자번호" required>
+                <input className={inputClass} value={kcpCompTaxNo} disabled />
+              </FieldCell>
+            </FieldRow>
+            <div className="border-b border-[var(--border)]">
+              <FieldCell label="사이트URL" required>
+                <input
+                  className={inputClass}
+                  value={kcpCompUrl}
+                  onChange={(e) => setKcpCompUrl(e.target.value)}
+                  placeholder="http:// 또는 https:// 프로토콜 제외"
+                />
+              </FieldCell>
+            </div>
+            <FieldRow>
+              <FieldCell label="대표자명" required>
+                <input
+                  className={inputClass}
+                  value={kcpCompOwnName}
+                  onChange={(e) => setKcpCompOwnName(e.target.value)}
+                />
+              </FieldCell>
+              <FieldCell label="대표자 생년월일" required>
+                <input
+                  className={inputClass}
+                  value={kcpCompOwnNo}
+                  onChange={(e) => setKcpCompOwnNo(e.target.value)}
+                  placeholder="YYMMDD"
+                />
+              </FieldCell>
+            </FieldRow>
+            <div className="border-b border-[var(--border)]">
+              <FieldCell label="대표자 휴대폰번호" required>
+                <SplitInput
+                  values={kcpCompOwnMob}
+                  segmentWidths={["56px", "72px", "72px"]}
+                  onChange={(idx, value) =>
+                    setKcpCompOwnMob((prev) => {
+                      const next: [string, string, string] = [...prev];
+                      next[idx] = value;
+                      return next;
+                    })
+                  }
+                />
+              </FieldCell>
+            </div>
+            <div className="border-b border-[var(--border)]">
+              <FieldCell label="대표 이메일" required>
+                <input
+                  className={inputClass}
+                  type="email"
+                  value={kcpCompEmail}
+                  onChange={(e) => setKcpCompEmail(e.target.value)}
+                />
+              </FieldCell>
+            </div>
+            <div>
+              <FieldCell label="업체 전화번호" required>
+                <SplitInput
+                  values={kcpCompTel}
+                  segmentWidths={["56px", "72px", "72px"]}
+                  onChange={(idx, value) =>
+                    setKcpCompTel((prev) => {
+                      const next: [string, string, string] = [...prev];
+                      next[idx] = value;
+                      return next;
+                    })
+                  }
+                />
+              </FieldCell>
+            </div>
+          </div>
+
+          <div className="mt-7">
+            <SectionTitle required>결제 수단 사용여부</SectionTitle>
+            <div className="mt-2 overflow-hidden rounded-lg border border-[var(--border)]">
+              <ToggleFieldRow label="신용카드 사용유무" name="kcpUseCard" value={kcpUseCard} onChange={setKcpUseCard} />
+              <ToggleFieldRow label="가상계좌 사용유무" name="kcpUseVcnt" value={kcpUseVcnt} onChange={setKcpUseVcnt} />
+              <ToggleFieldRow
+                label="간편결제 사용유무"
+                name="kcpUseEasyPay"
+                value={kcpUseEasyPay}
+                onChange={setKcpUseEasyPay}
+              />
+            </div>
           </div>
 
           <div className="mt-7">
@@ -699,6 +790,65 @@ export default function PgApplicationScreen() {
                 />
               </FieldCell>
             </div>
+          </div>
+
+          <div className="mt-7">
+            <SectionTitle required>인증 정보</SectionTitle>
+            <p className="mt-1 text-[11.5px] text-[var(--text-muted)]">
+              계약·요청 시점에 시스템에서 자동으로 설정되는 값으로, 판매자가 직접 입력하지 않습니다.
+            </p>
+            <div className="mt-2 overflow-hidden rounded-lg border border-[var(--border)]">
+              <FieldRow>
+                <FieldCell label="hostCode" required>
+                  <input className={inputClass} value="2015241" disabled />
+                </FieldCell>
+                <FieldCell label="reqDt" required>
+                  <input className={inputClass} value="" placeholder="요청 시점에 자동 생성" disabled />
+                </FieldCell>
+              </FieldRow>
+              <div className="border-b border-[var(--border)]">
+                <FieldCell label="kcpCertInfo" required>
+                  <input
+                    className={inputClass}
+                    value=""
+                    placeholder="KCP 발급 서비스 인증서(pem)가 시스템에서 자동 첨부됩니다"
+                    disabled
+                  />
+                </FieldCell>
+              </div>
+              <div>
+                <FieldCell label="kcpSignData" required>
+                  <input
+                    className={inputClass}
+                    value=""
+                    placeholder="hostCode+사업자번호+요청일시 기반으로 자동 생성됩니다"
+                    disabled
+                  />
+                </FieldCell>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-7">
+            <SectionTitle required>개인정보 제공 동의</SectionTitle>
+            <div className="mt-2 overflow-hidden rounded-lg border border-[var(--border)]">
+              <div className="flex items-center justify-between px-4 py-2.5">
+                <label className="flex items-center gap-2 text-[12.5px] text-[var(--text-primary)]">
+                  <input
+                    type="checkbox"
+                    checked={kcpAgree}
+                    onChange={(e) => setKcpAgree(e.target.checked)}
+                    className="h-3.5 w-3.5 accent-[var(--accent)]"
+                  />
+                  KCP 개인정보 제공 동의
+                  <RequiredMark />
+                </label>
+                <span className="text-[11px] text-[var(--text-muted)] underline">보기</span>
+              </div>
+            </div>
+            <p className="mt-1.5 text-[10.5px] text-[var(--text-muted)]">
+              동의하지 않는 경우 신청이 진행되지 않습니다.
+            </p>
           </div>
 
           <div className="mt-8 flex justify-center gap-[10px]">
