@@ -61,7 +61,7 @@ const staticOverviewNotes: Record<string, OverviewNote[]> = {
         {
           title: "NICEPAY 결제 서비스 설정 확인 필요",
           list: [
-            { body: "일반결제는 휴대폰 제외" },
+            { body: "일반결제는 휴대폰 제외(고객지원팀 최종 확정 필요_" },
             { body: "간편결제는 모두 진행" },
             { body: "에스크로 사용" },
             { body: "약관 동의 URL 제공되는지 체크 필요" },
