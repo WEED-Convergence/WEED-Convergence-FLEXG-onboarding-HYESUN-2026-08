@@ -72,165 +72,6 @@ function FieldRow({ children }: { children: React.ReactNode }) {
   );
 }
 
-interface PaymentOption {
-  id: string;
-  name: string;
-  badgeColor: string;
-  feeLines: string[];
-  tags?: string[];
-}
-
-const generalPayments: PaymentOption[] = [
-  {
-    id: "card",
-    name: "신용카드",
-    badgeColor: "#2C2C2A",
-    feeLines: ["수수료 3.3%", "정산 일할(+5일)"],
-    tags: ["에스크로 제공(수수료 면제)", "부분취소 사용"],
-  },
-  {
-    id: "vbank",
-    name: "가상계좌",
-    badgeColor: "#378ADD",
-    feeLines: ["수수료 건당 300원", "정산 일할(+5일)"],
-    tags: ["에스크로 제공(수수료 면제)"],
-  },
-  {
-    id: "mobile",
-    name: "휴대폰",
-    badgeColor: "#639922",
-    feeLines: ["실물 4.5%", "정산 주1회(수)"],
-  },
-];
-
-const easyPayments: PaymentOption[] = [
-  {
-    id: "kakaopay",
-    name: "카카오페이",
-    badgeColor: "#F2A623",
-    feeLines: ["수수료", "카드 3.3%", "머니 3.3%"],
-    tags: ["부분취소 사용"],
-  },
-  {
-    id: "payco",
-    name: "PAYCO",
-    badgeColor: "#D8342A",
-    feeLines: ["수수료", "카드 3.3%", "쿠폰/포인트 3.3%"],
-    tags: ["부분취소 사용"],
-  },
-  {
-    id: "applepay",
-    name: "애플페이",
-    badgeColor: "#2C2C2A",
-    feeLines: ["수수료 3.3%"],
-    tags: ["부분취소 사용"],
-  },
-];
-
-function CheckBadge({ checked }: { checked: boolean }) {
-  return (
-    <span
-      className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
-      style={{
-        backgroundColor: checked ? "#2563EB" : "var(--divider)",
-        border: checked ? "none" : "1px solid var(--border)",
-      }}
-    >
-      {checked ? (
-        <svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="white" strokeWidth="3.5">
-          <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      ) : null}
-    </span>
-  );
-}
-
-function PaymentGroup({
-  title,
-  subtitle,
-  options,
-  selected,
-  onToggle,
-  onToggleAll,
-  footnote,
-}: {
-  title: string;
-  subtitle?: string;
-  options: PaymentOption[];
-  selected: Set<string>;
-  onToggle: (id: string) => void;
-  onToggleAll: () => void;
-  footnote?: string;
-}) {
-  const allSelected = options.every((o) => selected.has(o.id));
-
-  return (
-    <div className="mt-4">
-      <div className="flex items-center justify-between">
-        <p className="text-[13px] font-semibold text-[var(--text-primary)]">
-          {title}
-          {subtitle ? <span className="ml-1 text-[11px] font-normal text-[var(--text-muted)]">({subtitle})</span> : null}
-        </p>
-        <button
-          type="button"
-          onClick={onToggleAll}
-          className="flex items-center gap-1 text-[11px] font-medium text-[var(--text-secondary)]"
-        >
-          <CheckBadge checked={allSelected} />
-          모두선택
-        </button>
-      </div>
-      <div className="mt-2 grid grid-cols-3 gap-3">
-        {options.map((option) => {
-          const checked = selected.has(option.id);
-          return (
-            <button
-              key={option.id}
-              type="button"
-              onClick={() => onToggle(option.id)}
-              className="flex flex-col items-start gap-2 rounded-[10px] px-3.5 py-3 text-left"
-              style={{ border: "1px solid var(--border)", backgroundColor: "var(--bg)" }}
-            >
-              <div className="flex w-full items-center justify-between">
-                <span className="flex items-center gap-1.5">
-                  <span
-                    className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[9px] font-bold text-white"
-                    style={{ backgroundColor: option.badgeColor }}
-                  >
-                    {option.name.slice(0, 1)}
-                  </span>
-                  <span className="text-[12.5px] font-semibold text-[var(--text-primary)]">{option.name}</span>
-                </span>
-                <CheckBadge checked={checked} />
-              </div>
-              <div className="space-y-0.5">
-                {option.feeLines.map((line) => (
-                  <p key={line} className="text-[10.5px] text-[var(--text-secondary)]">
-                    {line}
-                  </p>
-                ))}
-              </div>
-              {option.tags ? (
-                <div className="space-y-1">
-                  {option.tags.map((tag) => (
-                    <p key={tag} className="flex items-center gap-1 text-[10px] text-[var(--text-secondary)]">
-                      <CheckBadge checked />
-                      {tag}
-                    </p>
-                  ))}
-                </div>
-              ) : null}
-            </button>
-          );
-        })}
-      </div>
-      {footnote ? (
-        <p className="mt-2 whitespace-pre-line text-[10.5px] leading-relaxed text-[var(--text-muted)]">{footnote}</p>
-      ) : null}
-    </div>
-  );
-}
-
 interface TermRow {
   id: string;
   label: string;
@@ -333,38 +174,13 @@ export default function PgApplicationScreen() {
   const [address1] = useState("서울특별시 금천구 벚꽃로 298 대륭포스트타워6차 313호");
   const [managerName] = useState("테스트하는축구선수");
   const [managerPhone] = useState("02-1234-5678");
-  const [managerEmail, setManagerEmail] = useState("ABC111@itweed.net");
+  const [managerEmail] = useState("ABC111@itweed.net");
 
-  const [selectedPayments, setSelectedPayments] = useState<Set<string>>(
-    new Set([...generalPayments, ...easyPayments].map((o) => o.id))
-  );
-  const [escrowUsed, setEscrowUsed] = useState(true);
   const [terms, setTerms] = useState<Record<string, boolean>>({
     first: false,
     second: false,
     third: false,
   });
-
-  const togglePayment = (id: string) => {
-    setSelectedPayments((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
-
-  const toggleGroupAll = (options: PaymentOption[]) => {
-    setSelectedPayments((prev) => {
-      const next = new Set(prev);
-      const allSelected = options.every((o) => next.has(o.id));
-      options.forEach((o) => {
-        if (allSelected) next.delete(o.id);
-        else next.add(o.id);
-      });
-      return next;
-    });
-  };
 
   const allTermsChecked = termRows.every((t) => terms[t.id]);
   const toggleAllTerms = () => {
@@ -460,64 +276,8 @@ export default function PgApplicationScreen() {
             </FieldRow>
             <div>
               <FieldCell label="가맹점 이메일" required>
-                <input
-                  className={inputClass}
-                  type="email"
-                  value={managerEmail}
-                  onChange={(e) => setManagerEmail(e.target.value)}
-                />
+                <input className={inputClass} type="email" value={managerEmail} disabled />
               </FieldCell>
-            </div>
-          </div>
-
-          <div className="mt-7">
-            <SectionTitle required>결제 서비스</SectionTitle>
-            <p className="mt-1 text-[11.5px] text-[var(--text-muted)]">원하는 결제서비스를 선택해 주세요.</p>
-
-            <PaymentGroup
-              title="일반결제"
-              subtitle="VAT 별도, 수수료는 거래 발생 시에만 부과"
-              options={generalPayments}
-              selected={selectedPayments}
-              onToggle={togglePayment}
-              onToggleAll={() => toggleGroupAll(generalPayments)}
-              footnote={
-                "* 에스크로(구매안전서비스) 정산주기\n구매 확인 후 2영업일소요/ 구매 미확인 시, 배송완료 후 8영업일"
-              }
-            />
-            <PaymentGroup
-              title="간편결제"
-              subtitle="신용카드와 정산주기 동일"
-              options={easyPayments}
-              selected={selectedPayments}
-              onToggle={togglePayment}
-              onToggleAll={() => toggleGroupAll(easyPayments)}
-            />
-          </div>
-
-          <div className="mt-7">
-            <SectionTitle required>에스크로 사용여부</SectionTitle>
-            <div className="mt-2 flex items-center gap-5 rounded-lg border border-[var(--border)] px-4 py-3">
-              <label className="flex items-center gap-1.5 text-[13px] text-[var(--text-primary)]">
-                <input
-                  type="radio"
-                  name="escrowUsed"
-                  checked={escrowUsed}
-                  onChange={() => setEscrowUsed(true)}
-                  className="h-3.5 w-3.5 accent-[var(--accent)]"
-                />
-                사용
-              </label>
-              <label className="flex items-center gap-1.5 text-[13px] text-[var(--text-primary)]">
-                <input
-                  type="radio"
-                  name="escrowUsed"
-                  checked={!escrowUsed}
-                  onChange={() => setEscrowUsed(false)}
-                  className="h-3.5 w-3.5 accent-[var(--accent)]"
-                />
-                미사용
-              </label>
             </div>
           </div>
 
