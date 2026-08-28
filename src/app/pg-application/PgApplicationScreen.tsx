@@ -114,12 +114,14 @@ function PaymentGroup({
   selected,
   onToggle,
   onToggleAll,
+  highlightSelected = true,
 }: {
   title: string;
   options: PaymentOption[];
   selected: Set<string>;
   onToggle: (id: string) => void;
   onToggleAll: () => void;
+  highlightSelected?: boolean;
 }) {
   const allSelected = options.every((o) => selected.has(o.id));
 
@@ -145,10 +147,14 @@ function PaymentGroup({
               type="button"
               onClick={() => onToggle(option.id)}
               className="flex items-center justify-between gap-2 rounded-[10px] px-3.5 py-3 text-left"
-              style={{
-                border: checked ? "1.5px solid var(--accent)" : "1px solid var(--border)",
-                backgroundColor: checked ? "var(--accent-bg)" : "var(--bg)",
-              }}
+              style={
+                highlightSelected
+                  ? {
+                      border: checked ? "1.5px solid var(--accent)" : "1px solid var(--border)",
+                      backgroundColor: checked ? "var(--accent-bg)" : "var(--bg)",
+                    }
+                  : { border: "1px solid var(--border)", backgroundColor: "var(--bg)" }
+              }
             >
               <span className="flex items-center gap-1.5">
                 <span
@@ -324,6 +330,7 @@ export default function PgApplicationScreen() {
               selected={selectedPayments}
               onToggle={togglePayment}
               onToggleAll={() => toggleGroupAll(generalPayments)}
+              highlightSelected={false}
             />
             <PaymentGroup
               title="간편결제"
