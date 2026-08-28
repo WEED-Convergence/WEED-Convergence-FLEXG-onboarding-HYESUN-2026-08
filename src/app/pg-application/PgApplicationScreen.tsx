@@ -201,7 +201,6 @@ export default function PgApplicationScreen() {
   const [kcpAddr1, setKcpAddr1] = useState("");
   const [kcpAddr2, setKcpAddr2] = useState("");
   const [kcpNavrMidx, setKcpNavrMidx] = useState("");
-  const [kcpRetUrl, setKcpRetUrl] = useState("");
 
   const [kcpCompName] = useState("테스트하는축구");
   const [kcpCompTaxNo] = useState("1588601603");
@@ -520,20 +519,6 @@ export default function PgApplicationScreen() {
                   <input className={inputClass} value={kcpAddr2} onChange={(e) => setKcpAddr2(e.target.value)} />
                 </FieldCell>
               </div>
-            </div>
-          </div>
-
-          <div className="mt-7">
-            <SectionTitle required>공통리턴 URL</SectionTitle>
-            <div className="mt-2 overflow-hidden rounded-lg border border-[var(--border)]">
-              <FieldCell label="retUrl" required>
-                <input
-                  className={inputClass}
-                  value={kcpRetUrl}
-                  onChange={(e) => setKcpRetUrl(e.target.value)}
-                  placeholder="https://test.com/webhook"
-                />
-              </FieldCell>
             </div>
           </div>
 
