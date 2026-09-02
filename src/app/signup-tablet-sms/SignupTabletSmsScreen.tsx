@@ -15,6 +15,9 @@ const inputClass =
 const primaryButtonClass =
   "rounded-[8px] bg-[var(--cta)] px-[24px] py-[10px] text-[13px] font-medium text-white";
 
+const primaryRedButtonClass =
+  "rounded-[8px] bg-[#E24B4A] px-[24px] py-[10px] text-[13px] font-medium text-white";
+
 const secondaryButtonClass =
   "rounded-[8px] border border-[var(--border)] px-[18px] py-[9px] text-[13px] font-medium text-[var(--text-secondary)]";
 
@@ -29,7 +32,7 @@ function FormField({
 }) {
   return (
     <div>
-      <label className="block text-[12.5px] font-medium text-[var(--text-secondary)]">
+      <label className="block text-[12.5px] font-bold text-[var(--text-secondary)]">
         {label}
         {required ? <RequiredMark /> : null}
       </label>
@@ -96,6 +99,18 @@ function SendIcon() {
   );
 }
 
+function PencilIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="10.5" height="10.5" fill="none" stroke="currentColor" strokeWidth="2">
+      <path
+        d="M4 20L4.6 16.5L15.5 5.6C16 5.1 16.8 5.1 17.3 5.6L18.4 6.7C18.9 7.2 18.9 8 18.4 8.5L7.5 19.4L4 20Z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function ChatHeader() {
   return (
     <div className="flex items-center gap-2.5 border-b border-[var(--border)] bg-[var(--bg)] px-4 py-3">
@@ -144,31 +159,25 @@ function MessageInputBar({
   );
 }
 
-function Step1Chat({ onComplete }: { onComplete: () => void }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [draft, setDraft] = useState("");
+interface Step1ChatProps {
+  currentIndex: number;
+  answers: Record<string, string>;
+  draft: string;
+  onDraftChange: (value: string) => void;
+  onOptionSelect: (step: OptionStep, option: { label: string; value: string }) => void;
+  onTextSubmit: (step: TextStep) => void;
+  onEdit: (idx: number) => void;
+}
 
-  const advance = () => {
-    const next = currentIndex + 1;
-    setCurrentIndex(next);
-    setDraft("");
-    if (next >= CHAT_STEPS.length) {
-      onComplete();
-    }
-  };
-
-  const handleOptionSelect = (step: OptionStep, option: { label: string; value: string }) => {
-    setAnswers((prev) => ({ ...prev, [step.id]: option.label }));
-    advance();
-  };
-
-  const handleTextSubmit = (step: TextStep) => {
-    if (!draft.trim()) return;
-    setAnswers((prev) => ({ ...prev, [step.id]: draft.trim() }));
-    advance();
-  };
-
+function Step1Chat({
+  currentIndex,
+  answers,
+  draft,
+  onDraftChange,
+  onOptionSelect,
+  onTextSubmit,
+  onEdit,
+}: Step1ChatProps) {
   const visibleSteps = CHAT_STEPS.slice(0, Math.min(currentIndex + 1, CHAT_STEPS.length));
   const currentStep = CHAT_STEPS[currentIndex];
   const activeTextStep = currentStep?.kind === "text" ? currentStep : null;
@@ -204,7 +213,7 @@ function Step1Chat({ onComplete }: { onComplete: () => void }) {
                         key={option.value}
                         type="button"
                         disabled={answered}
-                        onClick={() => handleOptionSelect(step, option)}
+                        onClick={() => onOptionSelect(step, option)}
                         className={`rounded-full border px-4 py-2 text-[13px] font-medium ${stateClass}`}
                       >
                         {option.label}
@@ -216,10 +225,20 @@ function Step1Chat({ onComplete }: { onComplete: () => void }) {
 
               {answered ? (
                 <div className="flex flex-col items-end pr-1">
-                  <div className="max-w-[70%] rounded-2xl rounded-br-sm bg-[var(--cta)] px-3.5 py-2.5 text-[13px] text-white">
+                  <div className="max-w-[70%] rounded-2xl rounded-br-sm bg-[#E24B4A] px-3.5 py-2.5 text-[13px] text-white">
                     {answers[step.id]}
                   </div>
-                  <span className="mt-1 text-[10.5px] text-[var(--text-muted)]">방금</span>
+                  <div className="mt-1 flex items-center gap-2">
+                    <span className="text-[10.5px] text-[var(--text-muted)]">방금</span>
+                    <button
+                      type="button"
+                      onClick={() => onEdit(idx)}
+                      className="flex items-center gap-1 rounded-full border border-[#E24B4A] bg-white px-2.5 py-[3px] text-[10.5px] font-medium text-[#E24B4A]"
+                    >
+                      <PencilIcon />
+                      수정
+                    </button>
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -231,9 +250,9 @@ function Step1Chat({ onComplete }: { onComplete: () => void }) {
         value={draft}
         placeholder={activeTextStep ? activeTextStep.placeholder : "메시지를 입력하세요"}
         disabled={!activeTextStep}
-        onChange={setDraft}
+        onChange={onDraftChange}
         onSend={() => {
-          if (activeTextStep) handleTextSubmit(activeTextStep);
+          if (activeTextStep) onTextSubmit(activeTextStep);
         }}
       />
     </div>
@@ -387,7 +406,7 @@ function Step2Form({
               className={
                 passCarrier
                   ? "rounded-[8px] border px-[24px] py-[10px] text-[13px] font-medium"
-                  : primaryButtonClass
+                  : primaryRedButtonClass
               }
               style={passCarrier ? { borderColor: "var(--success)", color: "var(--success)" } : undefined}
             >
@@ -407,7 +426,7 @@ function Step2Form({
         </div>
 
         <div className="mt-8 flex justify-center">
-          <button type="button" className={primaryButtonClass}>
+          <button type="button" className={primaryRedButtonClass}>
             회원가입 완료
           </button>
         </div>
@@ -504,9 +523,46 @@ function Footer() {
 // ---------- 회원가입 본문 ----------
 
 function SignupTabletSmsContent() {
-  const [step, setStep] = useState<"chat" | "form">("chat");
+  const [wizardStep, setWizardStep] = useState<"chat" | "form">("chat");
   const [passModalOpen, setPassModalOpen] = useState(false);
   const [passCarrier, setPassCarrier] = useState<string | null>(null);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [draft, setDraft] = useState("");
+
+  const advance = (nextIndex: number) => {
+    setCurrentIndex(nextIndex);
+    setDraft("");
+    if (nextIndex >= CHAT_STEPS.length) {
+      setWizardStep("form");
+    }
+  };
+
+  const handleOptionSelect = (step: OptionStep, option: { label: string; value: string }) => {
+    setAnswers((prev) => ({ ...prev, [step.id]: option.label }));
+    advance(currentIndex + 1);
+  };
+
+  const handleTextSubmit = (step: TextStep) => {
+    if (!draft.trim()) return;
+    setAnswers((prev) => ({ ...prev, [step.id]: draft.trim() }));
+    advance(currentIndex + 1);
+  };
+
+  const handleEdit = (idx: number) => {
+    const editedStep = CHAT_STEPS[idx];
+    const previousValue = answers[editedStep.id];
+    setAnswers((prev) => {
+      const next = { ...prev };
+      for (let i = idx; i < CHAT_STEPS.length; i += 1) {
+        delete next[CHAT_STEPS[i].id];
+      }
+      return next;
+    });
+    setCurrentIndex(idx);
+    setDraft(editedStep.kind === "text" ? previousValue ?? "" : "");
+  };
 
   return (
     <div className="relative w-full min-w-[900px] overflow-hidden rounded-xl border border-[var(--border)]">
@@ -517,15 +573,32 @@ function SignupTabletSmsContent() {
           <h1 className="text-center text-[24px] font-bold text-[var(--text-primary)]">회원가입</h1>
 
           <div className="mt-6">
-            {step === "chat" ? (
+            {wizardStep === "chat" ? (
               <>
                 <p className="text-[13px] font-semibold text-[var(--text-muted)]">STEP 1 · 가입 정보 확인</p>
                 <div className="mt-3">
-                  <Step1Chat onComplete={() => setStep("form")} />
+                  <Step1Chat
+                    currentIndex={currentIndex}
+                    answers={answers}
+                    draft={draft}
+                    onDraftChange={setDraft}
+                    onOptionSelect={handleOptionSelect}
+                    onTextSubmit={handleTextSubmit}
+                    onEdit={handleEdit}
+                  />
                 </div>
               </>
             ) : (
-              <Step2Form passCarrier={passCarrier} onOpenPassModal={() => setPassModalOpen(true)} />
+              <>
+                <button
+                  type="button"
+                  onClick={() => setWizardStep("chat")}
+                  className="mb-3 flex items-center gap-1 text-[13px] font-medium text-[var(--text-secondary)]"
+                >
+                  ← 이전 단계로
+                </button>
+                <Step2Form passCarrier={passCarrier} onOpenPassModal={() => setPassModalOpen(true)} />
+              </>
             )}
           </div>
         </div>
