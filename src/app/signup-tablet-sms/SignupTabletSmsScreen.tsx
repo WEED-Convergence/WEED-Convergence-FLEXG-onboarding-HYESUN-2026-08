@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 
+// 이 화면 전용 잠금 비밀번호 (컴포넌트 내부 상수)
+const SIGNUP_LOCK_PASSWORD = "1214";
+
 function RequiredMark() {
   return <span className="ml-0.5 text-[var(--accent)]">*</span>;
 }
@@ -104,15 +107,39 @@ function ChatHeader() {
   );
 }
 
-function DecorativeMessageBar() {
+function MessageInputBar({
+  value,
+  placeholder,
+  disabled,
+  onChange,
+  onSend,
+}: {
+  value: string;
+  placeholder: string;
+  disabled: boolean;
+  onChange: (value: string) => void;
+  onSend: () => void;
+}) {
   return (
     <div className="flex items-center gap-2.5 border-t border-[var(--border)] bg-[var(--bg)] px-4 py-3">
-      <div className="flex-1 rounded-full bg-[var(--surface-1)] px-4 py-2.5 text-[13px] text-[var(--placeholder)]">
-        메시지를 입력하세요
-      </div>
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--cta)] text-white">
+      <input
+        className="flex-1 rounded-full bg-[var(--surface-1)] px-4 py-2.5 text-[13px] text-[var(--text-primary)] placeholder:text-[var(--placeholder)] outline-none disabled:text-[var(--placeholder)]"
+        placeholder={placeholder}
+        value={value}
+        disabled={disabled}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") onSend();
+        }}
+      />
+      <button
+        type="button"
+        disabled={disabled || !value.trim()}
+        onClick={onSend}
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--cta)] text-white disabled:opacity-40"
+      >
         <SendIcon />
-      </span>
+      </button>
     </div>
   );
 }
@@ -143,6 +170,8 @@ function Step1Chat({ onComplete }: { onComplete: () => void }) {
   };
 
   const visibleSteps = CHAT_STEPS.slice(0, Math.min(currentIndex + 1, CHAT_STEPS.length));
+  const currentStep = CHAT_STEPS[currentIndex];
+  const activeTextStep = currentStep?.kind === "text" ? currentStep : null;
 
   return (
     <div className="overflow-hidden rounded-lg border border-[var(--border)]">
@@ -151,7 +180,6 @@ function Step1Chat({ onComplete }: { onComplete: () => void }) {
       <div className="flex flex-col gap-4 px-4 py-4">
         {visibleSteps.map((step, idx) => {
           const answered = idx < currentIndex;
-          const isActive = idx === currentIndex;
 
           return (
             <div key={step.id} className="flex flex-col gap-1.5">
@@ -184,27 +212,7 @@ function Step1Chat({ onComplete }: { onComplete: () => void }) {
                     );
                   })}
                 </div>
-              ) : (
-                <div className="flex justify-end gap-2 pr-1">
-                  <input
-                    className={`${inputClass} max-w-[220px] ${answered ? "opacity-50" : ""}`}
-                    placeholder={step.placeholder}
-                    value={isActive ? draft : answers[step.id] ?? ""}
-                    onChange={(e) => setDraft(e.target.value)}
-                    disabled={answered}
-                  />
-                  <button
-                    type="button"
-                    disabled={answered}
-                    onClick={() => handleTextSubmit(step)}
-                    className={`shrink-0 rounded-[8px] px-4 py-[9px] text-[13px] font-medium text-white ${
-                      answered ? "bg-[var(--border)]" : "bg-[var(--cta)]"
-                    }`}
-                  >
-                    전송
-                  </button>
-                </div>
-              )}
+              ) : null}
 
               {answered ? (
                 <div className="flex flex-col items-end pr-1">
@@ -219,7 +227,15 @@ function Step1Chat({ onComplete }: { onComplete: () => void }) {
         })}
       </div>
 
-      <DecorativeMessageBar />
+      <MessageInputBar
+        value={draft}
+        placeholder={activeTextStep ? activeTextStep.placeholder : "메시지를 입력하세요"}
+        disabled={!activeTextStep}
+        onChange={setDraft}
+        onSend={() => {
+          if (activeTextStep) handleTextSubmit(activeTextStep);
+        }}
+      />
     </div>
   );
 }
@@ -400,26 +416,26 @@ function Step2Form({
   );
 }
 
-// ---------- GNB / Footer (기존과 동일한 톤, 태블릿 768px 폭) ----------
+// ---------- GNB / Footer (PC 사이즈 그대로 유지, 콘텐츠 영역만 태블릿 768px 폭) ----------
 
 function GNB() {
   const navLinks = ["서비스", "요금", "고객사례", "고객지원", "제휴·제안"];
   return (
-    <header className="flex h-16 w-full shrink-0 items-center justify-between border-b border-white/10 bg-[#1A1A1A] px-6">
+    <header className="flex h-16 w-full shrink-0 items-center justify-between border-b border-white/10 bg-[#1A1A1A] px-10">
       <div className="flex items-center gap-2">
         <span className="flex h-6 w-6 items-center justify-center rounded bg-white text-[11px] font-semibold text-slate-900">
           F
         </span>
-        <span className="text-[15px] font-semibold tracking-tight text-white">FLEX-G</span>
+        <span className="text-[16px] font-semibold tracking-tight text-white">FLEX-G</span>
       </div>
-      <nav className="flex items-center gap-5 text-[12px] font-medium text-slate-300">
+      <nav className="flex items-center gap-8 text-[13px] font-medium text-slate-300">
         {navLinks.map((label) => (
           <span key={label}>{label}</span>
         ))}
       </nav>
-      <div className="flex items-center gap-3">
-        <span className="text-[12px] font-medium text-slate-300">로그인</span>
-        <span className="rounded-full bg-red-600 px-4 py-1.5 text-[12px] font-semibold text-white">
+      <div className="flex items-center gap-4">
+        <span className="text-[13px] font-medium text-slate-300">로그인</span>
+        <span className="rounded-full bg-red-600 px-5 py-2 text-[13px] font-semibold text-white">
           쇼핑몰 만들기
         </span>
       </div>
@@ -429,8 +445,8 @@ function GNB() {
 
 function FooterIcon({ path }: { path: string }) {
   return (
-    <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/20 text-slate-300">
-      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.6">
+    <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-slate-300">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.6">
         <path d={path} strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </span>
@@ -442,24 +458,24 @@ function Footer() {
   const policyLinks = ["회사소개", "이용약관", "개인정보처리방침"];
 
   return (
-    <footer className="w-full shrink-0 bg-[#1A1A1A] px-6 pt-7 pb-5 text-slate-300">
-      <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 pb-5">
-        <nav className="flex flex-wrap gap-5 text-[12px]">
+    <footer className="w-full shrink-0 bg-[#1A1A1A] px-10 pt-8 pb-6 text-slate-300">
+      <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 pb-6">
+        <nav className="flex flex-wrap gap-6 text-[13px]">
           {serviceLinks.map((label) => (
             <span key={label}>{label}</span>
           ))}
         </nav>
-        <nav className="flex flex-wrap gap-5 text-[12px]">
+        <nav className="flex flex-wrap gap-6 text-[13px]">
           {policyLinks.map((label) => (
             <span key={label}>{label}</span>
           ))}
         </nav>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-start justify-between gap-5">
+      <div className="mt-6 flex flex-wrap items-start justify-between gap-6">
         <div>
-          <p className="text-[15px] font-semibold text-white">FLEX-G</p>
-          <p className="mt-2.5 text-[11.5px] leading-relaxed text-slate-400">
+          <p className="text-[16px] font-semibold text-white">FLEX-G</p>
+          <p className="mt-3 text-[12px] leading-relaxed text-slate-400">
             서울특별시 금천구 벚꽃로 298 대륭포스트타워6차 313호
             <br />
             대표이사 김형준·김동재 &nbsp;|&nbsp; 사업자번호 158-86-01603
@@ -468,10 +484,10 @@ function Footer() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <FooterIcon path="M4 4H20V17H12L7 21V17H4V4Z" />
           <FooterIcon path="M12 21C12 21 4 14.5 4 9.5C4 6.5 6.5 4 9.5 4C10.9 4 12 4.8 12 4.8C12 4.8 13.1 4 14.5 4C17.5 4 20 6.5 20 9.5C20 14.5 12 21 12 21Z" />
-          <div className="flex items-center gap-1.5 rounded-full border border-white/20 px-3.5 py-1.5 text-[11.5px] text-slate-300">
+          <div className="flex items-center gap-1.5 rounded-full border border-white/20 px-4 py-1.5 text-[12px] text-slate-300">
             Family Site
             <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M6 9L12 15L18 9" strokeLinecap="round" strokeLinejoin="round" />
@@ -480,25 +496,25 @@ function Footer() {
         </div>
       </div>
 
-      <p className="mt-6 text-[10.5px] text-slate-500">ⓒ WEEDSOFT Corp.</p>
+      <p className="mt-8 text-[11px] text-slate-500">ⓒ WEEDSOFT Corp.</p>
     </footer>
   );
 }
 
 // ---------- 회원가입 본문 ----------
 
-export default function SignupTabletSmsScreen() {
+function SignupTabletSmsContent() {
   const [step, setStep] = useState<"chat" | "form">("chat");
   const [passModalOpen, setPassModalOpen] = useState(false);
   const [passCarrier, setPassCarrier] = useState<string | null>(null);
 
   return (
-    <div className="flex justify-center">
-      <div className="relative w-[768px] shrink-0 overflow-hidden rounded-xl border border-[var(--border)]">
-        <GNB />
+    <div className="relative w-full min-w-[900px] overflow-hidden rounded-xl border border-[var(--border)]">
+      <GNB />
 
-        <main className="w-full bg-[var(--bg)] px-8 py-10">
-          <h1 className="text-[18px] font-bold text-[var(--text-primary)]">회원가입</h1>
+      <main className="flex w-full justify-center bg-[var(--bg)] py-10">
+        <div className="w-[768px] shrink-0 px-8">
+          <h1 className="text-center text-[24px] font-bold text-[var(--text-primary)]">회원가입</h1>
 
           <div className="mt-6">
             {step === "chat" ? (
@@ -512,20 +528,71 @@ export default function SignupTabletSmsScreen() {
               <Step2Form passCarrier={passCarrier} onOpenPassModal={() => setPassModalOpen(true)} />
             )}
           </div>
-        </main>
+        </div>
+      </main>
 
-        <Footer />
+      <Footer />
 
-        {passModalOpen ? (
-          <PassAuthModal
-            onSelect={(carrier) => {
-              setPassCarrier(carrier);
-              setPassModalOpen(false);
-            }}
-            onClose={() => setPassModalOpen(false)}
-          />
-        ) : null}
-      </div>
+      {passModalOpen ? (
+        <PassAuthModal
+          onSelect={(carrier) => {
+            setPassCarrier(carrier);
+            setPassModalOpen(false);
+          }}
+          onClose={() => setPassModalOpen(false)}
+        />
+      ) : null}
     </div>
   );
+}
+
+// ---------- 비밀번호 잠금 (이 화면 전용) ----------
+
+function PasswordGate({ onUnlock }: { onUnlock: () => void }) {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === SIGNUP_LOCK_PASSWORD) {
+      onUnlock();
+    } else {
+      setError(true);
+    }
+  };
+
+  return (
+    <div className="flex min-h-[420px] w-full items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg)]">
+      <form onSubmit={handleSubmit} className="flex w-[280px] flex-col items-center gap-3 px-6 py-10 text-center">
+        <p className="text-[14px] font-semibold text-[var(--text-primary)]">비밀번호를 입력해주세요</p>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setError(false);
+          }}
+          className={inputClass}
+          placeholder="비밀번호"
+          autoFocus
+        />
+        {error ? (
+          <p className="text-[12px] font-medium text-[var(--accent)]">비밀번호가 올바르지 않습니다</p>
+        ) : null}
+        <button type="submit" className={`${primaryButtonClass} w-full`}>
+          확인
+        </button>
+      </form>
+    </div>
+  );
+}
+
+export default function SignupTabletSmsScreen() {
+  const [unlocked, setUnlocked] = useState(false);
+
+  if (!unlocked) {
+    return <PasswordGate onUnlock={() => setUnlocked(true)} />;
+  }
+
+  return <SignupTabletSmsContent />;
 }
