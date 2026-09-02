@@ -16,6 +16,7 @@ const specDocs = [
   { href: "/pg-application", label: "PG사 신청(작업중)" },
   { href: "/signup-mobile", label: "회원가입(모바일)" },
   { href: "/signup-tablet", label: "회원가입(태블릿)" },
+  { href: "/signup-tablet-sms", label: "회원가입(태블릿-문자형)" },
 ];
 
 export default function SidebarNav() {
