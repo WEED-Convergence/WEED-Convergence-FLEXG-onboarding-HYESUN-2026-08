@@ -13,7 +13,7 @@ const specDocs = [
   { href: "/bubble-cases", label: "말풍선 케이스" },
   { href: "/sa", label: "SA (판매자 온보딩 관리)" },
   { href: "/pg-application", label: "PG사 신청(작업중)" },
-  { href: "/signup-tablet-sms", label: "회원가입(태블릿-문자형)" },
+  { href: "/signup-tablet-sms", label: "회원가입" },
 ];
 
 export default function SidebarNav() {

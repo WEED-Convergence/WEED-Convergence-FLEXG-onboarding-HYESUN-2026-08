@@ -265,18 +265,21 @@ interface TermRow {
   id: string;
   label: string;
   required: boolean;
+  linkLabel: string | null;
 }
 
 const termRows: TermRow[] = [
-  { id: "service", label: "서비스 이용약관 동의", required: true },
-  { id: "privacy", label: "개인정보 수집·이용 동의", required: true },
-  { id: "marketing", label: "마케팅 정보 수신 동의", required: false },
+  { id: "service", label: "플렉스지 이용약관 동의", required: true, linkLabel: "약관 보기" },
+  { id: "privacy", label: "플렉스지 개인정보 수집 및 이용 동의", required: true, linkLabel: "약관 보기" },
+  { id: "partner", label: "연동 업체 회원가입 동의", required: true, linkLabel: "팝빌 바로가기" },
+  { id: "marketing", label: "광고성 정보 수신 동의", required: false, linkLabel: null },
 ];
 
 function TermsAgreement() {
   const [terms, setTerms] = useState<Record<string, boolean>>({
     service: false,
     privacy: false,
+    partner: false,
     marketing: false,
   });
 
@@ -296,11 +299,11 @@ function TermsAgreement() {
             onChange={toggleAll}
             className="h-3.5 w-3.5 accent-[var(--accent)]"
           />
-          전체 동의
+          약관 전체 동의
         </label>
       </div>
       {termRows.map((term) => (
-        <div key={term.id} className="flex items-center px-4 py-2.5">
+        <div key={term.id} className="flex items-center justify-between px-4 py-2.5">
           <label className="flex items-center gap-2 text-[12.5px] text-[var(--text-primary)]">
             <input
               type="checkbox"
@@ -308,69 +311,25 @@ function TermsAgreement() {
               onChange={(e) => setTerms((prev) => ({ ...prev, [term.id]: e.target.checked }))}
               className="h-3.5 w-3.5 accent-[var(--accent)]"
             />
+            {term.required ? (
+              <span className="font-bold text-[var(--accent)]">[필수]</span>
+            ) : (
+              <span className="font-bold text-[var(--text-muted)]">[선택]</span>
+            )}
             {term.label}
-            {term.required ? <RequiredMark /> : <span className="text-[11px] text-[var(--text-muted)]">(선택)</span>}
           </label>
+          {term.linkLabel ? (
+            <span className="text-[11px] text-[var(--text-muted)] underline">{term.linkLabel}</span>
+          ) : null}
         </div>
       ))}
     </div>
   );
 }
 
-// ---------- PASS 본인인증 팝업 ----------
-
-const carrierOptions = ["SKT", "KT", "LG U+", "SKT 알뜰폰", "KT 알뜰폰", "LG U+ 알뜰폰"];
-
-function PassAuthModal({
-  onSelect,
-  onClose,
-}: {
-  onSelect: (carrier: string) => void;
-  onClose: () => void;
-}) {
-  return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50 px-8">
-      <div className="w-full max-w-[380px] rounded-xl bg-[var(--bg)] px-6 py-6 shadow-lg">
-        <div className="flex items-center justify-between">
-          <p className="text-[14px] font-semibold text-[var(--text-primary)]">PASS 본인인증</p>
-          <button
-            type="button"
-            onClick={onClose}
-            className="flex h-6 w-6 items-center justify-center text-[var(--text-muted)]"
-          >
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8">
-              <path d="M5 5L19 19M19 5L5 19" strokeLinecap="round" />
-            </svg>
-          </button>
-        </div>
-        <p className="mt-1.5 text-[12.5px] text-[var(--text-muted)]">통신사를 선택해주세요.</p>
-
-        <div className="mt-4 grid grid-cols-2 gap-2">
-          {carrierOptions.map((carrier) => (
-            <button
-              key={carrier}
-              type="button"
-              onClick={() => onSelect(carrier)}
-              className="rounded-md border border-[var(--border)] px-3 py-2.5 text-[12.5px] font-medium text-[var(--text-primary)]"
-            >
-              {carrier}
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // ---------- STEP 2: 상세정보 입력폼 ----------
 
-function Step2Form({
-  passCarrier,
-  onOpenPassModal,
-}: {
-  passCarrier: string | null;
-  onOpenPassModal: () => void;
-}) {
+function Step2Form() {
   return (
     <div>
       <p className="text-[13px] font-semibold text-[var(--text-muted)]">STEP 2 · 상세정보 입력폼</p>
@@ -398,19 +357,8 @@ function Step2Form({
 
         <div className="mt-5">
           <FormField label="담당자 본인인증" required>
-            <button
-              type="button"
-              onClick={() => {
-                if (!passCarrier) onOpenPassModal();
-              }}
-              className={
-                passCarrier
-                  ? "rounded-[8px] border px-[24px] py-[10px] text-[13px] font-medium"
-                  : primaryRedButtonClass
-              }
-              style={passCarrier ? { borderColor: "var(--success)", color: "var(--success)" } : undefined}
-            >
-              {passCarrier ? "인증 완료" : "PASS로 인증하기"}
+            <button type="button" className={primaryRedButtonClass}>
+              담당자 인증
             </button>
           </FormField>
         </div>
@@ -524,8 +472,6 @@ function Footer() {
 
 function SignupTabletSmsContent() {
   const [wizardStep, setWizardStep] = useState<"chat" | "form">("chat");
-  const [passModalOpen, setPassModalOpen] = useState(false);
-  const [passCarrier, setPassCarrier] = useState<string | null>(null);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -597,7 +543,7 @@ function SignupTabletSmsContent() {
                 >
                   ← 이전 단계로
                 </button>
-                <Step2Form passCarrier={passCarrier} onOpenPassModal={() => setPassModalOpen(true)} />
+                <Step2Form />
               </>
             )}
           </div>
@@ -605,16 +551,6 @@ function SignupTabletSmsContent() {
       </main>
 
       <Footer />
-
-      {passModalOpen ? (
-        <PassAuthModal
-          onSelect={(carrier) => {
-            setPassCarrier(carrier);
-            setPassModalOpen(false);
-          }}
-          onClose={() => setPassModalOpen(false)}
-        />
-      ) : null}
     </div>
   );
 }
