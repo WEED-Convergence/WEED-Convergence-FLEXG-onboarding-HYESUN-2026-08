@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 
 const specDocs = [
   { href: "/policy", label: "정책", highlight: true },
-  { href: "/signup", label: "회원가입" },
   { href: "/signup-complete", label: "디자인 템플릿 선택" },
   { href: "/template-preview", label: "템플릿 미리보기" },
   { href: "/approval-pending", label: "승인 대기" },
@@ -14,8 +13,6 @@ const specDocs = [
   { href: "/bubble-cases", label: "말풍선 케이스" },
   { href: "/sa", label: "SA (판매자 온보딩 관리)" },
   { href: "/pg-application", label: "PG사 신청(작업중)" },
-  { href: "/signup-mobile", label: "회원가입(모바일)" },
-  { href: "/signup-tablet", label: "회원가입(태블릿)" },
   { href: "/signup-tablet-sms", label: "회원가입(태블릿-문자형)" },
 ];
 
