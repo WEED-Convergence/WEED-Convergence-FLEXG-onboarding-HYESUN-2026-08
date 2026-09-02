@@ -14,6 +14,7 @@ const specDocs = [
   { href: "/bubble-cases", label: "말풍선 케이스" },
   { href: "/sa", label: "SA (판매자 온보딩 관리)" },
   { href: "/pg-application", label: "PG사 신청(작업중)" },
+  { href: "/signup-mobile", label: "회원가입(모바일)" },
 ];
 
 export default function SidebarNav() {
