@@ -83,6 +83,19 @@ const termRows: TermRow[] = [
   { id: "third", label: "세번째 약관 동의" },
 ];
 
+const bankOptions = [
+  "국민은행",
+  "신한은행",
+  "우리은행",
+  "하나은행",
+  "농협은행",
+  "기업은행",
+  "카카오뱅크",
+  "토스뱅크",
+  "새마을금고",
+  "우체국",
+];
+
 function SplitInput({
   values,
   onChange,
@@ -121,6 +134,7 @@ export default function PgApplicationScreen() {
   const [managerName] = useState("테스트하는축구선수");
   const [managerPhone] = useState("02-1234-5678");
   const [managerEmail] = useState("ABC111@itweed.net");
+  const [bankName, setBankName] = useState("");
 
   const [terms, setTerms] = useState<Record<string, boolean>>({
     first: false,
@@ -213,9 +227,25 @@ export default function PgApplicationScreen() {
                 <input className={inputClass} value={managerPhone} disabled />
               </FieldCell>
             </FieldRow>
-            <div>
+            <div className="border-b border-[var(--border)]">
               <FieldCell label="가맹점 이메일" required>
                 <input className={inputClass} type="email" value={managerEmail} disabled />
+              </FieldCell>
+            </div>
+            <div>
+              <FieldCell label="은행">
+                <select
+                  className={inputClass}
+                  value={bankName}
+                  onChange={(e) => setBankName(e.target.value)}
+                >
+                  <option value="">은행을 선택해주세요</option>
+                  {bankOptions.map((bank) => (
+                    <option key={bank} value={bank}>
+                      {bank}
+                    </option>
+                  ))}
+                </select>
               </FieldCell>
             </div>
           </div>
