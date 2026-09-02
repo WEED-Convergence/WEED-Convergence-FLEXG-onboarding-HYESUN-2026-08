@@ -332,7 +332,7 @@ function TermsAgreement() {
 function Step2Form() {
   return (
     <div>
-      <p className="text-[13px] font-semibold text-[var(--text-muted)]">STEP 2 · 상세정보 입력폼</p>
+      <p className="text-[13px] font-semibold text-[var(--text-muted)]">STEP 2 · 상세정보</p>
 
       <div className="mt-3 rounded-lg border border-[var(--border)] px-6 py-6">
         <div className="grid grid-cols-2 gap-x-6 gap-y-5">
