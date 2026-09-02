@@ -15,6 +15,7 @@ const specDocs = [
   { href: "/sa", label: "SA (판매자 온보딩 관리)" },
   { href: "/pg-application", label: "PG사 신청(작업중)" },
   { href: "/signup-mobile", label: "회원가입(모바일)" },
+  { href: "/signup-tablet", label: "회원가입(태블릿)" },
 ];
 
 export default function SidebarNav() {
