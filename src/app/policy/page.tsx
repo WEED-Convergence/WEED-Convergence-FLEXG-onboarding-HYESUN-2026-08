@@ -2,7 +2,7 @@ export const metadata = {
   title: "정책",
 };
 
-type PolicyItem = string | { text: string; color: string };
+type PolicyItem = string | { text: string; color?: string; bold?: boolean };
 
 const highlightedPolicies: PolicyItem[] = [
   "SA의 \"현재 단계\" 컬럼은 별도의 전환 로직 없이, 기존 승인 처리 화면에서 관리하는 승인 상태값을 실시간으로 조회하여 그대로 반영합니다. 승인 상태가 \"완료\"로 바뀌면 SA에서도 자동으로 \"결제 준비\" 단계로 표시됩니다.",
@@ -26,7 +26,11 @@ const policies = [
   "체크리스트는 온보딩 기간에 한정하지 않고 상시 노출됩니다.",
   "\"보안 설정하기\" 항목만 주계정 전용이며, 나머지 항목은 부계정도 조회·입력이 가능합니다.",
   "사용자는 항목 순서와 무관하게 자유롭게 선택해 진행할 수 있습니다. \"건너뛰기\" 클릭 시, 현재 항목은 완료 처리하지 않고 리스트 순서상 다음에 있는 항목 중 아직 완료되지 않은 첫 번째 항목으로 이동합니다. 이미 완료된 항목은 자동으로 건너뜁니다.",
-  "템플릿 선택은 필수 항목이 아니며, 선택하지 않았거나 변경을 원하실 경우 [디자인 관리 > 메인 레이아웃 관리]에서 선택하실 수 있습니다. (디자인 작업 진행 중)",
+  {
+    text: "템플릿 선택은 필수 항목이 아니며, 선택하지 않았거나 변경을 원하실 경우 [디자인 관리 > 메인 레이아웃 관리]에서 선택하실 수 있습니다. (디자인 작업 진행 중)",
+    color: "#D8342A",
+    bold: true,
+  },
 ];
 
 const allPolicies = [...highlightedPolicies, ...policies];
@@ -59,6 +63,7 @@ export default function PolicyPage() {
               const isGroupDivider = index === highlightedPolicies.length - 1;
               const policyText = typeof policy === "string" ? policy : policy.text;
               const overrideColor = typeof policy === "string" ? undefined : policy.color;
+              const overrideBold = typeof policy === "string" ? undefined : policy.bold;
               return (
                 <tr
                   key={index}
@@ -85,7 +90,7 @@ export default function PolicyPage() {
                     className="px-4 py-3"
                     style={{
                       color: overrideColor ?? "#3B3A36",
-                      fontWeight: isHighlighted ? 700 : 400,
+                      fontWeight: overrideBold ?? isHighlighted ? 700 : 400,
                       lineHeight: 1.7,
                     }}
                   >
