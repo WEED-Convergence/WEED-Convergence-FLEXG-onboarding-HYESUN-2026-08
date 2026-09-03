@@ -42,6 +42,15 @@ const staticOverviewNotes: Record<string, OverviewNote[]> = {
       items: [],
     },
   ],
+  "/signup-complete": [
+    {
+      id: "signup-complete-note",
+      desc: [
+        "템플릿 선택은 필수 항목이 아니며, 선택하지 않았거나 변경을 원하실 경우 [디자인 관리 > 메인 레이아웃 관리]에서 선택하실 수 있습니다. (디자인 작업 진행 중)",
+      ],
+      items: [],
+    },
+  ],
   "/sa": [
     {
       id: "sa-note",
