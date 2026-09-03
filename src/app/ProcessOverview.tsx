@@ -50,6 +50,7 @@ const staticOverviewNotes: Record<string, OverviewNote[]> = {
           title: "승인 완료 시 단계 전환",
           body: "승인 대기 상태에서 플렉스지 운영자가 승인 처리를 완료하면, 승인 상태값을 확인하여 해당 업체의 현재 단계를 자동으로 \"결제 준비\"로 변경합니다.",
         },
+        "템플릿 선택은 필수가 아닙니다.",
       ],
       items: [],
     },
