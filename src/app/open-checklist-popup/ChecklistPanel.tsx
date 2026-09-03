@@ -471,7 +471,17 @@ function BusinessInfoForm() {
 
           <div>
             <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자등록증 첨부</p>
-            <button type="button" className={`shrink-0 ${secondaryButtonClass}`}>
+            <button
+              type="button"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-[8px] border border-[var(--border)] bg-[var(--surface-1)] px-[20px] py-[9px] text-[13px] font-medium text-[var(--text-secondary)]"
+            >
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path
+                  d="M8 12L14.5 5.5C15.9 4.1 18.1 4.1 19.5 5.5C20.9 6.9 20.9 9.1 19.5 10.5L12 18C10 20 7 20 5 18C3 16 3 13 5 11L12.5 3.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
               사업자등록증 첨부
             </button>
           </div>
@@ -523,6 +533,8 @@ function BusinessInfoForm() {
               안심번호도 대표 전화번호로 등록 가능합니다.
               <br />
               번호 예시) 080, 0507, 0506, 0130, 0030 등
+              <br />
+              쇼핑몰명은 변경이 가능합니다.
             </p>
           </div>
         </div>
