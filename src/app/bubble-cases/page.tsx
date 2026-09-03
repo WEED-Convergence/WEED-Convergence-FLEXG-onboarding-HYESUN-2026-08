@@ -13,10 +13,17 @@ interface BubbleCaseRow {
 const bubbleCases: BubbleCaseRow[] = [
   {
     completedItem: "(시작 전)",
-    title: "PG 신청부터 시작할까요?",
+    title: "사업자 정보 등록부터 시작할까요?",
     description: "결제 준비를 마치면 오픈이 빨라져요.",
     button1: "닫기",
     button2: "시작하기",
+  },
+  {
+    completedItem: "사업자 정보 등록하기",
+    title: "사업자 정보 등록을 완료하셨어요!",
+    description: "이어서 PG 신청을 진행해볼까요?",
+    button1: "닫기",
+    button2: "이어하기",
   },
   {
     completedItem: "PG 신청하기",
@@ -33,14 +40,7 @@ const bubbleCases: BubbleCaseRow[] = [
     button2: "이어하기",
   },
   {
-    completedItem: "상품 등록하기",
-    title: "상품 등록을 완료하셨어요!",
-    description: "이어서 사업자 정보를 입력해볼까요?",
-    button1: "닫기",
-    button2: "이어하기",
-  },
-  {
-    completedItem: "사업자 정보 등록하기 (카테고리 완료)",
+    completedItem: "상품 등록하기 (카테고리 완료)",
     title: "결제 준비를 모두 마치셨어요!",
     description: "다음은 운영 필수예요.",
     button1: "닫기",
