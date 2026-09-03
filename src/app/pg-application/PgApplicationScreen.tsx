@@ -126,14 +126,14 @@ function SplitInput({
 }
 
 export default function PgApplicationScreen() {
-  const [companyName] = useState("테스트하는축구");
-  const [businessNumber] = useState("1588601603");
-  const [ceoName] = useState("최혜선");
-  const [businessUrl] = useState("https://testfootball.flexg.co.kr");
-  const [address1] = useState("서울특별시 금천구 벚꽃로 298 대륭포스트타워6차 313호");
-  const [managerName] = useState("테스트하는축구선수");
-  const [managerPhone] = useState("02-1234-5678");
-  const [managerEmail] = useState("ABC111@itweed.net");
+  const [companyName, setCompanyName] = useState("테스트하는축구");
+  const [businessNumber, setBusinessNumber] = useState("1588601603");
+  const [ceoName, setCeoName] = useState("최혜선");
+  const [businessUrl, setBusinessUrl] = useState("https://testfootball.flexg.co.kr");
+  const [address1, setAddress1] = useState("서울특별시 금천구 벚꽃로 298 대륭포스트타워6차 313호");
+  const [managerName, setManagerName] = useState("테스트하는축구선수");
+  const [managerPhone, setManagerPhone] = useState("02-1234-5678");
+  const [managerEmail, setManagerEmail] = useState("ABC111@itweed.net");
   const [bankName, setBankName] = useState("");
 
   const [terms, setTerms] = useState<Record<string, boolean>>({
@@ -148,22 +148,22 @@ export default function PgApplicationScreen() {
     setTerms(Object.fromEntries(termRows.map((t) => [t.id, next])));
   };
 
-  const [kcpMngNm] = useState("테스트하는축구선수");
-  const [kcpMngEmail] = useState("ABC111@itweed.net");
+  const [kcpMngNm, setKcpMngNm] = useState("테스트하는축구선수");
+  const [kcpMngEmail, setKcpMngEmail] = useState("ABC111@itweed.net");
   const [kcpMngTel, setKcpMngTel] = useState<[string, string, string]>(["", "", ""]);
-  const [kcpMngMob] = useState<[string, string, string]>(["010", "1234", "5678"]);
-  const [kcpZipCode] = useState("06132");
-  const [kcpAddr1] = useState("서울특별시 강남구 테헤란로 123");
-  const [kcpAddr2] = useState("4층 401호");
+  const [kcpMngMob, setKcpMngMob] = useState<[string, string, string]>(["010", "1234", "5678"]);
+  const [kcpZipCode, setKcpZipCode] = useState("06132");
+  const [kcpAddr1, setKcpAddr1] = useState("서울특별시 강남구 테헤란로 123");
+  const [kcpAddr2, setKcpAddr2] = useState("4층 401호");
 
-  const [kcpCompName] = useState("테스트하는축구");
-  const [kcpCompTaxNo] = useState("1588601603");
-  const [kcpCompUrl] = useState("testfootball.flexg.co.kr");
-  const [kcpCompOwnName] = useState("최혜선");
+  const [kcpCompName, setKcpCompName] = useState("테스트하는축구");
+  const [kcpCompTaxNo, setKcpCompTaxNo] = useState("1588601603");
+  const [kcpCompUrl, setKcpCompUrl] = useState("testfootball.flexg.co.kr");
+  const [kcpCompOwnName, setKcpCompOwnName] = useState("최혜선");
   const [kcpCompOwnNo, setKcpCompOwnNo] = useState("");
   const [kcpCompOwnMob, setKcpCompOwnMob] = useState<[string, string, string]>(["", "", ""]);
   const [kcpCompEmail, setKcpCompEmail] = useState("ABC111@itweed.net");
-  const [kcpCompTel] = useState<[string, string, string]>(["02", "1234", "5678"]);
+  const [kcpCompTel, setKcpCompTel] = useState<[string, string, string]>(["02", "1234", "5678"]);
   const [kcpAgree, setKcpAgree] = useState(false);
 
   return (
@@ -200,36 +200,57 @@ export default function PgApplicationScreen() {
           <div className="mt-3 overflow-hidden rounded-lg border border-[var(--border)]">
             <FieldRow>
               <FieldCell label="상호명" required>
-                <input className={inputClass} value={companyName} disabled />
+                <input className={inputClass} value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
               </FieldCell>
               <FieldCell label="사업자번호" required>
-                <input className={inputClass} value={businessNumber} disabled />
+                <input
+                  className={inputClass}
+                  value={businessNumber}
+                  onChange={(e) => setBusinessNumber(e.target.value)}
+                />
               </FieldCell>
             </FieldRow>
             <FieldRow>
               <FieldCell label="대표자명" required>
-                <input className={inputClass} value={ceoName} disabled />
+                <input className={inputClass} value={ceoName} onChange={(e) => setCeoName(e.target.value)} />
               </FieldCell>
               <FieldCell label="사업자 URL" required>
-                <input className={inputClass} value={businessUrl} disabled />
+                <input
+                  className={inputClass}
+                  value={businessUrl}
+                  onChange={(e) => setBusinessUrl(e.target.value)}
+                />
               </FieldCell>
             </FieldRow>
             <div className="border-b border-[var(--border)]">
               <FieldCell label="주소" required>
-                <input className={inputClass} value={address1} disabled />
+                <input className={inputClass} value={address1} onChange={(e) => setAddress1(e.target.value)} />
               </FieldCell>
             </div>
             <FieldRow>
               <FieldCell label="가맹점 담당자" required>
-                <input className={inputClass} value={managerName} disabled />
+                <input
+                  className={inputClass}
+                  value={managerName}
+                  onChange={(e) => setManagerName(e.target.value)}
+                />
               </FieldCell>
               <FieldCell label="가맹점 전화번호" required>
-                <input className={inputClass} value={managerPhone} disabled />
+                <input
+                  className={inputClass}
+                  value={managerPhone}
+                  onChange={(e) => setManagerPhone(e.target.value)}
+                />
               </FieldCell>
             </FieldRow>
             <div className="border-b border-[var(--border)]">
               <FieldCell label="가맹점 이메일" required>
-                <input className={inputClass} type="email" value={managerEmail} disabled />
+                <input
+                  className={inputClass}
+                  type="email"
+                  value={managerEmail}
+                  onChange={(e) => setManagerEmail(e.target.value)}
+                />
               </FieldCell>
             </div>
             <div>
@@ -311,18 +332,30 @@ export default function PgApplicationScreen() {
           <div className="mt-3 overflow-hidden rounded-lg border border-[var(--border)]">
             <FieldRow>
               <FieldCell label="상호명" required>
-                <input className={inputClass} value={kcpCompName} disabled />
+                <input
+                  className={inputClass}
+                  value={kcpCompName}
+                  onChange={(e) => setKcpCompName(e.target.value)}
+                />
               </FieldCell>
               <FieldCell label="사업자번호" required>
-                <input className={inputClass} value={kcpCompTaxNo} disabled />
+                <input
+                  className={inputClass}
+                  value={kcpCompTaxNo}
+                  onChange={(e) => setKcpCompTaxNo(e.target.value)}
+                />
               </FieldCell>
             </FieldRow>
             <FieldRow>
               <FieldCell label="사이트URL" required>
-                <input className={inputClass} value={kcpCompUrl} disabled />
+                <input className={inputClass} value={kcpCompUrl} onChange={(e) => setKcpCompUrl(e.target.value)} />
               </FieldCell>
               <FieldCell label="대표자명" required>
-                <input className={inputClass} value={kcpCompOwnName} disabled />
+                <input
+                  className={inputClass}
+                  value={kcpCompOwnName}
+                  onChange={(e) => setKcpCompOwnName(e.target.value)}
+                />
               </FieldCell>
             </FieldRow>
             <FieldRow>
@@ -361,8 +394,13 @@ export default function PgApplicationScreen() {
                 <SplitInput
                   values={kcpCompTel}
                   segmentWidths={["44px", "60px", "60px"]}
-                  onChange={() => {}}
-                  disabled
+                  onChange={(idx, value) =>
+                    setKcpCompTel((prev) => {
+                      const next: [string, string, string] = [...prev];
+                      next[idx] = value;
+                      return next;
+                    })
+                  }
                 />
               </FieldCell>
             </FieldRow>
@@ -373,10 +411,15 @@ export default function PgApplicationScreen() {
             <div className="mt-3 overflow-hidden rounded-lg border border-[var(--border)]">
               <FieldRow>
                 <FieldCell label="담당자명" required>
-                  <input className={inputClass} value={kcpMngNm} disabled />
+                  <input className={inputClass} value={kcpMngNm} onChange={(e) => setKcpMngNm(e.target.value)} />
                 </FieldCell>
                 <FieldCell label="담당자 이메일" required>
-                  <input className={inputClass} type="email" value={kcpMngEmail} disabled />
+                  <input
+                    className={inputClass}
+                    type="email"
+                    value={kcpMngEmail}
+                    onChange={(e) => setKcpMngEmail(e.target.value)}
+                  />
                 </FieldCell>
               </FieldRow>
               <FieldRow>
@@ -397,8 +440,13 @@ export default function PgApplicationScreen() {
                   <SplitInput
                     values={kcpMngMob}
                     segmentWidths={["44px", "60px", "60px"]}
-                    onChange={() => {}}
-                    disabled
+                    onChange={(idx, value) =>
+                      setKcpMngMob((prev) => {
+                        const next: [string, string, string] = [...prev];
+                        next[idx] = value;
+                        return next;
+                      })
+                    }
                   />
                 </FieldCell>
               </FieldRow>
@@ -415,19 +463,19 @@ export default function PgApplicationScreen() {
                       className={inputClass}
                       style={{ flex: "0 0 100px" }}
                       value={kcpZipCode}
-                      disabled
+                      onChange={(e) => setKcpZipCode(e.target.value)}
                     />
                     <input
                       className={inputClass}
                       style={{ flex: "1 1 0%", minWidth: 0 }}
                       value={kcpAddr1}
-                      disabled
+                      onChange={(e) => setKcpAddr1(e.target.value)}
                     />
                     <input
                       className={inputClass}
                       style={{ flex: "1 1 0%", minWidth: 0 }}
                       value={kcpAddr2}
-                      disabled
+                      onChange={(e) => setKcpAddr2(e.target.value)}
                     />
                   </div>
                 </FieldCell>
