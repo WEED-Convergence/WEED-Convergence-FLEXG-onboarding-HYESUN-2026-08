@@ -424,7 +424,7 @@ function BusinessInfoForm() {
 
         <div className="mt-4 space-y-6">
           <div>
-            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자 정보</p>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자 유형</p>
             <div className="flex items-center gap-4">
               {["개인사업자", "법인사업자"].map((label) => (
                 <RadioOption
