@@ -62,7 +62,7 @@ const [step3, step4, step5, step6, step7]: StepData[] = [
   },
 ];
 
-function Box({ id, title, desc, subItems, path, highlight }: StepData) {
+function Box({ id, title, path, highlight }: StepData) {
   return (
     <div
       id={id > 0 ? `step-${id}` : undefined}
@@ -84,21 +84,6 @@ function Box({ id, title, desc, subItems, path, highlight }: StepData) {
         ) : null}
         <span className="text-[13px] font-semibold">{title}</span>
       </div>
-      <p className={`mt-1 text-[12px] ${highlight ? "text-[var(--accent-text)]" : "text-[var(--text-secondary)]"}`}>
-        {desc}
-      </p>
-      {subItems ? (
-        <ul className="mt-2 space-y-0.5">
-          {subItems.map((item) => (
-            <li
-              key={item}
-              className={`text-[11px] ${highlight ? "text-[var(--accent-text)]" : "text-[var(--text-secondary)]"}`}
-            >
-              · {item}
-            </li>
-          ))}
-        </ul>
-      ) : null}
       {path ? (
         <p className="mt-1.5 text-[11px] text-[var(--text-secondary)]">
           경로: {path}
