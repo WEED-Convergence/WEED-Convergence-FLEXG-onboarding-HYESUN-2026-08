@@ -408,7 +408,6 @@ function DetailModal({
                   <tr className="bg-[var(--surface-1)]">
                     <th className="px-3 py-2 font-medium text-[var(--text-muted)]">발송일시</th>
                     <th className="px-3 py-2 font-medium text-[var(--text-muted)]">메시지명</th>
-                    <th className="px-3 py-2 font-medium text-[var(--text-muted)]">유형</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -416,7 +415,6 @@ function DetailModal({
                     <tr key={idx} style={{ borderTop: "1px solid var(--divider)" }}>
                       <td className="whitespace-nowrap px-3 py-2 text-[var(--text-secondary)]">{row.sentAt}</td>
                       <td className="px-3 py-2 text-[var(--text-primary)]">{row.messageTitle}</td>
-                      <td className="px-3 py-2 text-[var(--text-secondary)]">{row.category}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -672,17 +670,7 @@ function SendMessageModal({ company, onClose }: { company: CompanyRow; onClose: 
           className="mt-3 rounded-lg px-3.5 py-3"
           style={{ border: "1px solid var(--border)", backgroundColor: "var(--surface-1)" }}
         >
-          <span
-            className="inline-block rounded-full px-2 py-0.5 text-[13px] font-medium"
-            style={
-              template.category === "정보성"
-                ? { backgroundColor: "#E1F5EE", color: "#04342C" }
-                : { backgroundColor: "#FAEEDA", color: "#8A5710" }
-            }
-          >
-            {template.category}
-          </span>
-          <p className="mt-2 text-[15.5px] font-semibold text-[var(--text-primary)]">{template.title}</p>
+          <p className="text-[15.5px] font-semibold text-[var(--text-primary)]">{template.title}</p>
           <p className="mt-1 text-[14.5px] leading-relaxed text-[var(--text-secondary)]">{template.body}</p>
           <div
             className="mt-2 rounded-md py-1.5 text-center text-[15px] font-semibold text-white"
