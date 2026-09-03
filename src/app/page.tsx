@@ -93,31 +93,6 @@ function Box({ id, title, path, highlight }: StepData) {
   );
 }
 
-function MessageBlock({
-  label,
-  title,
-  desc,
-  note,
-}: {
-  label: "알림톡";
-  title: string;
-  desc?: string;
-  note?: string;
-}) {
-  return (
-    <div className="w-[260px] rounded-lg border border-dashed border-[var(--success)] bg-[var(--accent-soft-bg)] px-3.5 py-2.5">
-      <p className="text-[11px] font-semibold text-[var(--success)]">{label}</p>
-      {note ? (
-        <p className="mt-0.5 text-[11px] text-[var(--success)]/80">{note}</p>
-      ) : null}
-      <p className="mt-1 text-[13px] font-semibold text-[var(--text-primary)]">{title}</p>
-      {desc ? (
-        <p className="mt-0.5 text-[11px] text-[var(--success)]">{desc}</p>
-      ) : null}
-    </div>
-  );
-}
-
 function ArrowDown({ label }: { label?: string }) {
   return (
     <div className="flex flex-col items-center py-1">
@@ -155,50 +130,13 @@ export default function Home() {
 
       <Box {...step3} />
 
-      <ArrowDown />
-      <MessageBlock
-        label="알림톡"
-        title="플렉스지 쇼핑몰 회원가입 승인이 완료되었습니다."
-        desc="회원가입 승인 처리 즉시 · 조건 충족 시 최대 1회"
-      />
       <ArrowDown label={step3.afterLabel} />
 
       <Box {...step4} />
 
       <ArrowDown />
-      <p className="text-[11px] font-semibold text-[var(--text-muted)]">PG 신청 관련 알림톡</p>
-      <div className="mt-2 flex flex-wrap justify-center gap-3">
-        <MessageBlock
-          label="알림톡"
-          title="아직 PG 신청을 완료하지 않으셨어요"
-          desc="승인 후 3일 경과, PG 신청 미완료 · 조건 충족 시 최대 1회"
-        />
-        <MessageBlock
-          label="알림톡"
-          title="PG 신청이 완료되었어요!"
-          desc="PG 신청 완료 시, 결제준비·운영필수 미완료 항목 존재 · 조건 충족 시 최대 1회"
-        />
-        <MessageBlock
-          label="알림톡"
-          title="PG 신청이 반려되었어요"
-          desc="PG사 반려 통보 시점 · 반려될 때마다 발송"
-        />
-      </div>
-      <ArrowDown />
 
       <Box {...step5} />
-      <ArrowDown />
-      <MessageBlock
-        label="알림톡"
-        title="쇼핑몰 오픈까지 얼마 남지 않았어요"
-        desc="승인 후 5일 경과, 결제준비·운영필수 미완료 항목 존재 · 조건 충족 시 최대 1회"
-      />
-      <ArrowDown />
-      <MessageBlock
-        label="알림톡"
-        title="쇼핑몰 오픈 준비가 끝났어요!"
-        desc="결제준비·운영필수 모두 완료 처리된 시점 · 조건 충족 시 최대 1회"
-      />
       <ArrowDown />
 
       <Box {...step6} />
