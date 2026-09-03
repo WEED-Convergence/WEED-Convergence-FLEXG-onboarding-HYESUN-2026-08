@@ -120,7 +120,7 @@ const items: ChecklistItemData[] = [
 const PLACEHOLDER_STATUS_ITEM_IDS = [6, 7, 17];
 
 const categories: CategoryData[] = [
-  { name: "결제 준비", itemIds: [1, 2, 3, 5] },
+  { name: "결제 준비", itemIds: [5, 1, 2, 3] },
   { name: "운영 필수", itemIds: [6, 8, 17, 7] },
   { name: "권장 설정", itemIds: [9, 15, 16] },
   { name: "매출 확장", itemIds: [11, 12] },
@@ -415,6 +415,7 @@ function RadioOption({
 
 function BusinessInfoForm() {
   const [salesReport, setSalesReport] = useState("비대상");
+  const [businessType, setBusinessType] = useState("개인사업자");
 
   return (
     <div className="mt-6 w-full">
@@ -422,6 +423,21 @@ function BusinessInfoForm() {
         <SubsectionTitle>사업자 정보</SubsectionTitle>
 
         <div className="mt-4 space-y-6">
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자 정보</p>
+            <div className="flex items-center gap-4">
+              {["개인사업자", "법인사업자"].map((label) => (
+                <RadioOption
+                  key={label}
+                  name="businessType"
+                  label={label}
+                  checked={businessType === label}
+                  onChange={() => setBusinessType(label)}
+                />
+              ))}
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">상호명</p>
@@ -431,6 +447,11 @@ function BusinessInfoForm() {
               <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표자 성함</p>
               <input type="text" placeholder="성함 입력" className={inputClass} />
             </div>
+          </div>
+
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">쇼핑몰명</p>
+            <input type="text" placeholder="쇼핑몰명 입력" className={inputClass} />
           </div>
 
           <div className="grid grid-cols-3 gap-4">
@@ -446,6 +467,13 @@ function BusinessInfoForm() {
               <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">업종</p>
               <input type="text" placeholder="업종 입력" className={inputClass} />
             </div>
+          </div>
+
+          <div>
+            <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">사업자등록증 첨부</p>
+            <button type="button" className={`shrink-0 ${secondaryButtonClass}`}>
+              사업자등록증 첨부
+            </button>
           </div>
 
           <div>
