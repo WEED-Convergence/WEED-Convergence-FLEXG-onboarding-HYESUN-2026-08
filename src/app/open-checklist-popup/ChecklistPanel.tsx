@@ -528,22 +528,6 @@ function BusinessInfoForm() {
             <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">대표 전화번호</p>
             <input type="text" placeholder="연락처 입력" className={inputClass} />
           </div>
-
-          <div
-            className="flex items-start gap-2 rounded-lg px-3.5 py-3"
-            style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
-          >
-            <InfoIcon />
-            <p className="text-[12px] leading-relaxed text-[var(--text-secondary)]">
-              <span className="font-semibold text-[var(--accent)]">휴대폰 번호로는 심사가 불가능</span>
-              하며, 반드시 <span className="font-semibold text-[var(--accent)]">일반 유선전화</span>로
-              등록해 주세요.
-              <br />
-              안심번호도 대표 전화번호로 등록 가능합니다.
-              <br />
-              번호 예시) 080, 0507, 0506, 0130, 0030 등
-            </p>
-          </div>
         </div>
 
         <div className="mt-6 flex justify-center gap-[10px]">
