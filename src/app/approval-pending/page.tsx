@@ -187,7 +187,7 @@ export default function ApprovalPendingPage() {
           </h1>
 
           <p className="mt-3 text-[13px] leading-relaxed text-[var(--text-secondary)]">
-            영업일 기준 보통 1일 이내에 완료됩니다.
+            영업일 기준 1일 이내에 완료됩니다.
             <br />
             승인이 완료되면{" "}
             <span className="font-medium text-[var(--accent)]">이메일과 알림톡</span>을

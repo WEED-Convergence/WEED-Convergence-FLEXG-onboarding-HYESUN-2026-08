@@ -49,7 +49,7 @@ const cards: MessageCardData[] = [
     imageBg: "#FAEEDA",
     iconColor: "#BA7517",
     sender: "",
-    title: "쇼핑몰을 오픈하려면 PG 신청이 필요해요.",
+    title: "쇼핑몰을 오픈하시려면 PG 신청이 먼저 필요해요.",
     body: "지금 아래 버튼을 눌러 신청을 진행해 보세요.",
     button: "PG 신청하러 가기",
   },
