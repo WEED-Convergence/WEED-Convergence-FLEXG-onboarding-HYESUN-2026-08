@@ -247,14 +247,14 @@ export default function SignupScreen() {
               <div className="flex items-center rounded-md border border-black bg-white px-3 py-[9px]">
                 <input
                   className="min-w-0 flex-1 bg-transparent text-[13px] text-black placeholder:text-gray-400 outline-none"
-                  placeholder="아이디를 입력해주세요"
+                  placeholder="아이디를 입력해 주세요"
                 />
                 <span className="shrink-0 text-[13px] text-black">.flexg.shop</span>
               </div>
             </FormField>
 
             <FormField label="비밀번호" required>
-              <input type="password" className={inputClass} placeholder="비밀번호를 입력해주세요" />
+              <input type="password" className={inputClass} placeholder="비밀번호를 입력해 주세요" />
             </FormField>
 
             <FormField label="담당자 본인인증" required>
@@ -264,7 +264,7 @@ export default function SignupScreen() {
             </FormField>
 
             <FormField label="담당자 이메일" required>
-              <input type="email" className={inputClass} placeholder="이메일을 입력해주세요" />
+              <input type="email" className={inputClass} placeholder="이메일을 입력해 주세요" />
             </FormField>
 
             <div>
