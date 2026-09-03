@@ -6,7 +6,6 @@ interface MessageCardData {
   id: number;
   condition: string;
   count: string;
-  category: "정보성" | "마케팅성";
   icon: "check" | "exclamation" | "x" | "home";
   imageBg: string;
   iconColor: string;
@@ -23,7 +22,6 @@ const cards: MessageCardData[] = [
     id: 1,
     condition: "회원가입 승인 처리 즉시",
     count: "조건 충족 시 최대 1회",
-    category: "정보성",
     icon: "check",
     imageBg: "#E1F5EE",
     iconColor: "#0F6E56",
@@ -33,24 +31,9 @@ const cards: MessageCardData[] = [
     button: "오픈 체크리스트",
   },
   {
-    id: 2,
-    condition: "승인 후 24시간 경과, 템플릿 미선택",
-    count: "조건 충족 시 최대 1회",
-    category: "마케팅성",
-    icon: "home",
-    imageBg: "#F1EFE8",
-    iconColor: "#D3D1C7",
-    sender: "(광고) 플렉스지",
-    title: "#{판매자명}님, 이제 템플릿만 선택하면 돼요",
-    body: "템플릿 선택만 완료하면 승인 심사가 바로 시작돼요.",
-    button: "템플릿 선택하기",
-    optOutText: "무료 수신거부 1600-0000",
-  },
-  {
     id: 3,
     condition: "승인 후 3일 경과, PG 신청 미완료",
     count: "조건 충족 시 최대 1회",
-    category: "마케팅성",
     icon: "exclamation",
     imageBg: "#FAEEDA",
     iconColor: "#BA7517",
@@ -64,7 +47,6 @@ const cards: MessageCardData[] = [
     id: 4,
     condition: "PG 신청 완료 시, 결제준비·운영필수 미완료 항목 존재",
     count: "조건 충족 시 최대 1회",
-    category: "정보성",
     icon: "check",
     imageBg: "#E1F5EE",
     iconColor: "#0F6E56",
@@ -79,7 +61,6 @@ const cards: MessageCardData[] = [
     id: 5,
     condition: "PG사 반려 통보 시점",
     count: "반려될 때마다 발송 (재신청 후 다시 반려되면 재발송)",
-    category: "정보성",
     icon: "x",
     imageBg: "#FBEAF0",
     iconColor: "#D8342A",
@@ -92,7 +73,6 @@ const cards: MessageCardData[] = [
     id: 6,
     condition: "승인 후 5일 경과, 결제준비·운영필수 미완료 항목 존재",
     count: "조건 충족 시 최대 1회",
-    category: "마케팅성",
     icon: "check",
     imageBg: "#E6F1FB",
     iconColor: "#378ADD",
@@ -106,7 +86,6 @@ const cards: MessageCardData[] = [
     id: 7,
     condition: "결제준비·운영필수 모두 완료 처리된 시점",
     count: "조건 충족 시 최대 1회",
-    category: "정보성",
     icon: "check",
     imageBg: "#FBEAF0",
     iconColor: "#D8342A",
@@ -119,7 +98,6 @@ const cards: MessageCardData[] = [
     id: 8,
     condition: "승인 후 10일 경과, 결제준비·운영필수 미완료 항목 존재",
     count: "조건 충족 시 최대 1회",
-    category: "마케팅성",
     icon: "check",
     imageBg: "#E6F1FB",
     iconColor: "#378ADD",
@@ -203,17 +181,6 @@ function MessageCard({ card }: { card: MessageCardData }) {
         </div>
       </div>
 
-      <span
-        className="mb-3 inline-block w-fit rounded-full px-2 py-0.5 text-[11px] font-medium"
-        style={
-          card.category === "정보성"
-            ? { backgroundColor: "#E1F5EE", color: "#04342C" }
-            : { backgroundColor: "#FAEEDA", color: "#8A5710" }
-        }
-      >
-        {card.category}
-      </span>
-
       <div className="overflow-hidden rounded-[14px] border border-[var(--border)] bg-white">
         <div className="flex h-[110px] items-center justify-center" style={{ backgroundColor: card.imageBg }}>
           {card.icon === "check" ? (
@@ -262,6 +229,10 @@ const constraints = [
   {
     title: "3. 반려 건 공유",
     body: "알림톡으로 승인 신청 진행 후 반려되는 것들은 컨버전스쪽으로 알려주세요.",
+  },
+  {
+    title: "4. 버튼 링크",
+    body: "오픈체크리스트로 연결. (완료된 내용이 있다면 유지된다.)",
   },
 ];
 
