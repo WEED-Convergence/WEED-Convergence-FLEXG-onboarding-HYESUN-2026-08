@@ -165,7 +165,7 @@ function GuideTooltip() {
   return (
     <div className="absolute left-full top-1/2 z-10 ml-3 w-[200px] -translate-y-1/2 rounded-lg bg-[var(--accent)] p-3">
       <div className="absolute -left-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 bg-[var(--accent)]" />
-      <p className="text-[12px] font-medium text-white">PG 신청부터 시작할까요?</p>
+      <p className="text-[12px] font-medium text-white">사업자 정보 등록부터 시작할까요?</p>
       <p className="mt-1 text-[11px] leading-relaxed text-[var(--accent-bg)]">
         결제 준비를 마치면 오픈이 빨라져요.
       </p>
