@@ -186,10 +186,10 @@ interface ChecklistCategory {
 }
 
 const checklistCategories: ChecklistCategory[] = [
-  { name: "결제 준비", total: 5, highlighted: true },
-  { name: "운영 필수", total: 3 },
-  { name: "권장 설정", total: 2 },
-  { name: "매출 확장", total: 3 },
+  { name: "결제 준비", total: 4, highlighted: true },
+  { name: "운영 필수", total: 4 },
+  { name: "권장 설정", total: 3 },
+  { name: "매출 확장", total: 2 },
 ];
 
 interface Stat {
