@@ -13,7 +13,6 @@ interface MessageCardData {
   title: string;
   body: string;
   button: string;
-  optOutText?: string;
   footnote?: string;
 }
 
@@ -41,7 +40,6 @@ const cards: MessageCardData[] = [
     title: "아직 PG 신청을 완료하지 않으셨어요",
     body: "PG 신청이 완료되어야 쇼핑몰을 정상적으로 오픈하실 수 있어요. 아래 버튼을 눌러 바로 신청하실 수 있어요.",
     button: "PG 신청하러 가기",
-    optOutText: "무료 수신거부 1600-0000",
   },
   {
     id: 9,
@@ -54,7 +52,6 @@ const cards: MessageCardData[] = [
     title: "쇼핑몰을 오픈하려면 PG 신청이 필요해요.",
     body: "지금 아래 버튼을 눌러 신청을 진행해 보세요.",
     button: "PG 신청하러 가기",
-    optOutText: "무료 수신거부 1600-0000",
   },
   {
     id: 4,
@@ -93,7 +90,6 @@ const cards: MessageCardData[] = [
     title: "쇼핑몰 오픈까지 얼마 남지 않았어요",
     body: "결제 준비와 운영 필수 항목만 마치면 바로 오픈할 수 있어요. 아래 버튼을 눌러 남은 항목을 확인해 보세요.",
     button: "남은 항목 확인하기",
-    optOutText: "무료 수신거부 1600-0000",
   },
   {
     id: 7,
@@ -118,7 +114,6 @@ const cards: MessageCardData[] = [
     title: "쇼핑몰 오픈까지 얼마 남지 않았어요",
     body: "결제 준비와 운영 필수 항목만 마치면 바로 오픈할 수 있어요. 아래 버튼을 눌러 남은 항목을 확인해 보세요.",
     button: "남은 항목 확인하기",
-    optOutText: "무료 수신거부 1600-0000",
   },
 ];
 
@@ -217,9 +212,6 @@ function MessageCard({ card }: { card: MessageCardData }) {
           >
             {card.button}
           </div>
-          {card.optOutText && (
-            <p className="mt-2 text-center text-[11px] text-[var(--text-secondary)]">{card.optOutText}</p>
-          )}
         </div>
       </div>
 
