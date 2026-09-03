@@ -111,8 +111,8 @@ const cards: MessageCardData[] = [
     imageBg: "#E6F1FB",
     iconColor: "#378ADD",
     sender: "",
-    title: "쇼핑몰 오픈까지 얼마 남지 않았어요",
-    body: "결제 준비와 운영 필수 항목만 마치면 바로 오픈할 수 있어요. 아래 버튼을 눌러 남은 항목을 확인해 보세요.",
+    title: "이제 조금만 더 하면 쇼핑몰을 열 수 있어요.",
+    body: "결제 준비와 운영 필수 항목을 아래 버튼으로 확인해 보세요.",
     button: "남은 항목 확인하기",
   },
 ];
