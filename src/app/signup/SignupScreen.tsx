@@ -137,7 +137,7 @@ function Footer() {
   );
 }
 
-// ---------- 이용약관 동의 (라디오 버튼 형태) ----------
+// ---------- 이용약관 동의 (체크박스 형태) ----------
 
 interface TermRow {
   id: string;
@@ -153,12 +153,22 @@ const termRows: TermRow[] = [
   { id: "marketing", label: "광고성 정보 수신 동의", required: false, linkLabel: null },
 ];
 
-function TermRadio({ name }: { name: string }) {
+function TermCheckbox({ name }: { name: string }) {
   return (
     <span className="relative flex h-4 w-4 shrink-0 items-center justify-center">
-      <input type="radio" name={name} className="peer absolute inset-0 h-4 w-4 cursor-pointer opacity-0" />
-      <span className="h-4 w-4 rounded-full border-2 border-black bg-white peer-checked:border-[#d8342a]" />
-      <span className="absolute h-[7px] w-[7px] rounded-full bg-[#d8342a] opacity-0 peer-checked:opacity-100" />
+      <input type="checkbox" name={name} className="peer absolute inset-0 h-4 w-4 cursor-pointer opacity-0" />
+      <span className="h-4 w-4 rounded-[4px] border-2 border-black bg-white peer-checked:border-[#d8342a]" />
+      <svg
+        viewBox="0 0 24 24"
+        width="10"
+        height="10"
+        fill="none"
+        stroke="#d8342a"
+        strokeWidth="3.2"
+        className="absolute opacity-0 peer-checked:opacity-100"
+      >
+        <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
     </span>
   );
 }
@@ -167,7 +177,7 @@ function TermsAgreement() {
   return (
     <div className="overflow-hidden rounded-lg border border-black bg-white">
       <label className="flex items-center gap-2 px-4 py-3 text-[13px] font-bold text-black">
-        <TermRadio name="term-all" />
+        <TermCheckbox name="term-all" />
         약관 전체 동의
       </label>
 
@@ -176,7 +186,7 @@ function TermsAgreement() {
       {termRows.map((term) => (
         <div key={term.id} className="flex items-center justify-between px-4 py-3">
           <label className="flex items-center gap-2 text-[12.5px] text-black">
-            <TermRadio name={`term-${term.id}`} />
+            <TermCheckbox name={`term-${term.id}`} />
             {term.required ? (
               <span className="font-bold text-[#d8342a]">[필수]</span>
             ) : (
