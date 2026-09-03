@@ -32,7 +32,7 @@ const cards: MessageCardData[] = [
   },
   {
     id: 3,
-    condition: "승인 후 3일 경과, PG 신청 미완료",
+    condition: "승인 후 1일 경과, PG 신청 미완료",
     count: "조건 충족 시 최대 1회",
     icon: "exclamation",
     imageBg: "#FAEEDA",
