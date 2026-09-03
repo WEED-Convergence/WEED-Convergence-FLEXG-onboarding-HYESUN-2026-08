@@ -452,6 +452,15 @@ function BusinessInfoForm() {
           <div>
             <p className="mb-1.5 text-[13px] font-medium text-[var(--text-primary)]">쇼핑몰명</p>
             <input type="text" placeholder="쇼핑몰명 입력" className={inputClass} />
+            <div
+              className="mt-2 flex items-start gap-2 rounded-lg px-3.5 py-3"
+              style={{ border: "1.5px solid var(--accent)", backgroundColor: "var(--accent-bg)" }}
+            >
+              <InfoIcon />
+              <p className="text-[12px] leading-relaxed text-[var(--text-secondary)]">
+                쇼핑몰명은 변경이 가능합니다.
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-3 gap-4">
@@ -533,8 +542,6 @@ function BusinessInfoForm() {
               안심번호도 대표 전화번호로 등록 가능합니다.
               <br />
               번호 예시) 080, 0507, 0506, 0130, 0030 등
-              <br />
-              쇼핑몰명은 변경이 가능합니다.
             </p>
           </div>
         </div>
