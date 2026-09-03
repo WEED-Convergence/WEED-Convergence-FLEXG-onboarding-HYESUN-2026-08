@@ -95,13 +95,6 @@ export const MESSAGE_TEMPLATES: MessageTemplate[] = [
     category: "정보성",
   },
   {
-    id: 2,
-    title: "#{판매자명}님, 이제 템플릿만 선택하면 돼요",
-    body: "템플릿 선택만 완료하면 승인 심사가 바로 시작돼요.",
-    button: "템플릿 선택하기",
-    category: "마케팅성",
-  },
-  {
     id: 3,
     title: "아직 PG 신청을 완료하지 않으셨어요",
     body: "PG 신청이 완료되어야 쇼핑몰을 정상적으로 오픈하실 수 있어요. 아래 버튼을 눌러 바로 신청하실 수 있어요.",
@@ -298,10 +291,8 @@ export const COMPANIES: CompanyRow[] = [
     templateSelected: false,
     approvalDone: false,
     completedItemIds: [],
-    recentMessageId: 2,
-    history: [
-      { sentAt: "2026-08-19 09:00:48", messageTitle: "#{판매자명}님, 이제 템플릿만 선택하면 돼요", category: "마케팅성", received: false },
-    ],
+    recentMessageId: null,
+    history: [],
     pgApplications: [],
   },
   {

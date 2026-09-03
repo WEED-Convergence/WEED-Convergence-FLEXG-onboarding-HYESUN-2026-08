@@ -167,12 +167,6 @@ export default function Home() {
       ))}
 
       <ArrowDown />
-      <MessageBlock
-        label="알림톡"
-        title="#{판매자명}님, 이제 템플릿만 선택하면 돼요"
-        desc="승인 후 24시간 경과, 템플릿 미선택 · 조건 충족 시 최대 1회"
-      />
-      <ArrowDown />
 
       <Box {...step3} />
 
