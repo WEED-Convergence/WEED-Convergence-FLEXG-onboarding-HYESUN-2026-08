@@ -303,6 +303,12 @@ const scenarios: ScenarioRow[] = [
       "오픈 체크리스트 좌측 항목 리스트의 PG 신청 상태 배지와 우측 상세 영역의 상태 배지가 동일한 값·색상으로 일치해서 노출되고, \"반려\" 상태일 때는 반려 사유가 상세 영역에 함께 노출되는지 확인한다.",
     screen: "오픈 체크리스트",
   },
+  {
+    no: 50,
+    content:
+      "동일한 판매자가 여러 PG사(NICEPAY, KCP 등)에 각각 신청할 수 있고, PG사별 상태(승인완료/심사중/반려/미신청)가 서로 영향을 주지 않고 독립적으로 관리·표시되는지 확인한다.",
+    screen: "PG사 신청 / SA (판매자 온보딩 관리)",
+  },
 ];
 
 export default function TestScenarioPage() {
