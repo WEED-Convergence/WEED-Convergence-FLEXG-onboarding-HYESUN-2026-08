@@ -86,16 +86,16 @@ export default function TestScenarioPage() {
                 테스트 넘버
               </th>
               <th
-                className="px-4 py-2.5 text-[12px] font-medium"
-                style={{ borderBottom: "1px solid #E4E2D8", color: "#5F5E5A" }}
-              >
-                테스트 내용
-              </th>
-              <th
                 className="w-[220px] px-4 py-2.5 text-[12px] font-medium"
                 style={{ borderBottom: "1px solid #E4E2D8", color: "#5F5E5A" }}
               >
                 화면명
+              </th>
+              <th
+                className="px-4 py-2.5 text-[12px] font-medium"
+                style={{ borderBottom: "1px solid #E4E2D8", color: "#5F5E5A" }}
+              >
+                테스트 내용
               </th>
             </tr>
           </thead>
@@ -113,11 +113,11 @@ export default function TestScenarioPage() {
                 >
                   {row.no}
                 </td>
-                <td className="px-4 py-3" style={{ color: "#3B3A36", lineHeight: 1.7 }}>
-                  {row.content}
-                </td>
                 <td className="px-4 py-3" style={{ color: "#5F5E5A", lineHeight: 1.7 }}>
                   {row.screen}
+                </td>
+                <td className="px-4 py-3" style={{ color: "#3B3A36", lineHeight: 1.7 }}>
+                  {row.content}
                 </td>
               </tr>
             ))}
