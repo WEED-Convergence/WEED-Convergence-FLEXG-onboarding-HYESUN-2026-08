@@ -47,9 +47,9 @@ function MailHeader() {
   );
 }
 
-function SparkleIcon() {
+function SparkleIcon({ size = 16 }: { size?: number }) {
   return (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="var(--accent)">
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="var(--accent)">
       <path d="M12 2L13.8 9.2L21 11L13.8 12.8L12 20L10.2 12.8L3 11L10.2 9.2L12 2Z" />
     </svg>
   );
@@ -88,17 +88,17 @@ function SignupInfoCard() {
 
 function MailFooter() {
   return (
-    <footer className="w-full border-t border-[var(--divider)] px-8 pb-8 pt-6 text-center">
-      <p className="text-[11px] leading-relaxed text-[var(--text-muted)]">
+    <footer className="w-full border-t border-[var(--divider)] px-8 py-2.5 text-center">
+      <p className="text-[9px] leading-tight text-[var(--placeholder)]">
         08507. 서울특별시 금천구 가산디지털1로 128 STXV타워 401호 (주)위드소프트
       </p>
-      <p className="mt-3 text-[11px] leading-relaxed text-[var(--text-muted)]">
+      <p className="mt-1 text-[9px] leading-tight text-[var(--placeholder)]">
         대표이사 : 김형준, 김동재 &nbsp;&nbsp;고객센터 : 02-839-5060 &nbsp;&nbsp;Fax : 02-863-5864 &nbsp;&nbsp;사업자등록번호 : 158-86-01603
       </p>
-      <p className="mt-3 text-[11px] leading-relaxed text-[var(--text-muted)]">
+      <p className="mt-1 text-[9px] leading-tight text-[var(--placeholder)]">
         대표메일 : weedsoft@weedsoft.co.kr &nbsp;&nbsp;개인정보관리책임자 : weedsoft@weedsoft.co.kr
       </p>
-      <p className="mt-3 text-[11px] text-[var(--placeholder)]">ⓒ WEEDSOFT Corp.</p>
+      <p className="mt-1 text-[9px] leading-tight text-[var(--placeholder)]">ⓒ WEEDSOFT Corp.</p>
     </footer>
   );
 }
@@ -120,12 +120,15 @@ export default function SignupApprovalMailPage() {
             오픈 체크리스트로 쇼핑몰을 더 빠르게 시작해 보세요.
           </p>
 
-          <div className="mt-6 flex items-center gap-2">
+          <div className="mt-6 flex items-center gap-3">
+            <span className="animate-bounce">
+              <SparkleIcon size={26} />
+            </span>
             <div className="rounded-md bg-[var(--accent)] px-7 py-3 text-[13px] font-semibold text-white">
               오픈 체크리스트 바로가기
             </div>
             <span className="animate-bounce">
-              <SparkleIcon />
+              <SparkleIcon size={26} />
             </span>
           </div>
 
