@@ -47,15 +47,33 @@ function MailHeader() {
   );
 }
 
-function PulseDot({ color }: { color: string }) {
+function ChecklistIllustration() {
   return (
-    <span className="relative flex h-3 w-3">
-      <span
-        className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60"
-        style={{ backgroundColor: color }}
+    <svg viewBox="0 0 40 40" width="36" height="36">
+      <rect x="2" y="2" width="36" height="36" rx="10" fill="var(--accent-bg)" />
+      <rect x="12" y="10" width="16" height="20" rx="2.5" fill="white" stroke="var(--accent)" strokeWidth="1.6" />
+      <rect x="16" y="7" width="8" height="5" rx="1.5" fill="var(--accent)" />
+      <path d="M15.5 17L18 19.5L23 14.5" stroke="var(--success)" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="15.5" y1="23.5" x2="24.5" y2="23.5" stroke="var(--divider)" strokeWidth="1.6" strokeLinecap="round" />
+      <line x1="15.5" y1="26.8" x2="21.5" y2="26.8" stroke="var(--divider)" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function ChatIllustration() {
+  return (
+    <svg viewBox="0 0 40 40" width="36" height="36">
+      <rect x="2" y="2" width="36" height="36" rx="10" fill="#E1F5EE" />
+      <path
+        d="M11 15.5C11 13 13.2 11 16 11H24C26.8 11 29 13 29 15.5V21.5C29 24 26.8 26 24 26H18L13 30V26H16C13.2 26 11 24 11 21.5V15.5Z"
+        fill="white"
+        stroke="var(--success)"
+        strokeWidth="1.6"
       />
-      <span className="relative inline-flex h-3 w-3 rounded-full" style={{ backgroundColor: color }} />
-    </span>
+      <circle cx="16.5" cy="18.5" r="1.4" fill="var(--success)" />
+      <circle cx="20" cy="18.5" r="1.4" fill="var(--success)" />
+      <circle cx="23.5" cy="18.5" r="1.4" fill="var(--success)" />
+    </svg>
   );
 }
 
@@ -124,24 +142,24 @@ export default function SignupApprovalMailPage() {
             오픈 체크리스트로 쇼핑몰을 더 빠르게 시작해 보세요.
           </p>
 
-          <div className="relative mt-6 inline-flex">
+          <div className="mt-6 flex items-center gap-2">
             <div className="rounded-md bg-[var(--accent)] px-7 py-3 text-[13px] font-semibold text-white">
               오픈 체크리스트
             </div>
-            <span className="absolute -right-1.5 -top-1.5">
-              <PulseDot color="var(--accent)" />
+            <span className="animate-bounce">
+              <ChecklistIllustration />
             </span>
           </div>
 
           <p className="mt-8 text-[13px] text-[var(--text-muted)]">
             쇼핑몰 세팅 중 궁금한 점이 있으신가요?
           </p>
-          <div className="relative mt-3 inline-flex">
+          <div className="mt-3 flex items-center gap-2">
             <div className="rounded-md border border-[var(--border)] bg-white px-6 py-2.5 text-[12.5px] font-semibold text-[var(--text-primary)]">
               1:1 채팅방 신청
             </div>
-            <span className="absolute -right-1.5 -top-1.5">
-              <PulseDot color="var(--success)" />
+            <span className="animate-bounce">
+              <ChatIllustration />
             </span>
           </div>
 
