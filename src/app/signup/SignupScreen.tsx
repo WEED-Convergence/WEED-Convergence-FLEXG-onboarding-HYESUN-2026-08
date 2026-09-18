@@ -267,6 +267,10 @@ export default function SignupScreen() {
               <input type="password" className={inputClass} placeholder="비밀번호를 입력해 주세요" />
             </FormField>
 
+            <FormField label="비밀번호 확인" required>
+              <input type="password" className={inputClass} placeholder="비밀번호를 다시 입력해 주세요" />
+            </FormField>
+
             <FormField label="담당자 본인인증" required>
               <button type="button" onClick={() => setPassModalOpen(true)} className={primaryRedButtonClass}>
                 담당자 인증
