@@ -47,11 +47,15 @@ function MailHeader() {
   );
 }
 
-function SparkleIcon({ size = 16 }: { size?: number }) {
+function PulseDot({ color }: { color: string }) {
   return (
-    <svg viewBox="0 0 24 24" width={size} height={size} fill="var(--accent)">
-      <path d="M12 2L13.8 9.2L21 11L13.8 12.8L12 20L10.2 12.8L3 11L10.2 9.2L12 2Z" />
-    </svg>
+    <span className="relative flex h-3 w-3">
+      <span
+        className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60"
+        style={{ backgroundColor: color }}
+      />
+      <span className="relative inline-flex h-3 w-3 rounded-full" style={{ backgroundColor: color }} />
+    </span>
   );
 }
 
@@ -65,7 +69,7 @@ function SignupInfoCard() {
         {infoRows.map((row, i) => (
           <div
             key={row.label}
-            className={`flex items-center gap-4 px-4 py-3 ${
+            className={`flex items-center gap-4 px-4 py-1.5 ${
               i < infoRows.length - 1 ? "border-b border-[var(--divider)]" : ""
             }`}
           >
@@ -73,7 +77,7 @@ function SignupInfoCard() {
               {row.label}
             </span>
             <span
-              className={`text-[13px] ${
+              className={`text-[12.5px] ${
                 row.link ? "text-[#378ADD]" : "text-[var(--text-primary)]"
               }`}
             >
@@ -120,15 +124,24 @@ export default function SignupApprovalMailPage() {
             오픈 체크리스트로 쇼핑몰을 더 빠르게 시작해 보세요.
           </p>
 
-          <div className="mt-6 flex items-center gap-3">
-            <span className="animate-bounce">
-              <SparkleIcon size={26} />
-            </span>
+          <div className="relative mt-6 inline-flex">
             <div className="rounded-md bg-[var(--accent)] px-7 py-3 text-[13px] font-semibold text-white">
-              오픈 체크리스트 바로가기
+              오픈 체크리스트
             </div>
-            <span className="animate-bounce">
-              <SparkleIcon size={26} />
+            <span className="absolute -right-1.5 -top-1.5">
+              <PulseDot color="var(--accent)" />
+            </span>
+          </div>
+
+          <p className="mt-8 text-[13px] text-[var(--text-muted)]">
+            쇼핑몰 세팅 중 궁금한 점이 있으신가요?
+          </p>
+          <div className="relative mt-3 inline-flex">
+            <div className="rounded-md border border-[var(--border)] bg-white px-6 py-2.5 text-[12.5px] font-semibold text-[var(--text-primary)]">
+              1:1 채팅방 신청
+            </div>
+            <span className="absolute -right-1.5 -top-1.5">
+              <PulseDot color="var(--success)" />
             </span>
           </div>
 
