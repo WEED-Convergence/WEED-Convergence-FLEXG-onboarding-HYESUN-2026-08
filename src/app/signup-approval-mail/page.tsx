@@ -16,16 +16,42 @@ const infoRows: InfoRow[] = [
   { label: "가입일", value: "2026-08-10 13:10:11" },
 ];
 
+function FlexGLogo() {
+  return (
+    <svg viewBox="0 0 118 32" width="98" height="26" fill="none">
+      <text
+        x="0"
+        y="24"
+        fontFamily="Arial, sans-serif"
+        fontSize="26"
+        fontWeight={800}
+        fontStyle="italic"
+        letterSpacing="-0.5"
+        fill="#141414"
+      >
+        FLEX
+      </text>
+      <g transform="translate(88 2)">
+        <rect x="1.5" y="1.5" width="25" height="25" rx="6" stroke="#141414" strokeWidth="3" />
+        <line x1="7" y1="11" x2="22" y2="11" stroke="#141414" strokeWidth="3" strokeLinecap="round" />
+      </g>
+    </svg>
+  );
+}
+
 function MailHeader() {
   return (
-    <div className="flex h-14 w-full shrink-0 items-center justify-center bg-[#1A1A1A]">
-      <span className="flex h-6 w-6 items-center justify-center rounded bg-white text-[11px] font-semibold text-slate-900">
-        F
-      </span>
-      <span className="ml-2 text-[15px] font-semibold tracking-tight text-white">
-        FLEX-G
-      </span>
+    <div className="w-full shrink-0 border-b border-[var(--divider)] bg-white px-8 py-6">
+      <FlexGLogo />
     </div>
+  );
+}
+
+function SparkleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="var(--accent)">
+      <path d="M12 2L13.8 9.2L21 11L13.8 12.8L12 20L10.2 12.8L3 11L10.2 9.2L12 2Z" />
+    </svg>
   );
 }
 
@@ -63,17 +89,16 @@ function SignupInfoCard() {
 function MailFooter() {
   return (
     <footer className="w-full border-t border-[var(--divider)] px-8 pb-8 pt-6 text-center">
-      <p className="text-[12px] font-semibold text-[var(--text-secondary)]">FLEX-G</p>
-      <p className="mt-2 text-[11px] leading-relaxed text-[var(--text-muted)]">
-        서울특별시 금천구 벚꽃로 298 대륭포스트타워6차 313호
-        <br />
-        대표이사 김형준·김동재 &nbsp;|&nbsp; 사업자번호 158-86-01603
-        <br />
-        고객센터 070-7771-5866 &nbsp;|&nbsp; 운영시간 평일 10:00~18:00
+      <p className="text-[11px] leading-relaxed text-[var(--text-muted)]">
+        08507. 서울특별시 금천구 가산디지털1로 128 STXV타워 401호 (주)위드소프트
       </p>
-      <p className="mt-3 text-[11px] text-[var(--placeholder)]">
-        본 메일은 발신 전용입니다.
+      <p className="mt-3 text-[11px] leading-relaxed text-[var(--text-muted)]">
+        대표이사 : 김형준, 김동재 &nbsp;&nbsp;고객센터 : 02-839-5060 &nbsp;&nbsp;Fax : 02-863-5864 &nbsp;&nbsp;사업자등록번호 : 158-86-01603
       </p>
+      <p className="mt-3 text-[11px] leading-relaxed text-[var(--text-muted)]">
+        대표메일 : weedsoft@weedsoft.co.kr &nbsp;&nbsp;개인정보관리책임자 : weedsoft@weedsoft.co.kr
+      </p>
+      <p className="mt-3 text-[11px] text-[var(--placeholder)]">ⓒ WEEDSOFT Corp.</p>
     </footer>
   );
 }
@@ -95,8 +120,13 @@ export default function SignupApprovalMailPage() {
             오픈 체크리스트로 쇼핑몰을 더 빠르게 시작해 보세요.
           </p>
 
-          <div className="mt-6 rounded-md bg-[var(--accent)] px-7 py-3 text-[13px] font-semibold text-white">
-            오픈 체크리스트 바로가기
+          <div className="mt-6 flex items-center gap-2">
+            <div className="rounded-md bg-[var(--accent)] px-7 py-3 text-[13px] font-semibold text-white">
+              오픈 체크리스트 바로가기
+            </div>
+            <span className="animate-bounce">
+              <SparkleIcon />
+            </span>
           </div>
 
           <SignupInfoCard />
@@ -105,8 +135,12 @@ export default function SignupApprovalMailPage() {
             className="mt-10 flex h-[90px] w-full items-center justify-center rounded-[12px] text-[12px]"
             style={{ border: "1px solid #E4E2D8", backgroundColor: "var(--surface-1)", color: "#888780" }}
           >
-            배너
+            배너 3개
           </div>
+
+          <p className="mt-4 text-[11px] leading-relaxed text-[var(--text-muted)]">
+            본 메일은 발신 전용 메일로서 회신이 불가능합니다. 문의사항은 홈페이지 우측 하단 HELP로 문의 주세요.
+          </p>
         </main>
 
         <MailFooter />
